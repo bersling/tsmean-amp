@@ -47,15 +47,7 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
   }
-  .jumbotron {
-    text-align: center;
-    background-image: linear-gradient(90deg,#3F51B5 0,#7986CB);
-    padding: 6rem 0  8rem 0;
-  
-    margin-top: 50px;
-    -webkit-clip-path: polygon(100% 100%,100% 0,-400% 0);
-    clip-path: polygon(100% 100%,100% 0,-400% 0);
-  }
+
   .hamburger {
     background: transparent;
     padding: 10px;
@@ -137,6 +129,19 @@
     top: 7rem;
   }
 
+  .jumbotron {
+    background-image: linear-gradient(90deg,#3F51B5 0,#7986CB);
+    padding: 6rem 0  8rem 0;
+    margin-top: 50px;
+    -webkit-clip-path: polygon(100% 100%,100% 0,-400% 0);
+    clip-path: polygon(100% 100%,100% 0,-400% 0);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .jumbo-logo-wrapper {
+    max-width: 500px;
+  }
+
 </style>
 
 
@@ -169,7 +174,9 @@
     </header>
   
     <div class="jumbotron">
-      <amp-img src="ts-mean-logo.svg" alt="Welcome" width="413" height="227" ></amp-img>
+      <div class="jumbo-logo-wrapper">
+        <amp-img src="ts-mean-logo.svg" class="jumbo-logo" layout="responsive" alt="Welcome" width="413" height="227" ></amp-img>
+      </div>
     </div>
   
   
