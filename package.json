@@ -1,0 +1,24 @@
+{
+  "name": "tsmean",
+  "version": "1.0.0",
+  "description": "Tutorial Page how to setup the Typescript-Mean project from scratch",
+  "main": "index.js",
+  "scripts": {
+    "start": "python -m SimpleHTTPServer 8002",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bersling/ts-mean.git"
+  },
+  "keywords": [
+    "Typescript",
+    "MEAN"
+  ],
+  "author": "Daniel Niederberger <bersling@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bersling/ts-mean/issues"
+  },
+  "homepage": "https://github.com/bersling/ts-mean#readme"
+}
