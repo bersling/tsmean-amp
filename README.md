@@ -15,9 +15,5 @@ in browser, then open chrome dev console.
 
 TODOs:
 
-- Don't cram everything into intex.
-- Assets folder for images
-- Cleanup
+- Don't cram everything into index -> mustache templating engine. Just, how does it work?
 - Actually add descriptions
-- Nicer logo
--
