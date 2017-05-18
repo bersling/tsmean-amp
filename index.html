@@ -1,12 +1,12 @@
 <!doctype html>
 <html amp lang="en">
-  <head>
-    <meta charset="utf-8">
-    <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <title>Typescript MEAN</title>
-    <link rel="canonical" href="http://example.ampproject.org/article-metadata.html" />
-    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <script type="application/ld+json">
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <title>Typescript MEAN</title>
+  <link rel="canonical" href="http://example.ampproject.org/article-metadata.html" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script type="application/ld+json">
       {
         "@context": "http://schema.org",
         "@type": "NewsArticle",
@@ -17,247 +17,332 @@
         ]
       }
     </script>
-    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-
-<style amp-custom>
+  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   
-
-  @media (max-width:40rem) {
-    .xs-hide{display:none}
-  }
-  @media (min-width:40.06rem) and (max-width:52rem) {
-    .sm-hide {
-      display: none;
+  <style amp-custom>
+    
+    /* responsive styles */
+    @media (max-width:40rem) {
+      .xs-hide{display:none}
     }
-  }
-  @media (min-width:52.06rem) and (max-width:64rem){
-    .md-hide{display:none}
-  }
-  @media (min-width: 64.06rem) {
-    .lg-hide {
-      display: none;
+    @media (min-width:40.06rem) and (max-width:52rem) {
+      .sm-hide {
+        display: none;
+      }
     }
-  }
+    @media (min-width:52.06rem) and (max-width:64rem){
+      .md-hide{display:none}
+    }
+    @media (min-width: 64.06rem) {
+      .lg-hide {
+        display: none;
+      }
+    }
+    
+    .col-2 {
+      width: 16.66667%;
+    }
+    .col-8 {
+      width: 66.66667%;
+    }
+    
+    /* body styles */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    /* paragraph styles */
+    p {
+      line-height: 161%;
+    }
+    
+    /* button styles */
+    .hamburger {
+      background: transparent;
+      padding: 10px;
+    }
+    .nav-logo-button {
+      background: transparent;
+      padding: 0;
+      height: 50px;
+    }
+    button {
+      border: 0;
+      padding: 10px;
+      background: white;
+      border-radius: 2px;
+    }
+    button.primary {
+      background: #3F51B5;
+      color: white;
+      box-shadow: 1px 1px 5px #888888;
+      font-size: 15px;
+    }
+    button:hover {
+      cursor: pointer;
+    }
+    
+    /* header styles */
+    header {
+      width: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 50px;
+      z-index: 2;
+      background: RGBA(255, 255, 255, 0.90)
+    }
+    
+    /* main styles, content styles */
+    main {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    
+    article {
+      padding: 10px;
+    }
+    
+    
+    /* sidebar styles */
+    .sidebar-button {
+      text-decoration: none;
+      color: #3F51B5;
+      font-weight: 600;
+      display: block;
+      padding: 0 20px;
+    }
+    
+    .sidebar-lg > ul {
+      position: sticky;
+      top: 3rem;
+    }
+    
+    .sidebar {
+      box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+      background: white;
+    }
+    
+    
+    .sidebar-close-button {
+      color: black;
+    }
+    
+    .sidebar > ul {
+      list-style-type: none;
+      padding: 10px;
+    }
+    
+    .sidebar > ul > li {
+      padding: 10px 0;
+      font-size: 20px;
+    }
+    
+    .sidebar-lg {
+      padding-top: 6rem;
+      /*So it matches up with the clip path polygon */
+      margin-top: calc(-1 * 7rem);
+      min-width: 200px;
+    }
+    
+    
+    /* banner styles */
+    .jumbotron {
+      background-image: linear-gradient(90deg,#3F51B5 0,#7986CB);
+      padding: 6rem 0  8rem 0;
+      margin-top: 50px;
+      -webkit-clip-path: polygon(100% 100%,100% 0,-400% 0);
+      clip-path: polygon(100% 100%,100% 0,-400% 0);
+    }
+    .jumbo-logo-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* general styles */
+    .flex {
+      display: flex;
+    }
+    
+    .flex-auto {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: 0;
+    }
+    
+    .center {
+      text-align: center;
+    }
+    
+    .anchor {
+      display: block;
+      position: relative;
+      top: -50px;
+      visibility: hidden;
+    }
   
-  .display-none{display:none}
-  
+  </style>
 
-  /* any custom style goes here */
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .hamburger {
-    background: transparent;
-    padding: 10px;
-  }
-  .nav-logo-button {
-    background: transparent;
-    padding: 0;
-    height: 50px;
-  }
-  button {
-    border: 0;
-    padding: 10px;
-    background: white;
-    border-radius: 2px;
-  }
-  button.primary {
-    background: #3F51B5;
-    color: white;
-    box-shadow: 1px 1px 5px #888888;
-    font-size: 15px;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  
-  header {
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 50px;
-    z-index: 2;
-    background: RGBA(255, 255, 255, 0.90)
-  }
-  
-  main {
-    margin: 0 auto;
-    max-width: 100%;
-  }
-  
-  .sidebar-static {
-    width: 250px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 10px;
-  }
-  
-  li {
-    padding: 5px;
-    font-size: 20px;
-  }
-
-  .sidebar-lg {
-    padding-top: 7rem;
-    margin-top: calc(-1 * 7rem);
-    box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
-  }
-
-  .col-2 {
-    width: 16.66667%;
-  }
-
-  .col-8 {
-    width: 66.66667%;
-  }
-  
-  .flex {
-    display: flex;
-  }
-  
-  article {
-    padding: 10px;
-  }
-  
-  .sidebar-lg > ul {
-    position: sticky;
-    top: 7rem;
-  }
-
-  .jumbotron {
-    background-image: linear-gradient(90deg,#3F51B5 0,#7986CB);
-    padding: 6rem 0  8rem 0;
-    margin-top: 50px;
-    -webkit-clip-path: polygon(100% 100%,100% 0,-400% 0);
-    clip-path: polygon(100% 100%,100% 0,-400% 0);
-  }
-  .jumbo-logo-wrapper {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-</style>
 
 
-  </head>
-  <body>
-    <amp-sidebar id='sidebar1' layout='nodisplay'>
-      <ul class="sidenav">
-        <li on="tap:sidebar1.close" tabindex="0" role="listitem"> Close</li>
-        <li> Nav item 1</li>
-        <li> Nav item 2</li>
-        <li> Nav item 3</li>
-        <li> Nav item 4</li>
-        <li> Nav item 5</li>
-        <li> Nav item 6</li>
-        <li> Nav item 7</li>
-        <li> Nav item 8</li>
-        <li> Nav item 9</li>
-      </ul>
-    </amp-sidebar>
+</head>
+<body>
+  
+  <a name="top" class="anchor"></a>
+  
+  <amp-sidebar class="sidebar" id='sidebar1' layout='nodisplay'>
+    <ul class="sidenav">
+      <li on="tap:sidebar1.close" class="center" tabindex="0" role="listitem">
+        <a href=""  class="sidebar-close-button sidebar-button">
+          x
+        </a>
+      </li>
+      <li><a href="#introduction" class="sidebar-button">Introduction</a></li>
+      <li><a href="#basic-setup" class="sidebar-button">Basic Setup</a></li>
+      <li><a href="#app-config" class="sidebar-button">App Config</a></li>
+      <li><a href="#database" class="sidebar-button">Database</a></li>
+      <li><a href="#router" class="sidebar-button">Router</a></li>
+      <li><a href="#authentication" class="sidebar-button">Authentication</a></li>
+    </ul>
+  
+  </amp-sidebar>
   
   
-    <header>
-      
-      <button class="hamburger md-hide lg-hide" on='tap:sidebar1.toggle'>
-        <amp-img src="hamburger.svg" height="30px" width="30px" alt="Menu Button"></amp-img>
-      </button>
+  
+  <header>
+    
+    <button class="hamburger md-hide lg-hide" on='tap:sidebar1.toggle'>
+      <amp-img src="img/hamburger.svg" height="30px" width="30px" alt="Menu Button"></amp-img>
+    </button>
+    <a href="#top">
       <button class="nav-logo-button">
-        <amp-img src="ts-mean-logo2.png" width="140" height="30"></amp-img>
+        <amp-img src="img/ts-mean-logo2.png" width="140" height="30"></amp-img>
       </button>
-    </header>
+    </a>
+  </header>
   
-    <div class="jumbotron">
-      <div class="jumbo-logo-wrapper">
-        <amp-img src="ts-mean-logo.svg" class="jumbo-logo" layout="responsive" alt="Welcome" width="413" height="227" ></amp-img>
-      </div>
+  <div class="jumbotron">
+    <div class="jumbo-logo-wrapper">
+      <amp-img src="img/ts-mean-logo.svg" class="jumbo-logo" layout="responsive" alt="Welcome" width="413" height="227" ></amp-img>
     </div>
+  </div>
   
   
-    <main class="flex">
+  <main class="flex">
+    
+    <aside class="sidebar sidebar-lg col-2 xs-hide sm-hide">
+      <ul>
+        <li><a href="#introduction" class="sidebar-button">Introduction</a></li>
+        <li><a href="#basic-setup" class="sidebar-button">Basic Setup</a></li>
+        <li><a href="#app-config" class="sidebar-button">App Config</a></li>
+        <li><a href="#database" class="sidebar-button">Database</a></li>
+        <li><a href="#router" class="sidebar-button">Router</a></li>
+        <li><a href="#authentication" class="sidebar-button">Authentication</a></li>
+      </ul>
+    </aside>
+    
+    <article class="col-8 flex-auto">
   
-      <aside class="sidebar-lg col-2 xs-hide sm-hide">
-        <ul>
-          <li> Nav item 1</li>
-          <li> Nav item 2</li>
-          <li> Nav item 3</li>
-        </ul>
-      </aside>
+      <a name="introduction" class="anchor"></a>
+      <h1>
+        Introduction
+      </h1>
+  
+      <p>
+        This project strives to provide a state-of-the art boilerplate for the MEAN stack (MongoDB-Express-Angular-Node)
+        fully written in typescript. Another requirement of this project is 100% coverage with unit tests (also written in typescript!)
+        for the boilerplate code.
+      </p>
       
-      <article class="col-8">
-  
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-  
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-        <h1>
-          Basic Setup
-        </h1>
-  
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-      </article>
-
-  
-
-    </main>
+      <a name="basic-setup" class="anchor"></a>
+      <h1>
+        Basic Setup
+      </h1>
+      
+      <p>
+        To get started, first create the folder structure. Create your project folder
+      </p>
+      
+      <pre>
+        mkdir my-project
+        cd my-project
+        mkdir backend
+        cd backend
+      </pre>
+      
+      
+      <a name="app-config" class="anchor"></a>
+      <h1>
+        App Config
+      </h1>
+      
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+      
+      
+      <a name="database" class="anchor"></a>
+      <h1>
+        Database
+      </h1>
+      
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+      
+      
+      <a name="router" class="anchor"></a>
+      <h1>
+        Router
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+      
+      
+      <a name="authentication" class="anchor"></a>
+      <h1>
+        Authentication
+      </h1>
+      
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+      <h1>
+        Basic Setup
+      </h1>
+      
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+      <h1>
+        Basic Setup
+      </h1>
+      
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+      <h1>
+        Basic Setup
+      </h1>
+      
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
     
-    <footer>
     
-    </footer>
+    </article>
+  
+  
+  </main>
+  
+  <footer>
+  
+  </footer>
 
 
-  </body>
+</body>
 </html>
