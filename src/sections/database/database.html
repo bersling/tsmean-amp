@@ -72,7 +72,14 @@ npm install --save-dev @types/mongodb
     <div class="file-label-two">src/db/database-response.model.ts</div>
     <pre class="code-snippet">{{> ./sections/database/database-response.model.ts.html}}</pre>
   </section>
+  
 </amp-accordion>
+
+<p>
+  In order to make this work, we also have to create a <code>src/utils/utils</code> file that looks like so
+</p>
+<div class="file-label">src/utils/utils.ts</div>
+<pre class="code-snippet">{{> ./sections/database/utils.ts.html}}</pre>
 
 <p>
   It's quite a lot of code, but don't get intimidated, it's actually not that complex. What you have to know to understand it
@@ -95,4 +102,5 @@ npm install --save-dev @types/mongodb
 </ul>
 <p>
   I know this bloats the code a bit, but it safeguards you against getting locked into something you don't want to.
+  Again you can test if everything's running so far with <code>npm test</code>.
 </p>
