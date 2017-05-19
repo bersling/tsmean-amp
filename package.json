@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "python -m SimpleHTTPServer 8002",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mustache": "mkdir -p dist && $(npm bin)/mustache data.json index.html > dist/index.html"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/bersling/ts-mean/issues"
   },
-  "homepage": "https://github.com/bersling/ts-mean#readme"
+  "homepage": "https://github.com/bersling/ts-mean#readme",
+  "devDependencies": {
+    "mustache": "^2.3.0"
+  }
 }
