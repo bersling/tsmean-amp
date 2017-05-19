@@ -50,18 +50,18 @@ mkdir endpoints
 </amp-accordion>
 
 <p>
-  We should be able to run <code>npm test</code> successfully now. So far, didn't even bother to open the browser, but
-  we're actually at a point where we could do so since we now have our first endpoint. Before we do that however, we're
-  missing one more file: The <code>index.ts</code>. If you were to run <code>npm start</code> it wouldn't have done
-  anything but throw an error up until now. But this is going to change. At the <code>src</code> level of the backend, create to following
+  We should be able to run <code>npm test</code> successfully now. So far, we didn't even bother to open the browser, but
+  we're actually at a point where we could almost do so, since we now have our first endpoint. Before we do that, however, we're
+  missing one more file: The <code>index.ts</code>. If you were to run <code>npm start</code>, it wouldn't have done
+  anything but throw an error up until now. But this is going to change. At the <code>src</code> level of the backend, create the following
   file
 </p>
-<div class="file-label-two">src/index.ts</div>
+<div class="file-label">src/index.ts</div>
 <pre class="code-snippet">{{> ./sections/router/index.ts.html}}</pre>
 <p>
   This will enable us to finally get a running backend at port 3000 using the <code>npm start</code>
   command. After <code>npm start</code>, you can check the welcome file at
-  <a href="http://localhost:3000/welcome">http://localhost:3000/welcome</a>.
+  <a href="http://localhost:3000/welcome" target="_blank">http://localhost:3000/welcome</a>.
 </p>
 
 <h3>Adding a generic CRUD endpoint</h3>
@@ -91,8 +91,12 @@ mkdir endpoints
 this.express.use('/api/v1/', simpleCrudRouter);
 </pre>
 <p>
-  right after <code>this.express.use('/welcome', welcomeHtmlRouter);</code>.
+  right after <code>this.express.use('/welcome', welcomeHtmlRouter);</code>. In case you're using an IDE you probably noticed by now:
+  we also need to import the module. At the top of <code>router.ts</code>, put
 </p>
+<pre class="code-snippet">
+import {simpleCrudRouter} from "./endpoints/simple-crud-router";
+</pre>
 <p>
   Now you should again have running tests (<code>npm test</code>).
 </p>
