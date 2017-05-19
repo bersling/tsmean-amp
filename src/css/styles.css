@@ -157,6 +157,10 @@ table.nice-table td:first-child {
     font-size: 0.7rem;
     color: #459B45;
 }
+.file-label-two {
+    padding: 5px;
+    color: #459B45;
+}
 
 .code-snippet {
     overflow-x: scroll;

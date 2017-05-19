@@ -20,11 +20,17 @@ npm install --save-dev @types/mongodb
   Afterwards, we'll have to connect to the db. That is what this class is for.
 </p>
 
-<div class="file-label">src/db/database.ts</div>
-<pre class="code-snippet">{{> ./sections/database/database.ts.html}}</pre>
 
-<div class="file-label">src/db/database.test.ts</div>
-<pre class="code-snippet">{{> ./sections/database/database.test.ts.html}}</pre>
+<amp-accordion>
+  <section>
+    <div class="file-label-two">src/db/database.ts</div>
+    <pre class="code-snippet">{{> ./sections/database/database.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/db/database.test.ts</div>
+    <pre class="code-snippet">{{> ./sections/database/database.test.ts.html}}</pre>
+  </section>
+</amp-accordion>
 
 <p>
   Again, run <code>npm test</code> to check if everything is running smoothly so far.
@@ -36,14 +42,26 @@ npm install --save-dev @types/mongodb
 </p>
 
 
-<div class="file-label">src/db/dao.ts</div>
-<pre class="code-snippet">{{> ./sections/database/dao.ts.html}}</pre>
+<amp-accordion>
+  <section>
+    <div class="file-label-two">src/db/dao.ts</div>
+    <pre class="code-snippet">{{> ./sections/database/dao.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/db/dao.test.ts</div>
+    <pre class="code-snippet">{{> ./sections/database/dao.test.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/db/database-response.model.ts</div>
+    <pre class="code-snippet">{{> ./sections/database/database-response.model.ts.html}}</pre>
+  </section>
+</amp-accordion>
 
-<div class="file-label">src/db/dao.test.ts</div>
-<pre class="code-snippet">{{> ./sections/database/dao.test.ts.html}}</pre>
 
-<div class="file-label">src/db/database-response.model.ts</div>
-<pre class="code-snippet">{{> ./sections/database/database-response.model.ts.html}}</pre>
+
+
+
+
 
 <p>
   It's quite a lot of code, but don't get intimidated, it's actually not that complex. What you have to know to understand it
