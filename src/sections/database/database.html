@@ -37,6 +37,16 @@ npm install --save-dev @types/mongodb
 </amp-accordion>
 
 <p>
+  As you may have noticed, the tests import a <code>before-eachs</code> module we haven't created so far. So lets go ahead
+  and create it
+</p>
+<div class="file-label">src/test/before-eachs.ts.html</div>
+<pre class="code-snippet">{{> ./sections/database/before-eachs.ts.html}}</pre>
+<p>
+  This allows us to always connect to the database in the tests with a single line of code and callback free.
+</p>
+
+<p>
   Again, run <code>npm test</code> to check if everything is running smoothly so far.
 </p>
 

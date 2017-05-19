@@ -36,6 +36,14 @@ npm install
 </pre>
 
 <p>
+  Since everything is in typescript, we're also going to need a <code>tsconfig.json</code>.
+</p>
+<div class="file-label">
+  tsconfig.json
+</div>
+<pre class="code-snippet">{{> ./sections/setup/tsconfig.json.html}}</pre>
+
+<p>
   Now we're going to setup a logger and write a test for it. You could simply use
   <code>console.log</code> for logging, but with a logger you have some more functionalities at your disposal,
   such as disabling some logs under some circumstances (e.g. in production mode).
