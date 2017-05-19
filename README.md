@@ -16,3 +16,4 @@ in browser, then open chrome dev console.
 TODOs:
 
 - Actually add descriptions
+- If there's a gitignore, well you should have git...

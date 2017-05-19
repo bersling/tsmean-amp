@@ -168,6 +168,33 @@ table.nice-table td:first-child {
     color: #D0092F;
 }
 
+/* github link */
+.github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 250px;
+    height: 3rem;
+    color: white;
+    font-size: 20px;
+    background: black;
+    text-decoration: none;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px 0 #888888;
+}
+
+.github-image {
+    padding-right: 20px;
+    margin-top: -3px;
+}
+
+
+.github-link-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 /* general styles */
 .flex {
     display: flex;
@@ -183,6 +210,9 @@ table.nice-table td:first-child {
 
 .center {
     text-align: center;
+}
+.margin0 {
+    margin: 0 auto;
 }
 
 .anchor {
