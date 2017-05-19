@@ -178,7 +178,7 @@ table.nice-table td:first-child {
     height: 3rem;
     color: white;
     font-size: 20px;
-    background: black;
+    background: #3F51B5;
     text-decoration: none;
     border-radius: 3px;
     box-shadow: 2px 2px 5px 0 #888888;
