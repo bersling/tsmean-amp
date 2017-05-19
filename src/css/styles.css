@@ -123,6 +123,18 @@ article {
     min-width: 200px;
 }
 
+/* tables */
+table.nice-table {
+    background: #F5F5F5;
+    width: 100%;
+    padding: 10px;
+}
+
+table.nice-table td:first-child {
+    text-align: right;
+    font-weight: 700;
+    padding: 5px 10px;
+}
 
 /* banner styles */
 .jumbotron {
@@ -148,13 +160,13 @@ article {
 .code-snippet {
     overflow-x: scroll;
     padding: 10px;
-    box-shadow: 1px 1px 5px 0 #aaaaaa;
+    /*box-shadow: 1px 1px 5px 0 #aaaaaa;*/
+    background: #F5F5F5;
 }
 
 .highlight {
     color: #D0092F;
 }
-
 
 /* general styles */
 .flex {
@@ -178,4 +190,12 @@ article {
     position: relative;
     top: -50px;
     visibility: hidden;
+}
+
+.important {
+    color: #D0092F;
+}
+
+.standard-image-wrapper {
+    max-width: 600px;
 }

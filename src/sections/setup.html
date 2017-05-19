@@ -23,12 +23,12 @@ cd backend
 <div class="file-label">
   package.json
 </div>
-<pre class="code-snippet"><!partial src="./code-snippets/package.json.html"></pre>
+<pre class="code-snippet">{{> ./code-snippets/package.json.html}}</pre>
 
 <div class="file-label">
   .gitignore
 </div>
-<pre class="code-snippet"><!partial src="./code-snippets/gitignore.txt"></pre>
+<pre class="code-snippet">{{> ./code-snippets/gitignore.txt}}</pre>
 
 
 <p>
@@ -36,14 +36,19 @@ cd backend
   Here's a quick reference as to which module does what:
 </p>
 
-<amp-list src="/data.json" layout="fixed-height" height="56">
-  <template type="amp-mustache">
-    <table>
-      <tr>
-        <td>One</td>
-        <td>Two</td>
-      </tr>
-    </table>
-  </template>
-</amp-list>
 
+<table class="nice-table bold-first-column">
+  {{#packages}}
+  <tr>
+    <td>{{0}}</td>
+    <td>{{1}}</td>
+  </tr>
+  {{/packages}}
+</table>
+
+<p>
+  Now you're ready for the final step in this part. Simply run
+</p>
+<pre class="code-snippet">
+npm install
+</pre>

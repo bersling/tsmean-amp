@@ -6,19 +6,9 @@
   "scripts": {
     "start": "cd dist && python -m SimpleHTTPServer 8002",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "$(npm bin)/watch 'npm run compilepartials'",
-    "compilepartials": "$(npm bin)/html-partials-compiler ./src/index.html > ./dist/index.html",
-    "compile": "mkdir -p dist && cp -r img dist/img && npm run compilepartials",
-    "precompile": "$(npm bin)/hulk src/**/*.mustache"
-  },
-  "watch": {
-    "compilepartials": {
-      "patterns": [
-        "src"
-      ],
-      "extensions": "*",
-      "quiet": false
-    }
+    "watch": "$(npm bin)/watch 'npm run mustache'",
+    "build": "mkdir -p dist && cp -r img dist && npm run mustache",
+    "mustache": "node compile.js"
   },
   "repository": {
     "type": "git",
@@ -35,8 +25,6 @@
   },
   "homepage": "https://github.com/bersling/ts-mean#readme",
   "devDependencies": {
-    "hogan.js": "^3.0.2",
-    "html-partials-compiler": "^1.0.7",
     "mu2": "^0.5.21",
     "watch": "^1.0.2"
   }

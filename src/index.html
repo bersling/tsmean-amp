@@ -1,11 +1,11 @@
 <!doctype html>
 <html amp lang="en">
-<!partial src="./head.html">
+{{> ./head.html}}
 <body>
   <a name="top" class="anchor"></a>
   
-  <!partial src="./sidebar.html">
-  <!partial src="./header.html">
+  {{> ./sidebar.html}}
+  {{> ./header.html}}
   
   <div class="jumbotron">
     <div class="jumbo-logo-wrapper">
@@ -15,8 +15,8 @@
   
   
   <main class="flex">
-    <!partial src="./sidebar-lg.html">
-    <!partial src="./article.html">
+    {{> ./sidebar-lg.html}}
+    {{> ./article.html}}
   </main>
   
 
