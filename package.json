@@ -6,16 +6,21 @@
   "scripts": {
     "start": "cd dist && python -m SimpleHTTPServer 8002",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "mustache": "mkdir -p dist && $(npm bin)/mustache data.json -p src/header.html -p src/sidebar.html -p src/css/styles.css src/index.html > dist/index.html",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "compilepartials": "$(npm bin)/html-partials-compiler ./src/index.html > ./dist/index.html",
+    "compile": "mkdir -p dist && cp -r img dist/img && npm run compilepartials"
   },
   "watch": {
-    "mustache": {
-      "patterns": [".","src"],
+    "compilepartials": {
+      "patterns": [
+        ".",
+        "src"
+      ],
       "extensions": "json,html",
       "ignore": "dist",
       "quiet": false
-    }
+    },
+
   },
   "repository": {
     "type": "git",
@@ -32,6 +37,7 @@
   },
   "homepage": "https://github.com/bersling/ts-mean#readme",
   "devDependencies": {
+    "html-partials-compiler": "^1.0.7",
     "mustache": "^2.3.0",
     "npm-watch": "^0.1.9"
   }
