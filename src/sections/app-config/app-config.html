@@ -5,12 +5,10 @@
 
 <p>
   Our first bit of source code will be a setter and getter for the application configuration.
-  Go to the <code>backend</code> directory and create a folder named <code>src</code> and inside of this create a directory <code>config</code>:
+  Go to the <code>backend/src</code> directory and create a folder named <code>config</code>.
 </p>
 <pre class="code-snippet">
-mkdir src
-cd src
-mkdir config
+  mkdir config
 </pre>
 <p>
   Then in this, folder, we're going to create the following three files:
@@ -21,12 +19,12 @@ mkdir config
 <pre class="code-snippet">{{> ./sections/app-config/app-properties.model.ts.html}}</pre>
 
 
-<div class="file-label">src/config/AppConfig.ts</div>
-<pre class="code-snippet">{{> ./sections/app-config/AppConfig.ts.html}}</pre>
+<div class="file-label">src/config/app-config.ts</div>
+<pre class="code-snippet">{{> ./sections/app-config/app-config.ts.html}}</pre>
 
 
-<div class="file-label">src/config/appConfig.test.ts</div>
-<pre class="code-snippet">{{> ./sections/app-config/appConfig.test.ts.html}}</pre>
+<div class="file-label">src/config/app-config.test.ts</div>
+<pre class="code-snippet">{{> ./sections/app-config/app-config.test.ts.html}}</pre>
 
 <p>
   Finally, as you can see, the config requires a properties file. Seprating the actual config makes the code more modular
@@ -37,28 +35,17 @@ mkdir config
 <p>
   They look like that:
 </p>
-<div class="file-label">local.properties.ts</div>
+<div class="file-label">properties/local.properties.ts</div>
 <pre class="code-snippet">{{> ./sections/app-config/local.properties.json.html}}</pre>
 
-<div class="file-label">test.properties.ts</div>
+<div class="file-label">properties/test.properties.ts</div>
 <pre class="code-snippet">{{> ./sections/app-config/test.properties.json.html}}</pre>
 
 <p>
   <span class="important">Note:</span> I didn't leave the passwords in there by mistake. I did it so you could get started
-  faster with a running MongoDB. However, once you get comfortable with a running setup, please go to mlabs and setup your own
+  faster with a running MongoDB. However, once you get comfortable with a running setup, please go to
+  <a href="https://mlab.com">mlab.com</a> (or similar) and set up your own
   MongoDB.
 </p>
 
-<p>
-  Now that you've finished this part, let's check if everything is working. Run
-</p>
-<pre class="code-snippet">
-  npm test
-</pre>
-<p>
-  This should result in a working test and look somewhat like this:
-</p>
-<div class="standard-image-wrapper">
-  <amp-img src="/img/config-test.png" layout="responsive" alt="Config Test should work" height="20rem" width="60rem"></amp-img>
-</div>
 

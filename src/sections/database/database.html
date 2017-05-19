@@ -4,5 +4,66 @@
 </h1>
 
 <p>
-  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  Now it might be that the database setup in this project isn't the simplest possible. However, I've set it up in a way,
+  such that it has the highest flexibility possible. Not everyone is happy with MongoDB and the way it's set up here,
+  it shouldn't be too much of a hassle to switch to another database. At least from a source code perspective, migrating
+  production data will of course still be painful.
+</p>
+<p>
+  Since it's a MongoDB, we'll first install the related npm packages and types
+</p>
+<pre class="code-snippet">
+npm install --save mongodb
+npm install --save-dev @types/mongodb
+</pre>
+<p>
+  Afterwards, we'll have to connect to the db. That is what this class is for.
+</p>
+
+<div class="file-label">src/db/database.ts</div>
+<pre class="code-snippet">{{> ./sections/database/database.ts.html}}</pre>
+
+<div class="file-label">src/db/database.test.ts</div>
+<pre class="code-snippet">{{> ./sections/database/database.test.ts.html}}</pre>
+
+<p>
+  Again, run <code>npm test</code> to check if everything is running smoothly so far.
+</p>
+
+<p>
+  Now that we can connect to our database, we can also start writing the actual database layer that inserts and extracts
+  data to- and from the database. We will call this layer the "Database Access Object" or short "dao". Hence, the following files
+</p>
+
+
+<div class="file-label">src/db/dao.ts</div>
+<pre class="code-snippet">{{> ./sections/database/dao.ts.html}}</pre>
+
+<div class="file-label">src/db/dao.test.ts</div>
+<pre class="code-snippet">{{> ./sections/database/dao.test.ts.html}}</pre>
+
+<div class="file-label">src/db/database-response.model.ts</div>
+<pre class="code-snippet">{{> ./sections/database/database-response.model.ts.html}}</pre>
+
+<p>
+  It's quite a lot of code, but don't get intimidated, it's actually not that complex. What you have to know to understand it
+  is the following:
+</p>
+<ul>
+  <li>
+    It implements basic database-access methods, such as create, read, update and delete (CRUD, maybe you've heard of it).
+  </li>
+  <li>
+    It abstracts away the mongo-ness. Everything that will use the <code>dao</code> will <strong>not know</strong>
+    that a MongoDB was used. That way, in case you want to switch out Mongo, it's fairly easy.
+  </li>
+  <li>
+    Since the field <code>_id</code> smells like Mongo, it's morphed into another field called <code>uid</code>.
+  </li>
+  <li>
+    The MongoDB-Response is also wrapped in a application db-response.
+  </li>
+</ul>
+<p>
+  I know this bloats the code a bit, but it safeguards you against getting locked into something you don't want to.
 </p>

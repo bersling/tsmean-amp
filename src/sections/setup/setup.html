@@ -29,8 +29,54 @@ cd backend
 </p>
 
 <p>
-  Now you're ready for the final step in this part. Simply run
+  Now you're ready to install those dependencies. Simply run
 </p>
 <pre class="code-snippet">
 npm install
 </pre>
+
+<p>
+  Now we're going to setup a logger and write a test for it. You could simply use
+  <code>console.log</code> for logging, but with a logger you have some more functionalities at your disposal,
+  such as disabling some logs under some circumstances (e.g. in production mode).
+</p>
+
+<p>
+  Create a the directory for the logger
+</p>
+
+<pre class="code-snippet">
+mkdir src
+cd src
+mkdir logger
+</pre>
+
+<p>
+  and also the logger file and corresponding test:
+</p>
+<div class="file-label">src/logger/logger.ts</div>
+<pre class="code-snippet">{{> ./sections/setup/logger.ts.html}}</pre>
+
+<div class="file-label">src/logger/logger.test.ts</div>
+<pre class="code-snippet">{{> ./sections/setup/logger.test.ts.html}}</pre>
+
+<p>
+  Maybe some of you ask now "but why do I need this wrapper, I could use winston directly?". Well, in my experience
+  it almost always paid of to write a wrapper. Like this, you can switch out the implementation of the logger easily.
+  For example when winston becomes deprecated, switching to another logger library is much simpler. Also working with typescript
+  and IntelliJ makes this quite comfortable since writing <code>log</code> and then hitting <code>alt + enter</code>
+  will automatically import the logger!
+</p>
+
+<p>
+  Now that you've finished this part, let's check if everything is working. Run
+</p>
+<pre class="code-snippet">
+  npm test
+</pre>
+<p>
+  This should result in a working test and look somewhat like this:
+</p>
+<div class="standard-image-wrapper">
+  <amp-img src="/img/first-test.png" layout="responsive" alt="Config Test should work" height="20rem" width="50rem"></amp-img>
+</div>

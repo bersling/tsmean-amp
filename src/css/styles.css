@@ -26,6 +26,7 @@
 /* body styles */
 body {
     font-family: Arial, Helvetica, sans-serif;
+    line-height: 161%;
 }
 
 /* paragraph styles */
@@ -165,6 +166,12 @@ table.nice-table td:first-child {
 }
 
 .highlight {
+    color: #D0092F;
+}
+
+/* link */
+a {
+
     color: #D0092F;
 }
 
