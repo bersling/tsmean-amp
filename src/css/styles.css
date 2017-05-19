@@ -137,6 +137,25 @@ article {
     margin: 0 auto;
 }
 
+/* code-snippet styles */
+
+.file-label {
+    margin-bottom: -10px;
+    font-size: 0.7rem;
+    color: #459B45;
+}
+
+.code-snippet {
+    overflow-x: scroll;
+    padding: 10px;
+    box-shadow: 1px 1px 5px 0 #aaaaaa;
+}
+
+.highlight {
+    color: #D0092F;
+}
+
+
 /* general styles */
 .flex {
     display: flex;
@@ -159,9 +178,4 @@ article {
     position: relative;
     top: -50px;
     visibility: hidden;
-}
-
-.file-label {
-    font-size: 0.7rem;
-    color: #459B45;
 }

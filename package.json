@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cd dist && python -m SimpleHTTPServer 8002",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "npm-watch",
+    "watch": "$(npm bin)/watch 'npm run compilepartials'",
     "compilepartials": "$(npm bin)/html-partials-compiler ./src/index.html > ./dist/index.html",
     "compile": "mkdir -p dist && cp -r img dist/img && npm run compilepartials"
   },
@@ -35,7 +35,6 @@
   "homepage": "https://github.com/bersling/ts-mean#readme",
   "devDependencies": {
     "html-partials-compiler": "^1.0.7",
-    "mustache": "^2.3.0",
-    "npm-watch": "^0.1.9"
+    "watch": "^1.0.2"
   }
 }
