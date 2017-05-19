@@ -13,14 +13,11 @@
   "watch": {
     "compilepartials": {
       "patterns": [
-        ".",
         "src"
       ],
-      "extensions": "json,html",
-      "ignore": "dist",
+      "extensions": "*",
       "quiet": false
-    },
-
+    }
   },
   "repository": {
     "type": "git",
