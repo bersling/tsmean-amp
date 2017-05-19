@@ -16,6 +16,10 @@
 npm install --save mongodb
 npm install --save-dev @types/mongodb
 </pre>
+
+<h3>
+  Connecting to the database
+</h3>
 <p>
   Afterwards, we'll have to connect to the db. That is what this class is for.
 </p>
@@ -36,11 +40,14 @@ npm install --save-dev @types/mongodb
   Again, run <code>npm test</code> to check if everything is running smoothly so far.
 </p>
 
+
+<h3>
+  Inserting, Reading, Updating & Deleting Data
+</h3>
 <p>
   Now that we can connect to our database, we can also start writing the actual database layer that inserts and extracts
   data to- and from the database. We will call this layer the "Database Access Object" or short "dao". Hence, the following files
 </p>
-
 
 <amp-accordion>
   <section>
@@ -56,12 +63,6 @@ npm install --save-dev @types/mongodb
     <pre class="code-snippet">{{> ./sections/database/database-response.model.ts.html}}</pre>
   </section>
 </amp-accordion>
-
-
-
-
-
-
 
 <p>
   It's quite a lot of code, but don't get intimidated, it's actually not that complex. What you have to know to understand it

@@ -3,5 +3,91 @@
   Router
 </h1>
 <p>
-  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  Next up is the router. This is where our application actually starts to do some stuff via HTTP endpoints.
+  The router of choice in the MEAN Stack is Express (the E in mEan). ExpressJS is a standard choice for most
+  web-apps with a node powered backend.
+</p>
+
+<h3>Getting started with Express</h3>
+<p>
+  In order to get started, we'll host a simple welcome file. First we create the router directory. In <code>src</code>,
+</p>
+<pre class="code-snippet">
+mkdir router
+cd router
+mkdir endpoints
+</pre>
+<p>
+  Then create the following files:
+</p>
+<amp-accordion>
+  <section>
+    <div class="file-label-two">src/router/router.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/router.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/router/router.test.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/router.test.ts.html}}</pre>
+  </section>
+  
+  <section>
+    <div class="file-label-two">src/router/middleware.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/middleware.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/router/endpoints/welcome-html-router.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/endpoints/welcome-html-router.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/router/endpoints/welcome-html-router.test.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/endpoints/welcome-html-router.test.ts.html}}</pre>
+  </section>
+</amp-accordion>
+
+<p>
+  We should be able to run <code>npm test</code> successfully now. So far, didn't even bother to open the browser, but
+  we're actually at a point where we could do so since we now have our first endpoint. Before we do that however, we're
+  missing one more file: The <code>index.ts</code>. If you were to run <code>npm start</code> it wouldn't have done
+  anything but throw an error up until now. But this is going to change. At the <code>src</code> level of the backend, create to following
+  file
+</p>
+<div class="file-label-two">src/index.ts</div>
+<pre class="code-snippet">{{> ./sections/router/index.ts.html}}</pre>
+<p>
+  This will enable us to finally get a running backend at port 3000 using the <code>npm start</code>
+  command. After <code>npm start</code>, you can check the welcome file at
+  <a href="http://localhost:3000/welcome">http://localhost:3000/welcome</a>.
+</p>
+
+<h3>Adding a generic CRUD endpoint</h3>
+<p>
+  Now to add some real functionality, next we're adding a CRUD (create, read, update, delete) router endpoint.
+  This endpoint will actually write to- and retrieve from the database, leveraging the previously built
+  database layer.
+</p>
+
+<amp-accordion>
+  <section>
+    <div class="file-label-two">src/router/endpoints/simple-crud-router.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/endpoints/simple-crud-router.ts.html}}</pre>
+  </section>
+  <section>
+    <div class="file-label-two">src/router/endpoints/simple-crud-router.test.ts</div>
+    <pre class="code-snippet">{{> ./sections/router/endpoints/simple-crud-router.test.ts.html}}</pre>
+  </section>
+</amp-accordion>
+
+<p>
+  In order to activate those routes, we also need to register them. To do so, open the <code>router.ts</code> file
+  and insert the lines
+</p>
+<pre class="code-snippet">
+//API
+this.express.use('/api/v1/', simpleCrudRouter);
+</pre>
+<p>
+  right after <code>this.express.use('/welcome', welcomeHtmlRouter);</code>.
+</p>
+<p>
+  Now you should again have running tests (<code>npm test</code>).
 </p>
