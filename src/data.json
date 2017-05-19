@@ -1,0 +1,12 @@
+{
+  "name": "Daniel",
+  "items": [
+    ["bcrypt", "Strong encryption algorithm for when we add authentication later on."],
+    ["body parser", "To parse HTTP Requests"],
+    ["ejs", "Templating engine to render some simple views"],
+    ["express", "Router"],
+    ["mongodb", "MongoDb Connector"],
+    ["passport", "Authentication Library"],
+    ["winston", "Logger"]
+  ]
+}
