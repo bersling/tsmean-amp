@@ -21,214 +21,17 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   
   <style amp-custom>
-    
-    /* responsive styles */
-    @media (max-width:40rem) {
-      .xs-hide{display:none}
-    }
-    @media (min-width:40.06rem) and (max-width:52rem) {
-      .sm-hide {
-        display: none;
-      }
-    }
-    @media (min-width:52.06rem) and (max-width:64rem){
-      .md-hide{display:none}
-    }
-    @media (min-width: 64.06rem) {
-      .lg-hide {
-        display: none;
-      }
-    }
-    
-    .col-2 {
-      width: 16.66667%;
-    }
-    .col-8 {
-      width: 66.66667%;
-    }
-    
-    /* body styles */
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    
-    /* paragraph styles */
-    p {
-      line-height: 161%;
-    }
-    
-    /* button styles */
-    .hamburger {
-      background: transparent;
-      padding: 10px;
-    }
-    .nav-logo-button {
-      background: transparent;
-      padding: 0;
-      height: 50px;
-    }
-    button {
-      border: 0;
-      padding: 10px;
-      background: white;
-      border-radius: 2px;
-    }
-    button.primary {
-      background: #3F51B5;
-      color: white;
-      box-shadow: 1px 1px 5px #888888;
-      font-size: 15px;
-    }
-    button:hover {
-      cursor: pointer;
-    }
-    
-    /* header styles */
-    header {
-      width: 100%;
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 50px;
-      z-index: 2;
-      background: RGBA(255, 255, 255, 0.90);
-      box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
-    }
-    
-    /* main styles, content styles */
-    main {
-      margin: 0 auto;
-      max-width: 100%;
-    }
-    
-    article {
-      padding: 10px;
-    }
-    
-    
-    /* sidebar styles */
-    .sidebar-button {
-      text-decoration: none;
-      color: #3F51B5;
-      font-weight: 600;
-      display: block;
-      padding: 0 20px;
-    }
-    
-    .sidebar-lg > ul {
-      position: sticky;
-      top: 3rem;
-    }
-    
-    .sidebar {
-      box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
-      background: white;
-    }
-    
-    
-    .sidebar-close-button {
-      color: black;
-    }
-    
-    .sidebar > ul {
-      list-style-type: none;
-      padding: 10px;
-    }
-    
-    .sidebar > ul > li {
-      padding: 10px 0;
-      font-size: 20px;
-    }
-    
-    .sidebar-lg {
-      padding-top: 6rem;
-      /*So it matches up with the clip path polygon */
-      margin-top: calc(-1 * 7rem);
-      min-width: 200px;
-    }
-    
-    
-    /* banner styles */
-    .jumbotron {
-      background-image: linear-gradient(90deg,#3F51B5 0,#7986CB);
-      padding: 6rem 0  8rem 0;
-      margin-top: 50px;
-      -webkit-clip-path: polygon(100% 100%,100% 0,-400% 0);
-      clip-path: polygon(100% 100%,100% 0,-400% 0);
-    }
-    .jumbo-logo-wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    /* general styles */
-    .flex {
-      display: flex;
-    }
-    
-    .flex-auto {
-      -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-      min-width: 0;
-      min-height: 0;
-    }
-    
-    .center {
-      text-align: center;
-    }
-    
-    .anchor {
-      display: block;
-      position: relative;
-      top: -50px;
-      visibility: hidden;
-    }
-    
-    .file-label {
-      font-size: 0.7rem;
-      color: #459B45;
-    }
-  
+    {{> css/styles.css}}
   </style>
 
 
 
 </head>
 <body>
-  
   <a name="top" class="anchor"></a>
   
-  <amp-sidebar class="sidebar" id='sidebar1' layout='nodisplay'>
-    <ul class="sidenav">
-      <li on="tap:sidebar1.close" class="center" tabindex="0" role="listitem">
-        <a href=""  class="sidebar-close-button sidebar-button">
-          x
-        </a>
-      </li>
-      <li><a href="#introduction" class="sidebar-button">Introduction</a></li>
-      <li><a href="#basic-setup" class="sidebar-button">Basic Setup</a></li>
-      <li><a href="#app-config" class="sidebar-button">App Config</a></li>
-      <li><a href="#database" class="sidebar-button">Database</a></li>
-      <li><a href="#router" class="sidebar-button">Router</a></li>
-      <li><a href="#authentication" class="sidebar-button">Authentication</a></li>
-    </ul>
-  
-  </amp-sidebar>
-  
-  
-  
-  <header>
-    
-    <button class="hamburger md-hide lg-hide" on='tap:sidebar1.toggle'>
-      <amp-img src="img/hamburger.svg" height="30px" width="30px" alt="Menu Button"></amp-img>
-    </button>
-    <a href="#top">
-      <button class="nav-logo-button">
-        <amp-img src="img/ts-mean-logo2.png" width="140" height="30"></amp-img>
-      </button>
-    </a>
-  </header>
+  {{> sidebar.html}}
+  {{> header.html}}
   
   <div class="jumbotron">
     <div class="jumbo-logo-wrapper">
@@ -251,6 +54,8 @@
     </aside>
     
     <article class="col-8 flex-auto">
+      
+      {{> hello.txt}}
   
       <a name="introduction" class="anchor"></a>
       <h1>

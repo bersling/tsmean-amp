@@ -4,9 +4,18 @@
   "description": "Tutorial Page how to setup the Typescript-Mean project from scratch",
   "main": "index.js",
   "scripts": {
-    "start": "python -m SimpleHTTPServer 8002",
+    "start": "cd dist && python -m SimpleHTTPServer 8002",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "mustache": "mkdir -p dist && $(npm bin)/mustache data.json index.html > dist/index.html"
+    "mustache": "mkdir -p dist && $(npm bin)/mustache data.json -p src/header.html -p src/sidebar.html -p src/css/styles.css src/index.html > dist/index.html",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "mustache": {
+      "patterns": [".","src"],
+      "extensions": "json,html",
+      "ignore": "dist",
+      "quiet": false
+    }
   },
   "repository": {
     "type": "git",
@@ -23,6 +32,7 @@
   },
   "homepage": "https://github.com/bersling/ts-mean#readme",
   "devDependencies": {
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "npm-watch": "^0.1.9"
   }
 }
