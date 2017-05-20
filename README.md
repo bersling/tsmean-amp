@@ -48,9 +48,14 @@ Since it's an AMP project, you'll have to be careful to follow the rules
 of AMP. For instance, in an AMP project you're not allowed to use
 the `<img>` tag. You'll have to use the `<amp-img>` tag.
 
-You can always check if you're writing valid AMP by appending `#development=1`
+**Important:** You can check if you're writing valid AMP by appending `#development=1`
 to the url,so for example
 [http://localhost:8080/#development=1](http://localhost:8080/#development=1)
+and then opening the chrome dev console.
+It's very easily forgotten to append this bit to the URL, but if you don't
+you won't see validation errors even when it says "Powered by AMP ⚡ HTML".
+It only has validated your code if you also see "AMP validation successful." (or some errors)
+in the dev console.
 
 
 
