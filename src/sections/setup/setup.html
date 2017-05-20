@@ -19,9 +19,7 @@ cd backend
 <p>
   Then, first you'll need a <code>package.json</code>:
 </p>
-<div class="file-label">
-  package.json
-</div>
+<div class="file-label">backend/package.json</div>
 <pre class="code-snippet">{{> ./sections/setup/package.json.html}}</pre>
 
 <p>
@@ -38,9 +36,7 @@ npm install
 <p>
   Since everything is in typescript, we're also going to need a <code>tsconfig.json</code>.
 </p>
-<div class="file-label">
-  tsconfig.json
-</div>
+<div class="file-label">backend/tsconfig.json</div>
 <pre class="code-snippet">{{> ./sections/setup/tsconfig.json.html}}</pre>
 
 <p>
@@ -50,7 +46,7 @@ npm install
 </p>
 
 <p>
-  Create a the directory for the logger
+  Create the directory for the logger
 </p>
 
 <pre class="code-snippet">
@@ -62,15 +58,15 @@ mkdir logger
 <p>
   and also the logger file and corresponding test:
 </p>
-<div class="file-label">src/logger/logger.ts</div>
+<div class="file-label">backend/src/logger/logger.ts</div>
 <pre class="code-snippet">{{> ./sections/setup/logger.ts.html}}</pre>
 
-<div class="file-label">src/logger/logger.test.ts</div>
+<div class="file-label">backend/src/logger/logger.test.ts</div>
 <pre class="code-snippet">{{> ./sections/setup/logger.test.ts.html}}</pre>
 
 <p>
   Maybe some of you ask now "but why do I need this wrapper, I could use winston directly?". Well, in my experience
-  it almost always paid of to write a wrapper. Like this, you can switch out the implementation of the logger easily.
+  it almost always paid off to write a wrapper. Like this, you can switch out the implementation of the logger easily.
   For example when winston becomes deprecated, switching to another logger library is much simpler. Also working with typescript
   and IntelliJ makes this quite comfortable since writing <code>log</code> and then hitting <code>alt + enter</code>
   will automatically import the logger!

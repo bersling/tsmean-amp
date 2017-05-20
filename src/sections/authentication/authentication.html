@@ -22,10 +22,10 @@ npm install --save-dev @types/bcrypt
   but overall it should still work and install correctly. To test this, we have the following two files.
 </p>
 
-<div class="file-label">src/auth/password-cryptograher.ts</div>
+<div class="file-label">backend/src/auth/password-cryptograher.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/password-cryptographer.ts.html}}</pre>
 
-<div class="file-label">src/auth/password-cryptograher.test.ts</div>
+<div class="file-label">backend/src/auth/password-cryptograher.test.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/password-cryptographer.test.ts.html}}</pre>
 
 <p>
@@ -39,13 +39,13 @@ npm install --save-dev @types/bcrypt
   In the <code>db</code> directory, create the <code>UserDAO</code> and its corresponding test and model.
 </p>
 
-<div class="file-label">src/db/user-dao.ts</div>
+<div class="file-label">backend/src/db/user-dao.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/user-dao.ts.html}}</pre>
 
-<div class="file-label">src/db/user-dao.test.ts</div>
+<div class="file-label">backend/src/db/user-dao.test.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/user-dao.test.ts.html}}</pre>
 
-<div class="file-label">src/db/user.model.ts</div>
+<div class="file-label">backend/src/db/user.model.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/user.model.ts.html}}</pre>
 
 <p>
@@ -73,10 +73,10 @@ npm install --save-dev @types/passport @types/passport-local
   So let's set up this local strategy.
 </p>
 
-<div class="file-label">src/auth/passport.ts</div>
+<div class="file-label">backend/src/auth/passport.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/passport.ts.html}}</pre>
 
-<div class="file-label">src/auth/passport.test.ts</div>
+<div class="file-label">backend/src/auth/passport.test.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/passport.test.ts.html}}</pre>
 
 <p>
@@ -88,11 +88,11 @@ npm install --save-dev @types/passport @types/passport-local
 
 <amp-accordion>
   <section>
-    <h5 class="file-label-two">src/router/endpoints/login-router.ts</h5>
+    <h5 class="file-label-two">backend/src/router/endpoints/login-router.ts</h5>
     <pre class="code-snippet">{{> ./sections/authentication/login-router.ts.html}}</pre>
   </section>
   <section>
-    <h5 class="file-label-two">src/router/endpoints/login-router.test.ts</h5>
+    <h5 class="file-label-two">backend/src/router/endpoints/login-router.test.ts</h5>
     <pre class="code-snippet">{{> ./sections/authentication/login-router.test.ts.html}}</pre>
   </section>
 </amp-accordion>

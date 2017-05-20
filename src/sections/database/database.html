@@ -27,11 +27,11 @@ npm install --save-dev @types/mongodb
 
 <amp-accordion>
   <section>
-    <h5 class="file-label-two">src/db/database.ts</h5>
+    <h5 class="file-label-two">backend/src/db/database.ts</h5>
     <pre class="code-snippet">{{> ./sections/database/database.ts.html}}</pre>
   </section>
   <section>
-    <h5 class="file-label-two">src/db/database.test.ts</h5>
+    <h5 class="file-label-two">backend/src/db/database.test.ts</h5>
     <pre class="code-snippet">{{> ./sections/database/database.test.ts.html}}</pre>
   </section>
 </amp-accordion>
@@ -40,7 +40,7 @@ npm install --save-dev @types/mongodb
   As you may have noticed, the tests import a <code>before-eachs</code> module we haven't created so far. So lets go ahead
   and create it
 </p>
-<div class="file-label">src/test/before-eachs.ts.html</div>
+<div class="file-label">backend/src/test/before-eachs.ts.html</div>
 <pre class="code-snippet">{{> ./sections/database/before-eachs.ts.html}}</pre>
 <p>
   This allows us to always connect to the database in the tests with a single line of code and callback free.
@@ -61,15 +61,15 @@ npm install --save-dev @types/mongodb
 
 <amp-accordion>
   <section>
-    <h5 class="file-label-two">src/db/dao.ts</h5>
+    <h5 class="file-label-two">backend/src/db/dao.ts</h5>
     <pre class="code-snippet">{{> ./sections/database/dao.ts.html}}</pre>
   </section>
   <section>
-    <h5 class="file-label-two">src/db/dao.test.ts</h5>
+    <h5 class="file-label-two">backend/src/db/dao.test.ts</h5>
     <pre class="code-snippet">{{> ./sections/database/dao.test.ts.html}}</pre>
   </section>
   <section>
-    <h5 class="file-label-two">src/db/database-response.model.ts</h5>
+    <h5 class="file-label-two">backend/src/db/database-response.model.ts</h5>
     <pre class="code-snippet">{{> ./sections/database/database-response.model.ts.html}}</pre>
   </section>
   
@@ -78,7 +78,7 @@ npm install --save-dev @types/mongodb
 <p>
   In order to make this work, we also have to create a <code>src/utils/utils</code> file that looks like so
 </p>
-<div class="file-label">src/utils/utils.ts</div>
+<div class="file-label">backend/src/utils/utils.ts</div>
 <pre class="code-snippet">{{> ./sections/database/utils.ts.html}}</pre>
 
 <p>
