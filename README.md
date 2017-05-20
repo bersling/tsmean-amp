@@ -6,9 +6,9 @@ This is the code the tsmean.com tutorial page is built with.
 
 This repository isn't interesting if you're interested in building a MEAN
 application. If you're interested in how to build a a MEAN application visit
-[www.tsmean.com](http://www.tsmean.com). If however, you think the
+[www.tsmean.com](http://www.tsmean.com). If, however, you think the
 tsmean.com page has an awesome layout, loads really fast, or is somehow else
-really awesome and you'd like to build a page just like it, you've come to the right place.
+interesting and you'd like to build a page just like it, you've come to the right place.
 
 The tsmean.com page is built with AMP. AMP stands for Accellerated Mobile Pages
 and is a framework for super-fast loading mobile pages. The layout
@@ -76,7 +76,8 @@ sudo apt-get install -y nodejs
 You will need to configure nginx accordingly
 
 
-Go to sites available, create tsmean, and put
+Go to the `sites-available` directory, create a file called `tsmean`
+(replace `tsmean` with what suits your project), and put
 ```
 upstream tsmean {
   server localhost:8080;
@@ -95,11 +96,9 @@ server {
 }
 
 ```
-inside
+inside.
 
-Then go to sites-enabled and symlink it
+Then navigate to `sites-enabled` and symlink it:
 ```
 ln -s ../sites-available/tsmean tsmean
 ```
-
-Replace tsmean with what suits your project.
