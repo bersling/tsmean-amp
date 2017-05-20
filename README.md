@@ -11,10 +11,8 @@ tsmean.com page has an awesome layout, loads really fast, or is somehow else
 interesting and you'd like to build a page just like it, you've come to the right place.
 
 The tsmean.com page is built with AMP. AMP stands for Accellerated Mobile Pages
-and is a framework for super-fast loading mobile pages. The layout
+and is a framework for super-fast loading pages. The layout
 was inspired by the `apm-by-example` project.
-
-To get this project running for yourself, do the following steps.
 
 ## Installation
 
@@ -46,14 +44,15 @@ command.
 
 Since it's an AMP project, you'll have to be careful to follow the rules
 of AMP. For instance, in an AMP project you're not allowed to use
-the `<img>` tag. You'll have to use the `<amp-img>` tag.
+the `<img>` tag. You'll have to use the `<amp-img>` tag. If you don't follow those rules
+your page doesn't break, it just doesn't get the "AMP-SEO Bonus" anymore.
 
 **Important:** You can check if you're writing valid AMP by appending `#development=1`
 to the url,so for example
 [http://localhost:8080/#development=1](http://localhost:8080/#development=1)
 and then opening the chrome dev console.
 It's very easily forgotten to append this bit to the URL, but if you don't
-you won't see validation errors even when it says "Powered by AMP ⚡ HTML".
+you won't see validation errors, but it will still say "Powered by AMP ⚡ HTML".
 It only has validated your code if you also see "AMP validation successful." (or some errors)
 in the dev console.
 
@@ -73,8 +72,7 @@ sudo apt-get install -y nodejs
 
 ```
 
-You will need to configure nginx accordingly
-
+You will need to configure nginx accordingly.
 
 Go to the `sites-available` directory, create a file called `tsmean`
 (replace `tsmean` with what suits your project), and put
