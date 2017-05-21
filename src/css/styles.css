@@ -162,6 +162,10 @@ table.nice-table td:first-child {
     color: #459B45;
 }
 
+amp-accordion>section>pre.code-snippet {
+    white-space: pre-wrap;
+}
+
 .code-snippet {
     overflow-x: scroll;
     padding: 10px;
