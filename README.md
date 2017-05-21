@@ -1,11 +1,9 @@
-## Tutorial Page for the TSMEAN Project
+## Tutorial Page for the TSMEAN Project (an example of an AMP page)
 
-The page is found at [www.tsmean.com](http://www.tsmean.com).
-
-This is the code the tsmean.com tutorial page is built with.
+This is the code the tsmean tutorial page at [www.tsmean.com](http://www.tsmean.com) is built with.
 
 This repository isn't interesting if you're interested in building a MEAN
-application. If you're interested in how to build a a MEAN application visit
+application. If you're interested in how to build a a MEAN application visit the actual page at
 [www.tsmean.com](http://www.tsmean.com). If, however, you think the
 tsmean.com page has an awesome layout, loads really fast, or is somehow else
 interesting and you'd like to build a page just like it, you've come to the right place.
