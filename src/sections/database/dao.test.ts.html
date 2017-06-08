@@ -1,4 +1,4 @@
-ems', dbResp3 => {
+ms', dbResp3 => {
           expect(dbResp3.error).to.be.null;
           expect(Array.isArray(dbResp3.data)).to.be.true;
           expect(dbResp3.data.length).to.equal(2);
@@ -10,7 +10,7 @@ ems', dbResp3 => {
   });
 
 });
-cribe('DAO', () => {
+scribe('DAO', () => {
 
   beforeEachDo.connectTestToDatabase();
 
@@ -82,4 +82,4 @@ cribe('DAO', () => {
 
     dao.create(item, 'items', (dbResp) => {
       dao.create(item, 'items', (dbResp2) => {
-        dao.readAll('it
+        dao.readAll('ite

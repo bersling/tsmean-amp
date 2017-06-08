@@ -1,7 +1,7 @@
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
-import {router} from "../router";
+import {router} from '../router';
 
 chai.use(chaiHttp);
 const expect = chai.expect;
@@ -12,7 +12,7 @@ describe('Test simple welcome Html Router', () => {
     chai.request(router)
         .get(`/welcome`)
         .then((resp) => {
-          expect((&lt;any&gt;resp).text).to.contain('Welcome!');
+          expect((<any>resp).text).to.contain('Welcome!');
           done();
         });
   });

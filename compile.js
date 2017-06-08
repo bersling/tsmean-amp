@@ -1,10 +1,12 @@
-var mu = require('mu2');
-var fs = require('fs');
+const mu = require('mu2');
+const fs = require('fs');
+const https = require('https');
 
-var githubRoot = "https://raw.githubusercontent.com";
-var githubPathPartial = "/bersling/typescript-mongo-express-node-seed/master";
 
-var sections = {
+const githubRoot = "https://raw.githubusercontent.com";
+const githubPathPartial = "/bersling/typescript-mongo-express-node-seed/master";
+
+const sections = {
   'app-config' : {
     'app-config.test.ts.html': '/src/config/app-config.test.ts',
     'app-config.ts.html': '/src/config/app-config.ts',
@@ -37,10 +39,16 @@ var sections = {
     'middleware.ts.html' : '/src/router/middleware.ts',
     'router.test.ts.html' : '/src/router/router.test.ts',
     'router.ts.html' : '/src/router/router.ts',
-    'endpoints/simple-crud-router.test.ts.html' : '/src/router/endpoints/simple-crud-router.test.ts.html',
-    'endpoints/simple-crud-router.ts.html' : '/src/router/endpoints/simple-crud-router.ts.html',
-    'endpoints/welcome-html-router.test.ts.html' : '/src/router/endpoints/welcome-html-router.test.ts.html',
-    'endpoints/welcome-html-router.ts.html' : '/src/router/endpoints/welcome-html-router.ts.html',
+    'endpoints/simple-crud-router.test.ts.html' : '/src/router/endpoints/simple-crud-router.test.ts',
+    'endpoints/simple-crud-router.ts.html' : '/src/router/endpoints/simple-crud-router.ts',
+    'endpoints/welcome-html-router.test.ts.html' : '/src/router/endpoints/welcome-html-router.test.ts',
+    'endpoints/welcome-html-router.ts.html' : '/src/router/endpoints/welcome-html-router.ts',
+  },
+  'setup': {
+    'logger.test.ts.html' : '/src/logger/logger.test.ts',
+    'logger.ts.html' : '/src/logger/logger.ts',
+    'tsconfig.json.html' : '/src/tsconfig.json',
+    'package.json.html': '/src/package.json'
   }
 };
 
@@ -48,19 +56,27 @@ const githubRawPage = (file) => {
   return githubRoot + githubPathPartial + file
 };
 
-//
-const https = require('https');
+const handleText = (text, file) => {
+  let transformedText = text;
+  switch (file) {
+    case 'package.json':
+      text = text.replace('ts-mongo-express-node-seed', `<span class="highlight">project-name</span>`);
+      text = text.replace('Daniel Niederberger <bersling@gmail.com>', `Your Name <youremail@gmail.com>`);
+      text = text.replace(/^.*express.*$/mg, "");
+  }
+  return transformedText;
+};
 
-
+console.log('=== BUILD ALL SECTIONS ===');
 Object.keys(sections).forEach(section => {
   Object.keys(sections[section]).forEach(file => {
     const page = sections[section][file];
-    console.log(githubRawPage(page));
 
     https.get(githubRawPage(page), (res) => {
 
       res.on('data', (d) => {
 
+        handleText(d, file);
 
         const wstream = fs.createWriteStream(`./src/sections/${section}/${file}`);
         wstream.write(d.toString());
@@ -75,11 +91,7 @@ Object.keys(sections).forEach(section => {
 });
 
 
-
-//
-
-
-
+console.log('=== COMPILE MUSTACHE ===');
 mu.root = __dirname + '/src';
 var data = require('./src/data.json');
 var wstream = fs.createWriteStream('./dist/index.html');
