@@ -1,7 +1,7 @@
-import * as passport from 'passport'
-import * as local from 'passport-local'
-import {dao} from "../db/dao";
-import {passwordCryptographer} from "./password-cryptographer";
+import * as passport from 'passport';
+import * as local from 'passport-local';
+import {dao} from '../db/dao';
+import {passwordCryptographer} from './password-cryptographer';
 
 class Passport {
 
@@ -16,7 +16,7 @@ class Passport {
         },
         function(email, password, done) {
 
-          dao.readOneByField("email", email, "users", function (dbResp) {
+          dao.readOneByField('email', email, 'users', function (dbResp) {
             if (dbResp.error) {
               return done(dbResp);
             } else if (!dbResp.data) {

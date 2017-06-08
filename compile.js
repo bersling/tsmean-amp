@@ -31,6 +31,16 @@ var sections = {
     'database.ts.html' : '/src/db/database.ts',
     'database-response.model.ts.html' : '/src/db/database-response.model.ts',
     'utils.ts.html' : '/src/utils/utils.ts'
+  },
+  'router': {
+    'index.ts.html' : '/src/index.ts',
+    'middleware.ts.html' : '/src/router/middleware.ts',
+    'router.test.ts.html' : '/src/router/router.test.ts',
+    'router.ts.html' : '/src/router/router.ts',
+    'endpoints/simple-crud-router.test.ts.html' : '/src/router/endpoints/simple-crud-router.test.ts.html',
+    'endpoints/simple-crud-router.ts.html' : '/src/router/endpoints/simple-crud-router.ts.html',
+    'endpoints/welcome-html-router.test.ts.html' : '/src/router/endpoints/welcome-html-router.test.ts.html',
+    'endpoints/welcome-html-router.ts.html' : '/src/router/endpoints/welcome-html-router.ts.html',
   }
 };
 
