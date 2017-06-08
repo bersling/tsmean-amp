@@ -2,11 +2,15 @@ var mu = require('mu2');
 var fs = require('fs');
 
 var githubRoot = "https://raw.githubusercontent.com";
-var githubPathPartial = "/bersling/typescript-mongo-express-node-seed/master/src";
+var githubPathPartial = "/bersling/typescript-mongo-express-node-seed/master";
 
 var sections = {
   'app-config' : {
-    'app-config.test.ts': '/config/app-config.test.ts'
+    'app-config.test.ts.html': '/src/config/app-config.test.ts',
+    'app-config.ts.html': '/src/config/app-config.ts',
+    'app-properties.model.ts.html': '/src/config/app-properties.model.ts',
+    'local.properties.json.html': '/properties/local.properties.json',
+    'test.properties.json.html': '/properties/test.properties.json'
   }
 };
 
@@ -28,7 +32,7 @@ Object.keys(sections).forEach(section => {
       res.on('data', (d) => {
 
 
-        const wstream = fs.createWriteStream(`./src/sections/${section}/${file}.html`);
+        const wstream = fs.createWriteStream(`./src/sections/${section}/${file}`);
         wstream.write(d.toString());
 
       });
