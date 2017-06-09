@@ -1,16 +1,11 @@
-ms', dbResp3 => {
-          expect(dbResp3.error).to.be.null;
-          expect(Array.isArray(dbResp3.data)).to.be.true;
-          expect(dbResp3.data.length).to.equal(2);
-          done();
-        });
-      });
-    });
+import * as mocha from 'mocha';
+import * as chai from 'chai';
+import {dao} from './dao';
+import {beforeEachDo} from '../test/before-eachs';
+import {DatabaseResponse} from './database-response.model';
+const expect = chai.expect;
 
-  });
-
-});
-scribe('DAO', () => {
+describe('DAO', () =&gt; {
 
   beforeEachDo.connectTestToDatabase();
 
@@ -21,7 +16,7 @@ scribe('DAO', () => {
     const item = {text: 'hello'};
 
     const doDelete = (id: string) => {
-      dao.delete(id, 'items', (dbResponse: DatabaseResponse) => {
+      dao.remove(id, 'items', (dbResponse: DatabaseResponse) => {
         expect(dbResponse.error).to.equal(null);
         done();
       });
@@ -82,4 +77,15 @@ scribe('DAO', () => {
 
     dao.create(item, 'items', (dbResp) => {
       dao.create(item, 'items', (dbResp2) => {
-        dao.readAll('ite
+        dao.readAll('items', dbResp3 => {
+          expect(dbResp3.error).to.be.null;
+          expect(Array.isArray(dbResp3.data)).to.be.true;
+          expect(dbResp3.data.length).to.equal(2);
+          done();
+        });
+      });
+    });
+
+  });
+
+});

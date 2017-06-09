@@ -84,16 +84,14 @@ mkdir endpoints
 
 <p>
   In order to activate those routes, we also need to register them. To do so, open the <code>router.ts</code> file
-  and insert the lines
+  and uncomment the line
 </p>
 <pre class="code-snippet">
-//The simpleCrudRouter should stay last, since it covers quite a broad range of requests and if it's moved above
-//it will steal away the endpoints of the more specific implementations
 this.express.use('/api/v1/', simpleCrudRouter);
 </pre>
 <p>
   right after <code>this.express.use('/welcome', welcomeHtmlRouter);</code>. In case you're using an IDE you probably noticed by now:
-  we also need to import the module. At the top of <code>router.ts</code>, put
+  we also need to import the module. At the top of <code>router.ts</code>, also uncomment
 </p>
 <pre class="code-snippet">
 import {simpleCrudRouter} from "./endpoints/simple-crud-router";

@@ -47,8 +47,8 @@ const sections = {
   'setup': {
     'logger.test.ts.html' : '/src/logger/logger.test.ts',
     'logger.ts.html' : '/src/logger/logger.ts',
-    'tsconfig.json.html' : '/src/tsconfig.json',
-    'package.json.html': '/src/package.json'
+    'tsconfig.json.html' : '/tsconfig.json',
+    'package.json.html': '/package.json'
   }
 };
 
@@ -58,11 +58,51 @@ const githubRawPage = (file) => {
 
 const handleText = (text, file) => {
   let transformedText = text;
+
+  //clean html
+  transformedText = transformedText.replace('<', '&lt;');
+  transformedText = transformedText.replace('>', '&gt;');
+
   switch (file) {
-    case 'package.json':
-      text = text.replace('ts-mongo-express-node-seed', `<span class="highlight">project-name</span>`);
-      text = text.replace('Daniel Niederberger <bersling@gmail.com>', `Your Name <youremail@gmail.com>`);
-      text = text.replace(/^.*express.*$/mg, "");
+    case 'package.json.html':
+      transformedText = transformedText.replace('ts-mongo-express-node-seed', `<span class="highlight">project-name</span>`);
+      transformedText = transformedText
+          .replace(
+              'Daniel Niederberger &lt;bersling@gmail.com&gt;',
+              `<span class="highlight">Your Name &lt;youremail@gmail.com&gt;</span>`
+          );
+      const packagesToRemove = ['express', 'mongo', 'bcrypt', 'passport'];
+      packagesToRemove.forEach(package => {
+        const replace = ".*" + package + ".*[\r\n]";
+        const re = new RegExp(replace, "mg");
+        transformedText = transformedText.replace(re, "");
+      });
+      transformedText = transformedText.replace(/.*express.*[\r\n]/mg, "");
+    case 'router.ts.html':
+      transformedText = transformedText.replace(
+          "this.express.use('/api/v1/', loginRouter);",
+          "// this.express.use('/api/v1/', loginRouter);"
+      );
+      transformedText = transformedText.replace(
+          "this.express.use('/api/v1/', userRouter);",
+          "// this.express.use('/api/v1/', userRouter);"
+      );
+      transformedText = transformedText.replace(
+          "import {loginRouter} from './endpoints/login-router';",
+          "// import {loginRouter} from './endpoints/login-router';"
+      );
+      transformedText = transformedText.replace(
+          "import {userRouter} from './endpoints/user-router';",
+          "// import {userRouter} from './endpoints/user-router';"
+      );
+      transformedText = transformedText.replace(
+          "this.express.use('/api/v1/', simpleCrudRouter);",
+          "// this.express.use('/api/v1/', simpleCrudRouter);"
+      );
+      transformedText = transformedText.replace(
+          "import {simpleCrudRouter} from './endpoints/simple-crud-router';",
+          "// import {simpleCrudRouter} from './endpoints/simple-crud-router';"
+      );
   }
   return transformedText;
 };
@@ -72,16 +112,25 @@ Object.keys(sections).forEach(section => {
   Object.keys(sections[section]).forEach(file => {
     const page = sections[section][file];
 
+
+
     https.get(githubRawPage(page), (res) => {
 
-      res.on('data', (d) => {
+      let rawText = '';
 
-        handleText(d, file);
+      res.on('data', function (chunk) {
+        rawText += chunk;
+      });
+
+      res.on('end', function () {
+
+        const cleanedText = handleText(rawText, file);
 
         const wstream = fs.createWriteStream(`./src/sections/${section}/${file}`);
-        wstream.write(d.toString());
+        wstream.write(cleanedText);
 
       });
+
 
     }).on('error', (e) => {
       console.error(e);

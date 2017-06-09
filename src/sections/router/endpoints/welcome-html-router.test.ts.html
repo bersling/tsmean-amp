@@ -6,13 +6,13 @@ import {router} from '../router';
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-describe('Test simple welcome Html Router', () => {
+describe('Test simple welcome Html Router', () =&gt; {
 
   it('should return html containing the word welcome', (done) => {
     chai.request(router)
         .get(`/welcome`)
         .then((resp) => {
-          expect((<any>resp).text).to.contain('Welcome!');
+          expect((&lt;any>resp).text).to.contain('Welcome!');
           done();
         });
   });

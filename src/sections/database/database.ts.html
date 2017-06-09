@@ -8,10 +8,10 @@ class Database {
   private _database;
   private _mongoClient;
 
-  private mongoUri = (appParams: AppProperties) => {
+  private mongoUri = (appParams: AppProperties) =&gt; {
     const params = appParams.db;
     return `mongodb://${params.dbuser}:${params.dbpassword}@${params.host}:${params.port}/${params.dbname}`;
-  }
+  };
 
   constructor(
 
