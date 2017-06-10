@@ -16,11 +16,11 @@ describe('UserDAO', () =&gt; {
       email: 'hans'
     };
 
-    userDAO.create(user, '1234', (dbResponse) => {
+    userDAO.create(user, '1234', (dbResponse) =&gt; {
       expect(dbResponse.error).to.be.null;
       expect(dbResponse.data.uid).to.exist;
 
-      userDAO.create(user, '1234', (innerDbResponse) => {
+      userDAO.create(user, '1234', (innerDbResponse) =&gt; {
         expect(innerDbResponse.error).to.exist;
         expect(innerDbResponse.error.message).to.equal('User already exists');
         done();

@@ -7,7 +7,7 @@ const expect = chai.expect;
 
 describe('MyPassport', () =&gt; {
 
-  it('should have registered the local strategy', () => {
+  it('should have registered the local strategy', () =&gt; {
     expect(passport).not.to.be.null;
     expect(myPassport.constructed).to.be.true;
   });

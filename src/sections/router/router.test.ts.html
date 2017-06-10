@@ -10,16 +10,16 @@ const expect = chai.expect;
 describe('Router Test', () =&gt; {
 
   /* not valid anymore with frontend
-  it('should be json', () => {
+  it('should be json', () =&gt; {
     return chai.request(router).get('/')
-        .then(res => {
+        .then(res =&gt; {
           expect(res.type).to.eql('application/json');
         });
   });
 
-  it('should have a message prop', () => {
+  it('should have a message prop', () =&gt; {
     return chai.request(router).get('/')
-        .then(res => {
+        .then(res =&gt; {
           expect(res.body.message).to.eql('Hello World!');
         });
   });

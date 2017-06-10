@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 describe('AppConfig', () =&gt; {
 
-  it('should be able to set & get config', () => {
+  it('should be able to set & get config', () =&gt; {
     appConfig.setAppConfig('test');
     expect(typeof appConfig.appConfig).to.equal('object');
   });

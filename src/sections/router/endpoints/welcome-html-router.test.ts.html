@@ -8,11 +8,11 @@ const expect = chai.expect;
 
 describe('Test simple welcome Html Router', () =&gt; {
 
-  it('should return html containing the word welcome', (done) => {
+  it('should return html containing the word welcome', (done) =&gt; {
     chai.request(router)
         .get(`/welcome`)
-        .then((resp) => {
-          expect((&lt;any>resp).text).to.contain('Welcome!');
+        .then((resp) =&gt; {
+          expect((&lt;any&gt;resp).text).to.contain('Welcome!');
           done();
         });
   });

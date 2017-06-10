@@ -23,10 +23,10 @@ class Database {
     return this._database;
   }
 
-  public connectToDatabase (appConfig: AppProperties, callback?: (database: Db) => any) {
+  public connectToDatabase (appConfig: AppProperties, callback?: (database: Db) =&gt; any) {
 
     // Connect to the db
-    this._mongoClient.connect(this.mongoUri(appConfig), (err, db) => {
+    this._mongoClient.connect(this.mongoUri(appConfig), (err, db) =&gt; {
       if (!err) {
         this._database = db;
         if (callback) {

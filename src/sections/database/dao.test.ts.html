@@ -15,22 +15,22 @@ describe('DAO', () =&gt; {
 
     const item = {text: 'hello'};
 
-    const doDelete = (id: string) => {
-      dao.remove(id, 'items', (dbResponse: DatabaseResponse) => {
+    const doDelete = (id: string) =&gt; {
+      dao.remove(id, 'items', (dbResponse: DatabaseResponse) =&gt; {
         expect(dbResponse.error).to.equal(null);
         done();
       });
     };
 
-    const doUpdate = (updateItem) => {
+    const doUpdate = (updateItem) =&gt; {
       updateItem.text = updateItem.text + ' world!';
 
-      dao.update(updateItem, 'items', (dbResp) => {
+      dao.update(updateItem, 'items', (dbResp) =&gt; {
 
         expect(dbResp.error).to.equal(null);
 
-        const doReadTwo = (id: string) => {
-          dao.read(id, 'items', (dbResp2) => {
+        const doReadTwo = (id: string) =&gt; {
+          dao.read(id, 'items', (dbResp2) =&gt; {
             expect(dbResp2.error).to.equal(null);
             expect(dbResp2.data.text).to.equal('hello world!');
             doDelete(updateItem.uid);
@@ -41,8 +41,8 @@ describe('DAO', () =&gt; {
       });
     };
 
-    const doRead = (uid: string) => {
-      dao.read(uid, 'items', (dbResponse: DatabaseResponse) => {
+    const doRead = (uid: string) =&gt; {
+      dao.read(uid, 'items', (dbResponse: DatabaseResponse) =&gt; {
 
         expect(dbResponse.error).to.equal(null);
         expect(dbResponse.data.text).to.equal('hello');
@@ -54,14 +54,14 @@ describe('DAO', () =&gt; {
     };
 
 
-    const doCreate = () => {
-      dao.create(item, 'items', (dbResp) => {
+    const doCreate = () =&gt; {
+      dao.create(item, 'items', (dbResp) =&gt; {
         expect(dbResp.error).to.equal(null);
         doRead(dbResp.data.uid);
       });
     };
 
-    const start = () => {
+    const start = () =&gt; {
       doCreate();
     };
 
@@ -75,9 +75,9 @@ describe('DAO', () =&gt; {
     const item2 = {hello: 'world'};
 
 
-    dao.create(item, 'items', (dbResp) => {
-      dao.create(item, 'items', (dbResp2) => {
-        dao.readAll('items', dbResp3 => {
+    dao.create(item, 'items', (dbResp) =&gt; {
+      dao.create(item, 'items', (dbResp2) =&gt; {
+        dao.readAll('items', dbResp3 =&gt; {
           expect(dbResp3.error).to.be.null;
           expect(Array.isArray(dbResp3.data)).to.be.true;
           expect(dbResp3.data.length).to.equal(2);

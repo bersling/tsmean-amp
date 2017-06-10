@@ -60,8 +60,8 @@ const handleText = (text, file) => {
   let transformedText = text;
 
   //clean html
-  transformedText = transformedText.replace('<', '&lt;');
-  transformedText = transformedText.replace('>', '&gt;');
+  transformedText = transformedText.replace(/</g, '&lt;');
+  transformedText = transformedText.replace(/>/g, '&gt;');
 
   switch (file) {
     case 'package.json.html':
@@ -77,7 +77,7 @@ const handleText = (text, file) => {
         const re = new RegExp(replace, "mg");
         transformedText = transformedText.replace(re, "");
       });
-      transformedText = transformedText.replace(/.*express.*[\r\n]/mg, "");
+      transformedText = transformedText.replace(/,([\s\r\n]*\})/gm, "$1");
     case 'router.ts.html':
       transformedText = transformedText.replace(
           "this.express.use('/api/v1/', loginRouter);",
@@ -103,6 +103,15 @@ const handleText = (text, file) => {
           "import {simpleCrudRouter} from './endpoints/simple-crud-router';",
           "// import {simpleCrudRouter} from './endpoints/simple-crud-router';"
       );
+    case 'middleware.ts.html':
+      transformedText = transformedText.replace(
+          "import * as passport from 'passport';",
+          "// import * as passport from 'passport';"
+      );
+      transformedText = transformedText.replace(
+          "express.use(passport.initialize());",
+          "// express.use(passport.initialize());"
+      )
   }
   return transformedText;
 };

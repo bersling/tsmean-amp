@@ -15,7 +15,7 @@ describe('LoginRouter', () =&gt; {
 
   beforeEachDo.connectTestToDatabase();
 
-  it('should be able to login', (done) => {
+  it('should be able to login', (done) =&gt; {
 
     const user: User = {
       email: 'hans'
@@ -23,7 +23,7 @@ describe('LoginRouter', () =&gt; {
 
     const plaintextPassword = 'Hello World';
 
-    userDAO.create(user, plaintextPassword, (dbResp) => {
+    userDAO.create(user, plaintextPassword, (dbResp) =&gt; {
 
       expect(dbResp.error).to.be.null;
 
@@ -33,15 +33,15 @@ describe('LoginRouter', () =&gt; {
             email: user.email,
             password: plaintextPassword
           })
-          .then((resp: any) => {
+          .then((resp: any) =&gt; {
             expect(resp.body.data.uid).to.equal(dbResp.data.uid);
             done();
-          }, (err) => {
+          }, (err) =&gt; {
             log.error(err);
             assert(false);
             done();
           })
-          .catch((err) => {
+          .catch((err) =&gt; {
             throw err;
           });
     });

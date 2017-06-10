@@ -13,19 +13,19 @@ export namespace userDAO {
 
     const userCopy = utils.deepCopyData(user);
 
-    dao.readOneByField('email', userCopy.email, 'users', (dbResp) => {
+    dao.readOneByField('email', userCopy.email, 'users', (dbResp) =&gt; {
 
       // Condition to create a new is user is no user with this email exists
       // This means that a database error is actually what you expect when creating a new user!
       if (dbResp.error) {
 
-        passwordCryptographer.doHash(password).then((hash: string) => {
+        passwordCryptographer.doHash(password).then((hash: string) =&gt; {
           userCopy.password = {
             hash: hash,
             algorithm: 'bcrypt'
           };
           dao.create(userCopy, 'users', cb);
-        }, (err) => {
+        }, (err) =&gt; {
           log.error(err);
           return cb({
             error: {

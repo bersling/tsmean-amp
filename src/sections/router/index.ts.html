@@ -14,11 +14,11 @@ database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
   // when connected to db:
 
   // Step 3) Set Port for router
-  const normalizePort = (val: number|string): number|string|boolean => {
+  const normalizePort = (val: number|string): number|string|boolean =&gt; {
     const port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
     if (isNaN(port)) {
       return val;
-    } else if (port >= 0) {
+    } else if (port &gt;= 0) {
       return port;
     } else {
       return false;
@@ -30,7 +30,7 @@ database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
   const server = http.createServer(router);
 
   // Step 4) Handle Errors
-  const onError = (error: NodeJS.ErrnoException): void => {
+  const onError = (error: NodeJS.ErrnoException): void =&gt; {
     if (error.syscall !== 'listen') {
       throw error;
     }
@@ -48,7 +48,7 @@ database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
         throw error;
     }
   };
-  const onListening = (): void => {
+  const onListening = (): void =&gt; {
     const addr = server.address();
     const bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
   };
