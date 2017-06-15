@@ -4,14 +4,12 @@ import * as passport from 'passport';
 export class LoginRouter {
   router: Router;
 
-
   /**
    * Take login handler and attach to login endpoint, but precede it with authentication
    */
   init() {
     this.router.post('/login',
-        passport.authenticate('local', { session: false }),
-        this.loginHandler);
+        passport.authenticate('local'), this.loginHandler);
   }
 
   /**
@@ -25,11 +23,13 @@ export class LoginRouter {
   public loginHandler(req: Request, res: Response, next: NextFunction) {
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
+
     res.status(200).send({
       message: 'Success',
       status: res.status,
       data: req.user
     });
+
   }
 
 }

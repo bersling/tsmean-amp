@@ -25,7 +25,7 @@ database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
     }
   };
 
-  const port = normalizePort(process.env.PORT || 3000);
+  const port = normalizePort(process.env.PORT || 4242);
   router.set('port', port);
   const server = http.createServer(router);
 
@@ -35,7 +35,7 @@ database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
       throw error;
     }
     const bind = (typeof port === 'string') ? 'Pipe ' + port : 'Port ' + port;
-    switch(error.code) {
+    switch (error.code) {
       case 'EACCES':
         console.error(`${bind} requires elevated privileges`);
         process.exit(1);

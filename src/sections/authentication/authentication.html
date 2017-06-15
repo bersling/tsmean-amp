@@ -12,15 +12,12 @@
   to set up a password encryption algorithm. A good choice for an encryption algorithm for passwords is <code>bcrypt</code>.
   Luckily there's a npm module implementing this algorithm, so we just have to wire things together. Let's first install
   the npm module.
+  
 </p>
 <pre class="code-snippet">
-npm install --save bcrypt
-npm install --save-dev @types/bcrypt
+npm install --save bcrypt-nodejs
+npm install --save-dev @types/bcrypt-nodejs
 </pre>
-<p>
-  For some of you this installation might throw a few warnings with <code>node-gyp</code>,
-  but overall it should still work and install correctly. To test this, we have the following two files.
-</p>
 
 <div class="file-label">backend/src/auth/password-cryptograher.ts</div>
 <pre class="code-snippet">{{> ./sections/authentication/password-cryptographer.ts.html}}</pre>
@@ -29,11 +26,24 @@ npm install --save-dev @types/bcrypt
 <pre class="code-snippet">{{> ./sections/authentication/password-cryptographer.test.ts.html}}</pre>
 
 <p>
+  <b>Sidenote:</b> This is a perfect example of where "programming against an interface, not against an implementation" was helpful.
+  I first used the
+  <code>bcrypt</code> package and now I'm using the <code>bcrypt-nodejs</code> package because <code>bcrypt</code> threw crazy errors all of the time.
+  Now, because I wrapped the original <code>bcrypt</code> in a thin layer, I could simply switch out the implementation!
+  
+  I only had to change one file to switch out the entire library. Of course, the new library had a bit a different interface
+  than the old library. The old library was promise based and the new one callback based. But by converting the
+  callbacks into a promise in the wrapping layer, I didn't have to change the interface used in the app!
+</p>
+
+<p>
   We're starting to be at an application size where it's annoying to always have to run all unit tests.
   In the <code>package.json</code> we've already set a method to run a single test. So in order to check if bcrypt is
   working, run <code>TEST=bcrypt npm run spec</code>. Like this, every <code>describe</code> or <code>it</code> containing
   the sequence "bcrypt" is run.
 </p>
+
+
 <p>
   What we now can do building on the password cryptographer is creating users and storing their passwords as hashed values.
   In the <code>db</code> directory, create the <code>UserDAO</code> and its corresponding test and model.

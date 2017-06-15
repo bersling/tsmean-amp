@@ -2,7 +2,39 @@ const mu = require('mu2');
 const fs = require('fs');
 const https = require('https');
 
+console.log('=== BUILD SITEMAP ===');
+function copyFile(source, target, cb) {
+  var cbCalled = false;
 
+  var rd = fs.createReadStream(source);
+  rd.on("error", function(err) {
+    done(err);
+  });
+  var wr = fs.createWriteStream(target);
+  wr.on("error", function(err) {
+    done(err);
+  });
+  wr.on("close", function(ex) {
+    done();
+  });
+  rd.pipe(wr);
+
+  function done(err) {
+    if (!cbCalled) {
+      cb(err);
+      cbCalled = true;
+    }
+  }
+}
+
+copyFile('./sitemap.xml', './dist/sitemap.xml', function(err) {
+  if (err) {
+    console.error('Error on copying sitemap.xml:', err);
+  }
+});
+
+
+console.log('=== BUILD ALL SECTIONS ===');
 const githubRoot = "https://raw.githubusercontent.com";
 const githubPathPartial = "/bersling/typescript-mongo-express-node-seed/master";
 
@@ -116,7 +148,6 @@ const handleText = (text, file) => {
   return transformedText;
 };
 
-console.log('=== BUILD ALL SECTIONS ===');
 Object.keys(sections).forEach(section => {
   Object.keys(sections[section]).forEach(file => {
     const page = sections[section][file];
