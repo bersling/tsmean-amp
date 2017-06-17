@@ -75,22 +75,16 @@ You will need to configure nginx accordingly.
 Go to the `sites-available` directory, create a file called `tsmean`
 (replace `tsmean` with what suits your project), and put
 ```
-upstream tsmean {
-  server localhost:8080;
-}
-
 server {
   server_name  tsmean.com;
   return       301 http://www.tsmean.com$request_uri;
 }
-
 server {
   server_name www.tsmean.com;
+  root /home/ubuntu/tsmeandir/dist;
   location / {
-    proxy_pass http://tsmean;
   }
 }
-
 ```
 inside.
 
