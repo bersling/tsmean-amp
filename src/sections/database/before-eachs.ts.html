@@ -1,15 +1,15 @@
-import {database} from "./../db/database";
-import {appConfig} from "../config/app-config";
+import {database} from './../db/database';
+import {appConfig} from '../config/app-config';
 class BeforeEach {
 
   public connectTestToDatabase() {
-    return beforeEach('connect to db', (done) => {
+    return beforeEach('connect to db', (done) =&gt; {
       appConfig.setAppConfig('test');
-      database.connectToDatabase(appConfig.appConfig, (db) => {
-        db.dropDatabase().then(() => {
+      database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
+        db.dropDatabase().then(() =&gt; {
           done();
         });
-      })
+      });
     });
   }
 

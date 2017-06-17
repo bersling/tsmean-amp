@@ -10,7 +10,7 @@
 </p>
 <div class="github-link-wrapper">
   <a href="https://github.com/bersling/typescript-mongo-express-angular-node-seed" class="github-link">
-    <amp-img src="/img/github-icon.svg" height="2rem" width="2rem" class="github-image"></amp-img>
+    <amp-img src="/img/github-icon.svg" height="32" width="32" class="github-image" alt="Github Logo"></amp-img>
     <span class="github-text">
       Get Seed on Github
     </span>
@@ -25,19 +25,29 @@
 <h3>Motivation</h3>
 
 <p>
-  Why am I motivated to build this boilerplate code? What do I think the world will get from it?
-  For one, the MEAN stack was quite popular for a while, but it lost a bit of interest since the original projects
-  aren't maintained very well. Yet, the stack might still be a good choice for some. It certainly offers some advantages over other choices:
+  Why am I motivated to build this boilerplate code?
+  The MEAN stack was quite popular for a while, but it lost a bit of interest since the original projects
+  aren't maintained very well. Yet, the stack might still be a good choice for some people. Here's what I see
+  as its main advantages:
 </p>
 <ul>
   <li>
-    Just one language back to front.
+    <b>Just one language back to front.</b>
   </li>
   <li>
     Modularity. Don't like Mongo? Switch it out with a SQL database. That's the strong case against frameworks like MeteorJS.
   </li>
-  <li>
-    Node. Node may be an advantage or a disadvantage, that you'll have to decide for yourself. To shortly summarize:
-    it complicates programming (callback hell) but is good in "high throughput" scenarios (which you'll probably never reach).
-  </li>
 </ul>
+
+Having said this, I'd also like to warn you about this stack at this point. I think MongoDB is not the best choice
+to back your web-app with, here are my reasons why:
+<a href="https://www.bersling.com/2017/06/02/please-dont-use-mongodb-or-any-other-nosql-database-for-your-web-app/">
+  https://www.bersling.com/2017/06/02/please-dont-use-mongodb-or-any-other-nosql-database-for-your-web-app/
+</a>
+<p>
+  Second, if your reason for choosing this stack is that you need node / javascript for its asynchronous nature
+  to have a non-blocking server that can handle thousands of concurrent requests, I'd like to
+  point out that this isn't exclusive to node / javascript. It's also possible to write non-blocking code
+  in other languages and frameworks. It's just that people usually don't write their code async-style,
+  thus you will find less packages & community discussions to help you out.
+</p>

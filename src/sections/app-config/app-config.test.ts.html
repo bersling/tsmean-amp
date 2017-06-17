@@ -1,12 +1,12 @@
 import * as mocha from 'mocha';
 import * as chai from 'chai';
-import {appConfig} from "./app-config";
+import {appConfig} from './app-config';
 
 const expect = chai.expect;
 
-describe('AppConfig', () => {
+describe('AppConfig', () =&gt; {
 
-  it('should be able to set & get config', () => {
+  it('should be able to set & get config', () =&gt; {
     appConfig.setAppConfig('test');
     expect(typeof appConfig.appConfig).to.equal('object');
   });

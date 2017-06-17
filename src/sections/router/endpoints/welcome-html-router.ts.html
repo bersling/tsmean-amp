@@ -1,4 +1,4 @@
-import {Router, Request, Response, NextFunction} from "express";
+import {Router, Request, Response, NextFunction} from 'express';
 
 export class WelcomeHtmlRouter {
 
@@ -21,7 +21,7 @@ export class WelcomeHtmlRouter {
 
   public welcome(req: Request, res: Response, next: NextFunction) {
     res.status(200)
-        .send(`&lt;html&gt;&lt;head&gt;&lt;title&gt;My Title&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Welcome!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;`)
+        .send(`&lt;html&gt;&lt;head&gt;&lt;title&gt;My Title&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Welcome!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;`);
   }
 
 

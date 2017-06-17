@@ -1,9 +1,17 @@
-import * as mongo from 'mongodb'
-import {Db} from "mongodb";
-import {log} from "../logger/logger";
-import {AppProperties} from "../config/app-properties.model";
+import * as mongo from 'mongodb';
+import {Db} from 'mongodb';
+import {log} from '../logger/logger';
+import {AppProperties} from '../config/app-properties.model';
 
 class Database {
+
+  private _database;
+  private _mongoClient;
+
+  private mongoUri = (appParams: AppProperties) =&gt; {
+    const params = appParams.db;
+    return `mongodb://${params.dbuser}:${params.dbpassword}@${params.host}:${params.port}/${params.dbname}`;
+  };
 
   constructor(
 
@@ -11,24 +19,15 @@ class Database {
     this._mongoClient = mongo.MongoClient;
   }
 
-  private _database;
-  private _mongoClient;
-
-  private mongoUri = (appParams: AppProperties) => {
-    const params = appParams.db;
-    return `mongodb://${params.dbuser}:${params.dbpassword}@${params.host}:${params.port}/${params.dbname}`
-  };
-
-
   public get database() {
     return this._database;
   }
 
-  public connectToDatabase (appConfig: AppProperties, callback?: (database: Db) => any) {
+  public connectToDatabase (appConfig: AppProperties, callback?: (database: Db) =&gt; any) {
 
     // Connect to the db
-    this._mongoClient.connect(this.mongoUri(appConfig), (err, db) => {
-      if(!err) {
+    this._mongoClient.connect(this.mongoUri(appConfig), (err, db) =&gt; {
+      if (!err) {
         this._database = db;
         if (callback) {
           callback(db);
@@ -44,3 +43,5 @@ class Database {
 }
 
 export const database = new Database();
+
+

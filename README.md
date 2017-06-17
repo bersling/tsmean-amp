@@ -1,10 +1,10 @@
 ## Tutorial Page for the TSMEAN Project (an example of an AMP page)
 
-This is the code the tsmean tutorial page at [www.tsmean.com](http://www.tsmean.com) is built with.
+This is the code the tsmean tutorial page at http://www.tsmean.com is built with.
 
 This repository isn't interesting if you're interested in building a MEAN
 application. If you're interested in how to build a a MEAN application visit the actual page at
-[www.tsmean.com](http://www.tsmean.com). If, however, you think the
+http://www.tsmean.com. If, however, you think the
 tsmean.com page has an awesome layout, loads really fast, or is somehow else
 interesting and you'd like to build a page just like it, you've come to the right place.
 
@@ -47,7 +47,7 @@ your page doesn't break, it just doesn't get the "AMP-SEO Bonus" anymore.
 
 **Important:** You can check if you're writing valid AMP by appending `#development=1`
 to the url,so for example
-[http://localhost:8080/#development=1](http://localhost:8080/#development=1)
+http://localhost:8080/#development=1
 and then opening the chrome dev console.
 It's very easily forgotten to append this bit to the URL, but if you don't
 you won't see validation errors, but it will still say "Powered by AMP ⚡ HTML".
@@ -97,4 +97,20 @@ inside.
 Then navigate to `sites-enabled` and symlink it:
 ```
 ln -s ../sites-available/tsmean tsmean
+```
+
+To also score a bit better in page speed insights, modify the gzip part of the `nginx.conf`
+as described here https://www.digitalocean.com/community/tutorials/how-to-add-the-gzip-module-to-nginx-on-ubuntu-14-04,
+so it looks like
+```
+gzip on;
+gzip_disable "msie6";
+
+gzip_vary on;
+gzip_proxied any;
+gzip_comp_level 6;
+gzip_buffers 16 8k;
+gzip_http_version 1.1;
+gzip_min_length 256;
+gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
 ```

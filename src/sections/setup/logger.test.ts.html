@@ -5,13 +5,13 @@ import {log} from './logger';
 
 const expect = chai.expect;
 
-describe('Logger', () => {
+describe('Logger', () =&gt; {
 
-  it('should be able to log', () => {
-    log.info("Hello");
-    log.warn("World.");
-    log.debug("You are");
-    log.error("nice.");
+  it('should be able to log', () =&gt; {
+    log.info('Hello');
+    log.warn('World.');
+    log.debug('You are');
+    log.error('nice.');
   });
 
 });

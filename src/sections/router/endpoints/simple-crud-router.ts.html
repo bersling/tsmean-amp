@@ -1,5 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
-import {dao} from "../../db/dao";
+import {dao} from '../../db/dao';
+import {api} from '../api';
 
 export class SimpleCrudRouter {
   router: Router;
@@ -32,21 +33,22 @@ export class SimpleCrudRouter {
     const resource = req.body;
     const resourceName = req.params.resource;
 
-    dao.create(resource, resourceName, (dbResp) => {
+    dao.create(resource, resourceName, (dbResp) =&gt; {
       if (dbResp.error) {
         res.status(500).send({
-          message: "Server error",
+          message: 'Server error',
           status: res.status
-        })
+        });
       } else {
-        res.status(200)
+        res.status(201)
+          res.location(`${api.root()}/${resourceName}/${dbResp.data.insertId}`)
             .send({
               message: 'Success',
               status: res.status,
               data: dbResp.data
-            })
+            });
       }
-    })
+    });
 
   }
 
@@ -57,19 +59,19 @@ export class SimpleCrudRouter {
     const resourceId = req.params.id;
     const resourceName = req.params.resource;
 
-    dao.read(resourceId, resourceName, (dbResp) => {
+    dao.read(resourceId, resourceName, (dbResp) =&gt; {
       if (dbResp.error) {
         res.status(500).send({
-          message: "Server error",
+          message: 'Server error',
           status: res.status
-        })
+        });
       } else {
         res.status(200)
             .send({
               message: 'Success',
               status: res.status,
               data: dbResp.data
-            })
+            });
       }
     });
   }
@@ -80,19 +82,20 @@ export class SimpleCrudRouter {
   public updateOne(req: Request, res: Response, next: NextFunction) {
     const resourceName = req.params.resource;
 
-    dao.update(req.body, resourceName, (dbResp) => {
+    dao.update(req.body, resourceName, (dbResp) =&gt; {
 
       if (dbResp.error) {
         res.status(500).send({
           message: `Database error:(${dbResp.error.code}) ${dbResp.error.message}`,
           status: res.status
-        })
+        });
       } else {
         res.status(200)
             .send({
               message: 'Success',
-              status: res.status
-            })
+              status: res.status,
+              data: dbResp.data
+            });
       }
 
 
@@ -104,7 +107,23 @@ export class SimpleCrudRouter {
    * GET all Resources.
    */
   public getAll(req: Request, res: Response, next: NextFunction) {
-    // not implemented
+    const resourceName = req.params.resource;
+
+    dao.readAll(resourceName, (dbResp) =&gt; {
+      if (dbResp.error) {
+        res.status(500).send({
+          message: 'Server error',
+          status: res.status
+        });
+      } else {
+        res.status(200)
+            .send({
+              message: 'Success',
+              status: res.status,
+              data: dbResp.data
+            });
+      }
+    });
   }
 
   /**
@@ -114,18 +133,18 @@ export class SimpleCrudRouter {
     const resourceId = req.params.id;
     const resourceName = req.params.resource;
 
-    dao.delete(resourceId, resourceName, (dbResp) => {
+    dao.remove(resourceId, resourceName, (dbResp) =&gt; {
       if (dbResp.error) {
         res.status(500).send({
-          message: "Server error",
+          message: 'Server error',
           status: res.status
-        })
+        });
       } else {
         res.status(200)
             .send({
               message: 'Success',
               status: res.status
-            })
+            });
       }
     });
   }

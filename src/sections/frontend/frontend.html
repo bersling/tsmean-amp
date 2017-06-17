@@ -2,22 +2,33 @@
 <h1>
   Frontend
 </h1>
+
 <p>
-  On developing a frontend with Angular there are actually already tons of good resources and there's
-  also an amazing scaffolding tool the <code>angular-cli</code>. What still would be useful would be a small demonstration
-  on how to connect Angular to the backend we've built now. This part of the tutorial will arrive shortly.
+  The Angular Cli does a good job at scaffolding your new web-app. However, I have still
+  built a small frontend to illustrate how you would use it together with the backend we've built so far.
+  Also I'd like to illustrate some points with this frontend about my views on things like state-management
+  and a good directory setup. Last but not least, it's nice to have an complete working app, so you don't
+  have to build things like login etc. yourself.
 </p>
-<!--p>
-  We're going to scaffold the application with the <code>angular-cli</code>. Install it with the command
-</p>
-<pre class="code-snippet">
-npm install -g @angular/cli
-</pre>
+
 <p>
-  and create a new frontend-project with
+  Since the project is close to most Angular Tutorials out there, I'm just pointing out here what's different about the frontend.
 </p>
-<pre class="code-snippet">
-ng new <span class="highlight">project-name</span>
-cd <span class="highlight">project-name</span>
-ng serve
-</pre-->
+<ul>
+  <li>
+    State management is done partly with services as as front-end data-store. Read more about my views on state management here:
+    <a href="https://www.bersling.com/2017/05/24/manage-state-in-angular-2/">https://www.bersling.com/2017/05/24/manage-state-in-angular-2/</a>
+  </li>
+  <li>
+    Directory structure separates components, services, pipes and models.
+  </li>
+</ul>
+
+<p>
+  I think those are the most important differences to point out. You can check out the full code at:
+  <a href="https://github.com/bersling/typescript-angular-seed">https://github.com/bersling/typescript-angular-seed</a>
+</p>
+
+<p>
+  Well, that's everything I have to say for now! If you want to stay posted, make sure to subscribe to the Github repository!
+</p>
