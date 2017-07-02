@@ -1,18 +1,1 @@
-import {database} from './../db/database';
-import {appConfig} from '../config/app-config';
-class BeforeEach {
-
-  public connectTestToDatabase() {
-    return beforeEach('connect to db', (done) =&gt; {
-      appConfig.setAppConfig('test');
-      database.connectToDatabase(appConfig.appConfig, (db) =&gt; {
-        db.dropDatabase().then(() =&gt; {
-          done();
-        });
-      });
-    });
-  }
-
-}
-
-export const beforeEachDo = new BeforeEach();
+404: Not Found
