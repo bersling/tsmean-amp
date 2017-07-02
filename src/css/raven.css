@@ -1,9 +1,6 @@
 
 .animatedpic {
-    -webkit-animation: changeopacity 5s infinite; /* Safari 4+ */
-    -moz-animation:    changeopacity 5s infinite; /* Fx 5+ */
-    -o-animation:      changeopacity 5s infinite; /* Opera 12+ */
-    animation:         changeopacity 5s infinite; /* IE 10+, Fx 29+ */
+    animation:         changeopacity 5s infinite;
 
     animation-duration: 5s;
     animation-iteration-count: infinite;
@@ -15,21 +12,6 @@
     right: 0;
 }
 
-@-webkit-keyframes changeopacity {
-    0%  {opacity: 1;}
-    1.5%  {opacity: 1;}
-    1.6%  {opacity: 0;}
-}
-@-moz-keyframes changeopacity {
-    0%  {opacity: 1;}
-    1.5%  {opacity: 1;}
-    1.6%  {opacity: 0;}
-}
-@-o-keyframes changeopacity {
-    0%  {opacity: 1;}
-    1.5%  {opacity: 1;}
-    1.6%  {opacity: 0;}
-}
 @keyframes changeopacity {
     0%  {opacity: 1;}
     1.5%  {opacity: 1;}
