@@ -94,6 +94,7 @@ article {
 
 .sidebar-lg > ul {
     position: sticky;
+    top: 80px;
 }
 
 .sidebar {
