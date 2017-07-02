@@ -148,20 +148,19 @@ table.nice-table td:first-child {
     max-width: 600px;
     margin: 0 auto;
 }
-@media (max-width:40rem) {
-    .jumbo-logo-wrapper {
-        position: relative;
-        height: 250px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-}
 
 .jumbo-slogan {
     color: white;
     font-size: 30px;
     font-weight: bold;
+    padding: 10px;
+}
 
+
+@media (max-width: 500px) {
+    .jumbo-logo-wrapper {
+        height: 275px;
+    }
 }
 
 /* code-snippet styles */
