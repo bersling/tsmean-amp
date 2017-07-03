@@ -78,7 +78,44 @@ main {
     max-width: 100%;
 }
 
+.social-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px; }
+
+.footer-item {
+    padding: 20px; }
+
+amp-social-share.amp-social {
+    border-radius: 50%;
+    background-size: 75%; }
+
+.margin-left-right {
+    margin-left: 15px;
+    margin-right: 15px; }
+
+hr {
+    padding: 0;
+    border: none;
+    color: #f0f0f0;
+    text-align: center; }
+
+hr:after {
+    content: "*  *  *";
+    display: inline-block;
+    position: relative;
+    font-size: 1.5em;
+    padding: 0 0.25em; }
+
+.footer-smallprint {
+    font-size: 10px;
+    text-align: center;
+    padding: 10px; }
+
 article {
+    max-width: 700px;
+    margin: 0 auto;
     padding: 10px;
 }
 
