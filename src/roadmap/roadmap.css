@@ -1,0 +1,62 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.roadmap-container {
+    display: flex;
+    text-align: center;
+
+    /* positioning in respect to parent */
+    margin-left: 100px;
+}
+
+.roadmap-lane-titles {
+    display: flex;
+    text-align: center;
+
+    /* positioning in respect to parent */
+    margin-left: 100px;
+}
+
+.lane-element {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  font-size: 10px;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+
+  background: #FEC537; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#FEC537, #FDE08D); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#FEC537, #FDE08D); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#FEC537, #FDE08D); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#FEC537, #FDE08D); /* Standard syntax */
+
+}
+
+.lane-content {
+  position: relative;
+}
+
+.roadmap-labels {
+  position: relative;
+  font-family: "Courier New", Courier, monospace;
+
+  /* positioning in respect to parent */
+  float: left;
+  width: 100px;
+}
+
+.roadmap-label {
+  font-size: 10px;
+  right: 5px;
+  position: absolute;
+}
+
+.lane-title {
+  border-bottom: 1px solid gray;
+  flex-grow: 1;
+  flex-basis: 0;
+}

@@ -7,8 +7,9 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "$(npm bin)/watch 'npm run mustache' --inverval=1",
-    "build": "mkdir -p dist && cp -r img dist && npm run mustache",
-    "mustache": "node compile.js"
+    "build": "mkdir -p dist && cp -r img dist && npm run mustache && npm run roadmap",
+    "mustache": "node compile.js",
+    "roadmap": "tsc src/roadmap/roadmap.ts --outDir dist/roadmap/ && cp src/roadmap/roadmap.css dist/roadmap/roadmap.css && cp src/roadmap/roadmap.html dist/roadmap/roadmap.html"
   },
   "repository": {
     "type": "git",
