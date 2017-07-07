@@ -1,7 +1,7 @@
 {
   "name": "tsmean",
   "version": "1.0.0",
-  "description": "Tutorial Page how to setup the Typescript-Mean project from scratch",
+  "description": "Tutorial Page how to setup the TypeScript-Mean project from scratch",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/bersling/ts-mean.git"
   },
   "keywords": [
-    "Typescript",
+    "TypeScript",
     "MEAN"
   ],
   "author": "Daniel Niederberger <bersling@gmail.com>",
