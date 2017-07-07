@@ -176,9 +176,13 @@ table.nice-table td:first-child {
 .jumbotron {
     /* background-image: linear-gradient(90deg,#3F51B5 0,#7986CB); */
     background: #3F51B5;
-    padding: 6rem 0  8rem 0;
+    padding: 50px 50px;
     margin-top: 50px;
     text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center
 }
 .jumbo-logo-wrapper {
     position: relative;
@@ -189,15 +193,29 @@ table.nice-table td:first-child {
 
 .jumbo-slogan {
     color: white;
-    font-size: 30px;
+    font-size: 50px;
     font-weight: bold;
     padding: 10px;
+    max-width: 400px;
+    text-align: left;
 }
 
+.jumbo-logo {
+    margin-bottom: 50px;
+}
+
+@media(max-width: 923px) {
+    .jumbo-logo {
+        display: none;
+    }
+}
 
 @media (max-width: 500px) {
     .jumbo-logo-wrapper {
         height: 275px;
+    }
+    .jumbotron {
+        padding: 50px 20px;
     }
 }
 
