@@ -1,0 +1,247 @@
+@import 'variables.scss';
+@import 'responsive';
+@import 'social';
+@import 'jumbo';
+@import 'animation';
+
+.padded {
+    padding: 20px;
+}
+
+.tstrend {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+/* body styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 161%;
+}
+
+/* paragraph styles */
+p {
+    line-height: 161%;
+    text-align: justify;
+}
+
+/* button styles */
+.hamburger {
+    background: transparent;
+    padding: 10px;
+}
+.nav-logo-button {
+    background: transparent;
+    padding: 0;
+    height: 50px;
+}
+button {
+    border: 0;
+    padding: 10px;
+    background: white;
+    border-radius: 2px;
+}
+button.primary {
+    background: #3F51B5;
+    color: white;
+    box-shadow: 1px 1px 5px #888888;
+    font-size: 15px;
+}
+button:hover {
+    cursor: pointer;
+}
+
+/* header styles */
+header {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 50px;
+    z-index: 2;
+    background: RGBA(255, 255, 255, 0.90);
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+}
+
+/* main styles, content styles */
+main {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+article {
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 700px;
+    background: white;
+}
+
+/* tables */
+table.nice-table {
+    background: #F5F5F5;
+    width: 100%;
+    padding: 10px;
+}
+
+table.nice-table td:first-child {
+    text-align: right;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+.step {
+    color: #3F51B5;
+}
+
+.footer-smallprint {
+    font-size: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+.local-consumer-img {
+    margin: 0 auto;
+    max-width: 450px;
+}
+
+.margin-left-right {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+
+hr {
+    padding: 0;
+    border: none;
+    color: #f0f0f0;
+    text-align: center;
+}
+hr:after {
+    content: "*  *  *";
+    display: inline-block;
+    position: relative;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+}
+
+
+/* highlighting */
+
+.highlight {
+    color: $accent;
+}
+
+
+/* code-snippet styles */
+
+.file-label {
+    margin-bottom: -10px;
+    font-size: 0.7rem;
+    color: #459B45;
+}
+.file-label-two {
+    padding: 5px;
+    color: #459B45;
+}
+
+amp-accordion>section>pre.code-snippet {
+    white-space: pre-wrap;
+}
+
+.code-snippet {
+    overflow-x: scroll;
+    padding: 10px;
+    /*box-shadow: 1px 1px 5px 0 #aaaaaa;*/
+    background: #F5F5F5;
+}
+
+.highlight {
+    color: #D0092F;
+}
+
+.spacer10 {
+    height: 10px;
+}
+.spacer50 {
+    height: 50px;
+}
+
+/* link */
+a {
+    color: $accent;
+}
+
+/* github link */
+.github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 250px;
+    height: 3rem;
+    color: white;
+    font-size: 20px;
+    background: #3F51B5;
+    text-decoration: none;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px 0 #888888;
+}
+
+.github-image {
+    padding-right: 20px;
+    margin-top: -3px;
+}
+
+.github-link-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* general styles */
+.flex {
+    display: flex;
+}
+
+.flex-auto {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+}
+
+.center {
+    text-align: center;
+}
+.margin0 {
+    margin: 0 auto;
+}
+
+.anchor {
+    display: block;
+    position: relative;
+    top: -50px;
+    visibility: hidden;
+}
+
+.important {
+    color: #D0092F;
+}
+
+.standard-image-wrapper {
+    max-width: 600px;
+}
+
+.math-lib-image {
+    max-width: 300px;
+    margin: 0 auto
+}
+
+.intellij-img {
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.boxed {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}

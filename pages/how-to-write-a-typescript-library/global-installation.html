@@ -1,0 +1,104 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  {{> ./components/common-head.html}}
+  <title>How to write a consumer for a Typescript library</title>
+  <meta name="description"
+        content="You've written a typescript library, but you'd like to be able to run it with my-cool-lib from the terminal? Here's how!">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Library, Example, 2017, Publish, NPM, npm link, How to, Guide, Typescript Library, Global">
+  <link rel="canonical" href="http://how-to-write-a-typescript-library.com/global-installation" />
+</head>
+<body class="htwatl">
+  
+  {{> ./components/analytics.html }}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header.html}}
+  
+  <div class="jumbotron">
+    <div class="jumbo-image-wrapper">
+      <amp-img class="jumbo-image"
+               alt="Consumer Banner Image"
+               width="150"
+               height="150"
+               layout="responsive"
+               src="/img/003-planet-earth.svg"></amp-img>
+    </div>
+    <h1 class="jumbo-text">Writing a command-line executable with Typescript</h1>
+  </div>
+  
+  <article class="flex-auto">
+    On <a href="/">the main tutorial</a> we've
+    setup the library <code>'hwrld'</code>.
+    Now we're going to learn how to make a library available as a system command.
+    Actually, once you've completed the main tutorial, this becomes reaaaally easy. Just two simple steps!
+    
+    
+    <h2><span class="step">Step1:</span> Add execution instructions</h2>
+    
+    <p>
+      On top of your executable files (the main files), add the following line:
+    </p>
+    
+    <pre class="code-snippet">#!/usr/bin/env node</pre>
+    
+    <p>
+      This makes sure the system understands how to execute the compiled javascript file, by instructing it to
+      interpret it with <code>node</code>.
+    </p>
+    
+    <h2><span class="step">Step 2:</span> Modfiy the package.json</h2>
+    
+    <p>
+      The <code>package.json</code> just needs to be modified a bit, so it looks like this:
+    </p>
+  
+    <div class="file-label">typescript-library/package.json</div>
+    <pre class="code-snippet">{
+  "name": "hwrld",
+  "version": "1.0.0",
+  "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
+  "main": "dist/index.js",
+  <span class="highlight">"bin": {
+      "hwrld": "dist/index.js"
+  },</span>
+  "types": "dist/index.d.ts"
+}
+</pre>
+    
+    <p>And voilà! Once you publish this, you will be able to install you're package globally on a machine using:</p>
+    
+    <pre class="code-snippet">sudo npm install -g hwrld</pre>
+    
+    <p>
+      Of course for the <code>hwrld</code> package this is pretty useless.
+      A really simple yet instructive example I've written is a controller for the <code>mpc</code> music player.
+      You can find the code here: <a href="https://github.com/bersling/mpc-control">https://github.com/bersling/mpc-control</a>.
+    </p>
+    
+    <p>
+      By the way, there wasn't really anything typescripty about this tutorial,
+      it holds just as well for plain javascript node modules!
+    </p>
+    
+    <div class="spacer10"></div>
+  
+    <p>
+      You can now ...
+    <ul>
+      <li><a href="./"> ... go back to the main tutorial</a></li>
+      <li><a href="./unit-testing"> ... read about unit testing</a></li>
+      <li><a href="./local-consumer"> ... read about how to build a local consumer</a></li>
+    </ul>
+    </p>
+
+  </article>
+  
+  {{> ./components/social-footer.html}}
+  
+  {{> ./components/footer.html}}
+
+</body>
+</html>

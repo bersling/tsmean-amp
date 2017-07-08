@@ -1,0 +1,128 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  {{> ./components/common-head.html}}
+  <title>How to write a consumer for a Typescript library</title>
+  <meta name="description"
+        content="You've written a typescript library and before publishing it to npm, you want to try it out locally. Here's how!">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Library, Example, 2017, Publish, NPM, npm link, How to, Guide, Typescript Library, consumer">
+  <link rel="canonical" href="http://how-to-write-a-typescript-library.com/local-consumer" />
+</head>
+<body class="htwatl">
+  
+ {{> ./components/analytics.html }}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header.html}}
+  
+  <div class="jumbotron">
+    <div class="jumbo-image-wrapper">
+      <amp-img class="jumbo-image"
+               alt="Consumer Banner Image"
+               width="150"
+               height="150"
+               layout="responsive"
+               src="/img/consumer.svg"></amp-img>
+    </div>
+    <h1 class="jumbo-text">Create a Consumer for your Library</h1>
+  </div>
+  
+  <article class="flex-auto">
+    On <a href="/">the main tutorial</a> we've
+    setup the library <code>'hwrld'</code>.
+    But let's say we're not comfortable publishing it to npm yet and we want to test locally
+    how it would behave once published.
+    Luckily, setting up a consumer for your library is really easy.
+    
+    <h2><span class="step">Step 1:</span> Create a folder</h2>
+    
+    <p>
+      If your library is contained for example in <code>mylib</code>, then create <code>libconsumer</code>
+      next to it so your folder structure looks like this:
+    
+    <pre class="code-snippet">somewhere-on-your-machine
+├── mylib
+└── libconsumer</pre>
+    
+    </p>
+    
+    <h2><span class="step">Step 2:</span> Create a package.json</h2>
+    <p>
+      Create a <code>package.json</code> file. It could look somewhat like this one:
+    <div class="file-label">libconsumer/package.json</div>
+    <pre class="code-snippet">{
+  "name": "libconsumer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}</pre>
+    
+    It actually doesn't matter too much what's in there, but it needs to be present for the next step to work.
+    </p>
+    
+    <h2>
+      <span class="step">Step 3:</span> Link your library
+    </h2>
+    
+    <p>
+      Now comes the magic. Run
+    <pre class="code-snippet highlight">npm link ../mylib</pre>
+    This will create a symlink in <code>libconsumer</code>'s <code>node_modules</code> to the <code>mylib</code> library.
+    To read more on <code>npm link</code>, <a href="https://docs.npmjs.com/cli/link">see the docs</a>.
+    </p>
+    
+    <h2>
+      <span class="step">Step 4:</span> Consume your library
+    </h2>
+    
+    <p>
+      Write some file(s) to consume your library. For example
+    <div class="file-label">libconsumer/somefile.ts</div>
+    <pre class="code-snippet">import {HelloWorld} from 'hwrld'
+HelloWorld.sayHello();</pre>
+    
+    You compile this simple example like this:
+    <pre>tsc somefile.ts</pre>
+    
+    Finally you can run
+    <pre>node somefile.js</pre>
+    and in this example it should log <code>hi</code> to the console. And that's it!
+    </p>
+  
+    <amp-img placeholder
+             alt="How to crete a consumer a typescript library"
+             layout="responsive"
+             class="boxed"
+             width=450
+             height=270
+             src="/img/ll.gif">
+    </amp-img>
+    
+    <div class="spacer10"></div>
+    
+    <p>
+      You can now ...
+    <ul>
+      <li><a href="./"> ... go back to the main tutorial</a></li>
+      <li><a href="./unit-testing"> ... read about unit testing</a></li>
+      <li>
+        <a href="./global-installation"> ... read how to make your library available as a system command</a>
+      </li>
+    </ul>
+    </p>
+  
+  </article>
+  
+  {{> ./components/social-footer.html}}
+  
+  {{> ./components/footer.html}}
+
+</body>
+</html>

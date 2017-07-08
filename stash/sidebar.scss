@@ -1,0 +1,42 @@
+
+
+/* sidebar styles */
+.sidebar-button {
+    text-decoration: none;
+    color: #3F51B5;
+    font-weight: 600;
+    display: block;
+    padding: 0 20px;
+}
+
+.sidebar-lg > ul {
+    position: sticky;
+    top: 3rem;
+}
+
+.sidebar {
+    box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+    background: white;
+}
+
+.sidebar-close-button {
+    color: black;
+}
+
+.sidebar > ul {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.sidebar > ul > li {
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+
+.sidebar-lg {
+    padding-top: 6rem;
+    /*So it matches up with the clip path polygon */
+    margin-top: calc(-1 * 7rem);
+    min-width: 200px;
+}

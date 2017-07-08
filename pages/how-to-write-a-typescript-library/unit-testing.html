@@ -1,0 +1,167 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  {{> ./components/common-head.html}}
+  <title>How to unit test a Typescript library</title>
+  <meta name="description" content="Unit tests are the cornerstone of bug free applications. Learn now how to write unit tests in Typescript!">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Example, 2017, Unit, Test, IntelliJ, Testing, Mocha, Chai, npm">
+  <link rel="canonical" href="http://how-to-write-a-typescript-library.com/unit-testing" />
+</head>
+<body class="htwatl">
+  
+  {{> ./components/analytics.html}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header.html}}
+  
+  <div class="jumbotron">
+  
+    <div class="jumbo-image-wrapper">
+      <amp-img class="jumbo-image"
+               alt="Unit Testing in Typescript"
+               width="150"
+               height="150"
+               layout="responsive"
+               src="/img//test1.svg">
+      </amp-img>
+    </div>
+  
+    <h1 class="jumbo-text">
+      Unit testing a Typescript Library
+    </h1>
+
+  </div>
+  
+  <article class="flex-auto">
+    
+    Unit tests are the cornerstone of a bug free application. As your codebase grows, you can't always test every
+    feature manually. But you <i>can</i> test every feature using unit tests. And it's not even hard to set up.
+    Here's how to set up unit tests in Typescript!
+    
+    <h2><span class="step">Step 1:</span> Install packages for unit testing</h2>
+    <p>
+      Unit tests <code>assert</code> some properties of the code. For example a method <code>add(x,y)</code>
+      should correctly add x and y.
+      With a unit test you can then test some sample cases like <code>assert(add(3,4)).equals(7)</code>.
+      To get this <code>assert</code> method and to execute tests in the first place, we need some testing software.
+      Here we'll choose Mocha and Chai.
+      To install mocha and chai, you can run:
+    </p>
+    
+    <pre class="code-snippet">yarn add mocha @types/mocha chai @types/chai ts-node typescript --dev</pre>
+    
+    <p>You will need to have <code>yarn</code> installed for this to work,
+      see <a href="https://yarnpkg.com/lang/en/docs/install">install manual</a>.
+    </p>
+    
+    <h2><span class="step">Step 2:</span> Writing your first unit test</h2>
+    
+    <p>Let's say you have the following unit:</p>
+  
+    <div class="file-label">typescript-library/src/math.ts</div>
+    <pre class="code-snippet">export namespace MyMath {
+  export function add(x: number, y: number) {
+    return x + y;
+  }
+}
+</pre>
+    
+    <p>Then a first unit test could look like:</p>
+  
+    <div class="file-label">typescript-library/src/math.test.ts</div>
+    <pre class="code-snippet">import { MyMath } from './math';
+
+import * as mocha from 'mocha';
+import * as chai from 'chai';
+
+const expect = chai.expect;
+describe('My math library', () => {
+
+  it('should be able to add things correctly' , () => {
+    expect(MyMath.add(3,4)).to.equal(7);
+  });
+
+});
+
+</pre>
+  
+    
+    <h2><span class="step">Step 3:</span> Run the unit test(s)</h2>
+    <p>
+      You can run the test with the following command:
+    </p>
+    <pre class="code-snippet">mocha --reporter spec --compilers ts:ts-node/register 'src/**/*.test.ts'</pre>
+    <p>
+      And basically that's it. You should see an output in the console, that looks like this:
+      <amp-img src="/img//mathlib.png"
+               alt="Unit test result"
+               class="math-lib-image"
+               width="504"
+               height="236"
+               layout="responsive">
+      </amp-img>
+    </p>
+    <p>
+      You can put this long command into <code>package.json</code> into
+      <code>"scripts: { "test": "..."}"</code> and then run the tests with <code>npm test</code>.
+      So the complete package.json at this point would look like:
+      
+      <pre class="code-snippet">{
+  "devDependencies": {
+    "@types/chai": "^4.0.0",
+    "@types/mocha": "^2.2.41",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.1.0"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec --compilers ts:ts-node/register 'src/**/*.test.ts'"
+  }
+}
+</pre>
+    </p>
+    <p>
+      If you want to run a single test, run
+      <code>mocha --reporter spec --compilers ts:ts-node/register --grep "TestName" 'src/**/*.test.ts'</code>
+      where "TestName" matches any <code>describe</code> or <code>it</code>. What's also quite cool, with
+      IntelliJ you can setup your unit tests such that you can execute single tests right from the code!
+      <a href="https://www.jetbrains.com/help/idea/2017.1/run-debug-configuration-mocha.html">Here is the manual.</a>
+    </p>
+  
+  
+    <amp-img placeholder
+             alt="Unit testing in IntelliJ"
+             width=700
+             height=455
+             layout="responsive"
+             class="intellij-img boxed"
+             src="/img/intellij.gif">
+    </amp-img>
+    
+    <div class="spacer10"></div>
+    
+    <p>
+      Now you can either ...
+    <ul>
+      <li>
+        <a href="./"> ... go back to the main article</a>
+      </li>
+      <li>
+        <a href="./local-consumer"> ...read how to set up a local consumer without publishing to npm</a>
+      </li>
+    <li>
+      <a href="./global-installation"> ... read how to make your library available as a system command</a>
+    </li>
+    </ul>
+    </p>
+    
+  </article>
+
+  {{> ./components/social-footer.html}}
+  
+  {{> ./components/footer.html}}
+
+</body>
+</html>

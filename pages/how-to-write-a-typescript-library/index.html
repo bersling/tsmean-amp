@@ -1,0 +1,242 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  {{> ./components/common-head.html}}
+  <title>Tutorial for writing a typescript library</title>
+  <meta name="description" content="Looking for how to write a typescript library in 2017 and publish it to npm? Look no further,
+here is a simple yet comprehensive tutorial!">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library">
+  <link rel="canonical" href="http://how-to-write-a-typescript-library.com" />
+</head>
+<body class="htwatl">
+  
+  {{> ./components/analytics.html}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header.html}}
+  
+  <div class="jumbotron">
+  
+    <div class="jumbo-image-wrapper">
+      <amp-img class="jumbo-image animation-target" width="150" height="150" layout="responsive" src="/img/004-box.png"></amp-img>
+    </div>
+  
+    <h1 class="jumbo-text">
+      Building a Typescript Library?
+    </h1>
+    
+  </div>
+  
+  <article class="flex-auto">
+    
+    <h2>How to Write a Typescript Library</h2>
+    
+    <p>
+      Writing modular code is a good idea. And nothing is more modular than writing a library.
+      How can you write a typescript library? Well, that's exactly what this website is about!
+      This tutorial is from <b>mid 2017</b> and written for <b>Typescript 2.x</b>!
+    </p>
+    
+    <h2><span class="step">Step 1</span>: Setup tsconfig.json</h2>
+    <p>
+      Create a project folder, in this tutorial we'll call it <code>typescript-library</code>.
+      Then proceed to create a <code>tsconfig.json</code> in <code>typescript-library</code>.
+      Your <code>tsconfig.json</code> file should look somewhat like this:
+    </p>
+    
+    <div class="file-label">typescript-library/tsconfig.json</div>
+    <pre class="code-snippet">{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    <span class="highlight">"declaration": true,</span>
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}</pre>
+    
+    <p>
+      Pretty much like a setup for a non-library project, but with one important addition:
+      You need to add the "<span class="highlight">declaration: true</span>" flag. This will generate the
+      typings required for the consumers to use this library.
+    </p>
+    
+    <h2>
+      <span class="step">Step 2</span>: Implement your library
+    </h2>
+    
+    <p>
+      Proceed as you would if you wouldn't write a library. Create a <code>src</code> folder
+      and in that <code>src</code> folder all the files that make up your heart of your library.
+    </p>
+    
+    <p>
+      For this  demo, we'll setup a silly <code>hello-world.ts</code> file, that looks like so:
+    </p>
+    
+    <div class="file-label">typescript-library/src/hello-world.ts</div>
+    <pre class="code-snippet">export namespace HelloWorld {
+  export function sayHello() {
+    console.log('hi')
+  }
+  export function sayGoodbye() {
+    console.log('goodbye')
+  }
+}
+</pre>
+    
+    <h2><span class="step">Step 3</span>: Create an index.ts file</h2>
+    
+    <p>
+      Add an <code>index.ts</code> file to your <code>src</code> folder.
+      The purpose of it is to export all the parts of the library you want to make available for consumers.
+      In our case it would simply be:
+    </p>
+    
+    <div class="file-label">typescript-library/src/index.ts</div>
+    <pre class="code-snippet">export {HelloWorld} from './hello-world'</pre>
+    
+    <p>
+      The consumer would be able to use the library later on like so:
+    </p>
+    
+    <div class="file-label">someotherproject/src/somefile.ts</div>
+    <pre class="code-snippet">import {HelloWorld} from '<span class="highlight">hwrld</span>'
+HelloWorld.sayHello();
+</pre>
+    
+    <p>
+      You see that we have a new name here, "hwrld",
+      we haven't seen anywhere yet.
+      What is this name?
+      It's the name of the library you're gonna publish to npm also known as the <span class="highlight">package name</span>!
+    </p>
+    
+    <h2><span class="step">Step 4</span>: Configure package.json</h2>
+    
+    <p>
+      The package name is what the consumer going to use in the imports later on,
+      so I prefer to not have it too long and if possible with no hyphens since it's easiest
+      just to type a string when declaring the library as an import
+      (an the consumers editor doesn't have auto-import). If you have to type
+      <code>import * as typescript-library from 'my-crazy-library-name'</code> each time, it's not so pleasant.
+      For this demo I have have chosen <code>hwrld</code> since it was still available on npm.
+    </p>
+    
+    <p>
+      The package name
+      is usually right at the top of the <code>package.json</code>, so the package.json. The whole <code>package.json</code>
+      would look like so:
+    </p>
+    
+    
+    <div class="file-label">typescript-library/package.json</div>
+    <pre class="code-snippet">{
+  "name": "hwrld",
+  "version": "1.0.0",
+  "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
+  "main": "dist/index.js",
+  <span class="highlight">"types": "dist/index.d.ts"</span>
+}
+</pre>
+    
+    <p>
+      If you don't have a package yet you can create one with <code>npm init</code> and it will guide you through the process.
+      Remember, the package name you choose will be the one people later use in their imports, so choose wisely!
+    </p>
+    
+    <p>
+      There's also one all-important flag in this package.json: You
+      have to declare where to find the type declarations!
+      This is done using <span class="highlight">"types": "dist/index.d.ts"</span>
+      Otherwise the consumer won't find your module!
+    </p>
+    
+    <h2><span class="step">Step 5</span>: Configure .npmignore</h2>
+    
+    <div class="">
+      When you look at your package when loading it from npm,
+      you'll notice that it contains the dist AND the src folder.
+      However, you don't really need the source folder,
+      as the compiled files along with the typings (.d.ts files)
+      live in the dist folder. Thus you can create an .npmignore
+      file. In our case it's simple:
+    </div>
+    
+    <div class="file-label">
+      typescript-library/.npmignore
+    </div>
+    <pre class="code-snippet">tsconfig.json
+src</pre>
+    
+    
+    <h2><span class="step">Step 6</span>: Publish to npm</h2>
+    
+    <p>
+      To publish your first version to npm run:
+    </p>
+    
+    <pre class="code-snippet">tsc
+npm publish
+</pre>
+    
+    
+    <p>
+      Now you're all set to go! Consume your library anywhere you want by running:
+    </p>
+    
+    <pre class="code-snippet">npm install --save hwrld</pre>
+    
+    <p>
+      
+      and consume it using
+    
+    </p>
+    
+    <pre class="code-snippet">import {HelloWorld} from 'hwrld'
+HelloWorld.sayHello();</pre>
+    
+    <p>
+      For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run <code>npm version patch</code>,
+      for new features run <code>npm version minor</code> and on breaking changes of your api run <code>npm version major</code>.
+    </p>
+  
+    <hr>
+    
+    <div class="">
+      Check out the full source of the demo library on github:
+      <a href="https://github.com/bersling/typescript-library-starter">https://github.com/bersling/typescript-library-starter</a>.
+    </div>
+  
+    <hr>
+    
+    <div>
+      The above tutorial contains all the steps necessary to build & publish a working library.
+      However, you should probably also include some unit tests and you might want to test the behavior of your library
+      locally first, without publishing.
+      Here are some more resources for this:
+      <ul>
+        <li>
+          <a href="./unit-testing">How to unit-test your library</a>
+        </li>
+        <li>
+          <a href="./local-consumer">How to set up a local consumer without publishing to npm</a>
+        </li>
+        <li>
+          <a href="./global-installation">How to make your library available as a system command</a>
+        </li>
+      </ul>
+    </div>
+  
+  </article>
+  
+  {{> ./components/social-footer.html}}
+  
+  {{> ./components/footer.html}}
+
+</body>
+</html>

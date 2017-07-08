@@ -4,11 +4,11 @@
   "description": "Tutorial Page how to setup the TypeScript-Mean project from scratch",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "$(npm bin)/watch 'npm run mustache' --inverval=1",
     "build": "mkdir -p dist && cp -r img dist && npm run mustache && npm run roadmap",
-    "mustache": "node compile.js",
+    "mustache": "ts-node compile.ts",
     "roadmap": "tsc src/roadmap/roadmap.ts --outDir dist/roadmap/ && cp src/roadmap/roadmap.css dist/roadmap/roadmap.css && cp src/roadmap/roadmap.html dist/roadmap/roadmap.html"
   },
   "repository": {
@@ -26,12 +26,15 @@
   },
   "homepage": "https://github.com/bersling/ts-mean#readme",
   "devDependencies": {
+    "@types/node": "^8.0.9",
     "mu2": "^0.5.21",
     "watch": "^1.0.2"
   },
   "dependencies": {
+    "amphtml-validator": "^1.0.20",
     "connect": "^3.6.2",
     "express": "^4.15.3",
+    "node-sass": "^4.5.3",
     "serve-static": "^1.12.3"
   }
 }

@@ -1,0 +1,90 @@
+.landing {
+  .jumbotron {
+    background: #3F51B5;
+    padding: 50px 50px;
+    margin-top: 50px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center
+  }
+  .jumbo-logo-wrapper {
+    position: relative;
+    height: 400px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .jumbo-slogan {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 10px;
+    max-width: 400px;
+    text-align: left;
+  }
+
+  .jumbo-logo {
+    margin-bottom: 50px;
+  }
+
+  @media(max-width: 923px) {
+    .jumbo-logo {
+      display: none;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .jumbo-logo-wrapper {
+      height: 275px;
+    }
+    .jumbotron {
+      padding: 50px 20px;
+    }
+  }
+}
+
+.htwatl {
+  .jumbotron {
+    /* background-image: linear-gradient(90deg,#3F51B5 0,#7986CB); */
+    background: #3F51B5;
+    padding: 6rem 0  6rem 0;
+    margin-top: 50px;
+    margin-bottom: 2rem;
+    /* -webkit-clip-path: polygon(100% 100%,100% 0,-400% 0);
+    clip-path: polygon(100% 100%,100% 0,-400% 0); */
+  }
+
+  @media (max-width:40rem) {
+    .jumbo-text {
+      text-align: center;
+      color: white;
+      font-size: 25px;
+      font-weight: bold;
+      line-height: 161%;
+    }
+  }
+  .jumbo-text {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 161%;
+  }
+
+  .jumbo-image-wrapper {
+    display: flex;
+    max-width: 600px;
+    height: 200px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .jumbo-image {
+    height: 150px;
+    width: 150px;
+  }
+
+}
