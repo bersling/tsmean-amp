@@ -54,6 +54,14 @@ const htwatlPages = ['index', 'unit-testing', 'local-consumer', 'angular', 'glob
 htwatlPages.forEach(page => {
   pages.push('how-to-write-a-typescript-library/' + page)
 });
+const vsPages = ['mongo-vs-mysql-for-webapps'];
+vsPages.forEach(page => {
+  pages.push('vs/' + page);
+});
+const angularPages = ['pitfalls', 'state-management'];
+angularPages.forEach(page => {
+  pages.push('angular/' + page);
+});
 
 pages.forEach(page => {
   const writeStream = fs.createWriteStream(`./dist/${page}.html`);

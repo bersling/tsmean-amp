@@ -1,0 +1,275 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> ./components/common-head.html}}
+  <title>How to write an Angular library</title>
+  <meta name="description" content="Want to write a library for Angular2+? Sick of all the complicated tutorials? Here's an easy guide in just 4 steps.">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library, Angular2, Angular">
+  <link rel="author" content="Daniel Niederberger" href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical" href="http://how-to-write-a-typescript-library.com/angular2" />
+
+</head>
+<body class="landing">
+  
+  {{> ./components/analytics.html}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header.html}}
+  
+  <div class="jumbotron">
+    <p class="jumbo-slogan">
+      Mongo vs MySQL for WebApps
+    </p>
+    <amp-img src="/img/comparisons/mongo-vs-mysql-for-webapps.png"
+             class="jumbo-logo xs-hide" alt="TypeScript Mean Banner" width="522" height="361"></amp-img>
+  </div>
+  
+  <article class="flex-auto">
+  
+    <p>
+      I'm going to crush all your arguments here.
+      It's a general argument against NoSQL in web-apps,
+      but code is going to be mostly MongoDB-related,
+      since that's what I have the most experience with.
+      Also note that I don't say there is absolutely no use-case
+      for a NoSQL database. I'm just saying your app should be backed by an SQL database to store
+      things like your registered users and so on. In the unlikely event that you really have a
+      special use-case, then use a separate NoSQL database for this, but don't put your relational data in there too!
+      So now let's move on to the crushing.
+    </p>
+  
+    &nbsp;
+    <blockquote>"NoSQL can be faster than SQL because it doesn't have to do table-joins"</blockquote>
+    <p>
+      That's true, but there is a well known and understood solution to this problem. It's called <strong>caching</strong>.
+      Let me elaborate.
+    </p>
+  
+    <p>
+      Let's say we have to load the following view a gazillion times a day:
+    </p>
+  
+    <amp-img src="/img/comparisons/mongodb-display-of-message-data-structure.png"
+             layout="responsive"
+             alt="Display of Message Data-Structure"
+             width="726"
+             height="324">
+    </amp-img>
+  
+    <p>
+      It's similar to a typical forum which most webapps have in some form.
+    </p>
+  
+    <p>
+      Then the argument for NoSQL would be that you could store everything denormalized as
+    </p>
+    <pre class="code-snippet">{
+  content: "bla bla"
+  user: {
+    name: "Jeremy Barns"
+    ...
+  }
+  comments: [
+    {content: "bla", user: {name: "Jonas Blue", ...}}},
+    {content: "blarb", user: {name: "Jeremy Barns", ...}}
+  ]
+}</pre>
+    <p>
+      Now in our cool web-app we could fetch all the information we needed without any table-joins, just by extracting
+      <strong>one </strong>document from the database. Super fast.
+    </p>
+  
+    <p>
+      Of course, we've introduced a problem with this. We have the same user in multiple locations.
+      So if Jeremy Barns decided to change his name, we'd have to update it on <strong>every message he ever made</strong>,
+      a true nightmare. That's why there are <strong>relational databases</strong>, so you can actually insert an
+      <strong>id </strong>instead of the whole user, which solves a lot of consistency problems.
+      Of course you could do the same with Mongo:
+    </p>
+  
+    <pre class="code-snippet">{
+  content: "bla bla"
+  user: 58e5ee14d37470005df49bcb
+  comments: [
+    {content: "bla", user: 50e5ee14d36470005cd66waf}},
+    {content: "blarb", user: 58e5ee14d37470005df49bcb}
+  ]
+}</pre>
+    <p>
+      and then in your application code you query the Message and from the Message you query the users,
+      but then it already looks awfully much like a relational database.
+      And you still haven't solved all problems with this. What if you now need a feature "delete a user and all of his
+      related data". Easy and consistent with a relational database. Impossible with NoSQL.
+    </p>
+  
+    <p>
+      So you say "well, we've got to choose between speed and consistency!".
+      Wrong. Let's say we implement the following data model:
+    </p>
+  
+    <pre class="code-snippet">interface Message {
+  content: string;
+  user: User;
+  comments: Message[];
+}
+
+interface User {
+  name: string;
+  ...
+}</pre>
+    <p>
+      where we use the same type "Message" for questions and replies. Now to build our view above one million time,
+      would we have to do one million times all of those table-joins:
+    </p>
+  
+    <pre class="code-snippet">message -&gt; user
+message -&gt; message -&gt; user (n times, where n = #comments)</pre>
+    ?
+    <p>
+      First of all, joins on properly indexed columns aren't actually that bad. SQL databases have strongly optimised
+      algorithms to make those joins fast. Second, we can still implement caching solutions, if the joins really pose
+      a problem. Now I'm not saying caching is all that simple, cache invalidation is a topic for itself, but at least
+      it's a solution that holds water. Caching here basically means building something like the denormalised data.
+      Ah, so for <strong>that </strong>you could use Mongo, as your <em>caching layer</em>! But if something goes wrong
+      with the consistency you can just clear the cache. You can't do that if the cache is your database!
+    </p>
+  
+    <p>
+      And what if suddenly this view isn't important at all anymore to your business?
+      You'd rather like to display it like that:
+    </p>
+  
+    <amp-img src="/img/comparisons/mongodb-display-of-message-data-structure.png"
+             alt="Jeremy's Messages"
+             width="736"
+             height="282">
+    </amp-img>
+  
+    <p>
+      Awww, snap! Those business people changed up everything, but you have a database full of
+      <strong>data optimised for another case</strong>! Denormalising data means
+      <a href="https://stackoverflow.com/a/174047/3022127"><strong>committing to certain joins</strong></a>.
+      So the ideal strategy that would give you <strong>performance and reliability </strong>would be:
+    </p>
+    <ol>
+      <li>Use a relational database to store data normalised</li>
+      <li>Use caching if there is a bottleneck of joins somewhere</li>
+    </ol>
+  
+    <p>
+      Furthermore: While changing business requirements will change <strong>most certainly</strong> it'll take probably a
+      bit longer for your "new cool web-app" to actually reach a stage where this sort of caching is necessary.
+    </p>
+  
+    <blockquote>"SQL doesn't scale horizontally"</blockquote>
+    <p>
+      Not out of the box, but once you reach a certain size you can easily switch to something like Amazon Aurora
+      (compatible with PostgreSQL and MySQL), which has up to 15 read instances. And once you outgrow this (and are
+      probably a billionaire by now), you can still implement caching solutions (see above).
+    </p>
+  
+    And what about write? Well, in SQL as well as in NoSQL databases you will have one master for write.
+    Then, classically the first thing to do is to scale up vertically the instance that's responsible for
+    writing. Once this fails, you can check where's the bottle-neck, e.g. move server logs to Redis (offloading).
+    And once this fails, you can still use sharding. While MongoDB has an automatic mechanism for this, with the
+    SQL solutions you'll have to take care of the sharding-logic yourself. However, that's not so bad. Since when
+    this happens you're probably also at a size where defining the sharding-logic yourself brings performance gains.
+  
+    &nbsp;
+    <blockquote>"In SQL, adding new columns to large tables can lock / slow down the database"</blockquote>
+  
+    <p>
+      When you're at the multi-million-rows-per-table level of an application, you can use a solution like Amazon's Aurora.
+      This system doesn't slow down when columns are added. From the docs:
+    </p>
+  
+  
+    <p class="bers-box">
+      In Amazon Aurora, you can use fast DDL to execute an ALTER TABLE operation in place, nearly instantaneously.
+      The operation completes without requiring the table to be copied and without having a material impact on other DML
+      statements. Because the operation doesn't consume temporary storage for a table copy, it makes DDL statements
+      practical even for large tables on small instance types.
+    </p>
+  
+  
+    <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Managing.html">http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Aurora.Managing.html</a>
+  
+    <p>
+      Actually, you can start with Amazon Aurora right away,
+      as it isn't really more expensive than a regular database server.
+    </p>
+  
+    &nbsp;
+    <blockquote>"MongoDB is more reliable / available with it's Replica Sets than a classical SQL DB!"</blockquote>
+    <p>
+      Again, ever heard of something like AWS? Amazon (or other cloud RDB providers)
+      takes care of availability for you, so you don't need to worry about that.
+    </p>
+    &nbsp;
+    <blockquote>"MongoDB is free and you can run it on cheap linux systems"</blockquote>
+    <p>
+      The server costs probably don't factor in too much next to your love,
+      sweat and time put into your project. Having said that,
+      a simple MongoDB production setup on AWS would be around 65$ / month (smallest MongoDB
+      atlas cluster). By setting it up yourself, you'll not really be cheaper than this.
+      A simple Aurora production setup would be ~40$ / month.
+    </p>
+  
+    &nbsp;
+    <blockquote>"But I have no schema! I have truly unstructured data!"</blockquote>
+    <p>
+      Really? You don't have users logging in, connecting with something?
+      Even if so, sooner or later you will have some relations in any meaningful web-app.
+      I'm still waiting for that use case where there is literally no structure in the data of a web-app.
+    </p>
+  
+    &nbsp;
+    <blockquote>[With Mongo] you can choose what level of consistency you want depending on the value of the data (e.g. faster performance = fire and forget inserts to MongoDB, slower performance = wait til insert has been replicated to multiple nodes before returning) - <a href="https://stackoverflow.com/a/5244921/3022127">source</a></blockquote>
+    <p>
+      You probably don't have "fire and forget" data. Which data would that be? I can't think of any.
+      Users interact with your system, that's what generates the data as well as the business value for your system.
+      What would be so invaluable as to lose it? A user post? Certainly not. A user changing the privacy settings? Better not.
+    </p>
+  
+    &nbsp;
+    <blockquote>With MongoDB you get full-text search</blockquote>
+  
+    <p>
+      While that may be true and will help you get your full-text search started,
+      it's not that hard to set up a search engine like Lucene or Elasticsearch. We've actually chosen MongoDB
+      for one project for exactly this reason but we quickly
+      outgrew the capabilities of it and switched to Lucene, while being stuck with Mongo for all our relational data.
+    </p>
+  
+    <h2>Conclusion</h2>
+    <p>
+      Disadvantages of NoSQL:
+    </p>
+    <ul>
+      <li>No consistency</li>
+      <li>No transaction safety / No rollbacks</li>
+      <li>Less flexibility in querying</li>
+    </ul>
+    <p>
+      Advantages:
+    </p>
+  
+    <p>
+      Yet to be found.
+    </p>
+  
+    <p>
+      If you liked my rant, don't forget to follow me on facebook or twitter and share this post with others thirsty for NoSQL criticism!
+    </p>
+
+  </article>
+  
+  {{> ./components/social-footer.html}}
+  
+  {{> ./components/footer.html}}
+  
+</body>
+</html>

@@ -1,10 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html ⚡ lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
   
+  {{> ./components/common-head.html}}
+  <title>How to write an Angular library</title>
+  <meta name="description" content="Want to write a library for Angular2+? Sick of all the complicated tutorials? Here's an easy guide in just 4 steps.">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library, Angular2, Angular">
+  <link rel="author" content="Daniel Niederberger" href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical" href="http://how-to-write-a-typescript-library.com/angular2" />
+
+</head>
+<body class="landing">
+  
+  {{> ./components/analytics.html}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header.html}}
+  
+  <div class="jumbotron">
+    <p class="jumbo-slogan">
+      Manage State in Angular2+
+    </p>
+    <amp-img src="/img/angular/state-management/manage-state.svg"
+             class="jumbo-logo xs-hide"
+             alt="TypeScript Mean Banner"
+             width="300"
+             height="300">
+    </amp-img>
+  </div>
+  
+  <article class="flex-auto">
+    
+    <p>
+      This problem has always been strongly discussed in the Angular community, but not many standards have emerged. Most tutorials are too far from real-world applications to capture the essence of the problem and only simplistic "parent-child" interactions are discussed. As an application grows, components become more deeply nested and we need solutions to handle interactions between components that are more distant from each other than "parent-child".
+    </p>
+  
+    <p>
+      The best approaches to me seem to be storing some state in services or using a state management library. The most prominent exponent for such a library would be <a href="https://github.com/ngrx/store">ngrx/store (https://github.com/ngrx/store)</a>. If you're having trouble with managing states you are not alone, other people have already had this problem and dealt with it. Unfortunately those people just don't seem the to be the ones from the Angular Team, which still promote their "hello-world" data-binding mechanisms.
+    </p>
+  
+    <p>
+      I'm not alone with this opinion, similarly thinks Kyle Cords in <a href="https://blog.oasisdigital.com/2016/managing-state-angular-2/">this excellent summary on managing states in Angular2+</a>. Exactly as in my experience, he describes how the application gets messier as the codebase grows with the classical data-binding mechanisms you find in <em>all</em><strong> </strong>Angular tutorials. The way I see it, the tutorials mostly mention those techniques for two reasons:
+    </p>
+  
+    <ul>
+      <li>They are a tiny bit simpler to demonstrate in a small demo app than other methods.</li>
+      <li>They are a "Unique Selling Point" for Angular. If they would suggest using something like ngrx/store they'd essentially say "why don't you just switch to React &amp; Redux, here's a link to get you started".</li>
+    </ul>
+  
+    <p>
+      Now whether it's best to use ngrx/store or using mechanisms provided by angular (services) is subject to debate. Here's a list of pros and cons for each: <a href="https://www.bersling.com/2017/06/05/state-management-ngrxstore-vs-angular-services/">State Management: ngrx/store vs Angular services</a>
+    </p>
+  
+    <p>
+      In case you want to take the manual path with services, here are some of my thoughts on the subject.
+    </p>
+  
+    <h2>Update resources with an id</h2>
+  
+    <p>
+      Typically, behind every application, we have a database. And typically, this database has different <strong>tables</strong> (or collections or however you want to call them) and all of the entries in a table have an <strong>id</strong>. For example behind the <a href="https://angular.io/resources/live-examples/toh-3/ts/eplnkr.html">Angular2 Heroes tutorial</a>, we'd have a database with a heroes table where each hero is stored with its own id. Almost every application is structured this way. What's very often the case in a real-world application, is that we want to change the data in the database as well as in our entire application. There could be, for example, an input field to change a hero's name and when clicking the button "Change", we'd send the change-request to the server (database). When the server responds with "200 ok" we want to change the hero's name application wide. How would we go about that? The answer is: <a href="https://en.wikipedia.org/wiki/Observer_pattern">observables</a>.
+    </p>
+    
+    <amp-img src="/img/angular/state-management/update-all.png"
+             class="mwc-450"
+             alt="update all"
+             layout="responsive"
+             width="624" height="582">
+    </amp-img>
+  
+    <p>
+      Since "ResourceName + ResourceId" are always unique for each unique object in our application, we can easily build a frontend-datastore based on this. The basics of the ResourceStore service, or here more specifically a HeroStore (leaned on the Angular hero tutorial-series) are:
+    </p>
+    <pre class="code-snippet">import { Injectable } from '@angular/core';
+import { Hero } from './hero';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
+@Injectable()
+export class HeroService {
+  private heroStore = {
+  }
+
+  insertHero(hero: Hero): void {
+    this.heroStore[hero.id] = new BehaviorSubject&lt;Hero&gt;(hero);
+    this.heroStore[hero.id].next(hero);
+  }
+
+  updateHero(hero: Hero): void {
+    this.heroStore[hero.id].next(hero);
+  }
+  
+  getHero(heroId: string): Hero {
+    return this.heroStore[heroId];
+  }
+  
+}
+</pre>
+    <p>
+      Like this, everywhere in the application you can listen to changes on those observables. There is one catch though: You shouldn't forget to unsubscribe when the component is destroyed or otherwise you'll gather loads of dead listeners on your observables over time. Here's how it's done:
+    </p>
+    <pre class="code-snippet">import { Component, OnDestroy, OnInit } from '@angular/core';
+import 'rxjs/add/operator/takeUntil';
+import { Subject } from 'rxjs/Subject';
+
+import { MyThingService } from '../my-thing.service';
+
+@Component({
+    selector: 'my-thing',
+    templateUrl: './my-thing.component.html'
+})
+export class MyThingComponent implements OnDestroy, OnInit {
+    private ngUnsubscribe: Subject&lt;void&gt; = new Subject&lt;void&gt;();
+
+    constructor(
+        private myThingService: MyThingService,
+    ) { }
+
+    ngOnInit() {
+        this.myThingService.getThings()
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe(things =&gt; console.log(things));
+
+        this.myThingService.getOtherThings()
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe(things =&gt; console.log(things));
+
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
+}</pre>
+    <p>
+      (courtesy to <a href="https://stackoverflow.com/questions/43529169/error-takeuntil-is-not-a-function-on-all-my-observables">stackoverflow</a>)
+    
+      Here is the Hero-Tutorial adapted to use observables instead of ngModel: <a href="https://embed.plnkr.co/RCOQNw9cyY3UnrBV5D6Z?show=preview" target="_blank">https://embed.plnkr.co/RCOQNw9cyY3UnrBV5D6Z?show=preview</a>
+    </p>
+
+    <p>
+      The essential code bits behind this example are the hero.service:
+    </p>
+    <pre class="code-snippet">import { Injectable } from '@angular/core';
+import { Hero } from './hero';
+
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
+@Injectable()
+export class HeroService {
+  private heroStore = {
+  }
+
+  insertHero(hero: Hero): void {
+    this.heroStore[hero.id] = new BehaviorSubject(hero);
+    this.heroStore[hero.id].next(hero);
+  }
+
+  updateHero(hero: Hero): void {
+    this.heroStore[hero.id].next(hero);
+  }
+  
+  getHero(heroId: string): Hero {
+    return this.heroStore[heroId];
+  }
+  
+}
+</pre>
+    <p>
+      as well as the subscribing entities (here: app.component and hero-detail.component)
+    </p>
+    <pre class="code-snippet">//app.component.ts
+...
+ngOnInit() {
+    HEROES.forEach(hero =&gt; {
+      this.heroes.push(hero);
+      this.heroService.insertHero(hero);
+      this.heroService.getHero(hero.id).subscribe(updatedHero =&gt; {
+        for (let i = 0; i &lt; this.heroes.length; i++) {
+          if (this.heroes[i].id === updatedHero.id) {
+            this.heroes[i] = updatedHero;
+          }
+        }
+      });
+    })
+  }
+...
+
+//hero-detail.component.ts
+...
+ngOnInit() {
+    const heroObs = this.heroService.getHero(this.heroId);
+    this.hero = heroObs.getValue();
+    heroObs.subscribe(hero =&gt; {
+      this.hero = hero;
+    });
+  }
+...
+</pre>
+    &nbsp;
+  
+    <p>
+      Here, the heroes are fetched from a constant HEROES which is turned into observables on storage. The library used for observables is RxJS, <em>the </em>standard for an observable-library nowadays.
+    </p>
+  
+    <amp-img src="https://www.bersling.com/wp-content/uploads/2017/05/download-43.jpeg"
+             alt="RxJS Logo"
+             width="127" height="127"  >
+    </amp-img>
+  
+
+    <p>
+      Admittedly, at first it may look a bit more complicated using observables than using ngModel, especially when you are used to ngModel from all the tutorials and Angular 1 two-way binding. But as your application grows, this scales nicely as it guarantees consistent data across your application.
+    </p>
+  
+    <h2>Talk to all components of the same name</h2>
+    <p>
+      For example if our component structure would be:
+    </p>
+    <pre class="code-snippet">hero-list &gt; hero &gt; delete-button</pre>
+    Then how could the delete-button tell the hero list to delete a hero? Does it really have to tell its parent (hero) "please delete this hero", but the parent is also not allowed to do so, so the parent needs to ask the hero-list in return "please delete hero"? As you see this becomes more annoying as components become more nested. Is there really no way where components can <strong>communicate directly </strong>with one another? Can't the child tell the grandparent <strong>directly </strong>please delete the hero?
+  
+    <amp-img src="/img/angular/state-management/update-by-component-name.png"
+             alt="update component by name"
+             class="mwc-450"
+             layout="responsive"
+             width="457" height="465">
+    </amp-img>
+    
+    <p>
+      The solution to this problem are, again, observables. Let me elaborate. Basically you can create a service like the following
+    </p>
+  
+    <pre class="code-snippet">import { Injectable, EventEmitter } from '@angular/core';
+
+@Injectable()
+export class BroadcastService {
+
+  public heroList = {
+    deleteHero: new EventEmitter()
+  };
+  constructor() { }
+
+}</pre>
+    <p>
+      The structure of this service encapsulates the magic behind this approach. It avoids name-spacing problems, by naming the methods of the BroadcastService after the components that should listen to the events. Each method then has the available EventEmitters as properties.
+    </p>
+  
+    <p>
+      In the child component, you can simply inject the <code>BroadcastService</code> and emit a new event:
+    </p>
+  
+    <pre class="code-snippet">import {Component, Input, OnInit} from '@angular/core';
+import {Hero} from "../hero";
+import {HeroService} from "../hero.service";
+import {BroadcastService} from "../broadcast.service";
+
+@Component({
+  selector: 'app-delete-hero',
+  templateUrl: './delete-hero.component.html',
+  styleUrls: ['./delete-hero.component.css']
+})
+export class DeleteHeroComponent implements OnInit {
+
+  constructor(
+    private heroService: HeroService,
+    private broadcast: BroadcastService
+  ) { }
+
+  ngOnInit() {
+  }
+
+  @Input()
+  hero: Hero;
+
+  public deleteHero() {
+    this.heroService.deleteHero(this.hero.uid).then(resp =&gt; {
+      this.broadcast.heroList.deleteHero.emit({
+        heroId: this.hero.uid
+      });
+    });
+  }
+
+
+}</pre>
+    <p>
+      and the great-grandparent (or whoever!) can subscribe to those events
+    </p>
+    <pre class="code-snippet">...
+ngOnInit() {
+
+  //set up listeners
+  this.broadcast.heroList.deleteHero.subscribe(evt =&gt; {
+    this.heroes = this.heroes.filter(hero =&gt; hero.uid !== evt.heroId);
+  });
+
+  ...
+
+}</pre>
+    <p>
+      Where is the downside of this approach? The child will <strong>not</strong> tell something directly to it's grandparent. Other components with the <strong>same name</strong> are also listening. So for example if we were to feature the hero-list twice on the same page, and both lists would contain the hero with the uid <code>xyz</code>, then emitting a <code>deleteHero</code> Event would delete the hero in <strong>both </strong>lists. If you need the child to tell something to its grandparent and <strong>only </strong>to its grandparent, then you'll really need to pass the information through the parent (see event-binding below). However, this is often not a problem since, like in this example, most of the time we would even <em>want </em>the second list to also be updated, since that hero was actually deleted from the database and this should be reflected everywhere in our application. We've also limited the problem with our name-spacing, such that only the right components will actually listen to those events. This is already much much better than just broadcasting events out into the wild like <code>broadcast.deleteHero</code>.
+    </p>
+    <h2>When no id is present</h2>
+    <p>
+      When no id is present on the data you want to update, the classical Angular data-binding mechanisms come into play which you find in most of the tutorials.
+    </p>
+    <p>
+      In any case, when no ids are available, those mechanisms prove to be quite useful.
+    </p>
+    <h3>"Downwards" Data-Flow</h3>
+
+    <amp-img src="/img/angular/state-management/upwards-vs-downwards-dataflow.png"
+             alt="Upwards vs Downwards Dataflow"
+             layout="responsive"
+             width="668"
+             height="236" >
+    </amp-img>
+  
+    <p>
+      Here "downwards" designates a flow from parent to a child to grand-child and so on. Angular pretty much takes care of this one for us. It's similar as in Angular 1, just the notation changed a bit. Here's how it would look like to propagate
+      <strong>data </strong><strong>and data changes</strong> from parent to child to grandchild.
+    </p>
+  
+    <p>
+      The parent:
+    </p>
+    <pre class="code-snippet">import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-parent',
+  template: `&lt;div&gt; {{item + 1}} &lt;app-child [item]="item"&gt;&lt;/app-child&gt;&lt;/div&gt;`,
+})
+export class ParentComponent {
+
+  item;
+  constructor() {
+    this.item = 'My Item ';
+  }
+
+}</pre>
+    <p>
+      The child:
+    </p>
+    <pre class="code-snippet">import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `&lt;div&gt; {{item + 2}} &lt;app-grandchild [item]="item"&gt;&lt;/app-grandchild&gt;&lt;/div&gt;`
+})
+export class ChildComponent {
+  @Input()
+  public item;
+}</pre>
+    <p>
+      The grandchild:
+    </p>
+    <pre class="code-snippet">import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'app-grandchild',
+  template: '&lt;div&gt;{{item + 3}}&lt;/div&gt;'
+})
+export class GrandchildComponent {
+  @Input()
+  public item;
+}</pre>
+    <p>
+      Which would yield the output:
+    </p>
+  
+    <amp-img src="/img/angular/state-management/myitem123.png"
+             alt="MyItem 123"
+             width="154"
+             height="124" >
+    </amp-img>
+    
+  
+    <p>
+      When <code>item</code> is changed in the <strong>parent</strong>, the changes are also propagated downwards. Here, I'm probably not telling you anything new and it's the method of choice in most Angular tutorials. This method has proven clear, convenient and maintainable to our team over the years. The most common source of errors with this method in Angular 2 is to forget the square brackets (i.e. to write &lt;app-child item="item"&gt; instead of &lt;app-child [item]="item"&gt;, thus marked red above). Apart from this, you can't really go wrong.
+    </p>
+  
+    <h3>Upwards Flow</h3>
+    <p>
+      Classically in Angular1, you would just modify data on the child and the changes would be propagated upwards through two-way data-binding. However, in Angular2+,  they diluted this concept for performance &amp; "clarity of the application" reasons. Now only <strong>changes via ngModel  in properties of objects </strong>are propagated upwards (example: <a href="https://angular.io/resources/live-examples/toh-3/ts/eplnkr.html">tour of heroes</a>). What exactly does this mean? For one, it means that if you don't have an object but instead a primitive (string, number etc.), changes made will <strong>not be reflected in the parent</strong>. As an example, here is the "tour of heroes" from the Angular tutorial series adapted to demonstrate this:
+      <a href="https://embed.plnkr.co/iUyT8oBXq2OWc1Ijx5Hq?show=preview" target="_blank">https://embed.plnkr.co/iUyT8oBXq2OWc1Ijx5Hq?show=preview</a>
+    </p>
+  
+    <p>
+      Second, this means that you can't just update this property in your controller or you may run into nasty errors like the following:
+    </p>
+  
+    <amp-img src="/img/angular/state-management/error.png"
+             alt="Angular Error"
+             layout="responsive"
+             width="530" height="166">
+    </amp-img>
+  
+    <p>
+      This happens with the following piece of code:
+    </p>
+    <pre class="code-snippet">import {Component, Input, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'app-grandchild',
+  template: `&lt;div&gt;{{item.name + 3}}...&lt;/div&gt;`
+})
+export class GrandchildComponent implements OnInit {
+  @Input()
+  public item;
+
+  ngOnInit() {
+    this.item.name = 'Jacky';
+  }
+
+}</pre>
+    <p>
+      All of this makes it hard for novices in Angular 2 to understand where they may and where they may not change data. That's why I prefer the method with the observables whenever possible. In cases where you have to use ngModel: just make sure it's actually an object and not a primitive you're trying to change.
+    </p>
+  
+    <p>
+      In case you want to propagate an <strong>event</strong> (as opposed to data-changes) upwards, then you can use the Angular event-binding mechanisms. Let's consider the following component structure
+    </p>
+    <pre class="code-snippet">hero-list &gt; hero &gt; change-color-button</pre>
+    <p>
+      In event-binding, the hero component invokes the change-color-button like so:
+    </p>
+    <pre class="code-snippet">&lt;change-color-button (colorChanged)="doOnColorChange($event)"&gt;
+&lt;/change-color-button&gt;</pre>
+    and in the change-color-button an event can be emitted like that
+    <pre class="code-snippet"><code class="language-javascript" data-lang="javascript"><span class="err">@</span><span class="nx">Output</span><span class="p">()</span> colorChanged <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();
+...
+colorChanged.emit({newColor: "green"});</span></code></pre>
+    <p>
+      Then the hero component can act upon a color change by implementing the <code>doOnColorChange</code> method. This method becomes quite annoying if we have components that are nested by several levels, as the each component must create its own EventEmitter, but sometimes we have no other choice.
+    </p>
+    <h2>Conclusion</h2>
+    <p>
+      There are many options for handling state. In my opinion it's a close race between using a state-management library such and combining some of Angular's core features. In case you want to handle management yourself rather than including yet another library, here's a possible decision-making flowchart:
+    </p>
+  
+    <amp-img src="/img/angular/state-management/exchange-information-between-components.png"
+             alt="Exchange Information Between Components"
+             layout="responsive"
+             class="mwc-450"
+             width="696"
+             height="928">
+    </amp-img>
+    
+    <p>
+      Thanks for reading, don't forget to subscribe to get updates timely &amp; share if you found this post useful!
+    </p>
+
+  </article>
+  
+  {{> ./components/social-footer.html}}
+  
+  {{> ./components/footer.html}}
+
 </body>
 </html>

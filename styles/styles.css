@@ -34,6 +34,10 @@ amp-social-share.amp-social {
   border-radius: 50%;
   background-size: 75%; }
 
+.landing .jumbobox {
+  margin-top: -40px;
+  background: white; }
+
 .landing .jumbotron {
   background: #3F51B5;
   padding: 50px 50px;
@@ -425,6 +429,10 @@ amp-social-share.amp-social {
 
 .padded {
   padding: 20px; }
+
+.mwc-450 {
+  max-width: 450px;
+  margin: 0 auto; }
 
 .tstrend {
   max-width: 450px;
