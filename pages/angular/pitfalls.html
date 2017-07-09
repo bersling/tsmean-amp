@@ -81,14 +81,13 @@ meaning
   
     <hr />
   
-    &nbsp;
-  
-    And one more I recently stumbled upon: You can't have single { in your templates. For example, if your want to describe some code and write:
+    And one more I recently stumbled upon: You can't have single { in your templates. For example, if you want to describe some code and write:
     <pre class="code-snippet">if else statements work like this:
 if (condition) { ... } else { ... }</pre>
     in your template, Angular won't like that. You can either escape each curly brace it in the most peculiar fashion:
+    {{=<% %>=}}
     <pre class="code-snippet">"{{ '{' }}"</pre>
-    OR you could use the <strong><code>ngNonBindable</code></strong> directive!
+    <%={{ }}=%>
   
     Fortunately the Angular error report is good on this one, so even when you walk into the pit, you'll get out fast.
     <h2>CSS</h2>
@@ -96,13 +95,12 @@ if (condition) { ... } else { ... }</pre>
     <h2>State Management and Data Binding</h2>
     State management doesn't have a magical solution in Angular 2 and still requires serious consideration and planning when you write your app. It's a topic too big for this pitfalls-post, so here are some links to other posts concerning state management to get you started:
     <ul>
-      <li><a href="https://www.bersling.com/2017/05/24/manage-state-in-angular-2/">State Management in Angular 2+</a></li>
+      <li><a href="./state-management.html">State Management in Angular 2+</a></li>
       <li><a href="https://www.bersling.com/2017/06/05/state-management-ngrxstore-vs-angular-services/">ngrx vs services</a></li>
     </ul>
     <h2>Observables</h2>
     Take care when subscribing to observables that should encapsulate http requests. If you subscribe to them multiple times, the http request fires multiple times! Example:
-  
-    ResourceService:
+    
     <pre class="code-snippet">createResource(newResource: Resource, resourceName: string): Observable&lt;Resource&gt; {
   const $data = this.http.post(this.resourcesUrl(resourceName), newResource)
     .map(resp =&gt; resp.json().data);
@@ -113,9 +111,18 @@ if (condition) { ... } else { ... }</pre>
 
 heroObs.subscribe(newHero =&gt; { ... do thing 1
 heroObs.subscribe(newHero =&gt; { ... do thing 2</pre>
-    now you create <strong>two </strong>new resources!
+    now you create <strong>two</strong> new resources!
+    
+    <p>
+      The solution to this is to to call <code>.share()</code> on the observable, so it would read
+    </p>
   
-    &nbsp;
+    <pre class="code-snippet">createResource(newResource: Resource, resourceName: string): Observable&lt;Resource&gt; {
+  const $data = this.http.post(this.resourcesUrl(resourceName), newResource)
+    <span class="highlight">.share()</span>
+    .map(resp =&gt; resp.json().data);
+  return $data.catch(this.handleError);
+}</pre>
   
     <hr />
   
