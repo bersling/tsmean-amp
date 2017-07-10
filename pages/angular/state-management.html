@@ -8,6 +8,8 @@
   <meta name="keywords"
         content="Angular, Angular2, Angular4, Tutorial, how-to, State Management">
   <link rel="canonical" href="http://www.tsmean.com/angular/state-management" />
+  
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
 
 </head>
 <body class="landing">
@@ -50,7 +52,7 @@
     </ol>
     
     <p>
-      The tricky part is to know when to use which option, as this isn't always obvious. State management an opinionated topic, so what you're about to read is <i>my</i> view on it.
+      The tricky part is to know when to use which option, as this isn't always obvious. State management is an opinionated topic, so what you're about to read is <i>my</i> view on it.
     </p>
   
     <h2>
@@ -64,18 +66,66 @@
       Storing data with an id
     </h3>
     <p>
-      To continue with the previous example, let’s say we fetch the items from our database and they come with an id. Then we can simply build a item-store like this:
+      To continue with the previous example, let’s say we fetch the items from our database and they come with an id. In a real-world application, you'll have more than one type of resources. Therefore it makes sense to build a more generic <code>ResourceStore</code>, such that we don't have to rewrite the boilerplate code for every resource type. The code for this generic ResourceStore looks like this:
     </p>
   
-    <span class="file-label">item.store.ts</span>
+    <span class="file-label">resource.store.ts</span>
     <pre class="code-snippet">
-      items: {[itemId: string]: item} = {}
-      -- copy resource store --
-    </pre>
+import {Injectable} from '@angular/core';
+import {Resource} from './resource';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+@Injectable()
+export class ResourceStoreService {
+
+  /**
+   * Store for resources.
+   * For example, the store could have such a resource:
+   * resourceStore['heroes']['412'] returns BehaviorSubject with .getValue() == {id: '412', name: 'Wolverine'}
+   */
+  private resourceStore: ResourceStore = {};
+
+  /**
+   * Precondition: resource.uid needs to exist
+   */
+  addOrUpdate (resourceName: string, resource: Resource): void {
+
+    // Initialization if not yet initialized already;
+    this.resourceStore[resourceName] = this.resourceStore[resourceName] || {};
+
+    if (this.resourceStore[resourceName][resource.uid]) {
+      // push next if already initialized
+      this.resourceStore[resourceName][resource.uid].next(resource);
+    } else {
+      // more initialization logic
+      this.resourceStore[resourceName][resource.uid] = new BehaviorSubject(resource)
+    }
+
+  }
+
+  addOrUpdateMany (resourceName: string, resources: Resource[]): void {
+    resources.forEach(resource => this.addOrUpdate(resourceName, resource));
+  }
+
+  remove (resourceName: string, resourceId: string): void {
+    this.resourceStore[resourceName][resourceId].complete();
+  }
+
+  get (resourceName: string, resourceId: string): BehaviorSubject<Resource> {
+    return this.resourceStore[resourceName][resourceId];
+  }
+
+}
+
+interface ResourceStore {
+  [resourceName: string]: {
+    [resourceId: string]: BehaviorSubject<Resource>
+  };
+}
+</pre>
     
     <p>
-      What we’re doing is we’re not adding the resources directly, but instead we’re adding an observable. In case you’ve never heard of observables, you first need to familiarize yourself with the concept in order to understand this. Here's a tutorial on observables:
-      <a href="https://www.youtube.com/watch?v=Tux1nhBPl_w">https://www.youtube.com/watch?v=Tux1nhBPl_w</a>. The observables enable us to subscribe to changes in the data, such that the application is always synchronized everywhere:
+      Note that we’re not adding the resources directly, but instead we’re adding an observable. In case you’ve never heard of observables, you first need to familiarize yourself with the concept in order to understand this.
+      <a href="https://www.youtube.com/watch?v=Tux1nhBPl_w">Here's a tutorial</a>. The observables enable us to subscribe to changes in the data, such that the application is always synchronized everywhere:
     </p>
   
     <amp-img src="/img/angular/state-management/update-all.png"
@@ -89,14 +139,13 @@
       Storing id-less data in a service
     </h3>
     <p>
-      Not only do services lend themselves well for objects with an id, but they are also well suited for id less data, like our item-list. There, the state consists of which items are in the list in which order. So adding or removing an item as well as reordering the list would change the state of the item-list. Our item-list store could look like this:
+      Not only do services lend themselves well for objects with an id, but they are also well suited for id-less data, like our item-list. For the list, the state consists of which items are in the list and their order. So adding or removing an item as well as reordering the list would change the state of the item-list. Since the list just holds ids, updating a list item would not change the list's state, unless the list holds versioned ids. Our item-list store could look like this:
     </p>
-    
-    <span class="file-label">
-      item-list.store.ts
-    </span>
-<pre class="code-snippet">
-import {Injectable} from '@angular/core';
+  
+    <amp-accordion>
+      <section>
+        <h5 class="file-label-two">item-list.store.ts</h5>
+        <pre class="code-snippet" expanded>import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -111,7 +160,7 @@ export class AnimalDashboardListStore {
    * Adds a resourceId to the list. If no position is provided, appends it to the end.
    */
   add (resourceId: string, index?: number): void {
-    const currentValue = this.dashboardList.getValue(); // todo: check immutability
+    const currentValue = this.dashboardList.getValue();
     if (index !== undefined) {
       if (index <= currentValue.length) {
         currentValue.splice(index, 0, resourceId);
@@ -181,28 +230,46 @@ export class AnimalDashboardListStore {
     this.dashboardList.next(newValue);
   }
 
-}
-</pre>
+}</pre>
+      </section>
+      
+    </amp-accordion>
     
     <p>
-      So we don’t have an id, but none the less, the objects from the item list can be updated through the service. In all subscribed components, the data our update logic is then triggered when a change in the item-list store happens. Angular then takes care of changing the view. That's the advantage of Angular over, for example, JQuery: You only need to update the controller data and Angular will then do the binding to the view.
+      So we don’t have an id, but none the less, the objects from the item list can be updated through the service. In all subscribed components, the update logic for the component is then triggered when a change in the item-list store happens.
+    </p>
+    
+    <p>
+      <a href="https://github.com/tsmean/animal-angular">This module of the tsmean app</a> has the full code for a service-store with id-less data.
     </p>
   
     <h2>
       Storing state in the component
     </h2>
     <p>
-      For very simple cases you can also store state in the component itself. For example, if you were to use a <spacer height=”20”></spacer> component, that just inserts a div of a certain height in pixels. There state is so localized, that it’s completely sufficient to just store the state on the component of the spacer:
+      If the state is localized to one component, it's fine to store the state on the component itself. For example, if you were to use a <spacer height=”20”></spacer> component, that just inserts a div of a certain height in pixels.
     </p>
   
-    -- show spacer code --
-  
-    <p>
-      As a rule of thumb, in case you think you will need to change the state in a different component than where it is displayed, you’re probably better off using a service as the data store. If you’re using and changing the state only in one component, it is fine to just store it in the components itself.
-    </p>
+    <pre class="code-snippet">import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'spacer',
+  template: `&lt;div [style.height]="height + 'px'"&gt;&lt;/div&gt;`
+})
+export class SpacerComponent {
+  @Input()
+  height: number;
+}
+</pre>
     
     <p>
-      To be precise, we were also storing state in the components when using services as stores. However, the updates always go through the service. That's what's different.
+      To be precise, we are also storing state in the components when using services as stores:
+    </p>
+    <span class="file-label">some.component.ts</span>
+    <pre class="code-snippet">...
+itemStore.subscribe(item => {this.item = item})</pre>
+    <p>
+      What's different, is that the <i>update requests</i> always go through the service.
     </p>
   
     <h2>
@@ -213,14 +280,12 @@ export class AnimalDashboardListStore {
       State management is a tricky business and you need to be proficient in all methods to write maintainable and scalable applications. Here’s a quick summarization of how I would recommend to handle states:
     </p>
   
-    -- flowchart --
-  
-    Does your object have an id? -> resource store
-  
-    Your item doesn’t have an id (e.g. is a list), but can be changed through other components (e.g. a create button or delete button) -> store specific to this item
-  
-    You have some state that is 100% localized to a component and is only changed by the component itself? -> store & change state on component
-  
+    <amp-img src="/img/angular/state-management/state-management-rules.png"
+             class="mwc-450"
+             alt="update all"
+             layout="responsive"
+             width="693" height="586">
+    </amp-img>
     
   </article>
   

@@ -1,5 +1,8 @@
+import * as highlight from 'highlight.js';
+
 const mu = require('mu2');
 const fs = require('fs');
+
 
 console.log('=== COMPILE SASS ===');
 const sass = require('node-sass');
@@ -67,9 +70,18 @@ pages.forEach(page => {
   const writeStream = fs.createWriteStream(`./dist/${page}.html`);
   mu.compileAndRender(`pages/${page}.html`, data)
     .on('data', function (data) {
-      writeStream.write(data.toString());
+      const dataStr = data.toString();
+      writeStream.write(dataStr);
     });
 });
+
+// not yet functional
+const doHighlight = (dataStr) => {
+  const pattern = /<pre(.*?)>([\s\S]*?)<\/pre>/g;
+  dataStr.replace(pattern, function(a, b) {
+    return highlight.highlightAuto(b).value;
+  });
+};
 
 
 console.log('=== AMP VALIDATION ===');

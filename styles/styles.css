@@ -434,6 +434,10 @@ amp-social-share.amp-social {
   max-width: 450px;
   margin: 0 auto; }
 
+.mwc-550 {
+  max-width: 550px;
+  margin: 0 auto; }
+
 .tstrend {
   max-width: 450px;
   margin: 0 auto; }
@@ -492,7 +496,7 @@ main {
 article {
   padding: 10px;
   margin: 0 auto;
-  max-width: 700px;
+  max-width: 800px;
   background: white; }
 
 /* tables */
