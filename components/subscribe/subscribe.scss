@@ -1,0 +1,45 @@
+.subscribe-footer {
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  //box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+  border-top: 1px solid #f0f0f0;
+  padding: 5px 20px;
+
+  .success-text {
+    text-align: center;
+  }
+
+  .visible-unsubmitted {
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .visible-submitted {
+    display: none;
+  }
+
+  &.amp-form-submit-success > .visible-submitted {
+    display: block
+  }
+  &.amp-form-submit-success > .visible-unsubmitted {
+    display: none
+  }
+
+  .subscribe-text {
+    text-align: center;
+    padding: 10px;
+  }
+
+  @media(max-width: 650px) {
+    .subscribe-text {
+      display: none;
+    }
+  }
+
+}

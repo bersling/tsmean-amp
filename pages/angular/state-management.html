@@ -18,7 +18,7 @@
   
   <a name="top" class="anchor"></a>
   
-  {{> ./components/header.html}}
+  {{> ./components/header/header.html}}
   
   <div class="jumbotron">
     <p class="jumbo-slogan">
@@ -110,7 +110,7 @@ export class ResourceStoreService {
     this.resourceStore[resourceName][resourceId].complete();
   }
 
-  get (resourceName: string, resourceId: string): BehaviorSubject<Resource> {
+  get (resourceName: string, resourceId: string): BehaviorSubject&lt;Resource&gt; {
     return this.resourceStore[resourceName][resourceId];
   }
 
@@ -118,7 +118,7 @@ export class ResourceStoreService {
 
 interface ResourceStore {
   [resourceName: string]: {
-    [resourceId: string]: BehaviorSubject<Resource>
+    [resourceId: string]: BehaviorSubject&lt;Resource&gt;
   };
 }
 </pre>
@@ -143,9 +143,9 @@ interface ResourceStore {
     </p>
   
     <amp-accordion>
-      <section>
+      <section expanded>
         <h5 class="file-label-two">item-list.store.ts</h5>
-        <pre class="code-snippet" expanded>import {Injectable} from '@angular/core';
+        <pre class="code-snippet">import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -203,7 +203,7 @@ export class AnimalDashboardListStore {
   /**
    * Get the list-observable
    */
-  get(): Observable<string[]> {
+  get(): Observable&lt;string[]&gt; {
     return this.dashboardList;
   }
 
@@ -247,7 +247,7 @@ export class AnimalDashboardListStore {
       Storing state in the component
     </h2>
     <p>
-      If the state is localized to one component, it's fine to store the state on the component itself. For example, if you were to use a <spacer height=”20”></spacer> component, that just inserts a div of a certain height in pixels.
+      If the state is localized to one component, it's fine to store the state on the component itself. For example, if you were to use a &lt;spacer height=”20”&gt;&lt;/spacer&gt; component, that just inserts a div of a certain height in pixels.
     </p>
   
     <pre class="code-snippet">import {Component, Input} from '@angular/core';
@@ -291,7 +291,7 @@ itemStore.subscribe(item => {this.item = item})</pre>
   
   {{> ./components/social-footer.html}}
   
-  {{> ./components/footer.html}}
+  {{> ./components/footer/footer.html}}
 
 </body>
 </html>
