@@ -13,6 +13,10 @@
     text-align: center;
   }
 
+  .input-wrapper {
+    position: relative;
+  }
+
   .visible-unsubmitted {
     max-width: 800px;
     margin: 0 auto;
@@ -37,13 +41,29 @@
     animation: hideMe 0s ease-in 5s forwards;
   }
 
-  .subscribe-text {
+  .subscribe-text-mobile {
+    position: absolute;
+    font-size: 10px;
+    top: -4px;
+    right: 30px;
+    background: white;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+  }
+
+  .subscribe-input {
     text-align: center;
-    padding: 10px;
   }
 
   @media(max-width: 650px) {
     .subscribe-text {
+      display: none;
+    }
+  }
+  @media(min-width: 651px) {
+    .subscribe-text-mobile {
       display: none;
     }
   }

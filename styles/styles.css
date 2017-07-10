@@ -828,6 +828,8 @@ amp-social-share.amp-social {
   padding: 5px 20px; }
   .subscribe-footer .success-text {
     text-align: center; }
+  .subscribe-footer .input-wrapper {
+    position: relative; }
   .subscribe-footer .visible-unsubmitted {
     max-width: 800px;
     margin: 0 auto;
@@ -843,11 +845,23 @@ amp-social-share.amp-social {
     display: none; }
   .subscribe-footer.amp-form-submit-success {
     animation: hideMe 0s ease-in 5s forwards; }
-  .subscribe-footer .subscribe-text {
-    text-align: center;
-    padding: 10px; }
+  .subscribe-footer .subscribe-text-mobile {
+    position: absolute;
+    font-size: 10px;
+    top: -4px;
+    right: 30px;
+    background: white;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px; }
+  .subscribe-footer .subscribe-input {
+    text-align: center; }
   @media (max-width: 650px) {
     .subscribe-footer .subscribe-text {
+      display: none; } }
+  @media (min-width: 651px) {
+    .subscribe-footer .subscribe-text-mobile {
       display: none; } }
 
 @keyframes hideMe {
