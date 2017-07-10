@@ -829,6 +829,8 @@ amp-social-share.amp-social {
   .subscribe-footer .success-text {
     text-align: center; }
   .subscribe-footer .visible-unsubmitted {
+    max-width: 800px;
+    margin: 0 auto;
     text-align: right;
     display: flex;
     align-items: center;
