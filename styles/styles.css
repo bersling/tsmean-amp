@@ -841,12 +841,21 @@ amp-social-share.amp-social {
     display: block; }
   .subscribe-footer.amp-form-submit-success > .visible-unsubmitted {
     display: none; }
+  .subscribe-footer.amp-form-submit-success {
+    animation: hideMe 0s ease-in 5s forwards; }
   .subscribe-footer .subscribe-text {
     text-align: center;
     padding: 10px; }
   @media (max-width: 650px) {
     .subscribe-footer .subscribe-text {
       display: none; } }
+
+@keyframes hideMe {
+  to {
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden; } }
 
 .footer {
   margin-bottom: 50px; }

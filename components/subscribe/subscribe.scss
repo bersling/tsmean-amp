@@ -33,6 +33,10 @@
     display: none
   }
 
+  &.amp-form-submit-success {
+    animation: hideMe 0s ease-in 5s forwards;
+  }
+
   .subscribe-text {
     text-align: center;
     padding: 10px;
@@ -41,6 +45,15 @@
   @media(max-width: 650px) {
     .subscribe-text {
       display: none;
+    }
+  }
+
+  @keyframes hideMe {
+    to {
+      width:0;
+      height:0;
+      padding: 0;
+      overflow:hidden;
     }
   }
 
