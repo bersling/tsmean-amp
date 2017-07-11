@@ -503,6 +503,32 @@ amp-social-share.amp-social {
   height: 150px;
   width: 150px; }
 
+button, .tsmean-button {
+  border: 0;
+  padding: 10px;
+  background: white;
+  border-radius: 2px;
+  color: #3F51B5;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  background: red; }
+  button.primary, .tsmean-button.primary {
+    background: #3F51B5;
+    color: white;
+    font-weight: bold; }
+
+input[type="text"] {
+  background: transparent;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  input[type="text"]:focus {
+    border-color: #3F51B5;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(63, 81, 181, 0.075), 0 0 8px rgba(63, 81, 181, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(63, 81, 181, 0.6); }
+
 /* Generated with Bounce.js. Edit at https://goo.gl/B1bNzi */
 .animation-target {
   -webkit-animation: animation 2800ms linear infinite both;
@@ -885,33 +911,13 @@ header {
   background: RGBA(255, 255, 255, 0.9);
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1); }
 
+.home-button {
+  border: 0;
+  padding: 10px;
+  box-shadow: none; }
+
 .padded {
   padding: 20px; }
-
-.tsmean-input {
-  background: transparent;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
-  .tsmean-input:focus {
-    border-color: #3F51B5;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(63, 81, 181, 0.075), 0 0 8px rgba(63, 81, 181, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(63, 81, 181, 0.6); }
-
-.tsmean-button {
-  padding: 10px;
-  border: 0;
-  border-radius: 2px;
-  background: white;
-  color: #3F51B5;
-  cursor: pointer;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
-  .tsmean-button.primary {
-    background: #3F51B5;
-    color: white;
-    font-weight: bold; }
 
 .mwc-450 {
   max-width: 450px;
@@ -944,21 +950,6 @@ p {
   background: transparent;
   padding: 0;
   height: 50px; }
-
-button {
-  border: 0;
-  padding: 10px;
-  background: white;
-  border-radius: 2px; }
-
-button.primary {
-  background: #3F51B5;
-  color: white;
-  box-shadow: 1px 1px 5px #888888;
-  font-size: 15px; }
-
-button:hover {
-  cursor: pointer; }
 
 /* main styles, content styles */
 main {

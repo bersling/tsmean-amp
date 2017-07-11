@@ -3,6 +3,8 @@
 @import 'responsive';
 @import 'social';
 @import 'jumbo';
+@import 'button';
+@import 'input';
 @import 'animation';
 @import '../components/subscribe/subscribe';
 @import '../components/footer/footer';
@@ -10,35 +12,6 @@
 
 .padded {
     padding: 20px;
-}
-
-.tsmean-input {
-    background: transparent;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    &:focus {
-        border-color: $primary-color;
-        outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba($primary-color,.075), 0 0 8px rgba($primary-color,.6);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba($primary-color,.6);
-    }
-}
-
-.tsmean-button {
-    padding: 10px;
-    &.primary {
-        background: $primary-color;
-        color: white;
-        font-weight: bold;
-    }
-    border: 0;
-    border-radius: 2px;
-    background: white;
-    color: $primary-color;
-    cursor: pointer;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .mwc-450 {
@@ -77,21 +50,7 @@ p {
     padding: 0;
     height: 50px;
 }
-button {
-    border: 0;
-    padding: 10px;
-    background: white;
-    border-radius: 2px;
-}
-button.primary {
-    background: #3F51B5;
-    color: white;
-    box-shadow: 1px 1px 5px #888888;
-    font-size: 15px;
-}
-button:hover {
-    cursor: pointer;
-}
+
 
 /* main styles, content styles */
 main {
