@@ -27,26 +27,245 @@
   </div>
   
   <article>
-    
-    {{> ./pages/index-content-b.html}}
+  
+    <p class="boxed center padded jumbobox">
+      <b class="highlight">tsmean</b> is your go-to place for fullstack typescript.
+    </p>
+  
+    <div class="spacer10"></div>
+  
+    <p>
+      tsmean uses the MEAN stack,
+      which stands for
+    <ul>
+      <li>
+        <b class="highlight">M</b>ongoDB or <b class="highlight">M</b>ySQL
+      </li>
+      <li>
+        <b class="highlight">E</b>xpressJS
+      </li>
+      <li>
+        <b class="highlight">A</b>ngular2+
+      </li>
+      <li>
+        <b class="highlight">N</b>odeJS.
+      </li>
+    </ul>
+  
+    <p>
+      On this page, resources for fullstack typescript development are offered. Additionally,
+      a starter-kit is available on Github!
+    </p>
+  
+    {{> ./components/github-button.html}}
+  
+    <p>
+      Or maybe you are not conviced yet using the tsmean starter kit is a good idea? Then read on.
+    </p>
+  
+    <h2>
+      Why TypeScript, why MEAN, why <span class="highlight">tsmean</span>?
+    </h2>
+  
+    <p>
+      To understand how we came to this point in 2017, where it's a good idea to use the tsmean stack,
+      we first need to roll up a bit of history.
+    </p>
+  
+    <h3>
+      Different languages
+      <amp-img src="/img/landing/003-chat.svg"
+               alt="Different languages"
+               width="30"
+               height="30">
+      </amp-img>
+    </h3>
+    <p>
+      Have you ever wondered, why backends are written in Java or Python and frontends are written in Javascript?
+      Doesn't that seem inefficient to you, to use different languages across one and the same project?
+      Especially in smaller teams,
+      this language barrier often builds a wall between backend and frontend developers
+      and artificially pushes people into one of those categories.
+      I mean, compare it to real languages, isn't it useful that English is the de facto standard in the development community?
+      Wouldn't it also be useful if everyone would speak the same programming language?
+    </p>
+  
+    <h3>
+      First steps towards compatibility
+      <amp-img src="/img/landing/006-route-1.svg"
+               alt="Different languages"
+               width="30"
+               height="30">
+      </amp-img>
+    </h3>
+    <p>
+      For the frontend we basically don't have any other choice than to use Javascript,
+      since this is the only language that the browser understands.
+      For a long time <i>only</i> browsers would speak Javascript,
+      meaning you didn't even have the possibility to write Javascript for the backend.
+      Along came Node.js in 2009, finally making it possible to also write JS on the server.
+      Not only did it make it possible, but it provided some real advantages compared to other languages.
+      Due to the non-blocking nature of Javascript,
+      web-servers written in Node.js could be more resource efficient than their Java or  Python counterparts.
+      However, since Javascript doesn't have the best reputation in terms of scalability (no types, callback hell, ....),
+      the cost of maintenance drastically increased for larger projects.
+      Developers were glad that they <i>could</i> write in a different language server-side and so fullstack-Javascript
+      only gained adoption for some few projects.
+    </p>
+  
+    <h3>
+      A new star on the horizon
+      <amp-img src="/img/landing/006-shooting-star-1.svg"
+               alt="TypeScript Mean Banner"
+               width="30"
+               height="30">
+      </amp-img>
+    </h3>
+    <p>
+      Remember how I said you don't have another choice for the frontend than Javascript?
+      Well, that was a lie. You just need something that <i>compiles</i> to Javascript. In 2012 Microsoft released
+      TypeScript, an optionally-typed language that does exactly this. The promise was better scalability and maintainability
+      for larter projects.
+    </p>
+    <p>
+      At first, TypeScript it was full of bugs and you needed to be a compiler yourself to spot all the places where
+      TypeScript would fail. Since then a lot has changed and nowadays you can trust TypeScript
+      to do good work. This has led to a strong TypeScript-trend in the frontend world. Here's the Google-Trends chart
+      for TypeScript from mid 2012 to mid 2017:
+    </p>
+  
+    <div>
+      <amp-img src="/img/landing/tstrend.png"
+               alt="TypeScript Mean Banner"
+               class="tstrend"
+               layout="responsive"
+               width="832"
+               height="402">
+      </amp-img>
+    </div>
+  
+    <p>
+      But TypeScript isn't just a better alternative to JavaScript.
+      It is actually a good programming language overall! Roughly 20 years after the
+      internet hit mainstream, it finally makes sense to talk one language back to front.
+      Now developers can talk to each other. And projects can share code between backend and frontend.
+      And you don't have to switch context anymore. And you can use the same package management solutions.
+      Apply the same knowledge to build libraries. And finally this all comes in a sane and scalable language.
+    </p>
+  
+    <h3>
+      The journey ahead
+      <amp-img src="/img/landing/003-hiker.svg"
+               alt="TypeScript Mean Banner"
+               width="30"
+               height="30">
+      </amp-img>
+    </h3>
+    <p>
+      The bad news is, that we are still at the very beginning of this journey.
+      The developments are still very young and there are only few good resources on
+      server-side TypeScript development. It totally makes sense to write fullstack TypeScript,
+      but you are an early adopter with this. This makes it really tough to get started.
+      Which frameworks should you use? What are best practices?
+    </p>
+  
+    <p>
+      This is where tsmean tries to alleviate some of the pain. Basically tsmean provides two things:
+    </p>
+  
+    <ul>
+      <li>
+        Written resources on fullstack typescript development.
+        Tutorials, comparisons, experiences. You can find all links to the resources below.
+      </li>
+      <li>
+        A starter kit for a fullstack typescript webapp.
+        Developing the core of a wepapp requires a lot of work. Either you "hack it" and manoeuvre
+        yourself into big trouble for later on, or you do it right, and you'll spend weeks.
+        tsmean provides the common core of every fullstack webapp.
+        It is not a framework, you can change all the code.
+        It is rather a fully functional,
+        well-engineered, scalable and module template for you to get started faster.
+        Here's what you get when you download the starter kit: <a href="demo.tsmean.com">demo.tsmean.com</a>.
+        The code is hosted  <a href="https://github.com/tsmean/tsmean">here</a>.
+      </li>
+    </ul>
+  
+    <!-- TODO: why mean? -->
+  
+    <h2>
+      Resources
+    </h2>
+  
+    <p>
+      Here you find resources, that can help you with fullstack typescript development.
+    </p>
+  
+  
+    <h3>
+      How to build a typescript library
+    </h3>
+  
+    <ul>
+      <li>
+        <a href="./how-to-write-a-typescript-library">
+          How to write a typescript library
+        </a>
+      </li>
+      <li>
+        <a href="./how-to-write-a-typescript-library/unit-testing">
+          Unit testing a typescript library
+        </a>
+      </li>
+      <li>
+        <a href="./how-to-write-a-typescript-library/local-consumer">
+          Writing a local consumer for a typescript library
+        </a>
+      </li>
+      <li>
+        <a href="./how-to-write-a-typescript-library/global-installation">
+          Making your typescript library available as a system command (optional read)
+        </a>
+      </li>
+      <li>
+        <a href="./how-to-write-a-typescript-library/angular">
+          Writing an Angular2+ module-library.
+        </a>
+      </li>
+    </ul>
+  
+    <h3>
+      Comparisons
+    </h3>
+  
+    <ul>
+      <li>
+        <a href="./vs/mongo-vs-mysql-for-webapps">
+          Mongo vs MySQL for webapps
+        </a>
+      </li>
+    </ul>
+  
+    <h3>
+      Angular2+
+    </h3>
+  
+    <ul>
+      <li>
+        <a href="./angular/pitfalls">
+          Pitfalls in Angular2+
+        </a>
+      </li>
+      <li>
+        <a href="./angular/state-management">
+          State Management with Angular
+        </a>
+      </li>
+    </ul>
   
     <hr>
   
-    <div class="social-footer">
-    
-      <amp-social-share type="twitter"
-                        class="amp-social margin-left-right"
-                        height="50"
-                        width="50">
-      </amp-social-share>
-      <amp-social-share type="facebook"
-                        data-param-app_id="576311839423156"
-                        class="amp-social margin-left-right"
-                        height="50"
-                        width="50">
-      </amp-social-share>
-  
-    </div>
+    {{> ./components/social-footer.html}}
   
   
     <hr>

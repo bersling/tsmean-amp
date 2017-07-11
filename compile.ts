@@ -1,5 +1,4 @@
 import * as highlight from 'highlight.js';
-const sitemap = require('sitemap');
 
 const mu = require('mu2');
 const fs = require('fs');
@@ -104,18 +103,3 @@ pages.forEach(page => {
     }
   });
 });
-
-
-const createdSitemap = sitemap.createSitemap({
-  hostname: 'http://www.tsmean.com',
-  cacheTime: 600000,        // 600 sec - cache purge period
-  urls: [
-    { url: '/',  changefreq: 'daily', priority: 1 },
-  ]
-});
-createdSitemap.toXML((err, xml) => {
-  if (err){ console.log(err, 'ERROR') };
-  console.log('sm', xml, 'sitemap');
-});
-const xml = createdSitemap.toString();
-console.log(xml, 'xml');
