@@ -7,9 +7,9 @@
     "start": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "$(npm bin)/watch 'npm run mustache' --inverval=1",
-    "build": "mkdir -p dist && cp -r img dist && npm run mustache && npm run roadmap",
+    "build": "mkdir -p dist && cp -r img dist && npm run mustache",
     "mustache": "ts-node compile.ts",
-    "roadmap": "tsc src/roadmap/roadmap.ts --outDir dist/roadmap/ && cp src/roadmap/roadmap.css dist/roadmap/roadmap.css && cp src/roadmap/roadmap.html dist/roadmap/roadmap.html"
+    "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html"
   },
   "repository": {
     "type": "git",
@@ -31,14 +31,15 @@
     "watch": "^1.0.2"
   },
   "dependencies": {
+    "@types/express": "^4.0.36",
     "@types/highlight.js": "^9.1.9",
     "@types/serve-static": "^1.7.31",
     "amphtml-validator": "^1.0.20",
     "connect": "^3.6.2",
+    "cors": "^2.8.3",
     "express": "^4.15.3",
     "highlight.js": "^9.12.0",
     "node-sass": "^4.5.3",
-    "normalize.css": "^7.0.0",
-    "serve-static": "^1.12.3"
+    "normalize.css": "^7.0.0"
   }
 }

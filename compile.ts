@@ -2,6 +2,24 @@ import * as highlight from 'highlight.js';
 
 const mu = require('mu2');
 const fs = require('fs');
+const path = require('path');
+
+/**
+ * synchronously creates directory (chain)
+ * @param targetDir
+ */
+const mkdir = (targetDir: string): void => {
+  const sep = path.sep;
+  const initDir = path.isAbsolute(targetDir) ? sep : '';
+  targetDir.split(sep).reduce((parentDir, childDir) => {
+    const curDir = path.resolve(parentDir, childDir);
+    if (!fs.existsSync(curDir)) {
+      fs.mkdirSync(curDir);
+    }
+
+    return curDir;
+  }, initDir);
+}
 
 
 console.log('=== COMPILE SASS ===');
@@ -53,19 +71,27 @@ console.log('=== COMPILE MUSTACHE ===');
 mu.root = __dirname;
 const data = {};
 
-const pages = ['index'];
+const pages = ['index', 'articles/index', 'starter-kit/index'];
 const htwatlPages = ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'];
 htwatlPages.forEach(page => {
-  pages.push('how-to-write-a-typescript-library/' + page)
+  const dir = 'articles/how-to-write-a-typescript-library/';
+  mkdir('./dist/' + dir);
+  pages.push(dir + page)
 });
 const vsPages = ['mongo-vs-mysql-for-webapps'];
 vsPages.forEach(page => {
-  pages.push('vs/' + page);
+  const dir = 'articles/vs/';
+  pages.push(dir + page);
 });
 const angularPages = ['pitfalls', 'state-management'];
 angularPages.forEach(page => {
-  pages.push('angular/' + page);
+  const dir = 'articles/angular/';
+  pages.push(dir + page);
 });
+
+pages.forEach(page => {
+  mkdir('./dist/' + path.dirname(page));
+})
 
 pages.forEach(page => {
   const writeStream = fs.createWriteStream(`./dist/${page}.html`);

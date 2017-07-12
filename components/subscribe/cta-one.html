@@ -1,0 +1,79 @@
+<hr>
+
+<div class="cta-one center padded">
+  
+  <div>
+    <b>
+      Stay up to date about
+    </b>
+    {{> ./components/logo/accent.html}}
+  </div>
+  
+  <div class="spacer10"></div>
+  
+  <button id="subscribe-to-newsletter" class="primary" on="tap:subscribe-lightbox">
+    Subscribe to newsletter
+  </button>
+  
+</div>
+
+<hr>
+
+<amp-lightbox id="subscribe-lightbox" layout="nodisplay">
+  <div class="lightbox">
+    <div class="subscribe-lightbox boxed center">
+      <h2>
+        Stay connected.
+      </h2>
+  
+      <div>
+        <amp-img src="/img/tsmean-logo.svg" width="140" height="60" alt="tsmean Logo"></amp-img>
+      </div>
+      
+      <h3>
+        Newsletter
+      </h3>
+  
+      <form method="post"
+            action-xhr="https://mailchimp.tsmean.com/subscribe"
+            target="_top">
+        
+        <div>
+          <input type="text"
+                 name="fname"
+                 required
+                 placeholder="First Name">
+        </div>
+        <div class="spacer10"></div>
+        <div>
+          <input type="email"
+                 name="email"
+                 required
+                 placeholder="Email">
+        </div>
+  
+        <div class="spacer10"></div>
+        
+        <input type="submit"
+               id="subscribe-final"
+               class="tsmean-button primary"
+               value="Subscribe">
+        
+        <div submit-success>
+          <div class="spacer50"></div>
+          Thank you for subscribing!
+        </div>
+  
+      </form>
+  
+      <div class="spacer50"></div>
+      
+      <div class="right-align">
+        <button id="close-lightbox-subscribe" on="tap:subscribe-lightbox.close">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</amp-lightbox>

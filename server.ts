@@ -1,11 +1,10 @@
-import * as connect from 'connect';
-import * as serveStatic from 'serve-static';
-import {ServeStaticOptions} from 'serve-static';
+import * as express from 'express';
+import * as cors from 'cors';
+const server = express();
+server.use(cors({origin: ["http://localhost:8082", "http://www.tsmean.com"], credentials: true}));
+server.use('/', express.static(__dirname + '/dist', {extensions: ['html']}));
 
-const options: ServeStaticOptions = {
-  extensions: ['html']
-};
-const port = 8082;
-connect().use(serveStatic(__dirname + '/dist', options)).listen(port, function(){
-  console.log(`Server running on ${port}...`);
+const port = process.argv[2] || 8082;
+server.listen(port, function() {
+  console.log(`listening on port ${port}`)
 });

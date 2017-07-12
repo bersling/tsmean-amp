@@ -18,16 +18,19 @@
   
   {{> ./components/header/header.html}}
   
-  <div class="jumbotron">
-    <p class="jumbo-slogan">
+  <div class="jumbo-vertical">
+    <div>
+      <!-- TODO: Animation where angular logo spirals into doom... -->
+      <amp-img src="/img/pitfall.png"
+               class="rotate"
+               alt="TypeScript Mean Banner"
+               width="250"
+               height="250">
+      </amp-img>
+    </div>
+    <p class="jumbo-text">
       Pitfalls in Angular2+
     </p>
-    <amp-img src="/img/angular/pitfalls.png"
-             class="jumbo-logo xs-hide"
-             alt="TypeScript Mean Banner"
-             width="300"
-             height="300">
-    </amp-img>
   </div>
   
   <article class="flex-auto">
@@ -95,7 +98,7 @@ if (condition) { ... } else { ... }</pre>
     <h2>State Management and Data Binding</h2>
     State management doesn't have a magical solution in Angular 2 and still requires serious consideration and planning when you write your app. It's a topic too big for this pitfalls-post, so here are some links to other posts concerning state management to get you started:
     <ul>
-      <li><a href="./state-management.html">State Management in Angular 2+</a></li>
+      <li><a href="state-management.html">State Management in Angular 2+</a></li>
       <li><a href="https://www.bersling.com/2017/06/05/state-management-ngrxstore-vs-angular-services/">ngrx vs services</a></li>
     </ul>
     <h2>Observables</h2>
@@ -130,9 +133,7 @@ heroObs.subscribe(newHero =&gt; { ... do thing 2</pre>
 
   </article>
   
-  {{> ./components/social-footer.html}}
-  
-  {{> ./components/footer/footer.html}}
+  {{> ./components/article/article-footer.html}}
 
 </body>
 </html>

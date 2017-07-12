@@ -9,40 +9,45 @@
   <link rel="canonical" href="http://www.tsmean.com" />
   {{> ./components/common-head.html}}
   
+  <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  
 </head>
-<body class="landing">
+<body>
   
   {{> ./components/analytics.html}}
-  
-  <a name="top" class="anchor"></a>
-
   {{> ./components/header/header.html}}
   
-  <div class="jumbotron">
-    <p class="jumbo-slogan">
+  <div class="jumbo-horizontal">
+    <p class="jumbo-text">
       Write TypeScript everywhere.
     </p>
     <amp-img src="/img/ezgif.raven.gif"
-             class="jumbo-logo xs-hide" alt="TypeScript Mean Banner" width="400" height="205"></amp-img>
+             class="jumbo-image xs-hide"
+             alt="TypeScript Mean Banner"
+             width="400"
+             height="205">
+    </amp-img>
   </div>
   
   <article>
   
-    <p class="boxed center padded jumbobox">
-      <b class="highlight">tsmean</b> is your go-to place for fullstack typescript.
+    <p>
+      {{> ./components/logo/accent.html}} is your go-to place
+      for full stack typescript. We offer articles on full stack typescript and even a starter-kit to kickstart
+      your full stack typescript experience!
     </p>
   
-    <div class="spacer10"></div>
-  
     <p>
-      tsmean uses the MEAN stack,
-      which stands for
+      The starter kit uses the following core technologies:
+    </p>
+    
     <ul>
       <li>
         <b class="highlight">M</b>ongoDB or <b class="highlight">M</b>ySQL
       </li>
       <li>
-        <b class="highlight">E</b>xpressJS
+        <b class="highlight">E</b>xpress
       </li>
       <li>
         <b class="highlight">A</b>ngular2+
@@ -51,10 +56,14 @@
         <b class="highlight">N</b>odeJS.
       </li>
     </ul>
-  
+    
     <p>
-      On this page, resources for fullstack typescript development are offered. Additionally,
-      a starter-kit is available on Github!
+      That's why it's called tsmean (TypeScript + Mongo / Mysql + Express + Angular + Node.js)!
+    </p>
+    
+    <p>
+      The articles about the topic can be found under <a href="/articles" id="intext-link-articles">"Articles"</a>. They reach from a high-level analysis of the stack to nitty-gritty tutorials about implementation. The articles section is steadily growing, so make sure to
+      <a on="tap:subscribe-lightbox" id="intext-link-subscribe">subscribe</a> to stay up to date. The StarterKit is available directly on Github:
     </p>
   
     {{> ./components/github-button.html}}
@@ -109,7 +118,7 @@
       web-servers written in Node.js could be more resource efficient than their Java or  Python counterparts.
       However, since Javascript doesn't have the best reputation in terms of scalability (no types, callback hell, ....),
       the cost of maintenance drastically increased for larger projects.
-      Developers were glad that they <i>could</i> write in a different language server-side and so fullstack-Javascript
+      Developers were glad that they <i>could</i> write in a different language server-side and so full stack-Javascript
       only gained adoption for some few projects.
     </p>
   
@@ -164,7 +173,7 @@
     <p>
       The bad news is, that we are still at the very beginning of this journey.
       The developments are still very young and there are only few good resources on
-      server-side TypeScript development. It totally makes sense to write fullstack TypeScript,
+      server-side TypeScript development. It totally makes sense to write full stack TypeScript,
       but you are an early adopter with this. This makes it really tough to get started.
       Which frameworks should you use? What are best practices?
     </p>
@@ -175,104 +184,26 @@
   
     <ul>
       <li>
-        Written resources on fullstack typescript development.
-        Tutorials, comparisons, experiences. You can find all links to the resources below.
+        Written resources on full stack typescript development.
+        Tutorials, comparisons, experiences. They are all listed in the <a href="./articles" id="intext-link-articles-2">"Articles"</a> section.
       </li>
       <li>
-        A starter kit for a fullstack typescript webapp.
+        A starter kit for a full stack typescript webapp.
         Developing the core of a wepapp requires a lot of work. Either you "hack it" and manoeuvre
         yourself into big trouble for later on, or you do it right, and you'll spend weeks.
-        tsmean provides the common core of every fullstack webapp.
+        tsmean provides the common core of every full stack webapp.
         It is not a framework, you can change all the code.
         It is rather a fully functional,
         well-engineered, scalable and module template for you to get started faster.
-        Here's what you get when you download the starter kit: <a href="demo.tsmean.com">demo.tsmean.com</a>.
-        The code is hosted  <a href="https://github.com/tsmean/tsmean">here</a>.
+        Here's what you get when you download the starter kit: <a href="demo.tsmean.com" id="intext-link-demo-tsmean">demo.tsmean.com</a>.
+        The code is hosted here: <a href="https://github.com/tsmean/tsmean" id="intext-link-github">https://github.com/tsmean/tsmean</a>.
       </li>
     </ul>
   
-    <!-- TODO: why mean? -->
-  
-    <h2>
-      Resources
-    </h2>
-  
-    <p>
-      Here you find resources, that can help you with fullstack typescript development.
-    </p>
-  
-  
-    <h3>
-      How to build a typescript library
-    </h3>
-  
-    <ul>
-      <li>
-        <a href="./how-to-write-a-typescript-library">
-          How to write a typescript library
-        </a>
-      </li>
-      <li>
-        <a href="./how-to-write-a-typescript-library/unit-testing">
-          Unit testing a typescript library
-        </a>
-      </li>
-      <li>
-        <a href="./how-to-write-a-typescript-library/local-consumer">
-          Writing a local consumer for a typescript library
-        </a>
-      </li>
-      <li>
-        <a href="./how-to-write-a-typescript-library/global-installation">
-          Making your typescript library available as a system command (optional read)
-        </a>
-      </li>
-      <li>
-        <a href="./how-to-write-a-typescript-library/angular">
-          Writing an Angular2+ module-library.
-        </a>
-      </li>
-    </ul>
-  
-    <h3>
-      Comparisons
-    </h3>
-  
-    <ul>
-      <li>
-        <a href="./vs/mongo-vs-mysql-for-webapps">
-          Mongo vs MySQL for webapps
-        </a>
-      </li>
-    </ul>
-  
-    <h3>
-      Angular2+
-    </h3>
-  
-    <ul>
-      <li>
-        <a href="./angular/pitfalls">
-          Pitfalls in Angular2+
-        </a>
-      </li>
-      <li>
-        <a href="./angular/state-management">
-          State Management with Angular
-        </a>
-      </li>
-    </ul>
-  
-    <hr>
-  
-    {{> ./components/social-footer.html}}
-  
-  
-    <hr>
-
-    {{> ./components/footer/footer.html}}
-
   </article>
+  
+  {{> ./components/subscribe/cta-one.html}}
+  {{> ./components/footer/footer.html}}
 
 </body>
 </html>

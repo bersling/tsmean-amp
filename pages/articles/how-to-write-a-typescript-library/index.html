@@ -9,7 +9,7 @@ here is a simple yet comprehensive tutorial!">
         content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library">
   <link rel="canonical" href="http://www.tsmean.com/how-to-write-a-typescript-library" />
 </head>
-<body class="htwatl">
+<body>
   
   {{> ./components/analytics.html}}
   
@@ -17,21 +17,23 @@ here is a simple yet comprehensive tutorial!">
   
   {{> ./components/header/header.html}}
   
-  <div class="jumbotron">
+  <div class="jumbo-vertical">
   
-    <div class="jumbo-image-wrapper">
-      <amp-img class="jumbo-image animation-target" width="150" height="150" layout="responsive" src="/img/004-box.png"></amp-img>
-    </div>
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/img/002-product.svg">
+    </amp-img>
   
     <h1 class="jumbo-text">
-      Building a Typescript Library?
+      Building a typescript library?
     </h1>
     
   </div>
   
   <article class="flex-auto">
     
-    <h2>How to Write a Typescript Library</h2>
+    <h2>How to write a typescript library</h2>
     
     <p>
       Writing modular code is a good idea. And nothing is more modular than writing a library.
@@ -207,14 +209,14 @@ HelloWorld.sayHello();</pre>
   
     <hr>
     
-    <div class="">
+    <p>
       Check out the full source of the demo library on github:
       <a href="https://github.com/bersling/typescript-library-starter">https://github.com/bersling/typescript-library-starter</a>.
-    </div>
+    </p>
   
     <hr>
     
-    <div>
+    <p>
       The above tutorial contains all the steps necessary to build & publish a working library.
       However, you should probably also include some unit tests and you might want to test the behavior of your library
       locally first, without publishing.
@@ -230,13 +232,11 @@ HelloWorld.sayHello();</pre>
           <a href="./global-installation">How to make your library available as a system command</a>
         </li>
       </ul>
-    </div>
+    </p>
   
   </article>
   
-  {{> ./components/social-footer.html}}
-  
-  {{> ./components/footer/footer.html}}
+  {{> ./components/article/article-footer.html}}
 
 </body>
 </html>
