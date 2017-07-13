@@ -426,7 +426,16 @@ amp-social-share.amp-social {
   background-size: 75%; }
 
 .jumbo-main {
-  background-color: #3F51B5;
+  background: #3F51B5;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #3F51B5, #D0092F);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #3F51B5, #D0092F);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #3F51B5, #D0092F);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #3F51B5, #D0092F);
+  /* Standard syntax */
   padding: 100px 10px;
   text-align: center;
   display: flex;

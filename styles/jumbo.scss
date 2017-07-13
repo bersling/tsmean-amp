@@ -3,8 +3,8 @@
 
 .jumbo-main {
   // background-image: url('/img/pink-dust.svg');
-  background-color: $primary-color;
-  // @include diagonal-gradient($primary-color, #5269EA);
+  // background-color: $primary-color;
+  @include diagonal-gradient($primary-color, $accent);
   padding: 100px 10px;
   text-align: center;
   display: flex;
