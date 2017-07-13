@@ -1,0 +1,37 @@
+<p>
+  Let's say you've written your node server and run it with forever. So it's always up and running. Right? Wrong.
+</p>
+<p>
+  You can easily run into scenarios, where your server constantly crashes. For example, see those server logs from an actual example:
+</p>
+<pre class="code-snippet">
+  error: <span class="highlight">Script restart attempt #61</span>
+  path.js:7
+  throw new TypeError('Path must be a string. Received ' + inspect(path));
+  ^
+  
+  TypeError: Path must be a string. Received undefined
+  at assertPath (path.js:7:11)
+  at Object.relative (path.js:1227:5)
+  at /home/ubuntu/animals/server.js:20:28
+  at /home/ubuntu/animals/node_modules/find/index.js:268:13
+  at Chain.onend (/home/ubuntu/animals/node_modules/find/index.js:191:24)
+  at Chain.next (/home/ubuntu/animals/node_modules/traverse-chain/index.js:70:10)
+  at Chain.onend (/home/ubuntu/animals/node_modules/find/index.js:191:15)
+  at Chain.next (/home/ubuntu/animals/node_modules/traverse-chain/index.js:70:10)
+  at Chain.onend (/home/ubuntu/animals/node_modules/find/index.js:191:15)
+  at Chain.next (/home/ubuntu/animals/node_modules/traverse-chain/index.js:70:10)
+  error: Forever detected script exited with code: 1
+</pre>
+<p>
+  What was happening here? Each time the server tried to restart, it immediately crashed anew. This was due to <b>one</b> single javascript error! The problem in the code was
+</p>
+<pre class="code-snippet">
+  path.relative(__dirname, randomFile)
+</pre>
+<p>
+  where <code>randomFile</code> was undefined. One way to fix this would be to just make sure <code>randomFile</code>
+  isn't undefined. Problem <i>dodged</i>. The more general problem is: how can we avoid the server to crash?! We want high availability so that we can sleep well at night and not have a server that's down when we wake up in the morning.
+</p>
+
+
