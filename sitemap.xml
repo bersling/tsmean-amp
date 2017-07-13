@@ -1,53 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{#pages}}
   <url>
-    <loc>http://www.tsmean.com/</loc>
-    <lastmod>2017-07-10T19:10:53+00:00</lastmod>
+    <loc>http://www.tsmean.com/{{page}}</loc>
+    <lastmod>{{date}}</lastmod>
   </url>
-  <url>
-    <loc>http://www.tsmean.com/demo.tsmean.com</loc>
-    <lastmod>2017-07-10T19:10:53+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/how-to-write-a-typescript-library/</loc>
-    <lastmod>2017-07-10T19:10:53+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/how-to-write-a-typescript-library/unit-testing</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/how-to-write-a-typescript-library/local-consumer</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/how-to-write-a-typescript-library/global-installation</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/how-to-write-a-typescript-library/angular</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/vs/mongo-vs-mysql-for-webapps</loc>
-    <lastmod>2017-07-10T19:10:53+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/angular/pitfalls</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/angular/state-management</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.tsmean.com/angular/state-management.html</loc>
-    <lastmod>2017-07-10T19:10:54+00:00</lastmod>
-  </url>
+  {{/pages}}
 </urlset>

@@ -30,7 +30,7 @@ const result = sass.renderSync({
 });
 fs.writeFileSync('./styles/styles.css', result.css);
 
-console.log('=== BUILD SITEMAP && robots ===');
+console.log('=== BUILD robots ===');
 
 function copyFile(source, target, cb) {
   var cbCalled = false;
@@ -56,11 +56,7 @@ function copyFile(source, target, cb) {
   }
 }
 
-copyFile('./sitemap.xml', './dist/sitemap.xml', function(err) {
-  if (err) {
-    console.error('Error on copying sitemap.xml:', err);
-  }
-});
+
 copyFile('./robots.txt', './dist/robots.txt', function(err) {
   if (err) {
     console.error('Error on copying robots', err);
@@ -91,7 +87,7 @@ angularPages.forEach(page => {
 
 pages.forEach(page => {
   mkdir('./dist/' + path.dirname(page));
-})
+});
 
 pages.forEach(page => {
   const writeStream = fs.createWriteStream(`./dist/${page}.html`);
@@ -102,13 +98,41 @@ pages.forEach(page => {
     });
 });
 
-// not yet functional
-const doHighlight = (dataStr) => {
-  const pattern = /<pre(.*?)>([\s\S]*?)<\/pre>/g;
-  dataStr.replace(pattern, function(a, b) {
-    return highlight.highlightAuto(b).value;
+// sitemap
+
+let changedPages = [];
+for (let i = 0; i < pages.length; i++) {
+  const page = pages[i];
+  console.log(page);
+  changedPages.push({
+    // remove 'index' and also remove '.' ...
+    page: page.indexOf('index') > -1 ? (
+      path.dirname(page) === '.' ? '' : path.dirname(page)
+    ) : (
+      page
+    )
   });
-};
+}
+
+const writeStream = fs.createWriteStream(`./dist/sitemap.xml`);
+mu.compileAndRender(`sitemap.xml`, {
+  pages: changedPages,
+  date: formatDate(new Date())
+}).on('data', function (data) {
+    const dataStr = data.toString();
+    writeStream.write(dataStr);
+  });
+
+
+function formatDate(date) {
+  var mm = date.getMonth(); // getMonth() is zero-based
+  var dd = date.getDate();
+
+  return [date.getFullYear(),
+    (mm>9 ? '' : '0') + mm,
+    (dd>9 ? '' : '0') + dd
+  ].join('-');
+}
 
 
 console.log('=== AMP VALIDATION ===');
