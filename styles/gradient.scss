@@ -1,7 +1,7 @@
-.grad {
-  background: $primary-color; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, $primary-color, #5269EA); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, $primary-color, #5269EA); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, $primary-color, #5269EA); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, $primary-color, #5269EA); /* Standard syntax */
+@mixin diagonal-gradient ($color-a, $color-b) {
+  background: $color-a; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, $color-a, $color-b); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, $color-a, $color-b); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, $color-a, $color-b); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, $color-a, $color-b); /* Standard syntax */
 }

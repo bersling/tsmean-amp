@@ -492,8 +492,7 @@ amp-social-share.amp-social {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  /* Tablet & Desktop styles */ }
+  flex-direction: column; }
   .jumbo-vertical .jumbo-title {
     color: white;
     font-weight: bold;
@@ -581,18 +580,6 @@ header {
 
 .logo-wrapper .mini-raven {
   margin-left: -10px; }
-
-.grad {
-  background: #3F51B5;
-  /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, #3F51B5, #5269EA);
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, #3F51B5, #5269EA);
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, #3F51B5, #5269EA);
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, #3F51B5, #5269EA);
-  /* Standard syntax */ }
 
 .padded {
   padding: 20px; }

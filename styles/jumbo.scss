@@ -1,8 +1,10 @@
 @import 'variables';
+@import 'gradient';
 
 .jumbo-main {
   // background-image: url('/img/pink-dust.svg');
   background-color: $primary-color;
+  // @include diagonal-gradient($primary-color, #5269EA);
   padding: 100px 10px;
   text-align: center;
   display: flex;
@@ -101,7 +103,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
 
   .jumbo-title {
     color: white;
