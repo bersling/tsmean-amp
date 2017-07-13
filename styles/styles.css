@@ -468,7 +468,7 @@ amp-social-share.amp-social {
     height: 400px;
     max-width: 600px;
     margin: 0 auto; }
-  .jumbo-horizontal .jumbo-text {
+  .jumbo-horizontal .jumbo-title {
     color: white;
     font-size: 50px;
     font-weight: bold;
@@ -492,15 +492,14 @@ amp-social-share.amp-social {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column; }
-  @media (max-width: 40rem) {
-    .jumbo-vertical .jumbo-text {
-      font-size: 25px; } }
-  .jumbo-vertical .jumbo-text {
+  flex-direction: column;
+  /* Tablet & Desktop styles */ }
+  .jumbo-vertical .jumbo-title {
     color: white;
-    font-size: 35px;
     font-weight: bold;
-    line-height: 161%; }
+    line-height: 161%;
+    text-align: center;
+    font-size: 30px; }
 
 button, .tsmean-button {
   border: 0;

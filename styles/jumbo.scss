@@ -62,7 +62,7 @@
     margin: 0 auto;
   }
 
-  .jumbo-text {
+  .jumbo-title {
     color: white;
     font-size: 50px;
     font-weight: bold;
@@ -102,17 +102,13 @@
   justify-content: center;
   flex-direction: column;
 
-  @media (max-width: 40rem) {
-    .jumbo-text {
-      font-size: 25px;
-    }
-  }
 
-  .jumbo-text {
+  .jumbo-title {
     color: white;
-    font-size: 35px;
     font-weight: bold;
     line-height: 161%;
+    text-align: center;
+    font-size: 30px;
   }
 
 }
