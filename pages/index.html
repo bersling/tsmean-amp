@@ -18,24 +18,33 @@
   {{> ./components/analytics.html}}
   {{> ./components/header/header.html}}
   
-  <div class="jumbo-horizontal">
-    <p class="jumbo-text">
-      TypeScript - front to back
-    </p>
+  <div class="jumbo-main grad">
+  
     <amp-img src="/img/ezgif.raven.gif"
-             class="jumbo-image xs-hide"
+             class="jumbo-image"
              alt="TypeScript Mean Banner"
-             width="400"
-             height="205">
+             width="300"
+             height="150">
     </amp-img>
+    
+    
+    <div class="jumbo-text-container">
+      <h1 class="jumbo-title center">
+        <b>TypeScript</b>
+        <span class="inline-block">front to back</span>
+      </h1>
+      <p class="jumbo-subtitle">
+        {{> ./components/logo/white.html}} is the best way to get started with full stack typescript.
+      </p>
+    </div>
+  
+    
   </div>
   
   <article>
   
     <p>
-      {{> ./components/logo/accent.html}} is your go-to place
-      for full stack typescript. We offer articles on full stack typescript and even a starter-kit to kickstart
-      your full stack typescript experience!
+      {{> ./components/logo/accent.html}} has the mission to kick-start your full stack typescript experience. We offer articles on full stack typescript development and even a starter-kit to get you off the ground even faster!
     </p>
   
     <p>
@@ -62,151 +71,12 @@
     </p>
     
     <p>
-      The articles about the topic can be found under <a href="/articles" id="intext-link-articles">"Articles"</a>. They reach from a high-level analysis of the stack to nitty-gritty tutorials about implementation. The articles section is steadily growing, so make sure to
-      <a on="tap:subscribe-lightbox" id="intext-link-subscribe">subscribe</a> to stay up to date. The StarterKit is available directly on Github:
-    </p>
-  
-    {{> ./components/github-button.html}}
-  
-    <p>
-      Or maybe you are not conviced yet using the tsmean starter kit is a good idea? Then read on.
-    </p>
-  
-    <h2>
-      Why TypeScript, why MEAN, why <span class="highlight">tsmean</span>?
-    </h2>
-  
-    <p>
-      To understand how we came to this point in 2017, where it's a good idea to use the tsmean stack,
-      we first need to roll up a bit of history.
-    </p>
-  
-    <h3>
-      Different languages
-      <amp-img src="/img/landing/003-chat.svg"
-               alt="Different languages"
-               width="30"
-               height="30">
-      </amp-img>
-    </h3>
-    <p>
-      Have you ever wondered, why backends are written in Java or Python and frontends are written in Javascript?
-      Doesn't that seem inefficient to you, to use different languages across one and the same project?
-      Especially in smaller teams,
-      this language barrier often builds a wall between backend and frontend developers
-      and artificially pushes people into one of those categories.
-      I mean, compare it to real languages, isn't it useful that English is the de facto standard in the development community?
-      Wouldn't it also be useful if everyone would speak the same programming language?
-    </p>
-  
-    <h3>
-      First steps towards compatibility
-      <amp-img src="/img/landing/006-route-1.svg"
-               alt="Different languages"
-               width="30"
-               height="30">
-      </amp-img>
-    </h3>
-    <p>
-      For the frontend we basically don't have any other choice than to use Javascript,
-      since this is the only language that the browser understands.
-      For a long time <i>only</i> browsers would speak Javascript,
-      meaning you didn't even have the possibility to write Javascript for the backend.
-      Along came Node.js in 2009, finally making it possible to also write JS on the server.
-      Not only did it make it possible, but it provided some real advantages compared to other languages.
-      Due to the non-blocking nature of Javascript,
-      web-servers written in Node.js could be more resource efficient than their Java or  Python counterparts.
-      However, since Javascript doesn't have the best reputation in terms of scalability (no types, callback hell, ....),
-      the cost of maintenance drastically increased for larger projects.
-      Developers were glad that they <i>could</i> write in a different language server-side and so full stack-Javascript
-      only gained adoption for some few projects.
-    </p>
-  
-    <h3>
-      A new star on the horizon
-      <amp-img src="/img/landing/006-shooting-star-1.svg"
-               alt="TypeScript Mean Banner"
-               width="30"
-               height="30">
-      </amp-img>
-    </h3>
-    <p>
-      Remember how I said you don't have another choice for the frontend than Javascript?
-      Well, that was a lie. You just need something that <i>compiles</i> to Javascript. In 2012 Microsoft released
-      TypeScript, an optionally-typed language that does exactly this. The promise was better scalability and maintainability
-      for larter projects.
+      The articles about fullstack typescript can be found under <a href="/articles" id="intext-link-articles">"Articles"</a>. They reach from a high-level analysis of the stack to nitty-gritty tutorials about implementation. For the starter-kit, head over to the <a href="/starter-kit" id="intext-link-starter-kit">starter-kit section</a>, or check the code directly on github at <a href="https://github.com/tsmean/tsmean" id="intext-link-github">https://github.com/tsmean/tsmean</a>. The articles section is steadily growing and the starter kit is constantly improved, so make sure to
+      <a on="tap:subscribe-lightbox" id="intext-link-subscribe">subscribe</a> to stay up to date!
     </p>
     <p>
-      At first, TypeScript it was full of bugs and you needed to be a compiler yourself to spot all the places where
-      TypeScript would fail. Since then a lot has changed and nowadays you can trust TypeScript
-      to do good work. This has led to a strong TypeScript-trend in the frontend world. Here's the Google-Trends chart
-      for TypeScript from mid 2012 to mid 2017:
-    </p>
-  
-    <div>
-      <amp-img src="/img/landing/tstrend.png"
-               alt="TypeScript Mean Banner"
-               class="tstrend"
-               layout="responsive"
-               width="832"
-               height="402">
-      </amp-img>
-    </div>
-  
-    <p>
-      But TypeScript isn't just a better alternative to JavaScript.
-      It is actually a good programming language overall! Roughly 20 years after the
-      internet hit mainstream, it finally makes sense to talk one language back to front.
-      Now developers can talk to each other. And projects can share code between backend and frontend.
-      And you don't have to switch context anymore. And you can use the same package management solutions.
-      Apply the same knowledge to build libraries. And finally this all comes in a sane and scalable language.
-    </p>
-  
-    <h3>
-      The journey ahead
-      <amp-img src="/img/landing/003-hiker.svg"
-               alt="TypeScript Mean Banner"
-               width="30"
-               height="30">
-      </amp-img>
-    </h3>
-    <p>
-      The bad news is, that we are still at the very beginning of this journey.
-      The developments are still very young and there are only few good resources on
-      server-side TypeScript development. It totally makes sense to write full stack TypeScript,
-      but you are an early adopter with this. This makes it really tough to get started.
-      Which frameworks and libraries should you use? What are best practices? How could you build something that's modular with typescript?
-    </p>
-  
-    <p>
-      This is where tsmean tries to alleviate some of the pain. Basically tsmean provides two things:
-    </p>
-  
-    <ul>
-      <li>
-        Written resources on full stack typescript development.
-        Tutorials, comparisons, experiences. They are all listed in the <a href="./articles" id="intext-link-articles-2">"Articles"</a> section.
-      </li>
-      <li>
-        A starter kit for a full stack typescript webapp.
-        Developing the core of a wepapp requires a lot of work. Either you "hack it" and manoeuvre
-        yourself into big trouble for later on, or you do it right, and you'll spend weeks.
-        tsmean provides the common core of every full stack webapp.
-        It is not a framework, you can change all the code.
-        It is rather a fully functional,
-        well-engineered, scalable and module template for you to get started faster.
-        Here's what you get when you download the starter kit: <a href="demo.tsmean.com" id="intext-link-demo-tsmean">demo.tsmean.com</a>.
-        The code is hosted here: <a href="https://github.com/tsmean/tsmean" id="intext-link-github">https://github.com/tsmean/tsmean</a>.
-      </li>
-    </ul>
-    
-    <p>
-      One thing we haven't looked at so far, is why the MEAN stack is a good choice. Mongodb is good for prototyping and MySQL is one of the best relational databases. One thing that has to be said, if you're the ORM kind of guy, then you probably should think about fullstack typescript twice, since there isn't a stable ORM solution for typescript yet. Express is a pretty standard choice for routing in the Javascript world. There are typings available (like most popular libraries), so it integrates well with typescript. Next, the "A", Angular. Angular has for sure the biggest typescript community. The most notable competitors ReactJS and VueJS have almost non-existent typescript communities. So for fullstack ts, Angular is basically the only viable option. You could think about not using a framework at all, but the benefits that Angular provides justify it's steep learning curve and will make your application more scalable and reusable in the end. Finally the "N", Node.js, doesn't even have to be discussed, since it's the only viable option to run javascript on the server. So that's it, that's why the MEAN stack is the best choice for fullstack typescript. The biggest point of debate is probably which database to use.
-    </p>
-    
-    <p>
-      We hope we can help you somewhat with our resources and the starer-kit, we hope to hear from you! Just drop us a mail at
-      <a href="mailto:contact@tsmean.com">contact@tsmean.com</a>. Also, don't forget to subscribe to the newsletter if you're interested in the topic!
+      We hope we can help you with our resources and the starer-kit. Don't hesitate to contact us at
+      <a href="mailto:contact@tsmean.com">contact@tsmean.com</a>. All feedback is welcome!
     </p>
   
   </article>

@@ -425,6 +425,32 @@ amp-social-share.amp-social {
   border-radius: 50%;
   background-size: 75%; }
 
+.jumbo-main {
+  padding: 100px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white; }
+  .jumbo-main .jumbo-image {
+    margin-top: -50px;
+    min-width: 300px; }
+  .jumbo-main .jumbo-title {
+    font-size: 40px;
+    line-height: 161%;
+    font-weight: 400; }
+  .jumbo-main .jumbo-subtitle {
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    text-align: center; }
+  @media (min-width: 700px) {
+    .jumbo-main {
+      flex-direction: row; }
+      .jumbo-main .jumbo-subtitle, .jumbo-main .jumbo-title {
+        text-align: left; } }
+
 .jumbo-horizontal {
   background: #3F51B5;
   padding: 50px 50px;
@@ -550,8 +576,23 @@ header {
   margin: 0 auto;
   background: white; }
 
+.logo-wrapper.white {
+  color: white; }
+
 .logo-wrapper .mini-raven {
   margin-left: -10px; }
+
+.grad {
+  background: #3F51B5;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #3F51B5, #5269EA);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #3F51B5, #5269EA);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #3F51B5, #5269EA);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #3F51B5, #5269EA);
+  /* Standard syntax */ }
 
 .padded {
   padding: 20px; }
@@ -564,6 +605,9 @@ header {
   width: 100vw;
   padding-top: 20px;
   background: rgba(100, 100, 100, 0.8); }
+
+.inline-block {
+  display: inline-block; }
 
 .mwc-450 {
   max-width: 450px;

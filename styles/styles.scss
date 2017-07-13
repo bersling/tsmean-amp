@@ -11,6 +11,7 @@
 @import '../components/learn-more/learn-more';
 @import '../components/subscribe/cta-one';
 @import '../components/logo/logo';
+@import 'gradient';
 
 .padded {
     padding: 20px;
@@ -25,6 +26,10 @@
     width: 100vw;
     padding-top: 20px;
     background: rgba(100,100,100, 0.8);
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 .mwc-450 {

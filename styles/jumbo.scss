@@ -1,6 +1,47 @@
+@import 'variables';
+
+.jumbo-main {
+  padding: 100px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  .jumbo-image {
+    margin-top: -50px;
+    min-width: 300px;
+  }
+
+  .jumbo-title {
+    font-size: 40px;
+    line-height: 161%;
+    font-weight: 400;
+  }
+
+  .jumbo-subtitle {
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  // Desktop styles
+  @media(min-width: 700px) {
+    flex-direction: row;
+
+    .jumbo-subtitle, .jumbo-title {
+      text-align: left;
+    }
+
+  }
+
+}
+
 .jumbo-horizontal {
 
-  background: #3F51B5;
+  background: $primary-color;
   padding: 50px 50px;
   text-align: center;
   display: flex;
