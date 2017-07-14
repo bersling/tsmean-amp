@@ -1,185 +1,29 @@
 @import 'variables';
-@import 'gradient';
 
-body[amp-x-jumbo-background-experiment="0"] .jumbo-main {
-  background-color: $primary-color;
+.jumbo-main::after {
+  content: "";
+  background: url('/img/backgrounds/aurora-scaled.jpeg');
+  background-size: cover;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
-body[amp-x-jumbo-background-experiment="1"] .jumbo-main {
-  @include diagonal-gradient($primary-color, #4D63DE);
+.jumbo-main::before {
+  content: "";
+  background: $primary-color;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2;
 }
-
-body[amp-x-jumbo-background-experiment="2"] .jumbo-main {
-  @include vertical-gradient($primary-color, #B37354);
-}
-
-body[amp-x-jumbo-background-experiment="3"] .jumbo-main {
-  @include vertical-gradient($primary-color, $accent);
-}
-
-body[amp-x-jumbo-background-experiment="4"] {
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/backgrounds/cloud-sea-min.jpg');
-    background-size: cover;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-}
-
-body[amp-x-jumbo-background-experiment="5"] {
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/backgrounds/cloud-sea2.jpg');
-    background-size: cover;
-    opacity: 0.3;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-}
-
-body[amp-x-jumbo-background-experiment="6"] {
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/backgrounds/aurora-scaled.jpeg');
-    background-size: cover;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-}
-
-body[amp-x-jumbo-background-experiment="7"] {
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/backgrounds/lightning2.jpg');
-    background-size: cover;
-    opacity: 0.3;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-}
-
-body[amp-x-jumbo-background-experiment="8"] {
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/backgrounds/astro1.jpg');
-    background-size: cover;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-}
-
-body[amp-x-jumbo-background-experiment="9"] {
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/backgrounds/clouds.jpg');
-    background-size: cover;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-}
-
-
 
 .jumbo-main {
   position: relative;

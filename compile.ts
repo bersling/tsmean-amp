@@ -67,7 +67,7 @@ console.log('=== COMPILE MUSTACHE ===');
 mu.root = __dirname;
 const data = {};
 
-const pages = ['index', 'articles/index', 'starter-kit/index'];
+const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing'];
 const htwatlPages = ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'];
 htwatlPages.forEach(page => {
   const dir = 'articles/how-to-write-a-typescript-library/';
@@ -89,6 +89,7 @@ motivation.forEach(page => {
   const dir = 'articles/motivation/';
   pages.push(dir + page);
 });
+
 
 pages.forEach(page => {
   mkdir('./dist/' + path.dirname(page));

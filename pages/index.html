@@ -14,24 +14,19 @@
   
   <script async custom-element="amp-experiment" src="https://cdn.ampproject.org/v0/amp-experiment-0.1.js"></script>
   
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  
 </head>
 <body>
   
   <amp-experiment>
     <script type="application/json">
       {
-        "jumbo-background-experiment": {
+        "main-cta-experiment": {
           "variants": {
-            "0": 10,
-            "1": 10,
-            "2": 10,
-            "3": 10,
-            "4": 10,
-            "5": 10,
-            "6": 10,
-            "7": 10,
-            "8": 10,
-            "9": 10
+            "0": 33,
+            "1": 33,
+            "2": 33
           }
         }
       }
@@ -63,6 +58,9 @@
   </div>
   
   <article>
+  
+  
+    {{> ./components/jumbo-button/jumbo-button.html}}
   
     <p>
       {{> ./components/logo/accent.html}} has the mission to kick-start your full stack typescript experience. We offer articles on full stack typescript development and a starter-kit to get you off the ground even faster!
