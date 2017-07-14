@@ -1,36 +1,135 @@
-import * as highlight from 'highlight.js';
-
 const mu = require('mu2');
 const fs = require('fs');
 const path = require('path');
+const ampHtmlValidator = require('amphtml-validator');
 
 /**
- * synchronously creates directory (chain)
- * @param targetDir
+ * Here you can define the pages you want to compile & include in your distribution folder.
+ * By specifying this explicity you gain full control and can also have drafts (unpublished html files)
  */
-const mkdir = (targetDir: string): void => {
-  const sep = path.sep;
-  const initDir = path.isAbsolute(targetDir) ? sep : '';
-  targetDir.split(sep).reduce((parentDir, childDir) => {
-    const curDir = path.resolve(parentDir, childDir);
-    if (!fs.existsSync(curDir)) {
-      fs.mkdirSync(curDir);
-    }
+const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing'];
+addPagesToDirectory (
+  'articles/how-to-write-a-typescript-library',
+  ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'],
+  pages
+);
+addPagesToDirectory(
+  'articles/angular',
+  ['pitfalls', 'state-management'],
+  pages
+);
+addPagesToDirectory(
+  'articles/vs',
+  ['mongo-vs-mysql-for-webapps'],
+  pages
+);
+addPagesToDirectory(
+  'articles/motivation',
+  ['typescript-mean'],
+  pages
+);
 
-    return curDir;
-  }, initDir);
+/**
+ * execute all compilation steps
+ */
+compileSass();
+copyRobotsTxt();
+compileMustache();
+buildSitemap(pages);
+validateAmp(pages);
+
+
+/**
+ * From here on downwards are only some implementation details...
+ * ==============================================================
+ */
+function validateAmp(pages: string[]) {
+  pages.forEach(page => {
+    ampHtmlValidator.getInstance().then(function (validator) {
+      const input = fs.readFileSync(`dist/${page}.html`, 'utf8');
+      const result = validator.validateString(input);
+      ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
+      for (let ii = 0; ii < result.errors.length; ii++) {
+        const error = result.errors[ii];
+        let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
+        if (error.specUrl !== null) {
+          msg += ' (see ' + error.specUrl + ')';
+        }
+        ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
+      }
+    });
+  });
+}
+
+function compileSass () {
+  const sass = require('node-sass');
+  const result = sass.renderSync({
+    file: './app/styles/styles.scss',
+    outFile: './app/styles/styles.css'
+  });
+  fs.writeFileSync('./app/styles/styles.css', result.css);
+};
+
+function copyRobotsTxt() {
+  copyFile('./app/pages/robots.txt', './dist/robots.txt', function(err) {
+    if (err) {
+      console.error('Error on copying robots', err);
+    }
+  });
+}
+
+function compileMustache() {
+  mu.root = __dirname + '/app';
+  const data = {};
+
+  // ensure that all directories are created, so compilation doesn't fail
+  pages.forEach(page => {
+    mkdir('./dist/' + path.dirname(page));
+  });
+
+  pages.forEach(page => {
+    const writeStream = fs.createWriteStream(`./dist/${page}.html`);
+    mu.compileAndRender(`pages/${page}.html`, data)
+      .on('data', function (data) {
+        const dataStr = data.toString();
+        writeStream.write(dataStr);
+      });
+  });
+}
+
+function buildSitemap(pages) {
+  let changedPages = [];
+  for (let i = 0; i < pages.length; i++) {
+    const page = pages[i];
+    changedPages.push({
+      // remove 'index' and also remove '.' ...
+      page: page.indexOf('index') > -1 ? (
+        path.dirname(page) === '.' ? '' : path.dirname(page)
+      ) : (
+        page
+      )
+    });
+  }
+  const writeStream = fs.createWriteStream(`./dist/sitemap.xml`);
+  mu.compileAndRender(`pages/sitemap.xml.mustache`, {
+    pages: changedPages,
+    date: formatDate(new Date())
+  }).on('data', function (data) {
+    const dataStr = data.toString();
+    writeStream.write(dataStr);
+  });
 }
 
 
-console.log('=== COMPILE SASS ===');
-const sass = require('node-sass');
-const result = sass.renderSync({
-  file: './styles/styles.scss',
-  outFile: './styles/styles.css'
-});
-fs.writeFileSync('./styles/styles.css', result.css);
-
-console.log('=== BUILD robots ===');
+/**
+ * And even less interesting, here are some helper functions...
+ * ============================================================
+ */
+function addPagesToDirectory (dirName: string, newPages: string[], existingPages: string[]) {
+  newPages.forEach(page => {
+    existingPages.push(path.join(dirName, page));
+  });
+}
 
 function copyFile(source, target, cb) {
   var cbCalled = false;
@@ -56,79 +155,27 @@ function copyFile(source, target, cb) {
   }
 }
 
+/**
+ * synchronously creates directory (chain)
+ * @param targetDir
+ */
+function mkdir (targetDir: string) {
+  const sep = path.sep;
+  const initDir = path.isAbsolute(targetDir) ? sep : '';
+  targetDir.split(sep).reduce((parentDir, childDir) => {
+    const curDir = path.resolve(parentDir, childDir);
+    if (!fs.existsSync(curDir)) {
+      fs.mkdirSync(curDir);
+    }
 
-copyFile('./robots.txt', './dist/robots.txt', function(err) {
-  if (err) {
-    console.error('Error on copying robots', err);
-  }
-});
+    return curDir;
+  }, initDir);
+};
 
-console.log('=== COMPILE MUSTACHE ===');
-mu.root = __dirname;
-const data = {};
-
-const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing'];
-const htwatlPages = ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'];
-htwatlPages.forEach(page => {
-  const dir = 'articles/how-to-write-a-typescript-library/';
-  mkdir('./dist/' + dir);
-  pages.push(dir + page)
-});
-const vsPages = ['mongo-vs-mysql-for-webapps'];
-vsPages.forEach(page => {
-  const dir = 'articles/vs/';
-  pages.push(dir + page);
-});
-const angularPages = ['pitfalls', 'state-management'];
-angularPages.forEach(page => {
-  const dir = 'articles/angular/';
-  pages.push(dir + page);
-});
-const motivation = ['typescript-mean'];
-motivation.forEach(page => {
-  const dir = 'articles/motivation/';
-  pages.push(dir + page);
-});
-
-
-pages.forEach(page => {
-  mkdir('./dist/' + path.dirname(page));
-});
-
-pages.forEach(page => {
-  const writeStream = fs.createWriteStream(`./dist/${page}.html`);
-  mu.compileAndRender(`pages/${page}.html`, data)
-    .on('data', function (data) {
-      const dataStr = data.toString();
-      writeStream.write(dataStr);
-    });
-});
-
-// sitemap
-let changedPages = [];
-for (let i = 0; i < pages.length; i++) {
-  const page = pages[i];
-  changedPages.push({
-    // remove 'index' and also remove '.' ...
-    page: page.indexOf('index') > -1 ? (
-      path.dirname(page) === '.' ? '' : path.dirname(page)
-    ) : (
-      page
-    )
-  });
-}
-
-const writeStream = fs.createWriteStream(`./dist/sitemap.xml`);
-mu.compileAndRender(`sitemap.xml`, {
-  pages: changedPages,
-  date: formatDate(new Date())
-}).on('data', function (data) {
-    const dataStr = data.toString();
-    writeStream.write(dataStr);
-  });
-
-
-function formatDate(date) {
+/**
+ * format date to YYYY-MM-DD
+ */
+function formatDate(date: Date): string {
   var mm = date.getMonth(); // getMonth() is zero-based
   var dd = date.getDate();
 
@@ -137,23 +184,3 @@ function formatDate(date) {
     (dd>9 ? '' : '0') + dd
   ].join('-');
 }
-
-
-console.log('=== AMP VALIDATION ===');
-const amphtmlValidator = require('amphtml-validator');
-
-pages.forEach(page => {
-  amphtmlValidator.getInstance().then(function (validator) {
-    const input = fs.readFileSync(`dist/${page}.html`, 'utf8');
-    const result = validator.validateString(input);
-    ((result.status === 'PASS') ? console.log : console.error)(`${result.status} (${page})`);
-    for (let ii = 0; ii < result.errors.length; ii++) {
-      const error = result.errors[ii];
-      let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
-      if (error.specUrl !== null) {
-        msg += ' (see ' + error.specUrl + ')';
-      }
-      ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
-    }
-  });
-});
