@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "$(npm bin)/watch 'npm run mustache' --inverval=1",
+    "watch": "$(npm bin)/watch 'npm run build' --inverval=1",
     "build": "rm -rf dist && mkdir -p dist && cp -r img dist && npm run mustache",
     "mustache": "ts-node compile.ts",
     "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html"

@@ -1,14 +1,20 @@
-server=ubuntu@35.158.213.131
+#!/usr/bin/env bash
 
 if [ "${1}" == "dev" ]; then
-  npm run build
-  rsync -avz --delete -e 'ssh' "dist/" "${server}:tsmeanampdev/dist"
+  server=ubuntu@35.158.213.131
 elif [ "${1}" == "prod" ]; then
-  npm run build
-  rsync -avz --delete -e 'ssh' "dist/" "${server}:tsmeanamp/dist"
+  server=ubuntu@35.158.213.131
 else
- echo "Expected dev or prod as arguments"
+  echo "Expected dev or prod as argument"
+  exit 0
 fi
 
-exit 0
+npm run build
 
+if [ "${1}" == "dev" ]; then
+  rsync -avz --delete -e 'ssh' "dist/" "${server}:tsmeanampdev/dist"
+elif [ "${1}" == "prod" ]; then
+  rsync -avz --delete -e 'ssh' "dist/" "${server}:tsmeanamp/dist"
+fi
+
+echo "Done!"

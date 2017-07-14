@@ -425,8 +425,31 @@ amp-social-share.amp-social {
   border-radius: 50%;
   background-size: 75%; }
 
+.jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/aurora-scaled.jpeg");
+  background-size: cover;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+.jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
 .jumbo-main {
-  background-color: #3F51B5;
+  position: relative;
   padding: 100px 10px;
   text-align: center;
   display: flex;
@@ -448,7 +471,8 @@ amp-social-share.amp-social {
     text-align: center; }
   @media (min-width: 700px) {
     .jumbo-main {
-      flex-direction: row; }
+      flex-direction: row;
+      padding: 200px 10px; }
       .jumbo-main .jumbo-subtitle, .jumbo-main .jumbo-title {
         text-align: left; } }
 
@@ -581,6 +605,40 @@ header {
 .logo-wrapper .mini-raven {
   margin-left: -10px; }
 
+.greenBackground {
+  background: green; }
+
+.redBackground {
+  background: red; }
+
+.github-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 250px;
+  height: 3rem;
+  color: white;
+  font-size: 20px;
+  background: #3F51B5;
+  text-decoration: none;
+  border-radius: 3px; }
+  .github-link.inverse {
+    background: white;
+    color: #3F51B5; }
+
+.github-image {
+  padding-right: 20px;
+  margin-top: -3px; }
+
+.github-link-wrapper {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+
+.opacity80 {
+  opacity: 0.8; }
+
 .padded {
   padding: 20px; }
 
@@ -711,29 +769,6 @@ amp-accordion > section > pre.code-snippet {
 
 .spacer50 {
   height: 50px; }
-
-/* github link */
-.github-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  width: 250px;
-  height: 3rem;
-  color: white;
-  font-size: 20px;
-  background: #3F51B5;
-  text-decoration: none;
-  border-radius: 3px;
-  box-shadow: 2px 2px 5px 0 #888888; }
-
-.github-image {
-  padding-right: 20px;
-  margin-top: -3px; }
-
-.github-link-wrapper {
-  display: flex;
-  justify-content: center; }
 
 /* general styles */
 .flex {

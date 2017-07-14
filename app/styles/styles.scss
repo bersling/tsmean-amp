@@ -1,17 +1,24 @@
 @import 'normalize';
-@import 'variables.scss';
+@import 'variables';
 @import 'responsive';
 @import 'social';
 @import 'jumbo';
 @import 'html/button';
 @import 'html/input';
 @import 'html/a';
+@import 'gradient';
+
 @import '../components/footer/footer';
 @import '../components/header/header';
 @import '../components/learn-more/learn-more';
 @import '../components/subscribe/cta-one';
 @import '../components/logo/logo';
-@import 'gradient';
+@import '../components/jumbo-button/jumbo-button';
+@import '../components/github-button/github-link';
+
+.opacity80 {
+    opacity: 0.8;
+}
 
 .padded {
     padding: 20px;
@@ -172,37 +179,6 @@ amp-accordion>section>pre.code-snippet {
 }
 .spacer50 {
     height: 50px;
-}
-
-
-/* github link */
-.github-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    width: 250px;
-    height: 3rem;
-    color: white;
-    font-size: 20px;
-    background: #3F51B5;
-    text-decoration: none;
-    border-radius: 3px;
-    box-shadow: 2px 2px 5px 0 #888888;
-}
-
-.github-image {
-    padding-right: 20px;
-    margin-top: -3px;
-}
-
-.rotate {
-
-}
-
-.github-link-wrapper {
-    display: flex;
-    justify-content: center;
 }
 
 /* general styles */

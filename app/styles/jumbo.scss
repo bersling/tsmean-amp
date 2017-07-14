@@ -1,10 +1,33 @@
 @import 'variables';
-@import 'gradient';
+
+.jumbo-main::after {
+  content: "";
+  background: url('/img/backgrounds/aurora-scaled.jpeg');
+  background-size: cover;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.jumbo-main::before {
+  content: "";
+  background: $primary-color;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2;
+}
 
 .jumbo-main {
-  // background-image: url('/img/pink-dust.svg');
-  background-color: $primary-color;
-  // @include diagonal-gradient($primary-color, $accent);
+  position: relative;
+  // background-color: $primary-color;
   padding: 100px 10px;
   text-align: center;
   display: flex;
@@ -22,6 +45,8 @@
     font-size: 40px;
     line-height: 161%;
     font-weight: 400;
+    // text-shadow: 2px 2px 4px #000000;
+    // text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
   }
 
   .jumbo-subtitle {
@@ -34,6 +59,7 @@
   // Desktop styles
   @media(min-width: 700px) {
     flex-direction: row;
+    padding: 200px 10px;
 
     .jumbo-subtitle, .jumbo-title {
       text-align: left;
