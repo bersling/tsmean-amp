@@ -425,17 +425,185 @@ amp-social-share.amp-social {
   border-radius: 50%;
   background-size: 75%; }
 
-.jumbo-main {
+body[amp-x-jumbo-background-experiment="0"] .jumbo-main {
+  background-color: #3F51B5; }
+
+body[amp-x-jumbo-background-experiment="1"] .jumbo-main {
   background: #3F51B5;
   /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, #3F51B5, #D0092F);
+  background: -webkit-linear-gradient(left top, #3F51B5, #4D63DE);
   /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, #3F51B5, #D0092F);
+  background: -o-linear-gradient(bottom right, #3F51B5, #4D63DE);
   /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, #3F51B5, #D0092F);
+  background: -moz-linear-gradient(bottom right, #3F51B5, #4D63DE);
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, #3F51B5, #D0092F);
-  /* Standard syntax */
+  background: linear-gradient(to bottom right, #3F51B5, #4D63DE);
+  /* Standard syntax */ }
+
+body[amp-x-jumbo-background-experiment="2"] .jumbo-main {
+  background: #3F51B5;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#3F51B5, #B37354);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#3F51B5, #B37354);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#3F51B5, #B37354);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#3F51B5, #B37354);
+  /* Standard syntax */ }
+
+body[amp-x-jumbo-background-experiment="3"] .jumbo-main {
+  background: #3F51B5;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#3F51B5, #D0092F);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#3F51B5, #D0092F);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#3F51B5, #D0092F);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#3F51B5, #D0092F);
+  /* Standard syntax */ }
+
+body[amp-x-jumbo-background-experiment="4"] .jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/cloud-sea-min.jpg");
+  background-size: cover;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+body[amp-x-jumbo-background-experiment="4"] .jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
+body[amp-x-jumbo-background-experiment="5"] .jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/cloud-sea2.jpg");
+  background-size: cover;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+body[amp-x-jumbo-background-experiment="5"] .jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
+body[amp-x-jumbo-background-experiment="6"] .jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/lightning.jpg");
+  background-size: cover;
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+body[amp-x-jumbo-background-experiment="6"] .jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
+body[amp-x-jumbo-background-experiment="7"] .jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/horizon.jpg");
+  background-size: cover;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+body[amp-x-jumbo-background-experiment="7"] .jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
+body[amp-x-jumbo-background-experiment="8"] .jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/astro1.jpg");
+  background-size: cover;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+body[amp-x-jumbo-background-experiment="8"] .jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
+body[amp-x-jumbo-background-experiment="9"] .jumbo-main::after {
+  content: "";
+  background: url("/img/backgrounds/clouds.jpg");
+  background-size: cover;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; }
+
+body[amp-x-jumbo-background-experiment="9"] .jumbo-main::before {
+  content: "";
+  background: #3F51B5;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -2; }
+
+.jumbo-main {
+  position: relative;
   padding: 100px 10px;
   text-align: center;
   display: flex;
@@ -589,6 +757,9 @@ header {
 
 .logo-wrapper .mini-raven {
   margin-left: -10px; }
+
+.opacity80 {
+  opacity: 0.8; }
 
 .padded {
   padding: 20px; }

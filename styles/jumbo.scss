@@ -1,10 +1,189 @@
 @import 'variables';
 @import 'gradient';
 
+body[amp-x-jumbo-background-experiment="0"] .jumbo-main {
+  background-color: $primary-color;
+}
+
+body[amp-x-jumbo-background-experiment="1"] .jumbo-main {
+  @include diagonal-gradient($primary-color, #4D63DE);
+}
+
+body[amp-x-jumbo-background-experiment="2"] .jumbo-main {
+  @include vertical-gradient($primary-color, #B37354);
+}
+
+body[amp-x-jumbo-background-experiment="3"] .jumbo-main {
+  @include vertical-gradient($primary-color, $accent);
+}
+
+body[amp-x-jumbo-background-experiment="4"] {
+  .jumbo-main::after {
+    content: "";
+    background: url('/img/backgrounds/cloud-sea-min.jpg');
+    background-size: cover;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .jumbo-main::before {
+    content: "";
+    background: $primary-color;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
+}
+
+body[amp-x-jumbo-background-experiment="5"] {
+  .jumbo-main::after {
+    content: "";
+    background: url('/img/backgrounds/cloud-sea2.jpg');
+    background-size: cover;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .jumbo-main::before {
+    content: "";
+    background: $primary-color;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
+}
+
+body[amp-x-jumbo-background-experiment="6"] {
+  .jumbo-main::after {
+    content: "";
+    background: url('/img/backgrounds/lightning.jpg');
+    background-size: cover;
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .jumbo-main::before {
+    content: "";
+    background: $primary-color;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
+}
+
+body[amp-x-jumbo-background-experiment="7"] {
+  .jumbo-main::after {
+    content: "";
+    background: url('/img/backgrounds/horizon.jpg');
+    background-size: cover;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .jumbo-main::before {
+    content: "";
+    background: $primary-color;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
+}
+
+body[amp-x-jumbo-background-experiment="8"] {
+  .jumbo-main::after {
+    content: "";
+    background: url('/img/backgrounds/astro1.jpg');
+    background-size: cover;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .jumbo-main::before {
+    content: "";
+    background: $primary-color;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
+}
+
+body[amp-x-jumbo-background-experiment="9"] {
+  .jumbo-main::after {
+    content: "";
+    background: url('/img/backgrounds/clouds.jpg');
+    background-size: cover;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .jumbo-main::before {
+    content: "";
+    background: $primary-color;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
+}
+
+
+
 .jumbo-main {
-  // background-image: url('/img/pink-dust.svg');
+  position: relative;
   // background-color: $primary-color;
-  @include diagonal-gradient($primary-color, $accent);
   padding: 100px 10px;
   text-align: center;
   display: flex;
@@ -22,6 +201,8 @@
     font-size: 40px;
     line-height: 161%;
     font-weight: 400;
+    // text-shadow: 2px 2px 4px #000000;
+    // text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
   }
 
   .jumbo-subtitle {

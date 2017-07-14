@@ -12,8 +12,31 @@
   <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   
+  <script async custom-element="amp-experiment" src="https://cdn.ampproject.org/v0/amp-experiment-0.1.js"></script>
+  
 </head>
 <body>
+  
+  <amp-experiment>
+    <script type="application/json">
+      {
+        "jumbo-background-experiment": {
+          "variants": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10
+          }
+        }
+      }
+    </script>
+  </amp-experiment>
   
   {{> ./components/analytics.html}}
   {{> ./components/header/header.html}}
@@ -21,12 +44,11 @@
   <div class="jumbo-main">
   
     <amp-img src="/img/ezgif.raven.gif"
-             class="jumbo-image"
+             class="jumbo-image opacity80"
              alt="TypeScript Mean Banner"
              width="300"
              height="150">
     </amp-img>
-    
     
     <div class="jumbo-title-container">
       <h1 class="jumbo-title center">
@@ -37,7 +59,6 @@
         {{> ./components/logo/white.html}} is the best way to get started with full stack typescript.
       </p>
     </div>
-  
     
   </div>
   
