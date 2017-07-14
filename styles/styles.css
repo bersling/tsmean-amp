@@ -512,9 +512,9 @@ body[amp-x-jumbo-background-experiment="5"] .jumbo-main::before {
 
 body[amp-x-jumbo-background-experiment="6"] .jumbo-main::after {
   content: "";
-  background: url("/img/backgrounds/lightning.jpg");
+  background: url("/img/backgrounds/aurora-scaled.jpeg");
   background-size: cover;
-  opacity: 0.1;
+  opacity: 0.2;
   top: 0;
   left: 0;
   bottom: 0;
@@ -535,7 +535,7 @@ body[amp-x-jumbo-background-experiment="6"] .jumbo-main::before {
 
 body[amp-x-jumbo-background-experiment="7"] .jumbo-main::after {
   content: "";
-  background: url("/img/backgrounds/horizon.jpg");
+  background: url("/img/backgrounds/lightning2.jpg");
   background-size: cover;
   opacity: 0.3;
   top: 0;
@@ -604,7 +604,6 @@ body[amp-x-jumbo-background-experiment="9"] .jumbo-main::before {
 
 .jumbo-main {
   position: relative;
-  background-color: #3F51B5;
   padding: 100px 10px;
   text-align: center;
   display: flex;
