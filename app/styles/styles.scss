@@ -155,7 +155,6 @@ amp-accordion>section>pre.code-snippet {
   text-align: right;
 }
 
-
 .anchor {
   display: block;
   position: relative;
@@ -163,16 +162,10 @@ amp-accordion>section>pre.code-snippet {
   visibility: hidden;
 }
 
-.math-lib-image {
-  max-width: 300px;
-  margin: 0 auto
-}
-
-.intellij-img {
-  margin: 0 auto;
-  max-width: 700px;
-}
-
 .boxed {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.opacity80 {
+  opacity: 0.8;
 }
