@@ -1,13 +1,23 @@
-@import 'normalize';
-@import 'variables';
-@import 'responsive';
-@import 'social';
-@import 'jumbo';
-@import 'html/button';
-@import 'html/input';
-@import 'html/a';
-@import 'gradient';
+// Normalize makes all default html elements more consistent across browsers.
+// For example, buttons look usually different on FF, IE, Chrome... But not if you include normalize.css
+@import '../../node_modules/normalize-scss/sass/_normalize';
 
+// Some basics
+@import 'colors';
+@import 'responsive';
+
+// Styling the default html elements
+@import 'html/a';
+@import 'html/article';
+@import 'html/body';
+@import 'html/button';
+@import 'html/hr';
+@import 'html/input';
+@import 'html/main';
+@import 'html/p';
+
+// the components
+@import '../components/jumbotron/jumbo';
 @import '../components/footer/footer';
 @import '../components/header/header';
 @import '../components/learn-more/learn-more';
@@ -16,216 +26,155 @@
 @import '../components/jumbo-button/jumbo-button';
 @import '../components/github-button/github-link';
 
-.opacity80 {
-    opacity: 0.8;
-}
+/**
+Some generic styles that are reused throughout the app.
+If the styles belong to a specific ui element, don't put them here.
+If the you want to style an html element, create a new corresponding file in the html directory
+If your styles are for a custom ui component, put them in the same folder as the html file.
+ */
 
 .padded {
-    padding: 20px;
-}
+  padding: 10px;
+  @media(min-width: 500px) {
 
-.right-align {
-    text-align: right;
+  }
+
 }
 
 .lightbox {
-    min-height: 100vh;
-    width: 100vw;
-    padding-top: 20px;
-    background: rgba(100,100,100, 0.8);
+  min-height: 100vh;
+  width: 100vw;
+  padding-top: 20px;
+  background: rgba(100,100,100, 0.8);
 }
 
 .inline-block {
-    display: inline-block;
+  display: inline-block;
 }
 
-.mwc-450 {
-    max-width: 450px;
-    margin: 0 auto;
-}
-.mwc-550 {
-    max-width: 550px;
-    margin: 0 auto;
+// mainly helpful to adjust max width on images
+.mw100 { max-width: 100px; }
+.mw150 { max-width: 150px; }
+.mw200 { max-width: 200px; }
+.mw250 { max-width: 250px; }
+.mw300 { max-width: 300px; }
+.mw350 { max-width: 350px; }
+.mw400 { max-width: 400px; }
+.mw450 { max-width: 450px; }
+.mw500 { max-width: 500px; }
+.mw550 { max-width: 550px; }
+.mw600 { max-width: 600px; }
+.mw650 { max-width: 650px; }
+.mw700 { max-width: 700px; }
+
+// for centering an item with a max width (mwc = max-width-center)
+.mwc {
+  margin: 0 auto;
 }
 
-.tstrend {
-    max-width: 450px;
-    margin: 0 auto;
-}
 
-/* body styles */
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 161%;
-}
 
-/* paragraph styles */
-p {
-    line-height: 161%;
-    text-align: justify;
-}
 
 /* button styles */
 .hamburger {
-    background: transparent;
-    padding: 10px;
+  background: transparent;
+  padding: 10px;
 }
 .nav-logo-button {
-    background: transparent;
-    padding: 0;
-    height: 50px;
+  background: transparent;
+  padding: 0;
+  height: 50px;
 }
 
-
-/* main styles, content styles */
-main {
-    margin: 0 auto;
-    max-width: 100%;
-}
-
-article {
-    padding: 10px;
-    margin: 0 auto;
-    max-width: 800px;
-    background: white;
-}
-
-/* tables */
-table.nice-table {
-    background: #F5F5F5;
-    width: 100%;
-    padding: 10px;
-}
-
-table.nice-table td:first-child {
-    text-align: right;
-    font-weight: 700;
-    padding: 5px 10px;
-}
-
+/* to make headings in tutorials with step 1: blabla, step 2: blabla look a bit nicer */
 .step {
-    color: #3F51B5;
+  color: $primary-color;
 }
 
-.footer-smallprint {
-    font-size: 10px;
-    text-align: center;
-    padding: 10px;
-}
-
-.local-consumer-img {
-    margin: 0 auto;
-    max-width: 450px;
-}
 
 .margin-left-right {
-    margin-left: 15px;
-    margin-right: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-
-hr {
-    padding: 0;
-    border: none;
-    color: #f0f0f0;
-    text-align: center;
-}
-hr:after {
-    content: "*  *  *";
-    display: inline-block;
-    position: relative;
-    font-size: 1.5em;
-    padding: 0 0.25em;
-}
-
-
-/* highlighting */
 
 .highlight {
-    color: $accent;
+  color: $accent;
 }
 
 
 /* code-snippet styles */
-
 .file-label {
-    margin-bottom: -10px;
-    font-size: 0.7rem;
-    color: #459B45;
+  margin-bottom: -10px;
+  font-size: 0.7rem;
+  color: #459B45;
 }
 .file-label-two {
-    padding: 5px;
-    color: #459B45;
+  padding: 5px;
+  color: #459B45;
 }
 
 amp-accordion>section>pre.code-snippet {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }
 
 .code-snippet {
-    overflow-x: scroll;
-    padding: 10px;
-    /*box-shadow: 1px 1px 5px 0 #aaaaaa;*/
-    background: #F5F5F5;
-    font-size: 90%;
+  overflow-x: scroll;
+  padding: 10px;
+  /*box-shadow: 1px 1px 5px 0 #aaaaaa;*/
+  background: #F5F5F5;
+  font-size: 90%;
 }
 
 .highlight {
-    color: #D0092F;
+  color: #D0092F;
 }
 
 .spacer10 {
-    height: 10px;
+  height: 10px;
 }
 .spacer50 {
-    height: 50px;
+  height: 50px;
 }
 
-/* general styles */
+// TODO: move
+/* article related... */
 .flex {
-    display: flex;
+  display: flex;
 }
-
 .flex-auto {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    min-width: 0;
-    min-height: 0;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
-.margin0 {
-    margin: 0 auto;
+.right-align {
+  text-align: right;
 }
+
 
 .anchor {
-    display: block;
-    position: relative;
-    top: -50px;
-    visibility: hidden;
-}
-
-.important {
-    color: #D0092F;
-}
-
-.standard-image-wrapper {
-    max-width: 600px;
+  display: block;
+  position: relative;
+  top: -50px;
+  visibility: hidden;
 }
 
 .math-lib-image {
-    max-width: 300px;
-    margin: 0 auto
+  max-width: 300px;
+  margin: 0 auto
 }
 
 .intellij-img {
-    margin: 0 auto;
-    max-width: 700px;
+  margin: 0 auto;
+  max-width: 700px;
 }
 
 .boxed {
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
