@@ -67,12 +67,10 @@ If your styles are for a custom ui component, put them in the same folder as the
 .mw650 { max-width: 650px; }
 .mw700 { max-width: 700px; }
 
-// for centering an item with a max width (mwc = max-width-center)
-.mwc {
-  margin: 0 auto;
-}
-
-
+// for aligning elements that have a max-width set
+.mwc {  margin: 0 auto; }
+.mwl {  margin-left: 0; margin-right: auto; }
+.mwr {  margin-right: 0; margin-left: auto; }
 
 
 /* button styles */
