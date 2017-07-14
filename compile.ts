@@ -84,6 +84,11 @@ angularPages.forEach(page => {
   const dir = 'articles/angular/';
   pages.push(dir + page);
 });
+const motivation = ['typescript-mean'];
+motivation.forEach(page => {
+  const dir = 'articles/motivation/';
+  pages.push(dir + page);
+});
 
 pages.forEach(page => {
   mkdir('./dist/' + path.dirname(page));
