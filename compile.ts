@@ -99,11 +99,9 @@ pages.forEach(page => {
 });
 
 // sitemap
-
 let changedPages = [];
 for (let i = 0; i < pages.length; i++) {
   const page = pages[i];
-  console.log(page);
   changedPages.push({
     // remove 'index' and also remove '.' ...
     page: page.indexOf('index') > -1 ? (
