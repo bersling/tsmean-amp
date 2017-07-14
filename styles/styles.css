@@ -604,6 +604,7 @@ body[amp-x-jumbo-background-experiment="9"] .jumbo-main::before {
 
 .jumbo-main {
   position: relative;
+  background-color: #3F51B5;
   padding: 100px 10px;
   text-align: center;
   display: flex;
