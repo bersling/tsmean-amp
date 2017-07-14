@@ -215,6 +215,7 @@ body[amp-x-jumbo-background-experiment="9"] {
   // Desktop styles
   @media(min-width: 700px) {
     flex-direction: row;
+    padding: 200px 10px;
 
     .jumbo-subtitle, .jumbo-title {
       text-align: left;

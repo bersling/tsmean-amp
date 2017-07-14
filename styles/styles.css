@@ -625,7 +625,8 @@ body[amp-x-jumbo-background-experiment="9"] .jumbo-main::before {
     text-align: center; }
   @media (min-width: 700px) {
     .jumbo-main {
-      flex-direction: row; }
+      flex-direction: row;
+      padding: 200px 10px; }
       .jumbo-main .jumbo-subtitle, .jumbo-main .jumbo-title {
         text-align: left; } }
 
