@@ -70,17 +70,6 @@ If your styles are for a custom ui component, put them in the same folder as the
 .mwr {  margin-right: 0; margin-left: auto; }
 
 
-/* button styles */
-.hamburger {
-  background: transparent;
-  padding: 10px;
-}
-.nav-logo-button {
-  background: transparent;
-  padding: 0;
-  height: 50px;
-}
-
 /* to make headings in tutorials with step 1: blabla, step 2: blabla look a bit nicer */
 .step {
   color: $primary-color;
