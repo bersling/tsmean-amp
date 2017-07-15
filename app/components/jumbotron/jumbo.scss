@@ -50,6 +50,7 @@
   }
 
   .jumbo-subtitle {
+    max-width: 500px;
     padding: 10px;
     color: white;
     font-size: 20px;
@@ -61,7 +62,11 @@
     flex-direction: row;
     padding: 200px 10px;
 
-    .jumbo-subtitle, .jumbo-title {
+    .jumbo-subtitle, .jumbo-title, .jumbo-button {
+      text-align: left;
+    }
+
+    .jumbo-title-container {
       text-align: left;
     }
 

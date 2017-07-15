@@ -20,7 +20,12 @@ button, .tsmean-button {
     @include md-shadow;
   }
 
+  &.raised {
+    @include md-shadow;
+  }
+
   &.jumbo-button {
+    @include md-shadow;
     font-size: 20px;
     padding: 15px;
   }
