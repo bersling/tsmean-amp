@@ -45,6 +45,7 @@ tsmean-amp/
 │       ├── styles.scss # the root of your scss
 │       ├── button.scss # styling your buttons...
 │       └── ... # even more styles
+├── img/ # all images
 ├── dist/ # auto-generated folder that holds the compiled sources
 ├── node_modules/ # auto-generated folder that holds the node_modules
 ├── README.md # what you're currently reading
