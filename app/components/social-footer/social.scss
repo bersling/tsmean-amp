@@ -1,15 +1,13 @@
 .social-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100px;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
 
-.footer-item {
-    padding: 20px;
-}
-
-amp-social-share.amp-social {
+  amp-social-share.amp-social {
     border-radius: 50%;
     background-size: 75%;
+  }
+
 }
+
