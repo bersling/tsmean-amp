@@ -1,4 +1,4 @@
-## Homepage of the TSMEAN Project (an example of an AMP page)
+# Homepage of the TSMEAN Project (an example of an AMP page)
 
 This is the code the tsmean tutorial page at http://www.tsmean.com is built with.
 
