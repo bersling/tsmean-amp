@@ -33,7 +33,7 @@
   
     <p>
       To understand how we came to this point in 2017, where it's a good idea to use the tsmean stack,
-      we first need to roll up a bit of history.
+      we first need to unfold a bit of history.
     </p>
   
     <h3>
@@ -53,6 +53,18 @@
       Compare it to real languages, isn't it useful that English is the de facto standard in the development community?
       Wouldn't it also be useful if everyone would speak the same programming language?
     </p>
+    
+    <p>
+      Or imagine having written a routine for your Java server, but now you think you'd rather run it on the client. You'll have to rewrite the entire code. It would be much easier to migrate code between client and server if they both would speak the same language.
+    </p>
+    
+    <p>
+      The problems don't end with the code itself. Everything <i>around the code</i> is different as well with different languages. For example with Java, you'll have to learn about ant or some other package manager, while with Javascript your package manager will be npm or yarn.
+    </p>
+    
+    <p>
+      All of those points together can make it quite frustrating for developers to work full stack. Is there an alternative?
+    </p>
   
     <h3>
       First steps towards compatibility
@@ -67,10 +79,14 @@
       since this is the only language that the browser understands.
       For a long time <i>only</i> browsers would speak Javascript,
       meaning you didn't even have the possibility to write Javascript for the backend.
+    </p>
+    <p>
       Along came Node.js in 2009, finally making it possible to write JS on the server.
       Not only did it make it possible, but it provided some real advantages compared to other languages.
       Due to the non-blocking nature of Javascript,
       web-servers written in Node.js could be more resource efficient than their Java or  Python counterparts.
+    </p>
+    <p>
       However, since Javascript doesn't have the best reputation in terms of scalability (no types, callback hell, ....),
       the cost of maintenance drastically increased for larger projects.
       Developers were glad that they <i>could</i> write in a different language server-side and so full stack-Javascript
