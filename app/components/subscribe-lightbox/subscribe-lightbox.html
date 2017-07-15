@@ -1,32 +1,10 @@
-<hr>
-
-<div class="cta-one center padded">
-  
-  <div>
-    <b>
-      Stay connected with
-    </b>
-    {{> ./components/logo/accent.html}}
-  </div>
-  
-  <div class="spacer10"></div>
-  
-  <button id="subscription-form" class="primary" on="tap:subscribe-lightbox">
-    Subscribe to Newsletter
-  </button>
-  
-</div>
-
-<hr>
-
-<!-- this is hidden by default and just appears when clicked on the subscribe button -->
 <amp-lightbox id="subscribe-lightbox" layout="nodisplay">
   <div class="lightbox">
     <div class="subscribe-lightbox boxed center">
       <h2>
         Stay connected.
       </h2>
-  
+      
       <div>
         <amp-img src="/img/tsmean-logo.svg" width="140" height="60" alt="tsmean Logo"></amp-img>
       </div>
@@ -34,7 +12,7 @@
       <h3>
         Newsletter
       </h3>
-  
+      
       <form method="post"
             action-xhr="https://mailchimp.tsmean.com/subscribe"
             target="_top">
@@ -52,7 +30,7 @@
                  required
                  placeholder="Email">
         </div>
-  
+        
         <div class="spacer10"></div>
         
         <input type="submit"
@@ -64,9 +42,9 @@
           <div class="spacer50"></div>
           Thank you for subscribing!
         </div>
-  
+      
       </form>
-  
+      
       <div class="spacer50"></div>
       
       <div class="right-align">
@@ -74,7 +52,7 @@
           Close
         </button>
       </div>
-
+    
     </div>
   </div>
 </amp-lightbox>
