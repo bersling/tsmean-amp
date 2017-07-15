@@ -1,18 +1,32 @@
+@import '../../styles/mixins/material-shadow.mixin';
+
 button, .tsmean-button {
   border: 0;
   padding: 10px;
-  background: transparent;
+  background: white;
   border-radius: 2px;
   color: $primary-color;
   cursor: pointer;
   text-decoration: none;
   font-weight: bold;
   font-size: 15px;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
 
   &.primary {
     background: $primary-color;
     color: white;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    @include md-shadow;
+  }
+
+  &.jumbo-button {
+    font-size: 20px;
+    padding: 15px;
+  }
+
+  &.bg-transparent {
+    background: transparent;
   }
 
 }

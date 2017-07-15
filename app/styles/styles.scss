@@ -24,7 +24,7 @@
 @import '../components/learn-more/learn-more';
 @import '../components/subscribe/cta-one';
 @import '../components/logo/logo';
-@import '../components/github-button/github-link';
+@import '../components/github-button/github-button';
 
 /**
 Some generic styles that are reused throughout the app.
@@ -35,8 +35,8 @@ If your styles are for a custom ui component, put them in the same folder as the
 
 .padded {
   padding: 10px;
-  @media(min-width: 500px) {
-
+  @media(min-width: $xs-sm) {
+    padding: 20px;
   }
 }
 
@@ -46,8 +46,6 @@ If your styles are for a custom ui component, put them in the same folder as the
   padding-top: 20px;
   background: rgba(100,100,100, 0.8);
 }
-
-
 
 // mainly helpful to adjust max width on images
 .mw100 { max-width: 100px; }
@@ -69,25 +67,18 @@ If your styles are for a custom ui component, put them in the same folder as the
 .mwl {  margin-left: 0; margin-right: auto; }
 .mwr {  margin-right: 0; margin-left: auto; }
 
-
-/* to make headings in tutorials with step 1: blabla, step 2: blabla look a bit nicer */
-.step {
-  color: $primary-color;
-}
-
-
+// give some element some margins. used when padding is not an option
 .margin-left-right {
   margin-left: 15px;
   margin-right: 15px;
 }
 
-
+// used to highlight especially important bits of the text
 .highlight {
   color: $accent;
 }
 
-
-/* code-snippet styles */
+// useful to document directory structure for code snippets
 .file-label {
   margin-bottom: -10px;
   font-size: 0.7rem;
@@ -97,13 +88,8 @@ If your styles are for a custom ui component, put them in the same folder as the
   padding: 5px;
   color: #459B45;
 }
-
 amp-accordion>section>pre.code-snippet {
   white-space: pre-wrap;
-}
-
-.highlight {
-  color: #D0092F;
 }
 
 // to introduce some space between html elements
@@ -125,6 +111,7 @@ amp-accordion>section>pre.code-snippet {
   display: inline-block;
 }
 
+// to set top-anchors
 .anchor {
   display: block;
   position: relative;
@@ -132,10 +119,12 @@ amp-accordion>section>pre.code-snippet {
   visibility: hidden;
 }
 
+// to create a box around an something.
 .boxed {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
+// to lightly reduce opacity of an item
 .opacity80 {
   opacity: 0.8;
 }
