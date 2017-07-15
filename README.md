@@ -1,4 +1,4 @@
-## Tutorial Page for the TSMEAN Project (an example of an AMP page)
+## Homepage of the TSMEAN Project (an example of an AMP page)
 
 This is the code the tsmean tutorial page at http://www.tsmean.com is built with.
 
@@ -11,36 +11,19 @@ interesting and you'd like to build a page just like it, you've come to the righ
 The tsmean.com page is built with AMP. AMP stands for Accelerated Mobile Pages
 and is a framework for super-fast loading pages.
 
-## Installation
+## Install & Run
 
 ```
 git clone https://github.com/bersling/tsmean-amp.git my-project #replace my-project with your project's name
 cd my-project
 npm install #installs the required packages
-npm run build #compiles the code
+npm run build #builds the build
 npm start #starts a server
 ```
 
-Now you should have a server running at port 8082.
+## Project structure
 
-## Development
-
-The project is compiled from multiple html-snippets into multiple html pages (that are amp compatible). The templating language used is mustache. In order
-to continuously watch your changes run
-```
-npm run watch
-```
-otherwise you'll have to do "npm run build" after any change yourself. It's really up to you.
-
-Since it's an AMP project, you'll have to be careful to follow the rules
-of AMP. For instance, in an AMP project you're not allowed to use
-the `<img>` tag. You'll have to use the `<amp-img>` tag. If you don't follow those rules
-your page doesn't break, it just doesn't get the "AMP-SEO Bonus" anymore. During the build process, it logs to the console whether each page passes amp validation or not.
-
-
-### Structure
-
-The structure of the project is as follows:
+To get an overview of what you'll be working with, here's the structure:
 
 ```
 tsmean-amp/
@@ -58,7 +41,7 @@ tsmean-amp/
 │   │   │   ├── page2.html
 │   │   │   └── ... # more pages
 │   │   └── ... # more categories
-│   └── styles/
+│   └── styles/ # here go styles that don't belong to a component
 │       ├── styles.scss # the root of your scss
 │       ├── button.scss # styling your buttons...
 │       └── ... # even more styles
@@ -72,3 +55,48 @@ tsmean-amp/
 ├── .gitignore # files being ignored from git
 └── compile.ts # part of the build process
 ```
+
+
+
+## Development
+
+### Running a server
+You can run a local server for development using
+```
+npm start
+```
+Now you should have a server running at port 8082. You'll just do this at the start of each development session. If you're heading ofer to http://localhost:8082, you'll find what the server is serving. If you've built the project, it should display the landing page.
+
+
+### Rebuilding when you changed something
+To rebuild the project, after you've modified html or scss files or after you've added images to the img directory (or after any changes at all), run:
+
+```
+npm run build
+```
+This executes the "build" command in "scripts" in the `package.json` file.
+
+### Changing the html
+Html is divided into two groups: pages and components. Pages are e.g. /about or /home. Components are things you want to **reuse**, for example `footer.html` which you'll use on every page. After changes, run `npm run build`.
+
+### Changing the styles (css / scss)
+
+Scss is sass, which is a precompiler for css to write more modular css. It's actually pretty easy to learn, you'll get the basics in 10 minutes by reading: http://sass-lang.com/guide
+
+If styles are for a specific component, put them in the same folder as the html. **You'll have to register/import all .scss files in styles.scss!**
+
+If they are general-purpose styles, put them in the styles folder at a matching position.
+
+After changes, run `npm run build`.
+
+
+### AMP
+
+Since it's an AMP project, you'll have to be careful to follow the rules
+of AMP. For instance, in an AMP project you're not allowed to use
+the `<img>` tag. You'll have to use the `<amp-img>` tag. If you don't follow those rules
+your page doesn't break, it just doesn't get the "AMP-SEO Bonus" anymore. During the build process, it logs to the console whether each page passes amp validation or not.
+
+AMP has a lot of predefined components and a pretty good documentation you can find at https://www.ampproject.org/ and you'll find examples for all components at https://ampbyexample.com/.
+
+
