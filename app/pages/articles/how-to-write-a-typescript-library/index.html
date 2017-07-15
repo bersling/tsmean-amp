@@ -49,7 +49,7 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/tsconfig.json</div>
-    <pre class="code-snippet">{
+    <pre>{
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
@@ -81,7 +81,7 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/src/hello-world.ts</div>
-    <pre class="code-snippet">export namespace HelloWorld {
+    <pre>export namespace HelloWorld {
   export function sayHello() {
     console.log('hi')
   }
@@ -100,14 +100,14 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/src/index.ts</div>
-    <pre class="code-snippet">export {HelloWorld} from './hello-world'</pre>
+    <pre>export {HelloWorld} from './hello-world'</pre>
     
     <p>
       The consumer would be able to use the library later on like so:
     </p>
     
     <div class="file-label">someotherproject/src/somefile.ts</div>
-    <pre class="code-snippet">import {HelloWorld} from '<span class="highlight">hwrld</span>'
+    <pre>import {HelloWorld} from '<span class="highlight">hwrld</span>'
 HelloWorld.sayHello();
 </pre>
     
@@ -137,7 +137,7 @@ HelloWorld.sayHello();
     
     
     <div class="file-label">typescript-library/package.json</div>
-    <pre class="code-snippet">{
+    <pre>{
   "name": "hwrld",
   "version": "1.0.0",
   "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
@@ -172,7 +172,7 @@ HelloWorld.sayHello();
     <div class="file-label">
       typescript-library/.npmignore
     </div>
-    <pre class="code-snippet">tsconfig.json
+    <pre>tsconfig.json
 src</pre>
     
     
@@ -182,7 +182,7 @@ src</pre>
       To publish your first version to npm run:
     </p>
     
-    <pre class="code-snippet">tsc
+    <pre>tsc
 npm publish
 </pre>
     
@@ -191,7 +191,7 @@ npm publish
       Now you're all set to go! Consume your library anywhere you want by running:
     </p>
     
-    <pre class="code-snippet">npm install --save hwrld</pre>
+    <pre>npm install --save hwrld</pre>
     
     <p>
       
@@ -199,7 +199,7 @@ npm publish
     
     </p>
     
-    <pre class="code-snippet">import {HelloWorld} from 'hwrld'
+    <pre>import {HelloWorld} from 'hwrld'
 HelloWorld.sayHello();</pre>
     
     <p>

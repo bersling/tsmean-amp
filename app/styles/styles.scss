@@ -6,7 +6,7 @@
 @import 'colors';
 @import 'responsive';
 
-// Styling the default html elements
+// Styling some default html elements
 @import 'html/a';
 @import 'html/article';
 @import 'html/body';
@@ -15,6 +15,7 @@
 @import 'html/input';
 @import 'html/main';
 @import 'html/p';
+@import 'html/pre';
 
 // the components
 @import '../components/jumbotron/jumbo';
@@ -38,7 +39,6 @@ If your styles are for a custom ui component, put them in the same folder as the
   @media(min-width: 500px) {
 
   }
-
 }
 
 .lightbox {
@@ -48,9 +48,7 @@ If your styles are for a custom ui component, put them in the same folder as the
   background: rgba(100,100,100, 0.8);
 }
 
-.inline-block {
-  display: inline-block;
-}
+
 
 // mainly helpful to adjust max width on images
 .mw100 { max-width: 100px; }
@@ -116,18 +114,11 @@ amp-accordion>section>pre.code-snippet {
   white-space: pre-wrap;
 }
 
-.code-snippet {
-  overflow-x: scroll;
-  padding: 10px;
-  /*box-shadow: 1px 1px 5px 0 #aaaaaa;*/
-  background: #F5F5F5;
-  font-size: 90%;
-}
-
 .highlight {
   color: #D0092F;
 }
 
+// to introduce some space between html elements
 .spacer10 {
   height: 10px;
 }
@@ -135,24 +126,15 @@ amp-accordion>section>pre.code-snippet {
   height: 50px;
 }
 
-// TODO: move
-/* article related... */
-.flex {
-  display: flex;
-}
-.flex-auto {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: 0;
-}
-
+// Alignment
 .center {
   text-align: center;
 }
 .right-align {
   text-align: right;
+}
+.inline-block {
+  display: inline-block;
 }
 
 .anchor {

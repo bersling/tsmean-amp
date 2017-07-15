@@ -41,7 +41,7 @@
       If your library is contained for example in <code>mylib</code>, then create <code>libconsumer</code>
       next to it so your folder structure looks like this:
     
-    <pre class="code-snippet">somewhere-on-your-machine
+    <pre>somewhere-on-your-machine
 ├── mylib
 └── libconsumer</pre>
     
@@ -51,7 +51,7 @@
     <p>
       Create a <code>package.json</code> file. It could look somewhat like this one:
     <div class="file-label">libconsumer/package.json</div>
-    <pre class="code-snippet">{
+    <pre>{
   "name": "libconsumer",
   "version": "1.0.0",
   "description": "",
@@ -72,7 +72,7 @@
     
     <p>
       Now comes the magic. Run
-    <pre class="code-snippet highlight">npm link ../mylib</pre>
+    <pre class="highlight">npm link ../mylib</pre>
     This will create a symlink in <code>libconsumer</code>'s <code>node_modules</code> to the <code>mylib</code> library.
     To read more on <code>npm link</code>, <a href="https://docs.npmjs.com/cli/link">see the docs</a>.
     </p>
@@ -84,7 +84,7 @@
     <p>
       Write some file(s) to consume your library. For example
     <div class="file-label">libconsumer/somefile.ts</div>
-    <pre class="code-snippet">import {HelloWorld} from 'hwrld'
+    <pre>import {HelloWorld} from 'hwrld'
 HelloWorld.sayHello();</pre>
     
     You compile this simple example like this:
@@ -101,7 +101,7 @@ HelloWorld.sayHello();</pre>
              class="boxed"
              width=450
              height=270
-             src="/img/ll.gif">
+             src="/img/local-consumer.gif">
     </amp-img>
     
     <div class="spacer10"></div>

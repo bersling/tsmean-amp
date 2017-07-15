@@ -23,7 +23,7 @@
                alt="Unit Testing in Typescript"
                width="150"
                height="150"
-               src="/img//test1.svg">
+               src="/img/test1.svg">
       </amp-img>
     </div>
   
@@ -49,7 +49,7 @@
       To install mocha and chai, you can run:
     </p>
     
-    <pre class="code-snippet">yarn add mocha @types/mocha chai @types/chai ts-node typescript --dev</pre>
+    <pre>yarn add mocha @types/mocha chai @types/chai ts-node typescript --dev</pre>
     
     <p>You will need to have <code>yarn</code> installed for this to work,
       see <a href="https://yarnpkg.com/lang/en/docs/install">install manual</a>.
@@ -60,7 +60,7 @@
     <p>Let's say you have the following unit:</p>
   
     <div class="file-label">typescript-library/src/math.ts</div>
-    <pre class="code-snippet">export namespace MyMath {
+    <pre>export namespace MyMath {
   export function add(x: number, y: number) {
     return x + y;
   }
@@ -70,7 +70,7 @@
     <p>Then a first unit test could look like:</p>
   
     <div class="file-label">typescript-library/src/math.test.ts</div>
-    <pre class="code-snippet">import { MyMath } from './math';
+    <pre>import { MyMath } from './math';
 
 import * as mocha from 'mocha';
 import * as chai from 'chai';
@@ -91,10 +91,10 @@ describe('My math library', () => {
     <p>
       You can run the test with the following command:
     </p>
-    <pre class="code-snippet">mocha --reporter spec --compilers ts:ts-node/register 'src/**/*.test.ts'</pre>
+    <pre>mocha --reporter spec --compilers ts:ts-node/register 'src/**/*.test.ts'</pre>
     <p>
       And basically that's it. You should see an output in the console, that looks like this:
-      <amp-img src="/img//mathlib.png"
+      <amp-img src="/img/mathlib.png"
                alt="Unit test result"
                class="mw300 mwc"
                width="504"
@@ -107,7 +107,7 @@ describe('My math library', () => {
       <code>"scripts: { "test": "..."}"</code> and then run the tests with <code>npm test</code>.
       So the complete package.json at this point would look like:
       
-      <pre class="code-snippet">{
+      <pre>{
   "devDependencies": {
     "@types/chai": "^4.0.0",
     "@types/mocha": "^2.2.41",

@@ -22,7 +22,7 @@
     <p class="jumbo-title">
       Mongo vs MySQL for WebApps
     </p>
-    <amp-img src="/img/comparisons/mongo-vs-mysql-for-webapps.png"
+    <amp-img src="/img/mongo-vs-mysql-for-webapps.png"
              class="jumbo-image xs-hide" alt="TypeScript Mean Banner" width="522" height="361"></amp-img>
   </div>
   
@@ -51,7 +51,7 @@
       Let's say we have to load the following view a gazillion times a day:
     </p>
   
-    <amp-img src="/img/comparisons/mongodb-display-of-message-data-structure.png"
+    <amp-img src="/img/mongodb-display-of-message-data-structure.png"
              layout="responsive"
              alt="Display of Message Data-Structure"
              width="726"
@@ -65,7 +65,7 @@
     <p>
       Then the argument for NoSQL would be that you could store everything denormalized as
     </p>
-    <pre class="code-snippet">{
+    <pre>{
   content: "bla bla"
   user: {
     name: "Jeremy Barns"
@@ -89,7 +89,7 @@
       Of course you could do the same with Mongo:
     </p>
   
-    <pre class="code-snippet">{
+    <pre>{
   content: "bla bla"
   user: 58e5ee14d37470005df49bcb
   comments: [
@@ -109,7 +109,7 @@
       Wrong. Let's say we implement the following data model:
     </p>
   
-    <pre class="code-snippet">interface Message {
+    <pre>interface Message {
   content: string;
   user: User;
   comments: Message[];
@@ -124,7 +124,7 @@ interface User {
       would we have to do one million times all of those table-joins:
     </p>
   
-    <pre class="code-snippet">message -&gt; user
+    <pre>message -&gt; user
 message -&gt; message -&gt; user (n times, where n = #comments)</pre>
     ?
     <p>
@@ -141,7 +141,7 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
       You'd rather like to display it like that:
     </p>
   
-    <amp-img src="/img/comparisons/mongodb-display-of-message-data-structure.png"
+    <amp-img src="/img/mongodb-display-of-message-data-structure.png"
              alt="Jeremy's Messages"
              width="736"
              height="282">
