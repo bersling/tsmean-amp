@@ -2,6 +2,7 @@ const mu = require('mu2');
 const fs = require('fs');
 const path = require('path');
 const ampHtmlValidator = require('amphtml-validator');
+const mustache = require('mustache');
 
 /**
  * Here you can define the pages you want to compile & include in your distribution folder.
@@ -33,11 +34,11 @@ addPagesToDirectory(
  * execute all compilation steps
  */
 async function doCompile() {
-  //compileSass();
-  //copyRobotsTxt();
-  //buildSitemap(pages);
+  compileSass();
+  copyRobotsTxt();
+  buildSitemap(pages);
   await compileMustache(); // this step needs to be ready for the next one, that's why await is used here.
-  //validateAmp(pages);
+  validateAmp(pages);
 }
 doCompile();
 

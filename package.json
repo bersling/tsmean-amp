@@ -40,5 +40,7 @@
     "typescript": "^2.4.1",
     "watch": "^1.0.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mustache": "^2.3.0"
+  }
 }
