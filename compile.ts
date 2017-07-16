@@ -32,12 +32,14 @@ addPagesToDirectory(
 /**
  * execute all compilation steps
  */
-compileSass();
-copyRobotsTxt();
-compileMustache();
-buildSitemap(pages);
-validateAmp(pages);
-
+async function doCompile() {
+  //compileSass();
+  //copyRobotsTxt();
+  //buildSitemap(pages);
+  await compileMustache(); // this step needs to be ready for the next one, that's why await is used here.
+  //validateAmp(pages);
+}
+doCompile();
 
 /**
  * From here on downwards are only some implementation details...
@@ -79,22 +81,32 @@ function copyRobotsTxt() {
 }
 
 function compileMustache() {
-  mu.root = __dirname + '/app';
-  const data = {};
 
-  // ensure that all directories are created, so compilation doesn't fail
-  pages.forEach(page => {
-    mkdir('./dist/' + path.dirname(page));
+  return new Promise ((resolve, reject) => {
+    mu.root = __dirname + '/app';
+    const data = {};
+
+    // ensure that all directories are created, so compilation doesn't fail
+    pages.forEach(page => {
+      mkdir('./dist/' + path.dirname(page));
+    });
+
+    pages.forEach(page => {
+      const writeStream = fs.createWriteStream(`./dist/${page}.html`);
+      mu.compileAndRender(`pages/${page}.html`, data)
+        .on('data', function (data) {
+          const dataStr = data.toString();
+          writeStream.write(dataStr, (err) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve();
+            }
+          });
+        });
+    });
   });
 
-  pages.forEach(page => {
-    const writeStream = fs.createWriteStream(`./dist/${page}.html`);
-    mu.compileAndRender(`pages/${page}.html`, data)
-      .on('data', function (data) {
-        const dataStr = data.toString();
-        writeStream.write(dataStr);
-      });
-  });
 }
 
 function buildSitemap(pages) {
@@ -111,7 +123,7 @@ function buildSitemap(pages) {
     });
   }
   const writeStream = fs.createWriteStream(`./dist/sitemap.xml`);
-  mu.compileAndRender(`pages/sitemap.xml.mustache`, {
+  mu.compileAndRender(`app/pages/sitemap.xml.mustache`, {
     pages: changedPages,
     date: formatDate(new Date())
   }).on('data', function (data) {

@@ -37,7 +37,8 @@
     "node-sass": "^4.5.3",
     "normalize-scss": "^7.0.0",
     "ts-node": "^3.2.0",
-    "watch": "^1.0.2",
-    "typescript": "^2.4.1"
-  }
+    "typescript": "^2.4.1",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {}
 }
