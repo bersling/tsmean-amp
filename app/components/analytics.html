@@ -3,3 +3,25 @@
                data-credentials="include">
 </amp-analytics>
 
+<amp-analytics type="googleanalytics">
+  <script type="application/json">
+    {
+      "vars": {
+        "account": "UA-70730318-4"
+      },
+      "requests": {
+        "experiment": "${pageview}&xid=${experiment}&xvar=${variant}"
+      },
+      "triggers": {
+        "default pageview": {
+          "on": "visible",
+          "request": "experiment",
+          "vars": {
+            "experiment": "background-experiment",
+            "variant": "VARIANT(background-experiment)"
+          }
+        }
+      }
+    }
+  </script>
+</amp-analytics>
