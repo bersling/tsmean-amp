@@ -1,14 +1,13 @@
 @import '../../styles/colors';
 
 
-body[amp-x-background-experiment="0"] {
+body[amp-x-bg-exp="nobg"] {
   .jumbo-main {
     background-color: $primary-color;
   }
 }
 
-
-body[amp-x-background-experiment="1"] {
+body[amp-x-bg-exp="bg"] {
 
   .jumbo-main::after {
     content: "";

@@ -20,15 +20,39 @@
   <amp-experiment>
     <script type="application/json">
       {
-        "background-experiment": {
+        "bg-exp": {
           "variants": {
-            "0": 50,
-            "1": 50
+            "bg": 50,
+            "nobg": 50
           }
         }
       }
     </script>
   </amp-experiment>
+  
+  <amp-analytics type="googleanalytics">
+    <script type="application/json">
+      {
+        "vars": {
+          "account": "UA-70730318-4"
+        },
+        "requests": {
+          "experiment": "${pageview}&xid=${experiment}&xvar=${variant}"
+        },
+        "triggers": {
+          "default pageview": {
+            "on": "visible",
+            "request": "experiment",
+            "vars": {
+              "experiment": "3BIbJPvNQEmZojNMfBQOtw",
+              "variant": "VARIANT(bg-exp)"
+            }
+          }
+        }
+      }
+    </script>
+  </amp-analytics>
+  
   
   
   {{> ./components/analytics.html}}

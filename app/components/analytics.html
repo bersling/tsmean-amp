@@ -2,26 +2,3 @@
 <amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-W49CZJQ&gtm.url=SOURCE_URL"
                data-credentials="include">
 </amp-analytics>
-
-<amp-analytics type="googleanalytics">
-  <script type="application/json">
-    {
-      "vars": {
-        "account": "UA-70730318-4"
-      },
-      "requests": {
-        "experiment": "${pageview}&xid=${experiment}&xvar=${variant}"
-      },
-      "triggers": {
-        "default pageview": {
-          "on": "visible",
-          "request": "experiment",
-          "vars": {
-            "experiment": "gulVXAsRQ7afLNLp6VtOVQ",
-            "variant": "VARIANT(background-experiment)"
-          }
-        }
-      }
-    }
-  </script>
-</amp-analytics>
