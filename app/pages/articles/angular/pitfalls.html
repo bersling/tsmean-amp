@@ -39,7 +39,9 @@
     Angular now allows less in the templates. What's most confusing is what may and may not go into bindings / expressions.
     <pre><span><strong>PITFALL 1</strong>: Javascript in templates is not really javascript!</span></pre>
     <blockquote>We write template expressions in a language that looks like JavaScript. Many JavaScript expressions are legal template expressions, but not all.</blockquote>
-    I mean c'mon guys... Either it's javascript or it's not, but what's that?
+    <p>
+      This is done so you have to learn as little new as possible (since you already know JS syntax) while at the same time restricting the language to provide safety. At the same time the similarity to JS makes it less obvious what will work and what not.
+    </p>
     <blockquote>JavaScript expressions that have or promote side effects are prohibited, including:
       <ul>
         <li>assignments (<code>=</code>, <code>+=</code>, <code>-=</code>, ...)</li>
@@ -67,7 +69,10 @@ meaning
     <pre>[blub]="x = 3" // totally not okay
 (blubbl)="x = 3" // totally ok
 (blarb)="console.log('hello')" // totally not okay</pre>
-    ooooomg.... Well, I'd say in this case still stick with the above recommendation (only use function calls) and you should be pretty fine. In any case, I mean it's kind of logical that in events you want to assign stuff, but not in property bindings, so you won't run into problems 99% of the time, but when you do, it might help you to recall those rules. But I mean seriously, why do you make 2 parsers, Angular Team? Haven't you learned in Angular 1, that the more concepts you introduce the worse it gets? Why not just allow a property name or method call in both <code>()</code> AND <code>[]</code>? Why also allow assignment in <code>()</code> , you really think it adds that much convenience to introduce a new concept?
+    
+    <p>
+      I recommend to just stick with the above recommendation (only use function calls) and you should be pretty fine.
+    </p>
   
     <hr />
   

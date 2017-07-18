@@ -18,26 +18,30 @@
   
   {{> ./components/header/header.html}}
   
-  <div class="jumbo-horizontal">
+  <div class="jumbo-vertical">
+    <amp-img src="/img/mongo-vs-mysql-for-webapps.png"
+             class="jumbo-image" alt="TypeScript Mean Banner" width="400" height="300"></amp-img>
     <p class="jumbo-title">
       Mongo vs MySQL for WebApps
     </p>
-    <amp-img src="/img/mongo-vs-mysql-for-webapps.png"
-             class="jumbo-image xs-hide" alt="TypeScript Mean Banner" width="522" height="361"></amp-img>
   </div>
   
   <article class="flex-auto">
   
     <p>
-      I'm going to crush all your arguments here.
-      It's a general argument against NoSQL in web-apps,
-      but code is going to be mostly MongoDB-related,
-      since that's what I have the most experience with.
+      <b>tl,dr;</b> I'm not really the biggest fan of a MongoDB backing entire webapps. You can use it to solve some specific problems, but I wouldn't recommend storing all your data (e.g. user profiles etc) there. I think MongoDB is great for prototyping, but when it comes to production systems, it wouldn't be my database of choice.
+    </p>
+  
+    <hr>
+    
+    <p>
+      The following is a general argument against NoSQL in web-apps,
+      but code is going to be mostly MongoDB-related.
       Also note that I don't say there is absolutely no use-case
       for a NoSQL database. I'm just saying your app should be backed by an SQL database to store
       things like your registered users and so on. In the unlikely event that you really have a
       special use-case, then use a separate NoSQL database for this, but don't put your relational data in there too!
-      So now let's move on to the crushing.
+      Now let's proceed by crushing some of the most common reasons people think they need MongoDB for their webapps.
     </p>
   
     &nbsp;
@@ -255,13 +259,13 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
     <p>
       Advantages:
     </p>
+    
+    <ul>
+      <li>Cool for prototyping</li>
+    </ul>
   
     <p>
-      Yet to be found.
-    </p>
-  
-    <p>
-      If you liked my rant, don't forget to follow me on facebook or twitter and share this post with others thirsty for NoSQL criticism!
+      If you liked my rant, don't forget to subscribe and to share this post with others thirsty for NoSQL criticism!
     </p>
 
   </article>
