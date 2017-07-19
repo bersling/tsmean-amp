@@ -1,13 +1,6 @@
 @import '../../styles/colors';
 
-
-body[amp-x-bg-exp="nobg"] {
-  .jumbo-main {
-    background-color: $primary-color;
-  }
-}
-
-body[amp-x-bg-exp="bg"] {
+body[amp-x-bg-exp="0"] {
 
   .jumbo-main::after {
     content: "";
@@ -34,6 +27,12 @@ body[amp-x-bg-exp="bg"] {
     z-index: -2;
   }
 
+}
+
+body[amp-x-bg-exp="1"] {
+  .jumbo-main {
+    background-color: $primary-color;
+  }
 }
 
 
