@@ -13,6 +13,10 @@ button, .tsmean-button {
     outline: none;
   }
 
+  &.raised {
+    @include md-shadow();
+  }
+
   background: white;
   color: $primary-color;
   cursor: pointer;
