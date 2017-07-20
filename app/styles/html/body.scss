@@ -1,4 +1,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 161%;
+
+  ::selection {
+    background: lighten($primary-color, 40% ) ; /* WebKit/Blink Browsers */
+  }
+  ::-moz-selection {
+    background: lighten($primary-color, 40% ); /* Gecko Browsers */
+  }
+
 }
