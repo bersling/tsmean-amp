@@ -33,28 +33,26 @@
     </div>
     
     <h1 class="jumbo-title">
-      3 minutes to your first TypeScript app.
+      5 minutes to your first TypeScript app.
     </h1>
-    <div class="spacer10"></div>
-    <div class="spacer10"></div>
-    {{> ./components/github-button/github-button-inverse.html}}
   
   </div>
   
   
   <article>
     
+    <h3>
+      What is tsmean?
+    </h3>
+    
     <p>
-      Getting of the ground with a new webapp isn't easy. Developing the core of an application can take weeks of time.
-      There's a backend and a frontend to be built, each requiring a lot of work. You'll need a sign up & login, a landing page,
-      resource management, a database and so on. Moreover, if you don't do things properly in the starting phase, you'll
-      move yourself into a corner where it's hard to get out of again. For example most projects I've seen don't start
-      out modular, such that they end up with code that's hard to maintain after a year.
+      Getting off the ground with a new webapp isn't easy. Developing the core of an application can take weeks of time. There's a backend and a frontend to be built, each requiring a lot of work. You'll need a sign up & login, a landing page, resource management, a database and so on. Moreover, if you don't do things properly in the starting phase, you'll move yourself into a corner where it's hard to get out of again. For example too many projects we've seen don't start out modular, such that they end up with code that's hard to maintain after a year.
     </p>
     
     <p>
-      Since getting started on the right foot is important but hard, we want to help you with this. We've built
-      a fully modular and scalable starter kit for your next web-application fully written in TypeScript. It's built on the MEAN stack, meaning
+      We've built a fully modular and scalable starter kit for your next web-application fully written in TypeScript. It's built on the MEAN stack, meaning
+    </p>
+  
     <ul>
       <li>
         <b class="highlight">M</b>ongoDB or <b class="highlight">M</b>ySQL
@@ -69,25 +67,66 @@
         <b class="highlight">N</b>odeJS.
       </li>
     </ul>
-    
-    </p>
-    
-    <p>
-      We've also put a strong focus on unit testing, such that you don't have to add tests for the core yourself and already have examples on how it's done.
-    </p>
-    
-    <p>
-      Note that this is <b>not</b> a framework or a library. The difference is that for a framework or library, you don't modify the core. For this starter kit however, you <i>can</i> modify the core. You just download it once and don't have to be compatible with any changes we make in the future. Of course, the starter-kit is going to get better over time, but hopefully it has already spurred your development and you don't need it anymore anyways. The starter-kit itself, on the other hand, <i>does make use of</i> frameworks and libraries. The only real framework it's using is Angular. The most notable library is ExpressJS, but there are others involved.
-    </p>
-    
-    <p>
-      You can see what you're app will look like at <a href="http://demo.tsmean.com" id="intext-link-demo-tsmean">demo.tsmean.com</a>, so you have some idea of what you're getting!
-    </p>
-    
-    <p>
-      For timely updates on new tutorial articles & new features for the starter kit, subscribe below!
-    </p>
   
+    <p>
+      That's why it's called tsmean (TypeScript + Mongo / Mysql + Express + Angular + Node.js)! There's a demo of the web app you're getting when downloading the code at
+      <b><a href="demo.tsmean.com">demo.tsmean.com</a></b>.
+    </p>
+    
+    <p>
+      Note that this is not a framework or a library. The difference is that for a framework or library, you don't modify the core. For this starter kit however, you can modify the core. You just download it once and don't have to be compatible with any changes we make in the future. Of course, the starter-kit is going to get better over time, but hopefully it has already spurred your development and you don't need it anymore anyways. The starter-kit itself, on the other hand, does make use of frameworks and libraries. The only real framework it's using is Angular. The most notable library is ExpressJS, but there are others involved.
+    </p>
+    
+    <h3>
+      Getting Started
+    </h3>
+    
+    <p>
+      If the prerequisits are met (linux or mac, yarn, git & angular-cli installed), you can simply run the following commands in your terminal:
+    </p>
+    
+    <pre>git clone https://github.com/tsmean/tsmean your-project-name
+cd your-project-name
+npm run install</pre>
+    
+    <p>
+      This may take a while, since the starter kit is highly modular and consits of multiple modules, which each run against a small test app themselves. Since projects created with Angular Cli are quite heavy, setting up all of those test applications will take a while.
+    </p>
+    
+    <p>
+      Once the installation process has finished, you can test if everything is working. To check if the backend is working as expected, it's best if you simply
+    </p>
+    
+    <pre>cd backend
+npm test</pre>
+    
+    <p>
+      This will run the unit tests. For the frontend, you can fire up the main module using:
+    </p>
+    
+    <pre>cd frontend/main
+ng serve</pre>
+
+    <p>
+      Now you should be able to view the app at <a href="http://localhost:4200">localhost:4200</a>.
+    </p>
+    
+    <h3>
+      Next steps
+    </h3>
+    
+    <p>
+      You can start messing around with the code now. All the modules have their separate readme's and can basically be developed on their own. You can also check the code directly on <b><a href="https://github.com/tsmean/tsmean" target="_blank">Github</a></b> or file issues there (if you unexpectedly would have any). You're also welcome to honor our efforts by gracing the project with the infamous Github star.
+    </p>
+    
+    <h3>
+      Contact
+    </h3>
+    
+    <p>
+      All feedback is welcome. Just drop as a mail at <a href="mailto:contact@tsmean.com">contact@tsmean.com</a>! It's also a fabulous idea to stay connected, since we release regular updates for the starter. Subscribe below!
+    </p>
+    
   </article>
   
   {{> ./components/subscribe-to-newsletter/subscribe-to-newsletter.html}}

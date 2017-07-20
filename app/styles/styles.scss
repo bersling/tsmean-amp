@@ -26,6 +26,8 @@
 @import '../components/logo/logo';
 @import '../components/github-button/github-button';
 @import '../components/subscribe-lightbox/subscribe-lightbox';
+@import '../components/value-bullets/value-bullets';
+@import '../components/sidebar/sidebar';
 
 /**
 Some generic styles that are reused throughout the app.
@@ -69,10 +71,25 @@ If your styles are for a custom ui component, put them in the same folder as the
 .mwr {  margin-right: 0; margin-left: auto; }
 
 // give some element some margins. used when padding is not an option
-.margin-left-right {
-  margin-left: 15px;
-  margin-right: 15px;
+.margin-left-right-8 {
+  margin-left: 8px;
+  margin-right: 8px;
 }
+
+.margin-left-right-16 {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.margin-top-bottom-8 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.margin-top-bottom-15 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 
 // used to highlight especially important bits of the text
 .highlight {
@@ -132,4 +149,13 @@ amp-accordion>section>pre.code-snippet {
 
 .bg-primary {
   background: $primary-color;
+}
+.primary-color {
+  color: $primary-color;
+}
+
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
 }

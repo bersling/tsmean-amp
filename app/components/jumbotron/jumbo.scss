@@ -1,47 +1,10 @@
 @import '../../styles/colors';
 
-body[amp-x-bgexp="0"] {
-
-  .jumbo-main::after {
-    content: "";
-    background: url('/img/aurora-scaled.jpeg');
-    background-size: cover;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
-  .jumbo-main::before {
-    content: "";
-    background: $primary-color;
-    background-size: cover;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
-  }
-
-  .jumbo-main {
-    padding: 200px 10px;
-  }
-
-}
-
-body[amp-x-bgexp="1"] {
-  .jumbo-main {
-    background-color: $primary-color;
-    padding: 70px 10px 90px 10px;
-  }
-}
-
-
 .jumbo-main {
+
+  background-color: $primary-color;
+  padding: 50px 10px 60px 10px;
+
   position: relative;
   text-align: center;
   display: flex;
@@ -74,7 +37,6 @@ body[amp-x-bgexp="1"] {
   // Desktop styles
   @media(min-width: 700px) {
     flex-direction: row;
-    padding: 200px 10px;
 
     .jumbo-subtitle, .jumbo-title, .jumbo-button {
       text-align: left;

@@ -1,13 +1,18 @@
-hr {
+hr.stars {
   padding: 0;
   border: none;
-  color: #f0f0f0;
+  color: $main-gray;
   text-align: center;
+  &:after {
+    content: "*  *  *";
+    display: inline-block;
+    position: relative;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+  }
 }
-hr:after {
-  content: "*  *  *";
-  display: inline-block;
-  position: relative;
-  font-size: 1.5em;
-  padding: 0 0.25em;
+
+hr {
+  border: 0;
+  border-bottom: 1px solid $main-gray;
 }
