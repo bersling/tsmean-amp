@@ -10,6 +10,7 @@
 
   @media (min-width: $xs-sm) {
     flex-direction: row;
+    align-items: flex-start;
   }
 
   .value-bullet {
