@@ -12,46 +12,8 @@
   <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   
-  <script async custom-element="amp-experiment" src="https://cdn.ampproject.org/v0/amp-experiment-0.1.js"></script>
-
 </head>
 <body>
-  
-  <amp-experiment>
-    <script type="application/json">
-      {
-        "bgexp": {
-          "variants": {
-            "0": 50,
-            "1": 50
-          }
-        }
-      }
-    </script>
-  </amp-experiment>
-  
-  <amp-analytics type="googleanalytics">
-    <script type="application/json">
-      {
-        "vars": {
-          "account": "UA-70730318-4"
-        },
-        "requests": {
-          "experiment": "${pageview}&xid=${experiment}&xvar=${variant}"
-        },
-        "triggers": {
-          "default pageview": {
-            "on": "visible",
-            "request": "experiment",
-            "vars": {
-              "experiment": "qPEwfHRiSmWJTx73mDhxdg",
-              "variant": "VARIANT(bgexp)"
-            }
-          }
-        }
-      }
-    </script>
-  </amp-analytics>
   
   {{> ./components/analytics.html}}
   {{> ./components/header/header.html}}
