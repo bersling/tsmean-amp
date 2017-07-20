@@ -2,10 +2,12 @@
 
   padding: 30px 10px;
   text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 
   @media (min-width: $xs-sm) {
