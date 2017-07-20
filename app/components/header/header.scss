@@ -22,6 +22,13 @@ header {
   .primary-nav-right {
     margin-left: auto;
     padding-right: 20px;
+    > ul {
+      margin: 0;
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .nav-logo-button {

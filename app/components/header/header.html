@@ -1,5 +1,5 @@
 <header class="primary-nav">
-  
+
   <div class="primary-nav-inner">
     <a href="/" class="primary-nav-left">
       <button id="main-nav-button" class="nav-logo-button bg-transparent">
@@ -7,19 +7,17 @@
       </button>
     </a>
   
-    <div class="primary-nav-right">
-      <a href="/articles">
-        <button id="articles-nav-button" class="bg-transparent slim">
-          Articles
-        </button>
-      </a>
-      <a href="/starter-kit">
-        <button id="starterkit-nav-button" class="bg-transparent slim">
-          StarterKit
-        </button>
-      </a>
+    <div class="primary-nav-right xs-hide">
+      {{> ./components/primary-nav-menu/primary-nav-menu.html}}
     </div>
+    <div class="primary-nav-right sm-hide md-hide lg-hide">
+      <button class="hamburger" on='tap:sidebar1.toggle'>
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+
   </div>
 
 </header>
 <div class="header-spacer"></div>
+{{> ./components/sidebar/sidebar.html}}
