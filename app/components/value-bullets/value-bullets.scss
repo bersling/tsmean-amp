@@ -1,0 +1,21 @@
+.value-bullets {
+
+  padding: 30px 10px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: $xs-sm) {
+    flex-direction: row;
+  }
+
+  .value-bullet {
+    text-align: center;
+    padding: 10px;
+    max-width: 250px;
+  }
+
+}

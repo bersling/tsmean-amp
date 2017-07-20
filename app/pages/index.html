@@ -70,58 +70,30 @@
         <b>TypeScript</b>
         <span class="inline-block">front to back</span>
       </h1>
+  
+      <a href="./articles">
+        <button id="jumbo-get-started"
+                class="jumbo-button margin-left-right-8 margin-top-bottom-8">
+          GET STARTED
+        </button>
+      </a>
+  
+      <a href="https://github.com/tsmean/tsmean" target="_blank">
+        <button id="jumbo-github-landing" class="jumbo-button margin-left-right-8 margin-top-bottom-8 bordered-inverse">
+          GITHUB
+        </button>
+      </a>
+  
       <p class="jumbo-subtitle">
         {{> ./components/logo/white.html}} is the best way to get started with full stack typescript.
       </p>
-      <button on="tap:subscribe-lightbox"
-              id="jumbo-stay-connected-button"
-              class="jumbo-button">
-        Stay Connected
-      </button>
+      
     </div>
     
   </div>
   
-  <article>
-  
-    <p>
-      {{> ./components/logo/accent.html}} has the mission to kick-start your full stack typescript experience. We offer articles on full stack typescript development and a starter-kit to get you off the ground even faster!
-    </p>
-  
-    <p>
-      The starter kit uses the following core technologies:
-    </p>
-    
-    <ul>
-      <li>
-        <b class="highlight">M</b>ongoDB or <b class="highlight">M</b>ySQL
-      </li>
-      <li>
-        <b class="highlight">E</b>xpress
-      </li>
-      <li>
-        <b class="highlight">A</b>ngular2+
-      </li>
-      <li>
-        <b class="highlight">N</b>odeJS.
-      </li>
-    </ul>
-    
-    <p>
-      That's why it's called tsmean (TypeScript + Mongo / Mysql + Express + Angular + Node.js)!
-    </p>
-    
-    <p>
-      The articles about fullstack typescript can be found under <a href="/articles" id="intext-link-articles">"Articles"</a>. They reach from a high-level analysis of the stack to nitty-gritty tutorials about implementation. For the starter-kit, head over to the <a href="/starter-kit" id="intext-link-starter-kit">starter-kit section</a>, or check the code directly on github at <a href="https://github.com/tsmean/tsmean" id="intext-link-github">https://github.com/tsmean/tsmean</a>. The articles section is steadily growing and the starter kit is constantly improved, so make sure to
-      <a on="tap:subscribe-lightbox" id="intext-link-subscribe">subscribe</a> to stay up to date!
-    </p>
-    <p>
-      We hope we can help you with our resources and the starer-kit. Don't hesitate to contact us at
-      <a href="mailto:contact@tsmean.com">contact@tsmean.com</a>. All feedback is welcome!
-    </p>
-  
-  </article>
-  
+  {{> ./components/value-bullets/value-bullets.html}}
+  <hr>
   {{> ./components/subscribe-to-newsletter/subscribe-to-newsletter.html}}
   {{> ./components/footer/footer.html}}
   
