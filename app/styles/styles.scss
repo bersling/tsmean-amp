@@ -13,6 +13,7 @@
 @import 'html/button';
 @import 'html/hr';
 @import 'html/input';
+@import 'html/textarea';
 @import 'html/main';
 @import 'html/p';
 @import 'html/pre';
@@ -27,6 +28,7 @@
 @import '../components/logo/logo';
 @import '../components/github-button/github-button';
 @import '../components/subscribe-lightbox/subscribe-lightbox';
+@import '../components/subscribe-to-release-lightbox/subscribe-to-release-lightbox';
 @import '../components/value-bullets/value-bullets';
 @import '../components/sidebar/sidebar';
 
@@ -154,9 +156,19 @@ amp-accordion>section>pre.code-snippet {
 .primary-color {
   color: $primary-color;
 }
-
+.bg-gray {
+  background: $main-gray;
+}
+.bg-white {
+  background: white;
+}
 
 .container {
   max-width: 900px;
   margin: 0 auto;
+}
+
+.width100 {
+  width: 100%;
+  box-sizing: border-box;
 }

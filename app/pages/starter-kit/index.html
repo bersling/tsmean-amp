@@ -82,14 +82,13 @@
     </p>
     
     <div class="primary flex-switch-on-xs">
-      <a href="./starter-kit">
-        <button id="jumbo-get-started"
-                class="jumbo-button margin-left-right-8 margin-top-bottom-8">
-          Get notified on release
-        </button>
-      </a>
+      <button id="jumbo-get-started"
+              on="tap:subscribe-to-release-lightbox"
+              class="jumbo-button margin-left-right-8 margin-top-bottom-8">
+        Get notified on release
+      </button>
   
-      <a href="https://github.com/tsmean/tsmean" target="_blank">
+      <a href="/alpha" target="_blank">
         <button id="jumbo-github-landing" class="jumbo-button margin-left-right-8 margin-top-bottom-8 bordered-inverse">
           Apply for alpha-testing
         </button>
@@ -160,6 +159,7 @@ ng serve</pre>
   {{> ./components/subscribe-to-newsletter/subscribe-to-newsletter.html}}
   {{> ./components/footer/footer.html}}
   
+  {{> ./components/subscribe-to-release-lightbox/subscribe-to-release-lightbox.html}}
   {{> ./components/subscribe-lightbox/subscribe-lightbox.html}}
 
 </body>
