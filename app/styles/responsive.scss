@@ -19,3 +19,15 @@ $md-lg: 900px;
     display: none;
   }
 }
+
+.flex-switch-on-xs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
+  @media(min-width: $xs-sm) {
+    flex-direction: row;
+  }
+}
