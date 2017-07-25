@@ -8,7 +8,6 @@
         content="MEAN, Mongo, MongoDB, Express, ExpressJS, Angular, AngularJS, Angular 2, Angular 4, Node, NodeJS, TypeScript, TypeScriptJS, Tutorial, Seed, Boilerplate, tsmean, alpha">
   <link rel="canonical" href="http://www.tsmean.com/alpha" />
   {{> ./components/common-head.html}}
-  
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   
 </head>
@@ -35,28 +34,30 @@
   
     <div class="padded bg-gray">
       <div class="mwc mw400">
+        
+        <h2>Application</h2>
+        
         <form method="post"
               class="center"
-              action-xhr="https://mailchimp.tsmean.com/alpha"
+              action-xhr="https://mailchimp.tsmean.com/subscribe?listid=71797e4531"
               target="_top">
     
           <div>
             <input type="text"
-                   name="fname"
+                   name="FNAME"
                    class="width100"
                    required
                    placeholder="First Name">
             <div class="spacer10"></div>
             <input type="email"
-                   name="email"
+                   name="EMAIL"
                    class="width100"
                    required
                    placeholder="Email">
           </div>
           <div class="spacer10"></div>
           <div>
-            <textarea type="text"
-                      name="description"
+            <textarea name="DESCR"
                       class="width100"
                       rows="5"
                       required
@@ -65,7 +66,7 @@
           <div class="spacer10"></div>
     
           <input type="submit"
-                 id="newsletter-subscription"
+                 id="submit-application-to-alpha"
                  class="tsmean-button primary"
                  value="APPLY">
     
