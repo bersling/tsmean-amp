@@ -7,7 +7,7 @@ const ampHtmlValidator = require('amphtml-validator');
  * Here you can define the pages you want to compile & include in your distribution folder.
  * By specifying this explicity you gain full control and can also have drafts (unpublished html files)
  */
-const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing'];
+const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing', 'alpha'];
 addPagesToDirectory (
   'articles/how-to-write-a-typescript-library',
   ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'],

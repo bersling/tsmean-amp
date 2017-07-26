@@ -1,0 +1,13 @@
+div {
+  &.primary {
+    background: $primary-color;
+    color: $text-on-primary;
+    border-radius: 5px;
+    padding: 17px;
+
+    a {
+      color: $text-on-primary;
+    }
+
+  }
+}
