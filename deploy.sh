@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if [ "${1}" == "dev" ]; then
-  server=ubuntu@35.158.213.131
+  echo "deploying to dev"
 elif [ "${1}" == "prod" ]; then
-  server=ubuntu@35.158.213.131
+  echo "deploying to prod"
 else
   echo "Expected dev or prod as argument"
   exit 0
@@ -12,9 +12,9 @@ fi
 npm run build
 
 if [ "${1}" == "dev" ]; then
-  rsync -avz --delete -e 'ssh' "dist/" "${server}:tsmeanampdev/dist"
+  aws s3 cp dist s3://aws-website-tsmean-dev-ghyw3/ --recursive
 elif [ "${1}" == "prod" ]; then
-  rsync -avz --delete -e 'ssh' "dist/" "${server}:tsmeanamp/dist"
+  aws s3 cp dist s3://aws-website-tsmean-prod-gclcd/ --recursive
 fi
 
 echo "Done!"
