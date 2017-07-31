@@ -48,7 +48,7 @@ doCompile();
 function validateAmp(pages: string[]) {
   pages.forEach(page => {
     ampHtmlValidator.getInstance().then(function (validator) {
-      const input = fs.readFileSync(`dist/${page}.html`, 'utf8');
+      const input = fs.readFileSync(distLocation(page), 'utf8');
       const result = validator.validateString(input);
       ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
       for (let ii = 0; ii < result.errors.length; ii++) {
@@ -80,6 +80,10 @@ function copyRobotsTxt() {
   });
 }
 
+function distLocation(page: string) {
+  return './dist/' + (path.basename(page) === 'index' ? page + '.html' : page + '/index.html');
+}
+
 function compileMustache() {
 
   return new Promise ((resolve, reject) => {
@@ -88,20 +92,27 @@ function compileMustache() {
 
     // ensure that all directories are created, so compilation doesn't fail
     pages.forEach(page => {
-      mkdir('./dist/' + path.dirname(page));
+      mkdir('./dist/' + page);
     });
 
     pages.forEach(page => {
-      const writeStream = fs.createWriteStream(`./dist/${page}.html`);
+
+      const writeStreams = [
+        //fs.createWriteStream(`./dist/${page}.html`),
+        fs.createWriteStream(distLocation(page))  // AWS likes it more like this
+      ];
+
       mu.compileAndRender(`pages/${page}.html`, data)
         .on('data', function (data) {
           const dataStr = data.toString();
-          writeStream.write(dataStr, (err) => {
-            if (err) {
-              reject(err)
-            } else {
-              resolve();
-            }
+          writeStreams.forEach(writeStream => {
+            writeStream.write(dataStr, (err) => {
+              if (err) {
+                reject(err)
+              } else {
+                resolve();
+              }
+            })
           });
         });
     });
