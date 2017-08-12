@@ -27,6 +27,10 @@ button, .tsmean-button {
     background: $primary-color;
     color: white;
   }
+  &.accent {
+    background: $accent;
+    color: white;
+  }
 
   &.jumbo-button {
     font-size: 18px;

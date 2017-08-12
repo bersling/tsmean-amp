@@ -46,6 +46,13 @@ If your styles are for a custom ui component, put them in the same folder as the
   }
 }
 
+.table-of-contents {
+  &:before {
+    content: "Table of Contents";
+    font-weight: 700;
+  }
+}
+
 .lightbox {
   min-height: 100vh;
   width: 100vw;

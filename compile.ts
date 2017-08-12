@@ -20,7 +20,7 @@ addPagesToDirectory(
 );
 addPagesToDirectory(
   'articles/vs',
-  ['mongo-vs-mysql-for-webapps'],
+  ['mongo-vs-mysql-for-webapps', 'typescript-vs-javascript'],
   pages
 );
 addPagesToDirectory(
