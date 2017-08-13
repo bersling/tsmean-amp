@@ -5,7 +5,7 @@
   {{> ./components/common-head.html}}
   {{> ./components/article/article-head.html}}
   <title>TypeScript vs JavaScript in 2017</title>
-  <meta name="description" content="TypeScript gained rapid tracting through large projects like Angular & RxJS adopting it. Why do large projects nowadays tend to favor TypeScript? Read more.">
+  <meta name="description" content="TypeScript gained rapid traction through large projects like Angular & RxJS adopting it. Why do large projects nowadays tend to favor TypeScript? Read more.">
   <meta name="keywords"
         content="TypeScript, JavaScript, vs, comparison">
   <link rel="canonical" href="https://www.tsmean.com/articles/vs/typescript-vs-javascript" />
@@ -111,7 +111,7 @@
       Since there are multiple versions of JavaScript, we have to be more specific about which version of JavaScript we're talking about here. Are we talking about ES5, the version that is supported by most browsers? Or are we talking about ES7, the most recent version? Or about ES6?
     </p>
     <p>
-      The second question we have to ask ourselves is which context we're talking about. Are we talking about a simple hobby website? Are we talking about a large web app? Are we talking about a micro-service in the backend, which could also be written in JavaScript thanks to node.js? How many people are involved in the project?
+      The second question we have to ask ourselves is which context we're talking about. Are we talking about a simple hobby website? Are we talking about a large web app? Are we talking about a micro-service in the backend? How many people are involved in the project?
     </p>
     <p>
       Those points will be included in the following sections by separating the JS versions and analyzing strengths in respect to the project setup.
@@ -122,16 +122,14 @@
       Strengths of Typescript
     </h2>
     <p>
-      The basic argument of TypeScript vs JavaScript boils down to strongly typed vs weakly typed languages. Of course there are more factors, like adoption, build complexity and learning curve, but the essence of it is still whether to favor strongly or weakly typed languages. In my opinion, TypeScript hits the sweet spot for typing since it's <b>optionally typed</b>. You can just rename your <code>.js</code> files to <code>.ts</code> and add types gradually.
+      The basic argument of TypeScript vs JavaScript boils down to strongly typed vs weakly typed languages. Of course there are more factors, like adoption, build complexity and learning curve, but the essence of it is still whether to favor strongly or weakly typed languages. There is research on the topic, like for example
+      <a target="_blank" href="http://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf">"A Large Scale Study of Programming Languages and Code Quality in Github"</a>, which concludes you're slighly better off in terms of bugs with TypeScript than with JavaScript. However, research on topics like that has to be considered with caution, since it's hard to actually interpret data meaningfully. In my opinion, TypeScript hits the sweet spot for typing since it's <b>optionally typed</b>. You can just rename your <code>.js</code> files to <code>.ts</code> and add types gradually.
     </p>
     <p>
-      From my experience, types add a tremendous advantage in the sense of better documentation. Other programmers (and yourself, later on), will immediately know what data type goes in and comes out of a function. That's also very valuable for any API, since you don't have to sit there with the API Docs open all the time.
+      From my experience, types add an advantage in the sense of better documentation. Other programmers (and yourself, later on), will immediately know what data type goes in and comes out of a function. That's also very valuable for any API, since you don't have to sit there with the API Docs open all the time.
+      The autocompletion on IDEs is still superior for typed languages than for dynamic languages, even though IDEs can guess some types through type inference. About the verbosity argument, I think of types as integral part of documentation and as such a good kind of verbosity. I feel that those advantages kick in for anything more than 100 lines of code or when using any external libraries.
     </p>
-    <p>
-      The autocompletion on IDEs is still superior for typed languages than for dynamic languages, even though IDEs can guess some types through type inference. About the verbosity argument, I think of types as integral part of documentation and as such a good kind of verbosity. Those advantages I find to kick in for anything more than 100 lines of code.
-    </p>
-    <p>
-      And I'm not the only one that thinks like this. Industry leaders such as Angular and RxJS have adopted TypeScript. This alone gives a strong sense of justification for TypeScript. The question we're trying to answer here is how will the adoption of typescript look like in 5 years? Currently there's a strong trend upwards, but no-one can tell how the future looks like. To me, Google adopting it is a positive sign, not a guarantee that it will stick around, but better than nothing.
+      I'm not the only one that thinks like this. Industry leaders such as Angular and RxJS have adopted TypeScript. This alone gives a strong sense of justification for TypeScript. The question we're trying to answer here is how will the adoption of typescript look like in 5 years? Currently there's a strong trend upwards, but no-one can tell how the future looks like. To me, Google adopting it is a positive sign, not a guarantee that it will stick around, but better than nothing.
     </p>
   
     <a class="anchor" id="strengths-of-es6-es7"></a>
