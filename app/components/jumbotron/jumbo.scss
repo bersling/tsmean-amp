@@ -103,6 +103,10 @@
 
 .jumbo-vertical {
 
+  > amp-img {
+    max-width: 100%;
+  }
+
   background: #3F51B5;
   padding: 70px 0 70px 0;
 
