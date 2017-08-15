@@ -34,7 +34,7 @@
         <div class="spacer10"></div>
         
         <input type="submit"
-               id="newsletter-subscription"
+               data-vars-event-id="submit-subscribe-to-newsletter"
                class="tsmean-button primary"
                value="SUBSCRIBE">
         
@@ -48,7 +48,8 @@
       <div class="spacer50"></div>
       
       <div class="right-align">
-        <button id="close-lightbox-subscribe" on="tap:subscribe-lightbox.close">
+        <button data-vars-event-id="button-close-subscribe-to-newsletter-lightbox"
+                on="tap:subscribe-lightbox.close">
           Close
         </button>
       </div>
