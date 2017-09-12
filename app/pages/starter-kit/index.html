@@ -83,12 +83,19 @@
     
     <div class="primary flex-switch-on-xs">
       <button on="tap:subscribe-to-release-lightbox"
-              class="jumbo-button margin-left-right-8 margin-top-bottom-8">
+              data-vars-event-category="starter_kit"
+              data-vars-event-action="cta_subscription_form"
+              data-vars-event-label="release_notification"
+              class="jumbo-button margin-left-right-8 margin-top-bottom-8 gtm-tracked">
         Get notified on release
       </button>
   
       <a href="/alpha">
-        <button class="jumbo-button margin-left-right-8 margin-top-bottom-8 bordered-inverse">
+        <button data-vars-event-id="submit-subscribe-to-releases"
+                data-vars-event-category="starter_kit"
+                data-vars-event-action="cta_subscription_form"
+                data-vars-event-label="alpha_application"
+                class="jumbo-button margin-left-right-8 margin-top-bottom-8 bordered-inverse gtm-tracked">
           Apply for alpha-testing
         </button>
       </a>
