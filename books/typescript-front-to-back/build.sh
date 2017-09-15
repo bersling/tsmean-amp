@@ -2,4 +2,4 @@
 
 cd $(dirname "$0")
 
-pdflatex ./the_tsmean_book.tex
+pdflatex ./typescript-front-to-back.tex

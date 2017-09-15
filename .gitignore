@@ -2,8 +2,8 @@ node_modules
 dist
 .idea
 styles.css
-book/the_tsmean_book.aux
-book/the_tsmean_book.log
-book/the_tsmean_book.out
-book/the_tsmean_book.pdf
-book/the_tsmean_book.toc
+typescript-front-to-back.aux
+typescript-front-to-back.log
+typescript-front-to-back.out
+typescript-front-to-back.pdf
+typescript-front-to-back.toc

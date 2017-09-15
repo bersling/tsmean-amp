@@ -1,0 +1,36 @@
+.offer-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.offer {
+
+  background: $main-gray;
+  color: black;
+  border-radius: 5px;
+
+  .offer-header, .offer-body, .offer-footer {
+    padding: 10px 15px;
+  }
+
+  .offer-header {
+    h2 {
+      margin: 0;
+    }
+  }
+  .offer-body {
+    background: white;
+  }
+  .offer-footer {
+    display: flex;
+
+    .offer-footer-left {
+      flex: 1;
+    }
+
+    .offer-footer-right {
+
+    }
+
+  }
+}

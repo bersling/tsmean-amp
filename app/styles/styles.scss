@@ -19,6 +19,9 @@
 @import 'html/pre';
 @import 'html/div';
 
+// the pages
+@import '../pages/learn-typescript/learn-typescript';
+
 // the components
 @import '../components/jumbotron/jumbo';
 @import '../components/footer/footer';
@@ -139,6 +142,7 @@ amp-accordion>section>pre.code-snippet {
   display: inline-block;
 }
 
+
 // to set top-anchors
 .anchor {
   display: block;
@@ -159,6 +163,7 @@ amp-accordion>section>pre.code-snippet {
 
 .bg-primary {
   background: $primary-color;
+  color: $primary-color-complement;
 }
 .primary-color {
   color: $primary-color;
@@ -170,6 +175,14 @@ amp-accordion>section>pre.code-snippet {
   background: white;
 }
 
+.full-height {
+  min-height: 100vh;
+}
+
+.rounded {
+  border-radius: 5px;
+}
+
 .container {
   max-width: 900px;
   margin: 0 auto;
@@ -179,3 +192,12 @@ amp-accordion>section>pre.code-snippet {
   width: 100%;
   box-sizing: border-box;
 }
+
+.xxxl-font {font-size: 50px;}
+.xxl-font {font-size: 40px;}
+.xl-font {font-size: 30px;}
+.l-font {font-size: 22px;}
+.m-font {font-size: 16px;}
+.s-font {font-size: 12px;}
+.xs-font {font-size: 10px;}
+.xxs-font {font-size: 8px;}
