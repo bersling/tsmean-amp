@@ -1,0 +1,47 @@
+% DUCKTYPING
+
+let myPet: any;
+myPet = {
+  name: 'Fridolin',
+  doQuack: () => {console.log('quack')}
+}
+const myPetIsADuck = (myPet) => {
+  if (myPet.doQuack) {
+    console.log('My pet is a duck!');
+  } else {
+    console.log('My pet is not a duck.');
+  }
+}
+myPetIsADuck(myPet); // 'My pet is a duck!'
+myPet = {
+  name: 'Rudolph',
+  doReindeering: () => {console.log('my nose is red')}
+}
+myPetIsADuck(myPet); // 'My pet is not a duck.'
+
+
+% cute object bunnies
+
+
+// 1) Using the 'Object' type and assigning an object right away
+let bunny: Object = {
+  numberOfEyes: 2,
+  numberOfEars: 2,
+  isCute: true
+}
+
+// 2) Using an explicit object description
+let bunny: {
+  numberOfEyes: number,
+  numberOfEars: number,
+  isCute: boolean
+} = {
+  numberOfEyes: 2,
+  numberOfEars: 2,
+  isCute: true
+}
+
+// 3) Just specifying that it will be key value pairs
+let bunny: {[x: string]: any};
+bunny.numberOfEars = 2;
+

@@ -2,3 +2,8 @@ node_modules
 dist
 .idea
 styles.css
+book/the_tsmean_book.aux
+book/the_tsmean_book.log
+book/the_tsmean_book.out
+book/the_tsmean_book.pdf
+book/the_tsmean_book.toc
