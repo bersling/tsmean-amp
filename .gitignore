@@ -2,8 +2,11 @@ node_modules
 dist
 .idea
 styles.css
-typescript-front-to-back.aux
-typescript-front-to-back.log
-typescript-front-to-back.out
+
+# Latex things
+*.aux
+*.log
+*.out
+*.toc
 typescript-front-to-back.pdf
-typescript-front-to-back.toc
+how-to-write-a-typescript-library.pdf

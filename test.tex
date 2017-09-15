@@ -1,0 +1,151 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifpackageloaded{hyperref}{}{%
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+}
+\@ifpackageloaded{color}{
+    \PassOptionsToPackage{usenames,dvipsnames}{color}
+}{%
+    \usepackage[usenames,dvipsnames]{color}
+}
+\makeatother
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={How to write a consumer for a typescript library},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}
+            }
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{How to write a consumer for a typescript library}
+\date{}
+
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\begin{document}
+\maketitle
+
+\{\{\textgreater{} ./components/analytics.html \}\} \{\{\textgreater{}
+./components/header/header.html\}\}
+
+\section{Writing a command-line executable with
+TypeScript}\label{writing-a-command-line-executable-with-typescript}
+
+On \href{/}{the main tutorial} we've setup the library
+\texttt{\textquotesingle{}hwrld\textquotesingle{}}. Now we're going to
+learn how to make a library available as a system command. Actually,
+once you've completed the main tutorial, this becomes really easy. Just
+two simple steps!
+
+\subsection{\texorpdfstring{{Step1:} Add execution
+instructions}{Step1: Add execution instructions}}\label{step1-add-execution-instructions}
+
+On top of your executable files (the main files), add the following
+line:
+
+\begin{verbatim}
+#!/usr/bin/env node
+\end{verbatim}
+
+This makes sure the system understands how to execute the compiled
+javascript file, by instructing it to interpret it with \texttt{node}.
+
+\subsection{\texorpdfstring{{Step 2:} Modify the
+package.json}{Step 2: Modify the package.json}}\label{step-2-modify-the-package.json}
+
+The \texttt{package.json} just needs to be modified a bit, so it looks
+like this:
+
+typescript-library/package.json
+
+\begin{verbatim}
+{
+  "name": "hwrld",
+  "version": "1.0.0",
+  "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
+  "main": "dist/index.js",
+  "bin": {
+      "hwrld": "dist/index.js"
+  },
+  "types": "dist/index.d.ts"
+}
+\end{verbatim}
+
+And voilà! Once you publish this, you will be able to install you're
+package globally on a machine using:
+
+\begin{verbatim}
+sudo npm install -g hwrld
+\end{verbatim}
+
+Of course for the \texttt{hwrld} package this is pretty useless. A
+really simple yet instructive example I've written is a controller for
+the \texttt{mpc} music player. You can find the code here:
+\url{https://github.com/bersling/mpc-control}.
+
+By the way, there wasn't really anything typescripty about this
+tutorial, it holds just as well for plain javascript node modules!
+
+You can now \ldots{}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{}{\ldots{} go back to the main tutorial}
+\item
+  \href{./unit-testing}{\ldots{} read about unit testing}
+\item
+  \href{./local-consumer}{\ldots{} read about how to build a local
+  consumer}
+\end{itemize}
+
+\{\{\textgreater{} ./components/article/article-footer.html\}\}
+
+\end{document}

@@ -2,4 +2,4 @@
 
 cd $(dirname "$0")
 
-pdflatex ./typescript-front-to-back.tex
+pdflatex ./how-to-write-a-typescript-library.tex
