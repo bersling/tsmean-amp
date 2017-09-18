@@ -202,3 +202,31 @@ amp-accordion>section>pre.code-snippet {
 .s-font {font-size: 12px;}
 .xs-font {font-size: 10px;}
 .xxs-font {font-size: 8px;}
+
+
+.meta-header {
+
+  color: white;
+  font-family: monospace;
+
+  .written {
+    display: inline-block;
+    &:before {
+      // content: "Written: "
+    }
+  }
+  .updated {
+    font-weight: bold;
+    display: inline-block;
+    &:before {
+      content: "Updated: "
+    }
+  }
+  .written-updated-delimiter {
+    display: inline-block;
+    &:before {
+      content: "/"
+    }
+  }
+
+}
