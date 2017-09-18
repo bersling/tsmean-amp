@@ -1,0 +1,97 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>TypeScript MEAN</title>
+  <meta name="description" content="Liked the MEAN Stack? Now get it in TypeScript!">
+  <meta name="keywords"
+        content="MEAN, Mongo, MongoDB, Express, ExpressJS, Angular, AngularJS, Angular 2, Angular 4, Node, NodeJS, TypeScript, TypeScriptJS, Tutorial, Seed, Boilerplate, tsmean">
+  <link rel="canonical" href="https://www.tsmean.com/articles" />
+  {{> ./components/common-head.html}}
+  {{> ./components/article/article-head.html}}
+
+</head>
+<body>
+  
+  {{> ./components/analytics.html}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header/header.html}}
+  
+  <div class="jumbo-vertical">
+    
+    <amp-img src="/assets/img/001-zero.svg"
+             class="jumbo-image"
+             alt="Articles"
+             width="150"
+             height="150">
+    </amp-img>
+    
+    <h1 class="jumbo-title">
+      <code>strictNullChecks</code> - Best Practices
+    </h1>
+  
+  </div>
+  
+  <article>
+    
+    <h2>
+      Should I use the <code>strictNullChecks</code> TypeScript compiler flag - yes or no?
+    </h2>
+    <p>
+      Null pointers are one of the most common categories of bugs, yet they can be avoided to a large degree with the <code>strictNullChecks</code> TypeScript compiler flag. Since the <code>strictNullChecks</code> flag was only added in TypeScript 2, its usage isn't that widespread yet. As of September 2017, the Angular project and the typeORM project are two examples that use the flag, while VSCode, RxJS, Ionic, or Babylon.js all don’t. Furthermore,  <code>strictNullChecks</code> isn't the default for new TypeScript projects. The reason for this is backwards compatibility and to keep TypeScript a superset of JavaScript.
+    </p>
+    
+    <p>
+      If you're starting a new TypeScript project or you find the time to introduce the <code>strictNullChecks</code> flag to your existing project, I would recommend doing so. On the upside you'll get more safety added to your application at compile time, which is almost always a good thing. Having strict null checks also doesn't clutter up your code, since those are checks that your application should include anyways. On the downside there's one more concept for new developers to learn. <b>To me, the pros outweigh the cons so I would recommend turning strict null checks on.</b>
+    </p>
+    
+    <p>
+      An example of strict null checks would be:
+    </p>
+  
+    <div class="file-label">tsconfig.json</div>
+    <pre>{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}</pre>
+    
+    <div class="file-label">src/user.ts</div>
+    <pre><code>interface User {
+  name: string;
+  age?: number;
+}
+function printUserInfo(user: User) {
+  console.log(`${user.name}, ${user.age.toString()}`)
+  // =&gt; error TS2532: Object is possibly 'undefined'.
+  console.log(`${user.name}, ${user.age!.toString()}`)
+  // =&gt; OK, you confirm that you're sure user.age is non-null.
+
+  if (user.age) {
+    console.log(`${user.name}, ${user.age.toString()}`)
+  }
+  // =&gt; OK, the if-condition checked that user.age is non-null.
+
+  console.log(user.name + ', ' + user.age ? user.age.toString() : 'age unknown');
+  // =&gt; Unfortunately TypeScript can't infer that age is non-null here.
+}
+</code></pre>
+    <p>
+      As you can see, the exclamation point denotes that you are sure (e.g. by performing a check somewhere in the code) that something that’s potentially null actually isn’t. If you perform an if-check, TypeScript can infer that something is non-null. However, for the ternary operator this is unfortunately not the case.
+    </p>
+  
+  </article>
+  
+  {{> ./components/article/article-footer.html}}
+
+</body>
+</html>

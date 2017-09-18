@@ -1,0 +1,111 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>TypeScript MEAN</title>
+  <meta name="description" content="Liked the MEAN Stack? Now get it in TypeScript!">
+  <meta name="keywords"
+        content="MEAN, Mongo, MongoDB, Express, ExpressJS, Angular, AngularJS, Angular 2, Angular 4, Node, NodeJS, TypeScript, TypeScriptJS, Tutorial, Seed, Boilerplate, tsmean">
+  <link rel="canonical" href="https://www.tsmean.com/articles" />
+  {{> ./components/common-head.html}}
+  {{> ./components/article/article-head.html}}
+
+</head>
+<body>
+  
+  {{> ./components/analytics.html}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> ./components/header/header.html}}
+  
+  <div class="jumbo-vertical">
+    
+    <amp-img src="/assets/img/001-coding.svg"
+             class="jumbo-image"
+             alt="Articles"
+             width="150"
+             height="150">
+    </amp-img>
+    
+    <h1 class="jumbo-title">
+      <code>noImplicitAny</code> - Best Practices
+    </h1>
+  
+  </div>
+  
+  <article>
+    
+    <h2>
+      Should I use the <code>noImplicitAny</code> TypeScript compiler flag - yes or no?
+    </h2>
+  
+    <p>What the <code>noImplicitAny</code> compiler option does, is it basically converts TypeScript from an optionally-typed language to a necessarily-typed language. This gets TypeScript a little further away from being a superset of JavaScript, since a simple</p>
+    <pre><code>function logMe(x) {
+  console.log(x);
+}
+// error TS7006: Parameter &#39;x&#39; implicitly has an &#39;any&#39; type.</code></pre>
+    <p>would throw an error. You would have to <em>explicitly</em> declare that <code>x</code> is of type <code>any</code>:</p>
+    <pre><code>function logMe(x: any) {
+  console.log(x);
+}
+ // OK</code></pre>
+    <p>This means that migrating existing JS codebases to TS becomes much more work than just changing the file extension. It also means, that when coding you need to have much more focus on the types, since the compiler will always complain if you don’t specify the type. Since explicitly declaring <code>any</code> when in reality it’s not any is considered bad practice, you’re confronted with assigning correct types much earlier on in the development process. Without an explicit any declaration it could just mean “I was just too lazy to annotate the types here correctly”. </p>
+    <p>
+      Whether this is a good or a bad thing is strongly debatable. The community seems to be split on the issue. Here are some industry-leading TypeScript projects and whether they use the <code>noImplicitAny</code> compiler flag or not:
+    </p>
+    
+    <table class="pure-table">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Uses <code>noImplicitAny</code></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Angular
+          </td>
+          <td>
+            YES
+          </td>
+        </tr>
+        <tr>
+          <td>
+            RxJS
+          </td>
+          <td>
+            YES
+          </td>
+        </tr>
+        <tr>
+          <td>
+            VSCode
+          </td>
+          <td>
+            NO
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Babylon.js
+          </td>
+          <td>
+            NO
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+
+    <p>
+      So I’m adding my two cents to the discussion to break the tie: We’re using TypeScript for a reason, since types provide meaningful extra information that serve as documentation and for catching errors early on. So why be inconsistent with it and only add types somewhere? Add them everywhere and be done with it. Otherwise you'll have to do additional thinking "hmm should I add types here, I'm kinda too lazy, but it would be good, but I've got other work to do... Let's do it tomorrow". Thus my recommendation is to set <code>noImplicitAny</code> to true.
+    </p>
+  
+  </article>
+  
+  {{> ./components/article/article-footer.html}}
+
+</body>
+</html>

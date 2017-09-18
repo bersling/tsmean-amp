@@ -8,8 +8,7 @@
         content="Learn, TypeScript, Tutorial, Tutorials, PDF, PDFs, Book, Books, 2017, Resources, Mongo, MongoDB, MySQL, Express, ExpressJS, Angular2, Angular4, Angular, Node.js, Node, Node js">
   <link rel="canonical" href="https://www.tsmean.com/learn-typescript" />
   {{> ./components/common-head.html}}
-  {{> ./components/article/article-head.html}}
-
+  
 </head>
 <body>
   
@@ -23,7 +22,7 @@
     
     <div class="jumbo-main narrow">
       <div class="padded">
-        <amp-img src="/img/006-graduation.svg"
+        <amp-img src="/assets/img/006-graduation.svg"
                  height="200"
                  width="200"
                  alt="">
@@ -38,7 +37,7 @@
       </div>
     </div>
     
-    <div class="mw600 mwc rounded" style="background: rgba(255, 255, 255, 0.1);">
+    <div class="mw600 mwc rounded disclaimer">
       <p class="page-description padded">
         Since the introduction of Angular, TypeScript is taking off. Learn TypeScript through a selection of tutorials and books. We've got you covered, in the frontend as well as in the backend. Learning full stack TypeScript is a bold, yet rewarding move.
       </p>
@@ -61,12 +60,11 @@
         </div>
         <div class="offer-footer">
           <div class="offer-footer-left">
-            <button class="bordered">
-              Table of Contents
-            </button>
           </div>
           <div class="offer-footer-right">
-            <button class="primary">Download</button>
+            <a href="/assets/books/how-to-write-a-typescript-library.pdf" download>
+              <button class="primary">Download</button>
+            </a>
           </div>
         </div>
       </div>
@@ -86,13 +84,17 @@
         </div>
         <div class="offer-footer">
           <div class="offer-footer-left">
-            <button class="bordered">
-              Table of Contents
-            </button>
+            <a href="/assets/books/typescript-front-to-back-toc.pdf" download>
+              <button class="bordered">
+                Current Table of Contents
+              </button>
+            </a>
           </div>
-          <div class="offer-footer-right">
-            <button class="primary">Preorder</button>
-          </div>
+          <a href="/orders/preorder-typescript-front-to-back">
+            <div class="offer-footer-right">
+              <button class="primary">PREORDER</button>
+            </div>
+          </a>
         </div>
       </div>
   

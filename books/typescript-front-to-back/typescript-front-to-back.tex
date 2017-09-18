@@ -7,6 +7,9 @@
 \usepackage{upquote}
 \usepackage[font=small,labelfont=bf]{caption}
 
+% ==== TEMP DISABLE PAGES IN TOC ====
+\let\Contentsline\contentsline
+\renewcommand\contentsline[3]{\Contentsline{#1}{#2}{}}
 
 %======= LISTINGS =========
 \usepackage{listings}
@@ -38,7 +41,7 @@
 \renewcommand{\baselinestretch}{1.3} 
 
 %====== SETTINGS =====
-%\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\familydefault}{\sfdefault}
 
 
 % ===== TITILE PAGE ====
@@ -54,7 +57,9 @@
 	\vspace{1.5cm}
 	{\huge\bfseries TypeScript \\ \Huge{Front to Back}\par}
 	\vspace{2cm}
-	{\Large\itshape Daniel Niederberger\par}
+
+	%${\Large Daniel Niederberger\par}
+        %{Founder of tsmean}
 	%\vfill
 	%reviewed by\par
 	%Dr.~Franz \textsc{Ösinger}
@@ -63,10 +68,25 @@
 
 % Bottom of the page
 	{\large \today\par}
+	\vspace{0.5cm}
+\includegraphics[width=2.5cm]{figures/tsmean-logo.pdf}
+
 \end{titlepage}
 
+\cleardoublepage
+\pagenumbering{gobble}
 \tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
+
 \newpage
+
+STUFF
+
+- http://developers.ucdavis.edu/media/meetings/8/angular2.pdf
+
+
+
 
 \chapter*{Prologue}
 Welcome to the emerging world of full stack TypeScript! You are probably familiar with TypeScript from the frontend, usually in conjunction with Angular. While Angular played a large role in making the TypeScript language more popular, TypeScript is not limited to the Frontend. Nowadays there are runtime environments for JavaScript (and TypeScript compiles to JavaScript) so you can also write TypeScript for the backend. This book is about having TypeScript on both sides, frontend and backend. It's about how to build a medium- to large-sized web-application with full stack TypeScript the right way.
@@ -523,6 +543,10 @@ Node.js is ``a JavaScript runtime built on Chrome's V8 JavaScript engine'', acco
 \subsection{Performance}
 Performance is often an important measure when
 
+- Synchronous code not more than 10ms
+
+- Gzipping res.writeHead(200, {'Content-Encoding': 'gzip', 'Content-Length': msg.length}) => Gzipping could be done by external method... :/
+
 \subsection{Production Mode}
 
 \section{Library-Oriented Architecture}
@@ -572,8 +596,6 @@ Having said that, I would like to stress that Angular by far has the best TypeSc
 
 ...
 
-\section{Vanilla TypeScript}
-
 
 \chapter{A Starter / Seed / Boilerplate for Full Stack TypeScript}
 
@@ -595,9 +617,6 @@ Despite the elaborate architecture and feature set of the starter, we tried keep
 
 \subsection{Continuous Integration}
 
-\chapter{Epilogue}
-
-Thanks for coming along the ride. I hope I could introduce you to the new and exciting world of full stack TypeScript.
 
 \begin{thebibliography}{9}
 

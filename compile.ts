@@ -24,6 +24,11 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/learn-typescript',
+  ['no-implicit-any-best-practice', 'strict-null-checks-best-practice'],
+  pages
+);
+addPagesToDirectory(
   'articles/motivation',
   ['typescript-mean'],
   pages
