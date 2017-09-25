@@ -26,8 +26,8 @@ const buildPartial  = (partialPath) => {
 }
 const partials = {
   'styles': buildPartial('styles/styles.css'),
-  'articleFooter': buildPartial('components//article/article-footer.html'),
-  'articleHead': buildPartial('components//article/article-head.html'),
+  'articleFooter': buildPartial('components/article/article-footer.html'),
+  'articleHead': buildPartial('components/article/article-head.html'),
   'footer': buildPartial('components/footer/footer.html'),
   'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
   'header': buildPartial('components/header/header.html'),
@@ -46,6 +46,7 @@ const partials = {
   'analytics': buildPartial('components/analytics.html'),
   'commonHead': buildPartial('components/common-head.html'),
 }
+
 
 
 /**
