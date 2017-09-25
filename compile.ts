@@ -84,11 +84,18 @@ addPagesToDirectory(
 /**
  * execute all compilation steps
  */
-compileSass();
-copyRobotsTxt();
-buildSitemap(pages);
-compileMustache(); // this step needs to be ready for the next one, that's why await is used here.
-validateAmp(pages);
+async function doCompile () {
+  compileSass();
+  copyRobotsTxt();
+  buildSitemap(pages);
+  compileMustache();
+
+  //TODO: FIX VALIDATION;
+  validateAmp(pages);
+}
+doCompile();
+
+
 
 /**
  * From here on downwards are only some implementation details...
