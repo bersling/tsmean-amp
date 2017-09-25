@@ -89,32 +89,35 @@ async function doCompile () {
   copyRobotsTxt();
   buildSitemap(pages);
   compileMustache();
-  await validateAmp(pages);
+  // await validateAmp(pages);
   console.log('Done!');
 }
 doCompile();
-
-
 
 /**
  * From here on downwards are only some implementation details...
  * ==============================================================
  */
 async function validateAmp(pages: string[]) {
-  const validator = await ampHtmlValidator.getInstance();
-  pages.forEach(page => {
-    const input = fs.readFileSync(distLocation(page), 'utf8');
-    const result = validator.validateString(input);
-    ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
-    for (let ii = 0; ii < result.errors.length; ii++) {
-      const error = result.errors[ii];
-      let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
-      if (error.specUrl !== null) {
-        msg += ' (see ' + error.specUrl + ')';
+  try {
+    const validator = await ampHtmlValidator.getInstance();
+    pages.forEach(page => {
+      const input = fs.readFileSync(distLocation(page), 'utf8');
+      const result = validator.validateString(input);
+      ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
+      for (let ii = 0; ii < result.errors.length; ii++) {
+        const error = result.errors[ii];
+        let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
+        if (error.specUrl !== null) {
+          msg += ' (see ' + error.specUrl + ')';
+        }
+        ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
       }
-      ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
-    }
-  });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 function compileSass () {
@@ -150,7 +153,7 @@ function compileMustache() {
       const renderedPage = Mustache.render(template, {
         projectUrl: projectConstants.projectUrl
       }, partials);
-      fs.writeFileSync(path.join(outDirRoot, `${page}.html`), renderedPage);
+      fs.writeFileSync(distLocation(page), renderedPage);
     });
 
   }
