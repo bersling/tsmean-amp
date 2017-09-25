@@ -5,26 +5,26 @@ function escapeRegExp(str) {
 }
 
 const partials = {
-  'styles': './styles/styles.css',
-  'articleFooter': './components/article/article-footer.html',
-  'articleHead': './components/article/article-head.html',
-  'footer': './components/footer/footer.html',
-  'githubButton': './components/github-button/github-button-inverse.html',
-  'header': './components/header/header.html',
-  'learnMore': './components/learn-more/learn-more.html',
-  'logoAccent': './components/logo/accent.html',
-  'logoPrimary': './components/logo/primary.html',
-  'logoWhite': './components/logo/white.html',
-  'primaryNavMenu': './components/primary-nav-menu/primary-nav-menu.html',
-  'sidebar': './components/sidebar/sidebar.html',
-  'socialFooter': './components/social-footer/social-footer.html',
-  'subscribeLightbox': './components/subscribe-lightbox/subscribe-lightbox.html',
-  'subscribeToNewsletter': './components/subscribe-to-newsletter/subsribe-to-newsletter.html',
-  'subscribeToReleaseLightbox': './components/subscribe-to-release-lightbox/subscribe-to-release-lightbox.html',
-  'subscribeToReleases': './components/subscribe-to-releases/subscrib-to-releases.html',
-  'valueBullets': './components/value-bullets/value-bullets.html',
-  'analytics': './components/analytics.html',
-  'commonHead': './components/common-head.html'
+  'styles': 'styles',
+  'articleFooter': 'articleFooter',
+  'articleHead': 'articleHead',
+  'footer': 'footer',
+  'githubButton': 'githubButton',
+  'header': 'header',
+  'learnMore': 'learnMore',
+  'logoAccent': 'logoAccent',
+  'logoPrimary': 'logoPrimary',
+  'logoWhite': 'logoWhite',
+  'primaryNavMenu': 'primaryNavMenu',
+  'sidebar': 'sidebar',
+  'socialFooter': 'socialFooter',
+  'subscribeLightbox': 'subscribeLightbox',
+  'subscribeToNewsletter': 'subscribeToNewsletter',
+  'subscribeToReleaseLightbox': 'subscribeToReleaseLightbox',
+  'subscribeToReleases': 'subscribeToReleases',
+  'valueBullets': 'valueBullets',
+  'analytics': 'analytics',
+  'commonHead': 'commonHead'
 }
 
 Object.keys(partials).forEach(key => {

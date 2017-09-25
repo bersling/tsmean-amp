@@ -2,8 +2,8 @@
 <html ⚡ lang="en">
 <head>
   
-  {{> ./components/common-head.html}}
-  {{> ./components/article/article-head.html}}
+  {{> commonHead}}
+  {{> articleHead}}
   <title>State Management in Angular2+</title>
   <meta name="description" content="State management is probably the biggest challenge for complex frontend projects. Unfortunately, the Angular Documentation offers very little guidance on this. Here's your missing guide!">
   <meta name="keywords"
@@ -15,11 +15,11 @@
 </head>
 <body class="landing">
   
-  {{> ./components/analytics.html}}
+  {{> analytics}}
   
   <a name="top" class="anchor"></a>
   
-  {{> ./components/header/header.html}}
+  {{> header}}
   
   <div class="jumbo-vertical">
     <amp-img src="/assets/img/manage-state.svg"
@@ -299,7 +299,7 @@ itemStore.subscribe(item => {this.item = item})</pre>
     
   </article>
   
-  {{> ./components/article/article-footer.html}}
+  {{> articleFooter}}
 
 </body>
 </html>

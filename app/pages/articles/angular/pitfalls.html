@@ -2,8 +2,8 @@
 <html ⚡ lang="en">
 <head>
   
-  {{> ./components/common-head.html}}
-  {{> ./components/article/article-head.html}}
+  {{> commonHead}}
+  {{> articleHead}}
   <title>Pitfalls in Angular2+</title>
   <meta name="description" content="Angular2+ is great for large projects. This comes at the price of some complexity. Learn about the most common pitfalls here.">
   <meta name="keywords"
@@ -13,11 +13,11 @@
 </head>
 <body class="landing">
   
-  {{> ./components/analytics.html}}
+  {{> analytics}}
   
   <a name="top" class="anchor"></a>
   
-  {{> ./components/header/header.html}}
+  {{> header}}
   
   <div class="jumbo-vertical">
     <div>
@@ -143,7 +143,7 @@ heroObs.subscribe(newHero =&gt; { ... do thing 2</pre>
 
   </article>
   
-  {{> ./components/article/article-footer.html}}
+  {{> articleFooter}}
 
 </body>
 </html>

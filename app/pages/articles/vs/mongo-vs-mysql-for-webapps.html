@@ -2,8 +2,8 @@
 <html ⚡ lang="en">
 <head>
   
-  {{> ./components/common-head.html}}
-  {{> ./components/article/article-head.html}}
+  {{> commonHead}}
+  {{> articleHead}}
   <title>Mongo vs MySQL for WebApps</title>
   <meta name="description" content="MongoDB had a rise in popularity lately since it's easy to prototype with it. But does it also stand it's ground for complex production webapps? Learn more about this topic here.">
   <meta name="keywords"
@@ -13,11 +13,11 @@
 </head>
 <body class="landing">
   
-  {{> ./components/analytics.html}}
+  {{> analytics}}
   
   <a name="top" class="anchor"></a>
   
-  {{> ./components/header/header.html}}
+  {{> header}}
   
   <div class="jumbo-vertical">
     <amp-img src="/assets/img/mongo-vs-mysql-for-webapps.png"
@@ -280,7 +280,7 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
 
   </article>
   
-  {{> ./components/article/article-footer.html}}
+  {{> articleFooter}}
   
 </body>
 </html>

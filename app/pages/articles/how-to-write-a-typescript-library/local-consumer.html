@@ -1,8 +1,8 @@
 <!doctype html>
 <html ⚡ lang="en">
 <head>
-  {{> ./components/common-head.html}}
-  {{> ./components/article/article-head.html}}
+  {{> commonHead}}
+  {{> articleHead}}
   <title>How to Write a Consumer for a TypeScript Library</title>
   <meta name="description"
         content="You've written a typescript library and before publishing it to npm, you want to try it out locally. Here's how!">
@@ -12,11 +12,11 @@
 </head>
 <body>
   
- {{> ./components/analytics.html }}
+ {{> analytics }}
   
   <a name="top" class="anchor"></a>
   
-  {{> ./components/header/header.html}}
+  {{> header}}
   
   <div class="jumbo-vertical">
     <div class="jumbo-image-wrapper">
@@ -125,7 +125,7 @@ HelloWorld.sayHello();</pre>
   
   </article>
   
-  {{> ./components/article/article-footer.html}}
+  {{> articleFooter}}
 
 </body>
 </html>
