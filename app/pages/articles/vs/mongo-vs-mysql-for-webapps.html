@@ -154,7 +154,7 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
       You'd rather like to display it like that:
     </p>
   
-    <amp-img src="/assets/img/mongodb-display-of-message-data-structure.png"
+    <amp-img src="/assets/img/mongodb-display-of-message-data-structure-2.png"
              alt="Jeremy's Messages"
              layout="responsive"
              width="736"
@@ -186,8 +186,10 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
   
     And what about write? Well, in SQL as well as in NoSQL databases you will have one master for write.
     Then, classically the first thing to do is to scale up vertically the instance that's responsible for
-    writing. Once this fails, you can check where's the bottle-neck, e.g. move server logs to Redis (offloading).
-    And once this fails, you can still use sharding. While MongoDB has an automatic mechanism for this, with the
+    writing. Once this fails, you can check where the bottleneck is and implement a solution for the problem.
+    For example, if you detect that you're logging too much analytics data to your primary MySQL,
+    you could use another solution for the logs (Mongo, Redis, a second MySQL DB...). This is called offloading.
+    Another solution is sharding. While MongoDB has an automatic mechanism for this, with the
     SQL solutions you'll have to take care of the sharding-logic yourself. However, that's not so bad. Since when
     this happens you're probably also at a size where defining the sharding-logic yourself brings performance gains.
   
@@ -218,7 +220,7 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
     &nbsp;
     <blockquote>"MongoDB is more reliable / available with it's Replica Sets than a classical SQL DB!"</blockquote>
     <p>
-      Again, ever heard of something like AWS? Amazon (or other cloud RDB providers)
+      Again, modern SQL-system come to the rescue. Amazon (or other cloud RDB providers)
       takes care of availability for you, so you don't need to worry about that.
     </p>
     &nbsp;
@@ -242,9 +244,8 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
     &nbsp;
     <blockquote>[With Mongo] you can choose what level of consistency you want depending on the value of the data (e.g. faster performance = fire and forget inserts to MongoDB, slower performance = wait til insert has been replicated to multiple nodes before returning) - <a href="https://stackoverflow.com/a/5244921/3022127">source</a></blockquote>
     <p>
-      You probably don't have "fire and forget" data. Which data would that be? I can't think of any.
-      Users interact with your system, that's what generates the data as well as the business value for your system.
-      What would be so invaluable as to lose it? A user post? Certainly not. A user changing the privacy settings? Better not.
+      You probably don't have too much "fire and forget" data. Users interact with your system, that's what generates the data as well as the business value for your system.
+      What would be so invaluable, that losing it is okay? A user post? Certainly not. A user changing the privacy settings? Better not.
     </p>
   
     &nbsp;
@@ -254,24 +255,26 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
       While that may be true and will help you get your full-text search started,
       it's not that hard to set up a search engine like Lucene or Elasticsearch. We've actually chosen MongoDB
       for one project for exactly this reason but we quickly
-      outgrew the capabilities of it and switched to Lucene, while being stuck with Mongo for all our relational data.
+      outgrew the capabilities of it and switched to Lucene.
     </p>
   
     <h2>Conclusion</h2>
-    <p>
-      Disadvantages of NoSQL:
-    </p>
-    <ul>
-      <li>No consistency</li>
-      <li>No transaction safety / No rollbacks</li>
-      <li>Less flexibility in querying</li>
-    </ul>
+
     <p>
       Advantages:
     </p>
-    
     <ul>
-      <li>Cool for prototyping</li>
+      <li>Cool for prototyping, easy to get started</li>
+      <li>Easier for sharding</li>
+    </ul>
+
+    <p>
+      Disadvantages of NoSQL / MongoDB:
+    </p>
+    <ul>
+      <li>No consistency mechanisms</li>
+      <li>No transaction safety / No rollbacks</li>
+      <li>Less powerful queries</li>
     </ul>
   
     <p>
