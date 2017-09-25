@@ -30,7 +30,7 @@ const partials = {
 Object.keys(partials).forEach(key => {
   replace({
     regex: escapeRegExp(partials[key]),
-    replacement: "key",
+    replacement: key,
     paths: ['.'],
     recursive: true,
     silent: true,
