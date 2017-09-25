@@ -1,21 +1,12 @@
-import * as Mustache from 'mustache';
+const Mustache = require('mustache');
 const fs = require('fs');
 const path = require('path');
 const ampHtmlValidator = require('amphtml-validator');
 
 /**
- * Some constants for your project
- */
-const projectConstants = {
-  projectUrl: 'http://amp-project-starter.com'
-};
-
-
-/**
  * Where the result is saved
  */
-const outDirRoot = './dist';
-
+outDirRoot = './dist';
 
 /**
  * All partials (=components) need to be declared here
@@ -26,59 +17,29 @@ const buildPartial  = (partialPath) => {
 }
 const partials = {
   'styles': buildPartial('styles/styles.css'),
-  'articleFooter': buildPartial('components//article/article-footer.html'),
-  'articleHead': buildPartial('components//article/article-head.html'),
   'footer': buildPartial('components/footer/footer.html'),
-  'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
   'header': buildPartial('components/header/header.html'),
-  'learnMore': buildPartial('components/learn-more/learn-more.html'),
-  'logoAccent': buildPartial('components/logo/accent.html'),
-  'logoPrimary': buildPartial('components/logo/primary.html'),
-  'logoWhite': buildPartial('components/logo/white.html'),
-  'primaryNavMenu': buildPartial('components/primary-nav-menu/primary-nav-menu.html'),
-  'sidebar': buildPartial('components/sidebar/sidebar.html'),
-  'socialFooter': buildPartial('components/social-footer/social-footer.html'),
-  'subscribeLightbox': buildPartial('components/subscribe-lightbox/subscribe-lightbox.html'),
-  'subscribeToNewsletter': buildPartial('components/subscribe-to-newsletter/subsribe-to-newsletter.html'),
-  'subscribeToReleaseLightbox': buildPartial('components/subscribe-to-release-lightbox/subscribe-to-release-lightbox.html'),
-  'subscribeToReleases': buildPartial('components/subscribe-to-releases/subscrib-to-releases.html'),
-  'valueBullets': buildPartial('components/value-bullets/value-bullets.html'),
+  'logo': buildPartial('components/logo/main.html'),
+  'readme': buildPartial('components/readme/readme.html'),
   'analytics': buildPartial('components/analytics.html'),
-  'commonHead': buildPartial('components/common-head.html'),
+  'commonHead': buildPartial('components/common-head.html')
 }
-
 
 /**
  * Here you can define the pages you want to compile & include in your distribution folder.
  * By specifying this explicity you gain full control and can also have drafts (unpublished html files)
  */
 const pagesRootPath = './app/pages';
-const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing', 'alpha', 'learn-typescript/index'];
-addPagesToDirectory (
-  'articles/how-to-write-a-typescript-library',
-  ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'],
-  pages
-);
-addPagesToDirectory(
-  'articles/angular',
-  ['pitfalls', 'state-management'],
-  pages
-);
-addPagesToDirectory(
-  'articles/vs',
-  ['mongo-vs-mysql-for-webapps', 'typescript-vs-javascript'],
-  pages
-);
-addPagesToDirectory(
-  'articles/learn-typescript',
-  ['no-implicit-any-best-practice', 'strict-null-checks-best-practice'],
-  pages
-);
-addPagesToDirectory(
-  'articles/motivation',
-  ['typescript-mean'],
-  pages
-);
+const pages = ['index', 'articles/index'];
+addPagesToDirectory('articles/category1', ['index', 'article1', 'article2'], pages);
+addPagesToDirectory('articles/category2', ['index', 'article3'], pages);
+
+/**
+ * Some constants for your project
+ */
+const projectConstants = {
+  projectUrl: 'http://amp-project-starter.com'
+};
 
 /**
  * execute all compilation steps
@@ -86,17 +47,17 @@ addPagesToDirectory(
 compileSass();
 copyRobotsTxt();
 buildSitemap(pages);
-compileMustache(); // this step needs to be ready for the next one, that's why await is used here.
+compileMustache();
 validateAmp(pages);
 
 /**
  * From here on downwards are only some implementation details...
  * ==============================================================
  */
-function validateAmp(pages: string[]) {
+function validateAmp(pages) {
   pages.forEach(page => {
     ampHtmlValidator.getInstance().then(function (validator) {
-      const input = fs.readFileSync(distLocation(page), 'utf8');
+      const input = fs.readFileSync(`dist/${page}.html`, 'utf8');
       const result = validator.validateString(input);
       ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
       for (let ii = 0; ii < result.errors.length; ii++) {
@@ -128,26 +89,21 @@ function copyRobotsTxt() {
   });
 }
 
-function distLocation(page: string) {
-  return './dist/' + (path.basename(page) === 'index' ? page + '.html' : page + '/index.html');
-}
-
 function compileMustache() {
-  
-    // ensure that all directories are created, so compilation doesn't fail
-    pages.forEach(page => {
-      mkdir('./dist/' + path.dirname(page));
-    });
-  
-    pages.forEach(page => {
-      const template = fs.readFileSync(path.join(pagesRootPath, `${page}.html`), {encoding: 'utf8'});
-      const renderedPage = Mustache.render(template, {
-        projectUrl: projectConstants.projectUrl
-      }, partials);
-      fs.writeFileSync(path.join(outDirRoot, `${page}.html`), renderedPage);
-    });
 
-  }
+  // ensure that all directories are created, so compilation doesn't fail
+  pages.forEach(page => {
+    mkdir('./dist/' + path.dirname(page));
+  });
+
+  pages.forEach(page => {
+    const template = fs.readFileSync(path.join(pagesRootPath, `${page}.html`), {encoding: 'utf8'});
+    const renderedPage = Mustache.render(template, {
+      projectUrl: projectConstants.projectUrl
+    }, partials);
+    fs.writeFileSync(path.join(outDirRoot, `${page}.html`), renderedPage);
+  })
+}
 
 function buildSitemap(pages) {
   let changedPages = [];
@@ -177,7 +133,7 @@ function buildSitemap(pages) {
  * And even less interesting, here are some helper functions...
  * ============================================================
  */
-function addPagesToDirectory (dirName: string, newPages: string[], existingPages: string[]) {
+function addPagesToDirectory (dirName, newPages, existingPages) {
   newPages.forEach(page => {
     existingPages.push(path.join(dirName, page));
   });
@@ -211,7 +167,7 @@ function copyFile(source, target, cb) {
  * synchronously creates directory (chain)
  * @param targetDir
  */
-function mkdir (targetDir: string) {
+function mkdir (targetDir) {
   const sep = path.sep;
   const initDir = path.isAbsolute(targetDir) ? sep : '';
   targetDir.split(sep).reduce((parentDir, childDir) => {
@@ -227,7 +183,7 @@ function mkdir (targetDir: string) {
 /**
  * format date to YYYY-MM-DD
  */
-function formatDate(date: Date): string {
+function formatDate(date) {
   var mm = date.getMonth(); // getMonth() is zero-based
   var dd = date.getDate();
 
