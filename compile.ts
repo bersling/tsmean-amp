@@ -89,8 +89,7 @@ async function doCompile () {
   copyRobotsTxt();
   buildSitemap(pages);
   compileMustache();
-  // await validateAmp(pages);
-  console.log('Done!');
+  await validateAmp(pages);
 }
 doCompile();
 
@@ -99,25 +98,20 @@ doCompile();
  * ==============================================================
  */
 async function validateAmp(pages: string[]) {
-  try {
-    const validator = await ampHtmlValidator.getInstance();
-    pages.forEach(page => {
-      const input = fs.readFileSync(distLocation(page), 'utf8');
-      const result = validator.validateString(input);
-      ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
-      for (let ii = 0; ii < result.errors.length; ii++) {
-        const error = result.errors[ii];
-        let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
-        if (error.specUrl !== null) {
-          msg += ' (see ' + error.specUrl + ')';
-        }
-        ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
+  const validator = await ampHtmlValidator.getInstance();
+  pages.forEach(page => {
+    const input = fs.readFileSync(distLocation(page), 'utf8');
+    const result = validator.validateString(input);
+    ((result.status === 'PASS') ? console.log : console.error)(`AMP ${result.status} (${page})`);
+    for (let ii = 0; ii < result.errors.length; ii++) {
+      const error = result.errors[ii];
+      let msg = 'line ' + error.line + ', col ' + error.col + ': ' + error.message;
+      if (error.specUrl !== null) {
+        msg += ' (see ' + error.specUrl + ')';
       }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
+      ((error.severity === 'ERROR') ? console.error : console.warn)(msg);
+    }
+  });
 }
 
 function compileSass () {
@@ -145,7 +139,7 @@ function compileMustache() {
   
     // ensure that all directories are created, so compilation doesn't fail
     pages.forEach(page => {
-      mkdir('./dist/' + path.dirname(page));
+      mkdir(path.dirname(distLocation(page)));
     });
   
     pages.forEach(page => {
