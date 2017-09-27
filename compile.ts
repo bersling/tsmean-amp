@@ -80,6 +80,11 @@ addPagesToDirectory(
   ['typescript-mean'],
   pages
 );
+addPagesToDirectory(
+  'orders',
+  ['typescript-front-to-back'],
+  pages
+);
 
 /**
  * execute all compilation steps
