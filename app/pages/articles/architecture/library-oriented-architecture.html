@@ -1,0 +1,88 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Library-Oriented Architecture</title>
+  <meta name="description" content="Library-Oriented Architecture (LOA) is about modularization. With a Library-Oriented Architecture developers can install, build, work on and test individual libraries as opposed to getting the whole application.">
+  <meta name="keywords"
+        content="Library-Oriented Architecture">
+  <link rel="canonical" href="https://www.tsmean.com/articles/architecture/library-oriented-architecture" />
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <div>
+      <amp-img src="/assets/img/008-bookshelf.svg"
+               alt="Library-Oriented Architecture"
+               width="250"
+               height="250">
+      </amp-img>
+    </div>
+    <h1 class="jumbo-title">
+      Library-Oriented  Architecture
+    </h1>
+  
+    <div class="meta-header">
+      <span class="written">September 2017</span>
+    </div>
+    
+  </div>
+  
+  <article class="flex-auto">
+    <p>
+        Modulariy is an important aspect of software development, and what could be more modular than a library? That's what library-oriented architecture is all about: modularity. The main idea is that instead of building a monolithic application you build libraries, that can be installed and tested on their own. Like this, you don't need to understand the entire codebase, but you could rather just work on one feature (one library).
+    </p>
+
+    <p>
+      An example of library-oriented architecture would be, that in your application, module A doesn't import module B directly, but rather it 
+    </p>
+
+    Pros:
+    - Each individual unit can be understood, built and tested on its own
+    - Stronger modularity
+    - Clearer dependencies in NPM. E.g. if mongo requires @types/mongo and some driver it's only in the package.json of mongo
+    - control what you expose
+
+
+    Cons:
+    - Overhead
+    - More complexity
+    - harder consistency accross project (unless tslint,tsconfig are imported externally)
+
+    <p>
+      Well well...
+    </p>
+
+    <p>
+      What are the Pro's doing?
+      <ol>
+        <li>
+          Angular <b>is</b> using library-oriented-architecture (@angular/common, @angular/http, ...)
+        </li>
+        <li>
+
+        </li>
+        <li>
+          React <b>is</b> using library-oriented-architecture (react, react-dom)
+        </li>
+        <li>
+          Vscode <b>isn't</b> using library-oriented-architecture.
+        </li>
+      </ol>
+    </p>
+
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

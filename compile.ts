@@ -76,6 +76,11 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/architecture',
+  ['library-oriented-architecture'],
+  pages
+);
+addPagesToDirectory(
   'articles/motivation',
   ['typescript-mean'],
   pages
@@ -85,6 +90,7 @@ addPagesToDirectory(
   ['typescript-front-to-back'],
   pages
 );
+
 
 /**
  * execute all compilation steps

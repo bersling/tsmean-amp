@@ -46,34 +46,28 @@
     </h3>
     
     <p>
-      Getting off the ground with a new webapp isn't easy. Developing the core of an application can take weeks of time. There's a backend and a frontend to be built, each requiring a lot of work. You'll need a sign up & login, a landing page, resource management, a database and so on. Moreover, if you don't do things properly in the starting phase, you'll move yourself into a corner where it's hard to get out of again. For example too many projects we've seen don't start out modular, such that they end up with code that's hard to maintain after a year.
+      Getting off the ground with a new webapp isn't easy. Developing the core of an application can take weeks of time. There's a backend and a frontend to be built, each requiring a lot of work. You'll need a sign up and login, a landing page, resource management, a database and so on. Moreover, if you don't do things properly from the beginning, you'll move yourself into a corner where it's hard to get out of. Too many projects that we have seen don't start out modular or with proper architectural foundations, such that it gets harder and harder to maintain over time.
     </p>
     
     <p>
-      We are building a fully modular and scalable starter kit for your next web-application, <b>fully written in TypeScript</b>. It's built on the MEAN stack, meaning
+      Tsmean provides a fully modular and scalable starter kit for your next web-application, <b>fully written in TypeScript</b>. We carefully choose the most proven and promising state-of-the-art technologies for <b>scalable</b> full stack TypeScript web applications. For us, this is a modification of the MEAN stack. Traditionally, the MEAN stack has been MongoDB + ExpressJS + AngularJS (the old one) + Node.JS, everything written in JavaScript. However, AngularJS has been deprecated and <a href="/articles/vs/mongo-vs-mysql-for-webapps/">we're not really fans of MongoDB for WebApps</a>. Also, backends purely written in Express + Node.JS tend to get messy. So the starter uses a <i>modification</i> of the MEAN stack with improved and adjusted technological choices, that make for a maintainable and scalable webapp, fully written in TypeScript. Here's the stack:
     </p>
   
-    <ul>
-      <li>
-        <b class="highlight">M</b>ongoDB or <b class="highlight">M</b>ySQL
-      </li>
-      <li>
-        <b class="highlight">E</b>xpressJS
-      </li>
-      <li>
-        <b class="highlight">A</b>ngular2+
-      </li>
-      <li>
-        <b class="highlight">N</b>odeJS.
-      </li>
-    </ul>
+    <amp-img src="/assets/img/tsmean-tech-stack.png"
+             alt="Articles"
+             class="mwc mw600"
+             layout="responsive"
+             width="1110"
+             height="1114">
+    </amp-img>
   
     <p>
-      That's why it's called tsmean (TypeScript + Mongo / Mysql + Express + Angular + Node.js)!
+      So it's still kind of MEAN: Instead of <b>M</b>ongoDB we offer the choice to use <b>M</b>ySQL,
+      instead of bare-bones ExpressJS + Node.JS we use the NestJS framework (which is built on Express and Node) and instead of the old AngularJS of course we use the new Angular framework.
     </p>
     
     <p>
-      Note that this is <b>not</b> a framework or a library. This is a starter kit / boilerplate / seed. The difference is that for a framework or library, you don't modify the core. For this starter kit however, you can modify the core. You just download it once and don't have to be compatible with any changes we make in the future. Of course, the starter-kit is going to get better over time, but hopefully it has already spurred your development and you don't need it anymore anyways.
+      Note that tsmean is <b>neither</b> a framework <b>nor</b> a library. Tsmean is a <b>starter kit / boilerplate / seed</b>. The difference is that for a framework or library, you don't modify the core. For this starter kit however, you can modify the core. You just download it once and don't have to be compatible with any changes we make in the future. Of course, the starter-kit is going to get better over time, but hopefully it has already spurred your development and you don't need it anymore anyways.
     </p>
     
     <h3>Current project stage</h3>
