@@ -42,6 +42,7 @@
     "watch": "^1.0.2"
   },
   "dependencies": {
+    "command-line-args": "^4.0.7",
     "replace": "^0.3.0"
   }
 }

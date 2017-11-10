@@ -94,8 +94,7 @@ addPagesToDirectory(
   'articles/nodejs',
   ['how-to-handle-cpu-intensive-tasks-with-node'],
   pages
-)
-
+);
 addPagesToDirectory(
   'orders',
   ['typescript-front-to-back'],
@@ -116,6 +115,13 @@ async function doCompile () {
   await validateAmp(pages);
 }
 doCompile();
+
+// fs.watch('./app', {
+//   recursive: true
+// }, () => {
+//   doCompile();
+// });
+
 
 /**
  * From here on downwards are only some implementation details...

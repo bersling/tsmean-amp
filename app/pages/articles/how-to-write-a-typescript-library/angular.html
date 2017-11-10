@@ -38,8 +38,9 @@
     </h1>
   
     <div class="meta-header">
-      <span class="written">July 2017</span>
+      <div class="updated">November 2017</div>
     </div>
+
 
   </div>
   
@@ -51,7 +52,8 @@
     
     <p>
       <i>
-        This tutorial is from mid 2017 and works for Angular 2 as well as Angular 4.
+        This tutorial is from mid 2017 and works for Angular 2 as well as Angular 4. Read the updates
+        from November to see how to make it work in Angular 5.
       </i>
     </p>
     
@@ -175,6 +177,35 @@ imports: [
     <p>
       For subsequent releases, <code>npm version patch</code> (or <code>minor</code> or <code>major</code>) and then <code>npm publish</code>.
     </p>
+  
+    <h2><span class="step">Step 5:</span> Consuming your library</h2>
+    
+    <p>
+      You can either install your library by downloading it from npm with <code>npm i -S your-library</code>
+      or you can use <a href=""><code>npm link</code></a>.
+    </p>
+    
+    <p>
+      To install with <code>npm link</code>, you'll need to run Angular with the --preserve-symlinks option. You
+      can also specify this in your <code>.angular-cli.json</code>:
+    </p>
+    
+<pre>"defaults": {
+  ...
+  "build": {
+    "preserveSymlinks": true
+  }
+}</pre>
+    
+    <p>
+      Another thing you'll have to do, starting with Angular 5, is to include your files. So in the tsconfig.json
+      you'll need:
+    </p>
+    
+<pre>"include": [
+  "src/**/*",
+  “node_modules/your-library/index.ts",
+]</pre>
     
     <p>
       Well and that's it, now you have your library, which you can develop & test locally
