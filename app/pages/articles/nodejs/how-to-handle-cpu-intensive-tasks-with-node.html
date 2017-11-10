@@ -1,0 +1,73 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Handle CPU intensive tasks with Node.js</title>
+  <meta name="description" content="To reduce memory overhead, web servers can be implemented in a non-blocking fashion with Node.js. Since Node.js is single-threaded, there's the question for how to handle CPU intensive tasks.">
+  <meta name="keywords"
+        content="CPU, Node.js, task, worker, web server, node">
+  <link rel="canonical" href="https://www.tsmean.com/articles/nodejs/how-to-handle-cpu-intensive-tasks-with-node" />
+
+</head>
+<body class="landing">
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img src="/assets/img/001-cpu.svg"
+             alt="TypeScript Mean Banner"
+             width="150"
+             height="150">
+    </amp-img>
+    <h1 class="jumbo-title">
+      How to handle CPU-intense tasks with Node.js?
+    </h1>
+  
+    <div class="meta-header">
+      Updated: October 2017
+    </div>
+    
+  </div>
+  
+  <article class="flex-auto">
+  
+    <p>
+        When you read about what Node.js is good at it usually goes like this: "Node.js is great for a WebServer. A main part of almost all web-applications is to create, read, update and delete things in the database. Multi-threaded languages have a large memory overhead with this, since e.g. for 1000 requests they create 1000 threads. Since Node.js is single-threaded and non-blocking, you can achieve higher concurrency with the same resources".
+    </p>
+
+    <p>
+        And when you read about what it's bad at it usually goes like this: "Since Node.js is single-threaded, CPU-intensive tasks will block <i>all</i> requests from completing, until the task is completed. Therefore Node.js isn't a good solution for CPU-intense tasks".
+    </p>
+
+    <p>
+        So does that mean, when first designing your new web-application you have to choose between a system that loses a lot of memory due to threads or one that can't run CPU-intense tasks?! Of course it doesn't. For one, Node.js isn't the only option out there allowing for high concurreny. You could for example implement a WebServer in Golang or even implement a non-blocking Java server. But also with Node.js you aren't stuck with only simple create / read / update / delete requests. The solution to this problem is a task queue.
+    </p>
+
+    <p>
+        There are also related StackOverflow and Quora questions:
+        <ul>
+            <li>
+                <a href="https://www.quora.com/How-do-I-handle-CPU-intensive-tasks-in-Node-js">
+                    How do I handle CPU-intensive tasks in Node.js? (on Quora)
+                </a>
+            </li>
+            <li>
+                <a href="https://stackoverflow.com/questions/3491811/node-js-and-cpu-intensive-requests">
+                    Node.js and CPU-intensive requests
+                </a>
+            </li>
+        </ul>
+    </p>
+
+  </article>
+  
+  {{> articleFooter}}
+  
+</body>
+</html>

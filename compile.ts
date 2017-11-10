@@ -10,6 +10,11 @@ const projectConstants = {
   projectUrl: 'http://amp-project-starter.com'
 };
 
+/**
+ * ATTENTION: The creation is a bit problematic when styles.css is missing.
+ * If you ever need this fixed, consult with the amp-starter-project compile.js file
+ */
+
 
 /**
  * Where the result is saved
@@ -86,10 +91,18 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/nodejs',
+  ['how-to-handle-cpu-intensive-tasks-with-node'],
+  pages
+)
+
+addPagesToDirectory(
   'orders',
   ['typescript-front-to-back'],
   pages
 );
+
+
 
 
 /**
