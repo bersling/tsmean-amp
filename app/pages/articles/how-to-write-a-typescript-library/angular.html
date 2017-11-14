@@ -60,15 +60,21 @@
       Since AngularCLI nor any of the official Angular resources
       offer a straightforward way, I've composed my own tutorial on how to write an Angular library.
       <b>Note: This tutorial describes how to publish typescript sources to npm. The library will only
-        work for Angular projects written in typescript!</b> I don't compile to javascript
+        work for Angular projects written in typescript!</b>
+      Since Angular 5,
+      this requires one more step from the consumer of the library, which could make this approach not ideal for everyone.
+      Also, the consuming project needs kind of the same TypeScript settings. E.g. you can't write a library with "noImplicitAny": false and then use it in a project that has "noImplicityAny": true. <b>
+      That makes this approach mostly suitable for company internal
+      libraries.
+    </b>
+      I don't compile to javascript
       plus d.ts files, because after hours of trying I was on the brink
       of throwing my notebook out the window. It was too annoying with rollup, umd,
       MyLibraryModule not found, index.ts names, long waiting times with "yarning" and "ng serving",
       inlineing html and css, crazy tsconfig.json's with deprecated flags, no good local development environment, working version
-      in local project but breaking when published and so on.
-      But since a majority of the community uses typescript anyways and it's
-      not my fault that it's so damn hard to publish a working library, I'm just going to publish typescript sources,
-      which works like a charm.
+      in local project but breaking when published and so on. So instead I decided instead just to publish TypeScript source code. If you want to write a famous library for the community, you sould probably use something like
+      <a href="https://github.com/jvandemo/generator-angular2-library">https://github.com/jvandemo/generator-angular2-library</a>.
+      But you can always start with something simple like this approach and migrate to something else later, maybe there will also be an official way provided until you need it.
     </p>
     
     <h2><span class="step">Step 1:</span> Create a new project with the AngularCli</h2>
