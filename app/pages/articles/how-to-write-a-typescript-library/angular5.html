@@ -1,0 +1,239 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>How to write an Angular library</title>
+  <meta name="description" content="Want to write a library for Angular5? Here's a complete, easy to follow tutorial.">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library, Angular2, Angular4, Angular, Angular5">
+  <link rel="author" content="Daniel Niederberger" href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical" href="https://www.tsmean.com/articles/how-to-write-a-typescript-library/angular5" />
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+  
+    <div class="jumbo-image-wrapper">
+      <div class="jumbo-image-wrapper">
+        <amp-img class="jumbo-image"
+                 alt="Angular Library Logo"
+                 width="200"
+                 height="200"
+                 src="/assets/img/ng2lib.svg">
+        </amp-img>
+      </div>
+    </div>
+  
+    <h1 class="jumbo-title">
+      Building an Angular5 Library?
+    </h1>
+  
+    <div class="meta-header">
+      <div class="written">November 2017</div>
+    </div>
+
+
+  </div>
+  
+  
+  
+  <article class="flex-auto">
+    
+    <h2>How to write an Angular library</h2>
+    
+    <p>
+      <i>
+        This tutorial is from late 2017 and works for Angular 2, Angular 4 and Angular 5.
+      </i>
+    </p>
+    
+    <p>
+      We also have one previous writeup on <a href="./angular">how to write an Angular libraries</a> that is a bit simpler
+      since it relies on just publishing TypeScript sources. Like that it's not necessary to know too much about
+      UMD, treeshaking, AOT and so on, which will all be required for this tutorial. Despite the complexity of
+      creating an Angular5 library, I have tried to break it down into easily digestible steps. To understand
+      what's really <i>necessary</i> to create an Angular 5 library like that, I have broken down this tutorial like this:
+    </p>
+    
+    <ul>
+      <li>
+        <a href="#package-json">Package.json</a>
+      </li>
+      <li>
+        <a href="#inlining">Inlining HTML and CSS / SCSS</a>
+      </li>
+      <li>
+        <a href="#compile">Compiling the sources</a>
+      </li>
+      <li>
+        <a href="#rollupjs">RollupJS - create ES5 and UMD bundles</a>
+      </li>
+    </ul>
+    
+    => ... Crazey ...
+    
+    
+    <h2><span class="step">Step 1:</span> Create a new project with the AngularCli</h2>
+    <p>
+      Create a new project. This will be a wrapper and consumer for your library module.
+      I am going to call my library <code>libex</code> (for "library-example", and it was still free on npm)
+      so I call the new project <code>libex-project</code>
+    </p>
+    <pre>ng new libex-project  <span class="highlight">--prefix libex</span></pre>
+    
+    <p>
+      Use your library title instead of libex. Prefix is what you'll write in front of your components, for example
+      if I have a <code>HelloComponent</code> it will be used by <code>libex-hello</code> now.
+    </p>
+    
+    <h2><span class="step">Step 2:</span> Create a new module</h2>
+    
+    <p>
+      Your library will reside in it's own module. But first we've got to create said module.
+    </p>
+    
+    <pre>ng g module libex</pre>
+    
+    <p>Then we <code>cd</code> into that folder.</p>
+    
+    <pre><code>cd src/app/libex/</code></pre>
+    
+    <h2><span class="step">Step 3:</span> Build your library module</h2>
+    <p>Create components, services etc., e.g.</p>
+    
+    <pre>ng g component hello</pre>
+    
+    <p>When you're done, you'll have to <strong class="highlight">export</strong> the desired components:</p>
+    
+    <pre>@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: [HelloComponent],
+  <span class="highlight">exports: [HelloComponent]</span>
+})</pre>
+    <p>You can use your <code>AppModule</code> to test the library:</p>
+    <pre><code>...
+imports: [
+  BrowserModule,
+  LibexModule
+],</code></pre>
+    <p>If you need singleton services, you should modify your library module like so:</p>
+    <pre>@NgModule({
+  providers: [ /* Don't add the services here */ ]
+})
+export class LibexModule {
+  static forRoot() {
+    return {
+      ngModule: LibexModule,
+      providers: [ SomeService ]
+    }
+  }
+}</pre>
+    <p>and change the imports in <code>AppModule</code> to:</p>
+    <pre><code>...
+imports: [
+  BrowserModule,
+  LibexModule.forRoot()
+],</code></pre>
+    
+    <h2><span class="step">Step 4:</span> Publish</h2>
+    
+    <p>
+      In your module folder, create a new <code>package.json</code>. You could do this with the <code>npm init</code>
+      command. It should look somewhat like this:
+    </p>
+    
+    <pre>{
+  "name": "libex",
+  "version": "1.0.16",
+  "description": "An Example Library.",
+      ...
+}
+</pre>
+    
+    <p>
+      Basically only the library name matters. <b>Also rename <code>libex.module.ts</code> to <code>index.ts</code>
+      since that's the standard name for a main file.</b>
+      Now since we're just publishing the typescript sources (note: that means your library will only work for
+      consumers that <b>also</b> use typescript), we're ready to publish. Just run <code>npm publish</code>!
+      You can also add a <code>.npmignore</code> so you publish only exactly what's needed, it works like .gitignore,
+      just for npm.
+    </p>
+    
+    <p>
+      What's also an option is to re-export some files from index.ts. For example <code>export * from './hello.service'</code>,
+      since then the consumer can just write <code>import { HelloService } from 'libex'</code> instead of
+      <code>import { HelloService } from 'libex/hello.service'</code>. On the other hand, this can also
+      <a href="https://stackoverflow.com/a/38000323/3022127">lead to problems</a>,
+      so I usually refrain from it.
+    </p>
+    
+    <p>
+      In case your library requires other libraries, you can also install them in your library module's folder and to
+      the <code>package.json</code> we've just created. Just run <code>npm install --save something</code> from
+      the library folder.
+    </p>
+    
+    <p>
+      For subsequent releases, <code>npm version patch</code> (or <code>minor</code> or <code>major</code>) and then <code>npm publish</code>.
+    </p>
+  
+    <h2><span class="step">Step 5:</span> Consuming your library</h2>
+    
+    <p>
+      You can either install your library by downloading it from npm with <code>npm i -S your-library</code>
+      or you can use <a href=""><code>npm link</code></a>.
+    </p>
+    
+    <p>
+      To install with <code>npm link</code>, you'll need to run Angular with the --preserve-symlinks option. You
+      can also specify this in your <code>.angular-cli.json</code>:
+    </p>
+    
+<pre>"defaults": {
+  ...
+  "build": {
+    "preserveSymlinks": true
+  }
+}</pre>
+    
+    <p>
+      Another thing you'll have to do, starting with Angular 5, is to include your files. So in the tsconfig.json
+      you'll need:
+    </p>
+    
+<pre>"include": [
+  "src/**/*",
+  “node_modules/your-library/index.ts",
+]</pre>
+    
+    <p>
+      Well and that's it, now you have your library, which you can develop & test locally
+      and publish to npm!
+    </p>
+    
+    <hr class="stars">
+    
+    <div class="">
+      Check out the full source of the demo library on github:
+      <a href="https://github.com/bersling/angular-library-example">
+        https://github.com/bersling/angular-library-example
+      </a>
+    </div>
+  
+  </article>
+  
+  {{> articleFooter}}
+  
+</body>
+</html>
