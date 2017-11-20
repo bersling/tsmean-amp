@@ -82,7 +82,7 @@ function printUserInfo(user: User) {
   console.log(`${user.name}, ${user.age!.toString()}`)
   // =&gt; OK, you confirm that you're sure user.age is non-null.
 
-  if (user.age) {
+  if (user.age != null) {
     console.log(`${user.name}, ${user.age.toString()}`)
   }
   // =&gt; OK, the if-condition checked that user.age is non-null.
