@@ -103,6 +103,7 @@ if (condition) { ... } else { ... }</pre>
     <%={{ }}=%>
   
     Fortunately the Angular error report is good on this one, so even when you walk into the pit, you'll get out fast.
+    
     <h2>CSS</h2>
     I think it's awesome how we can write css / scss in Angular 2: directly in the components and it's not leaking around. The way it's implemented is that Angular adds name-spacing to emulate shadow-DOM-like behaviour. Yet, this introduces some problems when changing elements outside of Angular, e.g. with jQuery or something like d3js. For example, if I replace <code>&lt;div id="my-chart"&gt;&lt;/div&gt;</code> with d3 rendered html, the styles don't get applied. You now have two options. Option one: put the styles into the global styles.css file. Option two: prepend all styles with <code>:host /deep/</code> .  See also <a href="https://stackoverflow.com/questions/36265026/angular-2-innerhtml-styling">this related stackoverflow answer</a>. Of course that's a bit hacky, but that's how it is.
     <h2>State Management and Data Binding</h2>
