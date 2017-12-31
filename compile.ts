@@ -92,7 +92,10 @@ addPagesToDirectory(
 );
 addPagesToDirectory(
   'articles/nodejs',
-  ['how-to-handle-cpu-intensive-tasks-with-node'],
+  [
+    'how-to-handle-cpu-intensive-tasks-with-node',
+    'deploy-nodejs-at-scale'
+  ],
   pages
 );
 addPagesToDirectory(
