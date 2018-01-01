@@ -9,7 +9,8 @@
     "watch": "$(npm bin)/watch 'npm run build' --inverval=1",
     "build": "rm -rf dist && mkdir -p dist && cp -r assets dist && npm run mustache",
     "mustache": "$(npm bin)/ts-node compile.ts",
-    "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html"
+    "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html",
+    "deploy": "./deploy.sh prod"
   },
   "repository": {
     "type": "git",
