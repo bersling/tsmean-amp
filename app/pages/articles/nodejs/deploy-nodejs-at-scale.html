@@ -4,7 +4,7 @@
   
   {{> commonHead}}
   {{> articleHead}}
-  <title>Deploying Node.js Applications at Scale</title>
+  <title>Deploying Node.js Applications at scale</title>
   <meta name="description" content="Node.js is becoming a viable option of server side web development. But how can you deploy it at scale?">
   <meta name="keywords"
         content="Node.js, Deployment, Scalability, Scale, 2018, 2017, DevOps, Automation">
@@ -26,7 +26,7 @@
              height="100">
     </amp-img>
     <h1 class="jumbo-title">
-      How to deploy Node.js at Scale
+      How to deploy Node.js at scale
     </h1>
   
     <div class="meta-header">
@@ -37,34 +37,36 @@
   
   <article class="flex-auto">
   
-    <p>
-        When it comes to DevOps, it's all about one thing: automation. Time is money, and what is automated doesn't cost you time.
-      Paradoxically, the smaller your team is and the fewer resources you have, the more important it is to focus your energy on the important things. You don't want to loose your time with tweaking servers and deployments for weeks. You'll want something that works kind of out of the box, and scales, out of the box!
+    <p>When it comes to DevOps, it's all about one thing: automation. Time is money, and what is automated doesn't cost you time. Paradoxically, the smaller your team is and the fewer resources you have, the more important it is to focus your energy on the important things. You don't want to waste your time tweaking servers and setting up deployments for days or weeks. You'll want something that works out of the box and scales well, automatically. This should be the mindset to adopt when looking for a solution to deploy any application.
     </p>
     
     <p>
-      This should be the mindset to adopt when looking for a solution to deploy any application. When it comes to deployment automation, a lot of people immediately think about containerization (Docker). While it's nice that this will give your server detailed installation instructions, I think for a Node.js application it's not even the most important part. Think about it. What do you actually need to know to install most Node.js applications? When you download something from Github and want to install it, what do the installation instructions usually say? It's usually just the following two commands:
+      To automate deployments, a lot of people immediately think about containerization and Docker. While it's nice that this will give your server detailed installation instructions, for Node.js applications this often isn't necessary. Think about it. What do you actually need to know to install most Node.js applications? When you download something from Github and want to install it, what do the installation instructions usually say? It's usually just the following two commands:
     </p>
     
     <pre>npm install
 npm start</pre>
     
     <p>
-      Since Node.js has strong community standards on how to setup projects, server providers can actually use those conventions to make it possible for you to "just deploy" your application without overspecifying how your project is set up.
+      Since Node.js has strong community standards on how to setup projects, server providers can actually use those conventions to make it possible for you to "just deploy" your application without overspecifying how your project is set up. So what you'll need is some provider that knows about those conventions in the Node.js community and thus lets you deploy easily.
     </p>
     
     <p>
-      The best provider I've found with full automation so far is Heroku. Their Node.js tutorial is so easy, you won't even believe that this will work. But try for yourself:
-      <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">https://devcenter.heroku.com/articles/getting-started-with-nodejs</a>
+      The provider with the most simplicity is Heroku. Their Node.js tutorial is so easy, you won't even believe that this will work. Try for yourself:
+      <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">https://devcenter.heroku.com/articles/getting-started-with-nodejs</a>. You'll cover the most important aspects of deployment in about 30 minutes. After this you'll have a deployed service, HTTPS and everything included. And that's for free. It's ideal to get started.
     </p>
     
     <p>
-      You'll cover the most important aspects of deployment in about 30 minutes... After this you'll have a deployed service, HTTPS and everything included. And that's for free. It's ideal to get started.
+      But this tutorial wouldn't be called "deploy node.js at scale" if it wouldn't go beyond an initial setup. Heroku also outshines at actual scaling, not only at time saving in the initial deployment and configuration process. And that's because they have the possibility to <b><a href="https://blog.heroku.com/heroku-autoscaling">autoscale</a></b> your servers. It will automagically detect high loads on your server and add more servers as necessary. It'll also shut them down if not used. You can set a server limit to control costs. You'll also get notifications if you wish. If you have 10 microservices, you don't want to determine server capacity for each one, only to see them crash in peak hours. What you want is to sleep well while your tools do the work for you. And that's what the autoscaling of Heroku will do for you. What's the downside? It's expensive. To get the autoscaling features, you'll have to go with instances that cost 250$ a month, at least. Ouch. Again, what you get is a superb "care free package". Load balancing? Taken care of for you. SSL? Taken care of. Retrieving the server logs? Simply run <code>heroku logs</code>. Scaling? Works out of the box.
     </p>
     
     <p>
-      But this tutorial wouldn't be called "deploy node.js at scale" if it wouldn't go beyond an initial setup. Heroku also outshines at actual scaling, not only at time saving in the initial deployment and configuration process. And that's because they have the possibility to <b>autoscale</b> your servers. That's the dream. It will automagically detect high loads on your server and add more servers as necessary. It'll also shut them down if not used. You can set a server limit to control costs. You'll also get notifications if you wish. This autoscaling feature is what I've waited for a long time. If you have 10 microservices, you don't want to determine server capacity for each one, only to see them crash in peak hours. What you want is to sleep well while your tools do the work for you. And that's what the autoscaling of Heroku will do for you. It's true that it's a bit more expensive than, let's say, Amazon Web Services, but for me the simplicity of getting a scalable deployment is worth every penny.
+      One possible alternative to Heroku is Amazon Web Services' (AWS) Elastic Beanstalk. Here you'll have to invest some more time into setting up the deployment process and server config. This is partly because the tutorials just aren't as good as the ones provided by Heroku. Compare the
+      <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Heroku tutorial</a> to the
+      <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs.html">AWS tutorial</a>. Another issue is the incredible configurability and richness of services in AWS. This is both, a blessing and a curse. At first, it's like finding your way in a maze. But once you're familiar with Elastic Beanstalk and other AWS Services, you'll save a considerable amount of money compared to Heroku to get the same server capacities. Plus Elastic Beanstalk is more conifgurable, which you might eventually need. Plus you can also have the rest of your server infrastructure on AWS, which gives you a nice "all in one experience".
     </p>
+    
+    <h2>Deploying Node.js apps written in TypeScript</h2>
     
     <p>
       And what about Node.js apps written in TypeScript? It's just as easy, simply add TypeScript to your npm dependencies and provide a start script like the following:
@@ -79,11 +81,7 @@ npm start</pre>
   ...</pre>
     
     <p>
-      What's also important is to add your <code>@types</code> to the npm dependencies (not devDependencies), as otherwise the compilation process will fail on Heroku.
-    </p>
-    
-    <p>
-      You can find a working example of a TypeScript app deployed to Heroku at <a href="https://github.com/bersling/mailchimp.git">https://github.com/bersling/mailchimp.git</a>. It's a small project, but should be enough to get you started.
+      What's also important is to add your <code>@types</code> to the npm dependencies (not devDependencies), as otherwise the compilation process will fail.
     </p>
     
     <p>
@@ -92,13 +90,13 @@ npm start</pre>
     
     <ul>
       <li>
-        DevOps is all about automation
+        You can deploy Node.js apps scalable without Docker
       </li>
       <li>
-        Heroku has awesome automation and no vendor lock-in, since it's just the usual Node.js conventions
+        Heroku has amazing simplicity, but is expensive for upscaling
       </li>
       <li>
-        Heroku has autoscaling!
+        AWS is a cheaper alternative, with a steeper learning curve
       </li>
     </ul>
     
