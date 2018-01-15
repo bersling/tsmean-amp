@@ -1,0 +1,120 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Sessions with Express (Node.js) and Angular</title>
+  <meta name="description" content="Authentication can be daunting. With Express (Node.js) and Angular, getting things running is easy.">
+  <meta name="keywords"
+        content="Angular, Angular2, Angular4, Angular5, Auth, Authentication, Express, Node.js, Sessions">
+  <link rel="canonical" href="https://www.tsmean.com/articles/authentication/express-session-angular" />
+  
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+
+</head>
+<body class="landing">
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <div>
+      <amp-img src="/assets/img/001-padlock-1.svg"
+               alt="Lock"
+               width="250"
+               height="250">
+      </amp-img>
+    </div>
+    <h1 class="jumbo-title">
+      Introduction to sessions with Express (Node.js) and Angular
+    </h1>
+  
+    <div class="meta-header">
+      <span class="written">January 2018</span>
+    </div>
+    
+  </div>
+  
+  <article class="flex-auto">
+    <p>
+      Managing sessions may seem a bit daunting at first. But taking first steps isn't actually that hard. When using Express based on Node.js in the backend, most things are already figured out for you. While there isn't that much you'll have to figure out for yourself, there are still a few pitfalls you might want to avoid. This tutorial helps you getting started on the right foot.
+    </p>
+    <p>
+      First of all, let's see a very simple example application using express and sessions. There's a quite simple one on Tutorialspoint, which looks somewhat like this:
+    </p>
+    <pre>
+var express = require('express');
+var session = require('express-session');
+
+var app = express();
+
+app.use(session({secret: "Shh, its a secret!"}));
+
+app.get('/', function(req, res){
+   if(req.session.page_views){
+      req.session.page_views++;
+      res.send("You visited this page " + req.session.page_views + " times");
+   } else {
+      req.session.page_views = 1;
+      res.send("Welcome to this page for the first time!");
+   }
+});
+app.listen(3000);
+    </pre>
+    <p>
+      This is everything you need for working sessions! You'll also notice, that when you open this once in Chrome and once in Firefox, that express-session creates different sessions for different clients.
+    </p>
+    <p>
+      But how can this work? Express generates a cookie, which is sent to the browser together with the response. The browser then attaches this cookie to subsequent requests, which lets express identify a client.
+    </p>
+    <h2>Getting things to work with Angular</h2>
+    <p>
+      Getting things to work with Angular requires an extra step, to how you'd usually send a request. You'll need to have the <code>{withCredentials: true}</code> option present on your requests! If you don't attach this, the cookie won't be sent. So resulting code might look like this:
+    </p>
+    <pre>getLogin() {
+    this.http.get(environment.apiUrl + '/login', {
+      withCredentials: true  // <=========== important!
+    }).subscribe((resp: any) => {
+      this.loggedIn.next(resp.loggedIn);
+    }, (errorResp) => {
+      this.toastr.error('Oops, something went wrong getting the logged in status')
+    })
+}</pre>
+    <p>
+      Another thing you'll need to think of, is CORS (Cross Origin Resource Sharing). Since your backend and frontend will live at different domains / different ports, you'll need to enable CORS in the backend. This can easily be achieved with Express like this:
+    </p>
+    <pre>const cors = require('cors');
+      const app = express();
+app.use(cors({origin: [
+  "http://localhost:4736"
+], credentials: true}));</pre>
+    
+    <p>
+      Now everything should be working as expected.
+    </p>
+    
+    <h2>Notes</h2>
+    <p>
+      There are some other considerations to be made when working with sessions. This was only an introduction. You should make sure to have the <code>secure</code> option activated in Express. You also shouldn't store the session in application memory, which is the default. So in order to get your system ready for production some extra steps will be required.
+    </p>
+    <p>There's also a youtube video about sessions with Express, check it out.</p>
+  
+    <amp-youtube
+        data-videoid="QgqO-3FAvds"
+        layout="responsive"
+        width="480" height="270"></amp-youtube>
+    
+    <p>
+      The full code can be found on github: <a href="https://github.com/bersling/express-session-angular-ngx">https://github.com/bersling/express-session-angular-ngx</a>
+    </p>
+    
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

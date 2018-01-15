@@ -99,6 +99,14 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/authentication',
+  [
+    'express-session-angular',
+    'jwt-express-angular'
+  ],
+  pages
+);
+addPagesToDirectory(
   'orders',
   ['typescript-front-to-back'],
   pages

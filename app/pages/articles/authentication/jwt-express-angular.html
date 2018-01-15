@@ -1,0 +1,210 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>JWT Express Angular</title>
+  <meta name="description" content="JWT is the new hype. But what exactly is behind it and how does it work? See this short tutorial for Express and Angular">
+  <meta name="keywords"
+        content="Angular, Angular2, Angular4, Angular5, Express, Node">
+  <link rel="canonical" href="https://www.tsmean.com/articles/authentication/jwt-express-angular" />
+  
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+
+</head>
+<body class="landing">
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img src="/assets/img/002-locked.svg"
+             class="jumbo-image"
+             alt="Lock"
+             width="250"
+             height="250">
+    </amp-img>
+    <p class="jumbo-title">
+      JWT with Express and Angular
+    </p>
+  
+    <div class="meta-header">
+      <span class="written">January 2018</span>
+    </div>
+    
+  </div>
+  
+  <article class="flex-auto">
+    
+    <p>
+      JWT is the new hype. How does it work and what's behind it? Learn more in this short tutorial.
+    </p>
+    
+    <h2>
+      What's JWT?
+    </h2>
+  
+    <p>
+      JWT is short for JSON Web Tokens. One use case is to help you with authentication. It doesn't help you with <i>initial</i> authentication, but rather with authentication for recurring users. So it is actually comparable to classical session handling.
+    </p>
+    <p>As the name JWT suggests, "tokens" are the centerpiece of the technology. But what are those tokens? To understand, let's have a look at two central pieces in JWT. For one the <b>encryption</b> and for another the <b>decryption</b>. The encryption is the so called "signing" function. It has the following signature:</p>
+    <pre>jwt.sign(JSON Data, secret:string) => token:string</pre>
+  <p>Aha, so here we have the token. So the jwt.sign function takes JSON Data, usually the user-json, combines it with a secret, and produces a token. The counterpart to the encryption is called, in Express at least, the verify (and also decode) function. It has the following signature:</p>
+    <pre>jwt.decode(token, secret: string) => JSON Data</pre>
+    <p>If you provide a valid token (previously produced by the <code>sign</code>-function), and also the same secret that was used to encrypt the data, the jwt.decode function will be able to reproduce the JSON Data that was initially encrypted.</p>
+    <p>What's pretty cool about this, is that you can handle sessions in a stateless manner. You can shut down your server and restart it or have 10 servers, as long as you have the same secret everywhere, all the servers will decode the same token into the same JSON Data.</p>
+    <p>Let's make an actual example.</p>
+    <ol>
+      <li>John logs in with john@gmail.com and his password - no JWT involved here.</li>
+      <li>The backend checks if the password is correct</li>
+      <li>If the password is correct, the backend fetches John from the database. Something like <pre>const john = {email: "john@gmail", firstName: "John", lastName: "Doe"}</pre> is returned from the database.</li>
+      <li>The backend applies jwt sign function: jwt.sign(john, secret) and attaches the generated token to the express response.</li>
+      <li>The frontend stores the token, for example to local storage.</li>
+      <li>On subsequent requests that need authentication, the frontend attaches the token to the request, so the backend can identify the client.</li>
+    </ol>
+    
+    <p>The code to generate the token might look like this in Express:</p>
+    <pre>app.post('/api/login', validatePayloadMiddleware, (req, res) => {
+  const user = appUsers[req.body.email];
+  if (user && user.pw === req.body.password) {
+    const token = jwt.sign(user, serverJWT_Secret); // <==== The all-important "jwt.sign" function
+    res.status(200).send({
+      user: user,
+      token: token
+    });
+  } else {
+    res.status(403).send({
+      errorMessage: 'Permission denied!'
+    });
+  }
+});</pre>
+    
+    <p>The code to decrypt / decode the token might look like this:</p>
+    <pre>const jwtMiddleware = (req, res, next) => {
+  /**
+   * In JWT it is convention that the token is provided to the server in the authorization header including a prefix,
+   * separated by a space. The authorization header could be:
+   * 'Token eyJhbGciOiJIUzI1NiIsInR...' or 'Bearer eyJhbGciOiJIUzI1NiIsInR...' or something like this.
+   */
+  const authString = req.headers['authorization'];
+  if(typeof authString === 'string' && authString.indexOf(' ') > -1) {
+    const authArray = authString.split(' ');
+    const token = authArray[1];
+    jwt.verify(token, serverJWT_Secret, (err, decoded) => {
+      if(err) {
+        res.sendStatus(403);
+      } else {
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    res.sendStatus(403);
+  }
+};</pre>
+    
+    <p>
+      The responsible frontend code will attach the authorization header:
+    </p>
+    <pre>import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ToastrService} from 'ngx-toastr';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { environment } from '../environments/environment';
+
+@Injectable()
+export class AuthService {
+
+  loggedIn: BehaviorSubject&lt;boolean&gt;
+
+  getToken(): string {
+    return window.localStorage['jwtToken'];
+  }
+
+  saveToken(token: string) {
+    window.localStorage['jwtToken'] = token;
+  }
+
+  destroyToken() {
+    window.localStorage.removeItem('jwtToken');
+  }
+
+  buildHeaders(): HttpHeaders {
+    const headersConfig = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+
+    if (this.getToken()) {
+      headersConfig['Authorization'] = `Token ${this.getToken()}`;
+    }
+    return new HttpHeaders(headersConfig);
+  }
+
+
+  login(email: string, password: string) {
+    this.http.post(environment.apiUrl + '/login', {
+      email: email,
+      password: password
+    }).subscribe((resp: any) => {
+      this.loggedIn.next(true);
+      this.saveToken(resp.token);
+      this.toastr.success(resp && resp.user && resp.user.name ? `Welcome ${resp.user.name}` : 'Logged in!');
+    }, (errorResp) => {
+      this.loggedIn.next(undefined);
+      errorResp.error ? this.toastr.error(errorResp.error.errorMessage) : this.toastr.error('An unknown error has occured.');
+    });
+  }
+
+  logout() {
+    this.destroyToken();
+    this.loggedIn.next(false);
+  }
+
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService
+  ) {
+    const jwtToken = this.getToken();
+    this.loggedIn = new BehaviorSubject&lt;boolean&gt;jwtToken ? true : false);
+  }
+
+}</pre>
+    
+    <h2>Notes</h2>
+    <p>There are some important sidenotes to be made, when you want to use JWT for your sessions. Not everyone thinks it's a good idea, mostly due to difficulties with invalidation of sessions. Here are two sources, that think it's a bad idea:</p>
+    <ul>
+      <li><a href="https://scotch.io/bar-talk/why-jwts-suck-as-session-tokens">https://scotch.io/bar-talk/why-jwts-suck-as-session-tokens</a></li>
+      <li><a href="http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/">http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/</a></li>
+    </ul>
+    
+    <p>I can understand where they are coming from. If this has also convinced you to stick with traditional sessions, check out the other tutorial about regular sessions here:
+      <a href="https://www.tsmean.com/articles/authentication/express-session-angular/">https://www.tsmean.com/articles/authentication/express-session-angular/</a></p>
+    
+    <p>
+      <b>The full code can be found on Github: <a href="https://github.com/bersling/jwt-express-angular">https://github.com/bersling/jwt-express-angular</a></b>.
+    </p>
+    
+    <p>
+      There's also a youtube video explaining the concepts:
+    </p>
+  
+    <amp-youtube
+        data-videoid="CzQv6W9ruek"
+        layout="responsive"
+        width="480" height="270"></amp-youtube>
+
+    <p>
+      In any case, I hope I could bring the basics of authentication somewhat closer to you!
+    </p>
+
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
