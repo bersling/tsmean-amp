@@ -131,7 +131,7 @@ imports: [
   LibexModule.forRoot()
 ],</code></pre>
     
-    <h2><span class="step">Step 4:</span> Setup index.ts and create typings</h2>
+    <h2><span class="step">Step 4:</span> Setup index.ts</h2>
     <p>
       To declare the public API for your consumers, you should setup an index.ts where you export all modules, components etc. your consumers should have access to. Here for example it would look like this:
     </p>
@@ -141,9 +141,9 @@ export {HelloComponent} from './hello/hello.component';</pre>
     <p>
       That way, it's also easier to import for the consumers of the library, as they can just use something like.
     </p>
-    <pre>import {HelloComponent} from libex</pre>
+    <pre>import {HelloComponent} from 'libex'</pre>
     <p>instead of</p>
-    <pre>import {HelloComponent} from libex/hello/hello.component</pre>
+    <pre>import {HelloComponent} from 'libex/hello/hello.component'</pre>
     <p>
       This will also help you to generate an <code>index.d.ts</code> in the next step, which in turn helps your IDE with autocompletion. Having a so called "barrel" file (a file, that re-exports some classes) can lead to some problems. If you run into an Angular DI Exception, see <a href="https://stackoverflow.com/a/38000323/3022127">this stackoverflow thread</a>.
     </p>
@@ -204,7 +204,7 @@ function createPackageJson() {
 
 }
 </pre>
-    <p>What happens in this script:</p>
+    <p>It's longer than it looks like, the most part is just the specification for the <code>package.json</code>. What happens in this script:</p>
     <ul>
       <li>It uses <code>fs-extra</code>, so you'll need to run <code>npm install fs-extra --save-dev</code> in your project root.</li>
       <li>It copies your source files to a new directory <code>dist-lib</code>.</li>
@@ -247,7 +247,7 @@ function createPackageJson() {
 }</pre>
     
     <p>
-      Another thing you'll have to do, starting with Angular 5, is to include your files. So in the tsconfig.json
+      <b>Important:</b> Another thing you'll have to do, starting with Angular 5, is to include your files. So in the tsconfig.json
       you'll need:
     </p>
     
