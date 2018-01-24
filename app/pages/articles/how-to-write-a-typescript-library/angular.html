@@ -38,28 +38,20 @@
     </h1>
   
     <div class="meta-header">
-      <div class="updated">November 2017</div>
+      <div class="updated">January 2018</div>
     </div>
-
-
   </div>
   
-  
-  
   <article class="flex-auto">
-    
     <h2>How to write an Angular library</h2>
-    
     <p>
       <i>
         This tutorial is from late 2017 and works for Angular 2, Angular 4 and Angular 5.
       </i>
     </p>
-    
     <p>
       Let's start with the bad news: Unfortunately, Angular doesn't provide a straight forward way to build your library.
       As a result, different techniques have emerged to build Angular libraries. Basically, you have two ways of doing it:
-      
     </p>
     <ul>
       <li>
@@ -70,8 +62,8 @@
     </ul>
     
     <p>
-      When should you use which method? If you're writing a module for the community, then you'll have to go with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can go and get a "library-generator". The best one I've found is <b><a href="https://github.com/jvandemo/generator-angular2-library">https://github.com/jvandemo/generator-angular2-library</a></b>, It sets up the complicated build pipeline for you and you don't have to understand exactly what it does, even though it helps, when need to troubleshoot. An example of a library build with that library generator would be
-      <a href="http://spinner.tsmean.com">http://spinner.tsmean.com</a>.
+      When should you use which method? If you're writing a module for the community, then you'll have to go with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can go and get a "library-generator". The best one I've found is <b><a href="https://github.com/jvandemo/generator-angular2-library">https://github.com/jvandemo/generator-angular2-library</a></b>. It sets up the complicated build pipeline for you and you don't have to understand exactly what it does, even though it helps, when you need to troubleshoot. An example of a library built with that library generator would be
+      <a href="https://github.com/tsmean/spinner">https://github.com/tsmean/spinner</a>.
       What this tutorial describes is how to <b>publish TypeScript sources to npm</b>. That's <b>only recommendable</b> if you want to use the libraries e.g. for company internal purposes or you want to wait until there's an "official library generator".
     </p>
     
@@ -79,9 +71,9 @@
     <p>
       Create a new project. This will be a wrapper and consumer for your library module.
       I am going to call my library <code>libex</code> (for "library-example", and it was still free on npm)
-      so I call the new project <code>libex-project</code>
+      so I call the new project <code>libex-project</code>.
     </p>
-    <pre>ng new libex-project  <span class="highlight">--prefix libex</span></pre>
+    <pre>ng new libex-project <span class="highlight">--prefix libex</span></pre>
     
     <p>
       Use your library title instead of libex. Prefix is what you'll write in front of your components, for example
@@ -91,7 +83,7 @@
     <h2><span class="step">Step 2:</span> Create a new module</h2>
     
     <p>
-      Your library will reside in it's own module. But first we've got to create said module.
+      Your library will reside in it's own module. But first we've got to create that module.
     </p>
     
     <pre>ng g module libex</pre>
@@ -139,53 +131,107 @@ imports: [
   LibexModule.forRoot()
 ],</code></pre>
     
-    <h2><span class="step">Step 4:</span> Publish</h2>
+    <h2><span class="step">Step 4:</span> Setup index.ts and create typings</h2>
+    <p>
+      To declare the public API for your consumers, you should setup an index.ts where you export all modules, components etc. your consumers should have access to. Here for example it would look like this:
+    </p>
+    <pre>export {LibexModule} from './libex.module';
+export {HelloService} from './hello.service';
+export {HelloComponent} from './hello/hello.component';</pre>
+    <p>
+      That way, it's also easier to import for the consumers of the library, as they can just use something like.
+    </p>
+    <pre>import {HelloComponent} from libex</pre>
+    <p>instead of</p>
+    <pre>import {HelloComponent} from libex/hello/hello.component</pre>
+    <p>
+      This will also help you to generate an <code>index.d.ts</code> in the next step, which in turn helps your IDE with autocompletion. Having a so called "barrel" file (a file, that re-exports some classes) can lead to some problems. If you run into an Angular DI Exception, see <a href="https://stackoverflow.com/a/38000323/3022127">this stackoverflow thread</a>.
+    </p>
+  
+    <h2><span class="step">Step 5:</span> Publish</h2>
     
     <p>
-      In your module folder, create a new <code>package.json</code>. You could do this with the <code>npm init</code>
-      command. It should look somewhat like this:
+      So far, we have pretty much set up a regular Angular application. Now we want to get it to npm! How can we achieve this? We need to have a <code>package.json</code> and bundle all the files we want to distribute together. Personally, I'm using a small node script to do this build task. It looks like this:
     </p>
     
-    <pre>{
-  "name": "libex",
-  "version": "1.0.16",
-  "description": "An Example Library.",
-      ...
+    <pre>const fsextra = require('fs-extra');
+const { exec } = require('child_process');
+
+fsextra.copy('./src/app/libex', './dist-lib', err => {
+  if (err) return console.error(err);
+  console.log('Copied files');
+  createDeclarations();
+});
+
+function createDeclarations() {
+  exec('cd dist-lib && tsc index.ts --declaration', () => {
+    console.log('Generated declarations (and some JS files...)');
+    createPackageJson();
+  });
+}
+
+function createPackageJson() {
+  const packageJSON =  {
+    "name": "libex",
+    "version": "2.0.0",
+    "description": "How to build libraries with Angular (2, 4, 5...)",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/bersling/angular-library-example"
+    },
+    "keywords": [
+      "Angular",
+      "Angular2",
+      "Library",
+      "Example"
+    ],
+    "author": "bersling@gmail.com",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/bersling/angular-library-example/issues"
+    },
+    "homepage": "https://github.com/bersling/angular-library-example#readme",
+    "types": "index.d.ts"
+  };
+  fsextra.writeJson('./dist-lib/package.json', packageJSON, {spaces: 2}, err => {
+    if (err) return console.error(err);
+    console.log('Created package.json');
+  });
+
 }
 </pre>
+    <p>What happens in this script:</p>
+    <ul>
+      <li>It uses <code>fs-extra</code>, so you'll need to run <code>npm install fs-extra --save-dev</code> in your project root.</li>
+      <li>It copies your source files to a new directory <code>dist-lib</code>.</li>
+      <li>(optional) It compiles the TypeScript in order to generate <code>index.d.ts</code>. This helps with type completion in IDEs.</li>
+      <li>It generates a <code>package.json</code></li>
+    </ul>
     
     <p>
-      Basically only the library name matters. <b>Also rename <code>libex.module.ts</code> to <code>index.ts</code>
-      since that's the standard name for a main file.</b>
-      Now since we're just publishing the typescript sources (note: that means your library will only work for
-      consumers that <b>also</b> use typescript), we're ready to publish. Just run <code>npm publish</code>!
+      The most important part is the generation of the <code>package.json</code>. Now since we're just publishing the typescript sources (note: that means your library will only work for
+      consumers that <b>also</b> use typescript), we're ready to publish. Just run <code>npm publish</code> from the dist-lib folder!
       You can also add a <code>.npmignore</code> so you publish only exactly what's needed, it works like .gitignore,
       just for npm.
     </p>
     
     <p>
-      What's also an option is to re-export some files from index.ts. For example <code>export * from './hello.service'</code>,
-      since then the consumer can just write <code>import { HelloService } from 'libex'</code> instead of
-      <code>import { HelloService } from 'libex/hello.service'</code>. On the other hand, this can also
-      <a href="https://stackoverflow.com/a/38000323/3022127">lead to problems</a>,
-      so I usually refrain from it.
+      In case your library requires other libraries, you'll need to add them to your package.json and also to your local installation.
     </p>
     
     <p>
-      In case your library requires other libraries, you can also install them in your library module's folder and to
-      the <code>package.json</code> we've just created. Just run <code>npm install --save something</code> from
-      the library folder.
-    </p>
-    
-    <p>
-      For subsequent releases, <code>npm version patch</code> (or <code>minor</code> or <code>major</code>) and then <code>npm publish</code>.
+      For subsequent releases, adjust the version number in the build file according to semver (semantic versioning). In the format x.y.z, x is the major version, y is the minor version and z is a patch version. The most important thing here is to understand, that you shouldn't publish any breaking changes to minor versions or patches. Minor versions serve the purpose of adding features without touching the existing API. Patches serve - well, to patch, to bugfix. And if you have a breaking change, then you'll need to publish a new major version or some people might get angry at you. It's also good to first publish with a tag, for example <code>npm publish --tag next</code>, such that you can test your new version with <code>npm install mylib@next</code> and other people don't automatically install it.
     </p>
   
-    <h2><span class="step">Step 5:</span> Consuming your library</h2>
+    <h2><span class="step">Step 6:</span> Consuming your library</h2>
     
     <p>
-      You can either install your library by downloading it from npm with <code>npm i -S your-library</code>
-      or you can use <a href=""><code>npm link</code></a>.
+      You can either install your library by downloading it from npm with <code>npm i your-library</code>
+      or you can use <code>npm link</code>.
     </p>
     
     <p>
