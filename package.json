@@ -4,9 +4,8 @@
   "description": "Tutorial Page how to setup the TypeScript-Mean project from scratch",
   "main": "index.js",
   "scripts": {
-    "start": "$(npm bin)/ts-node server.ts",
+    "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "$(npm bin)/watch 'npm run build' --inverval=1",
     "build": "rm -rf dist && mkdir -p dist && cp -r assets dist && npm run mustache",
     "mustache": "$(npm bin)/ts-node compile.ts",
     "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html",
@@ -37,6 +36,7 @@
     "express": "^4.15.3",
     "mustache": "^2.3.0",
     "node-sass": "^4.5.3",
+    "nodemon": "^1.14.11",
     "normalize-scss": "^7.0.0",
     "ts-node": "^3.2.0",
     "typescript": "^2.4.1",

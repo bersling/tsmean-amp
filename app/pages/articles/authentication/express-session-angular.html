@@ -30,7 +30,7 @@
       </amp-img>
     </div>
     <h1 class="jumbo-title">
-      Introduction to sessions with Express (Node.js) and Angular
+      Introduction to Sessions with Express (Node.js) and Angular
     </h1>
   
     <div class="meta-header">
@@ -41,7 +41,7 @@
   
   <article class="flex-auto">
     <p>
-      Managing sessions may seem a bit daunting at first. But taking first steps isn't actually that hard. When using Express based on Node.js in the backend, most things are already figured out for you. While there isn't that much you'll have to figure out for yourself, there are still a few pitfalls you might want to avoid. This tutorial helps you getting started on the right foot.
+      Managing sessions may seem a bit daunting at first. But taking first steps isn't actually that hard. When using Express based on Node.js in the backend, most things are already figured out for you. Still, there a few pitfalls you might want to avoid. This tutorial helps you getting started on the right foot.
     </p>
     <p>
       First of all, let's see a very simple example application using express and sessions. There's a quite simple one on Tutorialspoint, which looks somewhat like this:
@@ -66,10 +66,10 @@ app.get('/', function(req, res){
 app.listen(3000);
     </pre>
     <p>
-      This is everything you need for working sessions! You'll also notice, that when you open this once in Chrome and once in Firefox, that express-session creates different sessions for different clients.
+      This is everything you need for working sessions! You'll also notice, that when you open this once in Chrome and once in Firefox, that <b>express-session creates different sessions for different clients</b>.
     </p>
     <p>
-      But how can this work? Express generates a cookie, which is sent to the browser together with the response. The browser then attaches this cookie to subsequent requests, which lets express identify a client.
+      How does that work? Express generates a cookie, which is sent to the browser together with the response. The browser then attaches this cookie to subsequent requests, which lets express identify a client.
     </p>
     <h2>Getting things to work with Angular</h2>
     <p>
@@ -101,7 +101,7 @@ app.use(cors({origin: [
     <p>
       There are some other considerations to be made when working with sessions. This was only an introduction. You should make sure to have the <code>secure</code> option activated in Express. You also shouldn't store the session in application memory, which is the default. So in order to get your system ready for production some extra steps will be required.
     </p>
-    <p>There's also a youtube video about sessions with Express, check it out.</p>
+    <p>We've also made a video about sessions with Express. It goes into more details than the written tutorial above and walks you through building an actual small app with login / logout and sessions with express and Angular 5.</p>
   
     <amp-youtube
         data-videoid="QgqO-3FAvds"

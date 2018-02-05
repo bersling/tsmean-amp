@@ -40,6 +40,8 @@
     <p>When it comes to DevOps, it's all about one thing: automation. Time is money, and what is automated doesn't cost you time. Paradoxically, the smaller your team is and the fewer resources you have, the more important it is to focus your energy on the important things. You don't want to waste your time tweaking servers and setting up deployments for days or weeks. You'll want something that works out of the box and scales well, automatically. This should be the mindset to adopt when looking for a solution to deploy any application.
     </p>
     
+    <h2>Deploying Node.js with a "care free" provider</h2>
+    
     <p>
       To automate deployments, a lot of people immediately think about containerization and Docker. While it's nice that this will give your server detailed installation instructions, for Node.js applications this often isn't necessary. Think about it. What do you actually need to know to install most Node.js applications? When you download something from Github and want to install it, what do the installation instructions usually say? It's usually just the following two commands:
     </p>
@@ -66,7 +68,7 @@ npm start</pre>
       <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_nodejs.html">AWS tutorial</a>. Another issue is the incredible configurability and richness of services in AWS. This is both, a blessing and a curse. At first, it's like finding your way in a maze. But once you're familiar with Elastic Beanstalk and other AWS Services, you'll save a considerable amount of money compared to Heroku to get the same server capacities. Plus Elastic Beanstalk is more conifgurable, which you might eventually need. Plus you can also have the rest of your server infrastructure on AWS, which gives you a nice "all in one experience".
     </p>
     
-    <h2>Deploying Node.js apps written in TypeScript</h2>
+    <h3>Deploying Node.js apps written in TypeScript</h3>
     
     <p>
       And what about Node.js apps written in TypeScript? It's just as easy, simply add TypeScript to your npm dependencies and provide a start script like the following:
@@ -81,11 +83,11 @@ npm start</pre>
   ...</pre>
     
     <p>
-      What's also important is to add your <code>@types</code> to the npm dependencies (not devDependencies), as otherwise the compilation process will fail.
+      What's also important is to add your <code>@types</code> to the npm dependencies (not devDependencies), as otherwise the compilation process will fail on Heroku.
     </p>
     
     <p>
-      So that's it, I hope you enjoy deploying your Node.js applications! So to summarize:
+      So to summarize this part:
     </p>
     
     <ul>
@@ -106,6 +108,27 @@ npm start</pre>
     
     <p>
       If you liked what you read, subscribe below to get more of the same.
+    </p>
+    
+    <h2>Deploying Node.js with Docker Swarm</h2>
+    
+    <p>
+      Deploying with the "care free packages" can get really expensive. Of course, hiring dev ops guys can be really expensive as well. Luckily, with Docker Swarm setting up a fully scalable jungle of Node.js microservices isn't as hard anymore as it used to be. Still, it is considerably more to learn than with Heroku.
+    </p>
+    
+    <p>
+      If you're new to Docker, then you'll have to familiarize yourself with a lot of concepts first: <a href="https://docs.docker.com/get-started/part2/">Docker containers</a>,
+      <a href="https://docs.docker.com/get-started/#images-and-containers">Docker images</a>, <a href="https://docs.docker.com/get-started/part3/">Docker services</a>,
+      <a href="https://docs.docker.com/get-started/part4/">Docker swarm</a>, <a href="https://docs.docker.com/get-started/part5/">Docker stacks</a>,
+      <a href="https://docs.docker.com/get-started/part4/#understanding-swarm-clusters">worker and manager nodes</a>, load balancers,
+      <a href="https://docs.docker.com/get-started/part2/#dockerfile">Dockerfiles</a>, <a href="https://docs.docker.com/compose/">docker-compose</a>, the
+      <a href="https://docs.docker.com/engine/reference/commandline/cli/">Docker-CLI</a>, Docker Cloud and on top of that some knowledge about networking, ports, operating systems, VM's and containerization is required to really know what you're doing...
+    </p>
+    <p>
+      Why is there so much more to learn and understand than with Heroku? Because the people at Heroku understand those things <i>for you</i> and have set up a system that has some good standards preconfigured for Node.js. Docker on the other hand is quite configurable and you can deploy anything with it. If you learn how to deploy with Docker, you won't limit yourself to any language or hoster. This has many advantages, for example if you want to migrate from e.g. from Azure to AWS or to servers in your country, with Docker you will have no lock-in effect.
+    </p>
+    <p>
+      So in summary, docker gives you flexibility and cheaper infrastructure at the price of having to learn a lot. In the end it's up to you and your needs which way to go. Is it the comfort of Heroku or the flexibility of Docker? Only you can decide this.
     </p>
     
   </article>

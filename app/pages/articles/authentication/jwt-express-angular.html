@@ -39,19 +39,16 @@
   </div>
   
   <article class="flex-auto">
-    
     <p>
-      JWT is the new hype. How does it work and what's behind it? Learn more in this short tutorial.
+      JWT is becoming quite popular these day. What is it and how does it work? Let's learn more about it in this short tutorial.
     </p>
-    
     <h2>
       What's JWT?
     </h2>
-  
     <p>
-      JWT is short for JSON Web Tokens. One use case is to help you with authentication. It doesn't help you with <i>initial</i> authentication, but rather with authentication for recurring users. So it is actually comparable to classical session handling.
+      JWT is short for JSON Web Tokens. One use case is to help you with authentication. It doesn't help you with <i>initial</i> authentication, but rather with authentication for returning users. So it is actually comparable to regular session handling.
     </p>
-    <p>As the name JWT suggests, "tokens" are the centerpiece of the technology. But what are those tokens? To understand, let's have a look at two central pieces in JWT. For one the <b>encryption</b> and for another the <b>decryption</b>. The encryption is the so called "signing" function. It has the following signature:</p>
+    <p>As the name JWT suggests, "tokens" are the centerpiece of the technology. But what are those tokens? To understand, let's have a look at two main parts of JWT. Those would be the <b>encryption</b> and the <b>decryption</b> methods. The encryption is the so called "signing" function. It has the following signature:</p>
     <pre>jwt.sign(JSON Data, secret:string) => token:string</pre>
   <p>Aha, so here we have the token. So the jwt.sign function takes JSON Data, usually the user-json, combines it with a secret, and produces a token. The counterpart to the encryption is called, in Express at least, the verify (and also decode) function. It has the following signature:</p>
     <pre>jwt.decode(token, secret: string) => JSON Data</pre>
@@ -61,10 +58,10 @@
     <ol>
       <li>John logs in with john@gmail.com and his password - no JWT involved here.</li>
       <li>The backend checks if the password is correct</li>
-      <li>If the password is correct, the backend fetches John from the database. Something like <pre>const john = {email: "john@gmail", firstName: "John", lastName: "Doe"}</pre> is returned from the database.</li>
-      <li>The backend applies jwt sign function: jwt.sign(john, secret) and attaches the generated token to the express response.</li>
-      <li>The frontend stores the token, for example to local storage.</li>
-      <li>On subsequent requests that need authentication, the frontend attaches the token to the request, so the backend can identify the client.</li>
+      <li>If the password is correct, the backend fetches John from the database. Something like <pre>const john = {email: "john@gmail", firstName: "John", lastName: "Doe"}</pre> is returned from the database. Still no JWT.</li>
+      <li>Now JWT enters the game. The backend applies jwt sign function: <code>jwt.sign(john, secret)</code> and <i>attaches the generated token to the express response</i>.</li>
+      <li>The frontend stores the token, for example in local storage.</li>
+      <li>On subsequent requests (which require authentication), the frontend attaches the token to the request, so the backend can identify the client.</li>
     </ol>
     
     <p>The code to generate the token might look like this in Express:</p>
@@ -190,7 +187,7 @@ export class AuthService {
     </p>
     
     <p>
-      There's also a youtube video explaining the concepts:
+      There's also a youtube video explaining the concepts. It goes into more detail than this article and actually builds a small example app with login / logout.
     </p>
   
     <amp-youtube
@@ -199,7 +196,7 @@ export class AuthService {
         width="480" height="270"></amp-youtube>
 
     <p>
-      In any case, I hope I could bring the basics of authentication somewhat closer to you!
+      In any case, I hope we could bring the basics of authentication with JWT closer to you!
     </p>
 
   </article>
