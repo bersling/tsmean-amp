@@ -46,7 +46,7 @@
     <h2>How to write an Angular library</h2>
     <p>
       <i>
-        This tutorial is from late 2017 and works for Angular 2, Angular 4 and Angular 5.
+        This tutorial is from late 2017 (updated 2018) and works for Angular 2, Angular 4 and Angular 5.
       </i>
     </p>
     <p>
@@ -57,14 +57,15 @@
       <li>
         A complicated setup, that inlines CSS and HTML, compiles the sources, runs Rollup.js to build UMD and ES5 modules and does some other magic.</li>
       <li>
-        A comparatively simple setup that publishes TypeScript <b>source files</b> to npm.
+        A comparatively simple setup that publishes TypeScript <b>source files</b> to npm. <b>This is not encouraged by Angular. They encourage you to use "Angular Package Format".</b>
       </li>
     </ul>
     
     <p>
-      When should you use which method? If you're writing a module for the community, then you'll have to go with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can go and get a "library-generator". The best one I've found is <b><a href="https://github.com/jvandemo/generator-angular2-library">https://github.com/jvandemo/generator-angular2-library</a></b>. It sets up the complicated build pipeline for you and you don't have to understand exactly what it does, even though it helps, when you need to troubleshoot. An example of a library built with that library generator would be
+      When should you use which method? If you're writing a module for the community, then you'll have to go with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can go and get a "library-generator". The best two I've found is <b><a href="https://github.com/jvandemo/generator-angular2-library">https://github.com/jvandemo/generator-angular2-library</a></b> and
+      <a href="https://github.com/dherges/ng-packagr">https://github.com/dherges/ng-packagr</a>. They sets up the complicated build pipeline for you and you don't have to understand exactly what it does, even though it helps, when you need to troubleshoot. An example of a library built with a library generator would be
       <a href="https://github.com/tsmean/spinner">https://github.com/tsmean/spinner</a>.
-      What this tutorial describes is how to <b>publish TypeScript sources to npm</b>. That's <b>only recommendable</b> if you want to use the libraries e.g. for company internal purposes or you want to wait until there's an "official library generator".
+      What this tutorial describes is how to <b>publish TypeScript sources to npm</b>. That's <b>only recommendable</b> if you want to use the libraries for company internal purposes or you want to wait until there's an "official library generator" (it's not clear when that will be).
     </p>
     
     <h2><span class="step">Step 1:</span> Create a new project with the AngularCli</h2>
