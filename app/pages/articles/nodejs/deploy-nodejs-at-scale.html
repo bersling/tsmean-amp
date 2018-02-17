@@ -9,6 +9,8 @@
   <meta name="keywords"
         content="Node.js, Deployment, Scalability, Scale, 2018, 2017, DevOps, Automation">
   <link rel="canonical" href="https://www.tsmean.com/articles/nodejs/deploy-nodejs-at-scale" />
+  
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
 
 </head>
 <body class="landing">
@@ -29,8 +31,8 @@
       How to deploy Node.js at scale
     </h1>
   
-    <div class="meta-header">
-      December 2017
+    <div class="meta-header updated">
+      Updated: February 2018
     </div>
     
   </div>
@@ -130,13 +132,45 @@ npm start</pre>
     <p>
       So in summary, docker gives you flexibility and cheaper infrastructure at the price of having to learn a lot. In the end it's up to you and your needs which way to go. Is it the comfort of Heroku or the flexibility of Docker? Only you can decide this.
     </p>
-<!--    <p>
-      In case you decide to go the route of dockerizing your fleet, here is a tutorial series to guide you from the very basics up to a full deployment with docker swarm.
-    </p>-->
-    <!-- TODO: add docker vids-->
+   <p>
+      In case you decide to go the route of dockerizing your fleet, we've made a couple of videos to get you started.
+    </p>
+    <ul>
+      <li>
+        <a href="https://youtu.be/gSdm1ghBYJ4?list=PLElSnqg8CBaKC702CLAG72m4Sv1LN54P4">
+          Docker Basics Tutorial (Containers & Images)
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/watch?v=A0nhB8YASgw&list=PLElSnqg8CBaKC702CLAG72m4Sv1LN54P4&index=2">
+          docker-compose Tutorial
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/watch?v=yAcGBD0gJ5w&list=PLElSnqg8CBaKC702CLAG72m4Sv1LN54P4&index=3">
+          Docker Services Tutorial
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/watch?v=m6WgX_LBtEk&list=PLElSnqg8CBaKC702CLAG72m4Sv1LN54P4&index=4">
+          Docker Swarm Tutorial
+        </a>
+      </li>
+    </ul>
     
-  </article>
+    <p>Here's the last video of the series for setting up docker swarm:</p>
+    <amp-youtube
+        data-videoid="m6WgX_LBtEk"
+        layout="responsive"
+        width="480" height="270"></amp-youtube>
   
+    <p>The code of the tutorial series is available on Github at <a href="https://github.com/bersling/docker-tutorial">https://github.com/tsmean/docker-tutorial</a></p>
+    
+    <h2>Conclusion</h2>
+    <p>
+      You have multiple options to deploy your node applications. I would recommend to get started with a carefree option since it's really easy to set up, but once you feel it's getting too expensive or you need more customization power, you can switch to dockerizing your applications. I hope you've learned something, don't forget to sign up for the newsletter if you wan't to stay up to date with fullstack TypeScript!
+    </p>
+  </article>
   {{> articleFooter}}
   
 </body>

@@ -450,7 +450,7 @@ In order to avoid having to enter a ton of compiler flags into the terminal each
 The \texttt{"module": "commonjs"} flag, again, is a topic too large to be covered entirely by this book. The main idea is that JavaScript wasn't modular by default, different people have invented module systems, and now we have a mess. The TypeScript compiler needs to know which module system you are using in your code. The flags \texttt{outDir} and \texttt{include} should be pretty self-explanatory.
 
 
-\chapter{Tooling \& Setup}
+\chapter{Tooling}
 
 One of the major benefits of TypeScript over JavaScript is that you'll get additional tooling possibilities through the static types. So in order to get the most out of the experience with TypeScript, a good setup is mandatory. What arguably has the largest impact on your productivity is a good IDE (Integrated Development Environment). There are several choices out there and all have their pro's and con's. Another important point is how you setup your code. What are the coding guidelines you want to follow? This is discussed later on.
 
@@ -516,8 +516,34 @@ function printUserInfo(user: User) {
 \end{lstlisting}
 As you can see, the exclamation point denotes that you are sure (e.g. by performing a check somewhere in the code) that something that's potentially null (denoted by the question mark) actually isn't.
 
+
 \subsection{TSLint}
 To enforce your team and yourself to 'play by the rules', you can use TSLint. TSLint is another sort of config file you include in your project that specifies the rules of your coding style. With a decent IDE, your TSLint file will be acknowledged and you'll be pointed to where you're violating your style guide. To get you started, here's a pretty default TSLint file for your project [xxx], and here's how it's used in a project [xxx].
+
+
+
+\chapter {Project Architecture}
+The core project setup is an important decision that will accompany you for a long time. If you're lazy or too ambitioned and skip a proper setup phase, you'll have to refactor a lot of your code later, which is harder once there is a certain size of a code base. So it's advisable to work in a clean fashion from day one. This chapter helps you with some architectural decisions and outlines some options that you have.
+
+\section{MonoRepo vs Multi Repo}
+This is a hotly debated topic amongst developers. Giants such as Google and Facebook have parts of their codebases in Monorepos since it brings them several benefits. Amongst those benefits are the following:
+
+\begin{enumerate}
+\item If someone changes one place, he or she immediately sees all the places it will affect and can update those parts.
+\item No mess with versions, and no time lost updating all clients when a version changes
+\item Less boundaries between teams
+\end{enumerate}
+
+As with everything, there is also a downside to monorepos. Most noticably those will be the following:
+
+\begin{enumerate}
+\item As your company grows, considerable investments in infrastructure \& tools need to be made. Git isn't a suitable versioning tool anymore.
+\item If you open source parts of your code, you need to version those anyways.
+\end{enumerate}
+f
+I would argue that for getting started, a Monorepo certainly makes things easier. There's nothing more annoying than an unstable library that you'll have to update all the time, and in the beginning everything you'll do will be quite unstable. Once you'll make progress and some stable APIs evolve, you could still factor out that code.
+
+Google made the observation, that "everyone relying on everything" also created severe problems, since there often weren't clearly specified API's and developers were relying on implementation details of other projects. That's why they changed their defaults for API's to private.
 
 \chapter{TypeScript in the Backend}
 
@@ -543,8 +569,6 @@ Performance is often an important measure when
 - Gzipping res.writeHead(200, {'Content-Encoding': 'gzip', 'Content-Length': msg.length}) => Gzipping could be done by external method... :/
 
 \subsection{Production Mode}
-
-\section{Library-Oriented Architecture}
 
 \section{Unit Testing}
 
@@ -610,7 +634,8 @@ Despite the elaborate architecture and feature set of the starter, we tried keep
 
 \chapter{Deployment}
 
-\subsection{Continuous Integration}
+Deployment is an aspect often neglected by authors, even though it makes up a considerable part of a project, especially if the initial setup isn't yes mature and should become automated. There are different paths you can go with the deployment process all bringing with them some upsides and downsides. One possibility would be to host with a "carefree" hoster such as Heroku where it becomes really simple to deploy. This is possible because Heroku already knows about your
+
 
 
 \begin{thebibliography}{9}
@@ -620,6 +645,9 @@ Despite the elaborate architecture and feature set of the starter, we tried keep
   \textit{A Large Scale Study of Programming Languages
 and Code Quality in Github},
   Department of Computer Science, University of California, Davis, CA, 95616, USA
+\bibitem{bla}
+  Google Dudes,
+  \textit{https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext}, Bla
 
 \end{thebibliography}
 
