@@ -87,7 +87,7 @@ function printUserInfo(user: User) {
   }
   // =&gt; OK, the if-condition checked that user.age is non-null.
 
-  console.log(user.name + ', ' + user.age ? user.age.toString() : 'age unknown');
+  console.log(user.name + ', ' + user.age != null ? user.age.toString() : 'age unknown');
   // =&gt; Unfortunately TypeScript can't infer that age is non-null here.
 }
 </code></pre>
