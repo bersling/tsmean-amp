@@ -38,7 +38,7 @@
     </h1>
   
     <div class="meta-header">
-      <div class="updated">January 2018</div>
+      <div class="updated">May 2018</div>
     </div>
   </div>
   
@@ -46,29 +46,37 @@
     <h2>How to write an Angular library</h2>
     <p>
       <i>
-        This tutorial is from late 2017 (updated 2018) and works for Angular 2, Angular 4 and Angular 5.
+        This tutorial was updated in May 2018 and works for Angular 2, Angular 4, Angular 5 and Angular 6.
       </i>
     </p>
     <p>
-      Let's start with the bad news: Unfortunately, Angular doesn't provide a straight forward way to build your library.
-      As a result, different techniques have emerged to build Angular libraries. Basically, you have two ways of doing it:
+      Setting up an Angular-compatible library isn't straight forward at all, which you might have noticed by now. Many steps are involved, like inlining html and css, building UMD and ES5 modules and much more magic. To put it in Angular's lingo, you'll have to adhere to the
+      <a href="https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/edit">"Angular Package Format"</a>. Historically (Angular 2-5), Angular doesn't provide a straight forward way to build a library that has the correct format. Community solutions emerged, most notably
+      <a href="https://github.com/dherges/ng-packagr">ng-packagr</a>. In Angular 6, an option <code>ng generate library my-lib</code> was added to AngularCLI, that uses ng-packagr under the hood.
+    </p>
+    <p>
+      In this article we're going to talk about a different approach, that involves less magic. At the core of this approach is not compiling the TypeScript at all, but use the source files directly. This approach has shortcomings, but it might suit your needs.
+    </p>
+    <p>
+      So to summarize up until now, you have two ways to build your library:
     </p>
     <ul>
       <li>
         A complicated setup, that inlines CSS and HTML, compiles the sources, runs Rollup.js to build UMD and ES5 modules and does some other magic.</li>
       <li>
-        A comparatively simple setup that publishes TypeScript <b>source files</b> to npm. <b>This is not encouraged by Angular. They encourage you to use "Angular Package Format".</b>
+        A comparatively simple setup that just uses TypeScript <b>source files</b>. This is not encouraged by Angular. They encourage you to use "Angular Package Format".
       </li>
     </ul>
     
     <p>
-      When should you use which method? If you're writing a module for the community, then you'll have to go with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can go and get a "library-generator". The best two I've found is <b><a href="https://github.com/jvandemo/generator-angular2-library">https://github.com/jvandemo/generator-angular2-library</a></b> and
-      <a href="https://github.com/dherges/ng-packagr">https://github.com/dherges/ng-packagr</a>. They sets up the complicated build pipeline for you and you don't have to understand exactly what it does, even though it helps, when you need to troubleshoot. An example of a library built with a library generator would be
-      <a href="https://github.com/tsmean/spinner">https://github.com/tsmean/spinner</a>.
-      What this tutorial describes is how to <b>publish TypeScript sources to npm</b>. That's <b>only recommendable</b> if you want to use the libraries for company internal purposes or you want to wait until there's an "official library generator" (it's not clear when that will be).
+      When should you use which method? If you're writing a module for the community, then you should stick with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can use "ng generate library my-lib" starting with AngularCLI 6. This sets up the complicated build pipeline for you and you don't have to understand exactly what it does. One drawback of this method is that when there's a problem with the magic, it's a hard-to-debug black box. Another drawback is that you'll have to compile the library every single time you'll make a change. Not exactly the hot reloading and rapid development we're used to. But it's quite certainly the right choice for building a community package. If you do so, you can stop reading this article now and head over to
+      <a href="https://github.com/angular/angular-cli/wiki/stories-create-library">https://github.com/angular/angular-cli/wiki/stories-create-library</a>.
+    </p>
+    <p>
+      What this tutorial describes is how you can also <b>use TypeScript source files</b> to build your library. That's <b>only recommendable</b> if you want to use the libraries for <b>company internal</b> purposes. You'll have to keep in mind, that the <b>consumer</b> of your library will have to use a <b>compatible TypeScript version</b>! So if you use a TypeScript 2.8 feature in the library, but the consumer is only at TypeScript 2.7, the code won't compile. That's why it's not an ideal solution for a community library. A good usecase for this method could be a company with a MonoRepo, that still wants to split everything into multiple npm modules and libraries.
     </p>
     
-    <h2><span class="step">Step 1:</span> Create a new project with the AngularCli</h2>
+    <h2><span class="step">Step 1:</span> Create a new project with the AngularCLI</h2>
     <p>
       Create a new project. This will be a wrapper and consumer for your library module.
       I am going to call my library <code>libex</code> (for "library-example", and it was still free on npm)
