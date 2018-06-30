@@ -65,17 +65,15 @@
     <p>Let's say you have the following unit:</p>
   
     <div class="file-label">typescript-library/src/math.ts</div>
-    <pre>export namespace MyMath {
-  export function add(x: number, y: number) {
-    return x + y;
-  }
+    <pre>export function add(x: number, y: number) {
+  return x + y;
 }
 </pre>
     
     <p>Then a first unit test could look like:</p>
   
     <div class="file-label">typescript-library/src/math.test.ts</div>
-    <pre>import { MyMath } from './math';
+    <pre>import { add } from './math';
 
 import * as mocha from 'mocha';
 import * as chai from 'chai';
@@ -84,7 +82,7 @@ const expect = chai.expect;
 describe('My math library', () => {
 
   it('should be able to add things correctly' , () => {
-    expect(MyMath.add(3,4)).to.equal(7);
+    expect(add(3,4)).to.equal(7);
   });
 
 });
