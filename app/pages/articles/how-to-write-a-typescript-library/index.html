@@ -86,15 +86,14 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/src/hello-world.ts</div>
-    <pre>export namespace HelloWorld {
-  export function sayHello() {
-    console.log('hi')
-  }
-  export function sayGoodbye() {
-    console.log('goodbye')
-  }
+    <pre>export function sayHello() {
+  console.log('hi')
+}
+export function sayGoodbye() {
+  console.log('goodbye')
 }
 </pre>
+
     
     <h2><span class="step">Step 3</span>: Create an index.ts file</h2>
     
@@ -105,15 +104,15 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/src/index.ts</div>
-    <pre>export {HelloWorld} from './hello-world'</pre>
+    <pre>export {sayHello, sayGoodbye} from './hello-world'</pre>
     
     <p>
       The consumer would be able to use the library later on like so:
     </p>
     
     <div class="file-label">someotherproject/src/somefile.ts</div>
-    <pre>import {HelloWorld} from '<span class="highlight">hwrld</span>'
-HelloWorld.sayHello();
+    <pre>import {sayHello} from '<span class="highlight">hwrld</span>'
+sayHello();
 </pre>
     
     <p>
@@ -204,8 +203,8 @@ npm publish
     
     </p>
     
-    <pre>import {HelloWorld} from 'hwrld'
-HelloWorld.sayHello();</pre>
+    <pre>import {sayHello} from 'hwrld'
+sayHello();</pre>
     
     <p>
       For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run <code>npm version patch</code>,

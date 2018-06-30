@@ -9,6 +9,8 @@ else
   exit 0
 fi
 
+source ./env
+
 npm run build
 
 if [ "${1}" == "dev" ]; then

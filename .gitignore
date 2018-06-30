@@ -10,3 +10,4 @@ styles.css
 *.toc
 typescript-front-to-back.pdf
 assets/books/how-to-write-a-typescript-library.pdf
+env
