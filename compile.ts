@@ -108,6 +108,13 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/js',
+  [
+    'async-await'
+  ],
+  pages
+);
+addPagesToDirectory(
   'orders',
   ['typescript-front-to-back'],
   pages
