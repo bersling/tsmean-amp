@@ -1,0 +1,76 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>State Management in Angular2+</title>
+  <meta name="description" content="State management is probably the biggest challenge for complex frontend projects. Unfortunately, the Angular Documentation offers very little guidance on this. Here's your missing guide!">
+  <meta name="keywords"
+        content="Angular, Angular2, Angular4, Tutorial, how-to, State Management">
+  <link rel="canonical" href="https://www.tsmean.com/articles/angular/state-management" />
+  
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+
+</head>
+<body class="landing">
+
+
+  UNRELEASED
+  
+  What's the worst that can happen when getting this wrong?
+  - my open source tools arent used
+  - we need to rewrite a lot 
+  - it takes a lot of time to write and debug
+
+
+
+  The options:
+
+  1) just use js...
+
+  Pros:
+  - SIMPLE for the client: just configure in forRoot!!!
+
+  Cons:
+  - It's pretty impossible to override an ng-style
+  - Performance, but unlikely unless you have thousands of objects...
+  - Client needs color vars etc in JS
+  - You'll need to create a "ConfigService" and style stuff with JS
+
+  2) include theme, apply theme
+  Pros:
+  - It is probably the technically most sophisticated option
+
+  Cons:
+  - It's frekin complicated to program
+
+  3) simply add classes, which enable you in your global styles to do some overrides
+
+  task {
+    .task-header {
+      background: red;
+    }
+  } in styles.scss
+
+  4) @import 'variables'
+  
+  Cons:
+  - you'll have globals
+  - file needs to be named 'variables' -> sucks
+
+  
+  5) !default
+  Pros
+  - Bootstrap does it like this
+
+  Cons:
+  - It doesn't work with Angular Component Styles
+  - Also has global character
+
+
+
+  {{> articleFooter}}
+
+</body>
+</html>
