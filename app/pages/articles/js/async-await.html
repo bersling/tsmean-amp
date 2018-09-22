@@ -1,0 +1,223 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>How to write a consumer for a typescript library</title>
+  <meta name="description"
+        content="You've written a typescript library, but you'd like to be able to run it with my-cool-lib from the terminal? Here's how!">
+  <meta name="keywords"
+        content="Typescript, Tutorial, Library, Example, 2017, Publish, NPM, npm link, How to, Guide, Typescript Library, Global, System Command">
+  <link rel="canonical" href="https://www.tsmean.com/articles/how-to-write-a-typescript-library/global-installation" />
+</head>
+<body>
+  
+  {{> analytics }}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <div class="jumbo-image-wrapper">
+      <amp-img class="jumbo-image"
+               alt="Consumer Banner Image"
+               width="150"
+               height="150"
+               src="/assets/img/001-hourglass.svg"></amp-img>
+    </div>
+    <h1 class="jumbo-title">Async / Await</h1>
+  
+    <div class="meta-header">
+      <span class="written">July 2018</span>
+    </div>
+    
+  </div>
+  
+  <article class="flex-auto">
+    <p>
+        <b>Prerequisits for this article:</b> Familiarity with JavaScript Promises. The article may also contain traces of TypeScript.
+    </p>
+    <p>
+        Let's dive right in with an example of async / await:
+    </p>
+    <pre>
+const getDatabaseConnection: () => Promise&lt;DatabaseConnection&gt; = ...
+const getUser: (con: DatabaseConnection) => Promise&lt;User&gt; = ...
+const getTodos: (con: DatabaseConnection, user: User) => Promise&lt;Todo[]&gt; = ...
+const getMyTodos = async () => {
+    const con = await getDatabaseConnection();
+    console.log('Connection established!');
+    const user = await getUser(con);
+    console.log('User fetched!');
+    const todos = await getTodos(con, user);
+    console.log('Todos received.');
+    return todos;
+}
+getMyTodos().then((todos) => {
+    console.log(JSON.stringify(todos));
+});
+    </pre>
+    <p>
+        See a fiddle: <a href="https://tsfiddle.tsmean.com/fiddle/YQdJ2dOG">https://tsfiddle.tsmean.com/fiddle/YQdJ2dOG</a>
+    </p>
+    <p>
+        So let's interpret this example. First of all we have three promises, one to get a database connection, one to get the current user and one to get the todos of a user. Then the async/await fun starts. The first important thing we see is that we <b>prefix a function</b>(here it's getMyTodos) <b>with async</b>.
+        Why? Well, the next thing we see is that inside of this async function we don't use the promises how we usually would use promises. Instead of <code>somePromiseInvokation().then(promiseSuccessResult => {...})</code> we use <code>const promiseSuccessResult = await somePromiseInvokation()</code>. So you might notice that we omitted the error case here, we'll get to that in a minute.
+    </p>
+    <p>
+        So what we see is that prefixing a function with async gives us a a new ability inside of that function block. Namely to use the <code>await</code> keyword. We also see that the await keyword allows us to consume promises in a more synchronous and simple way than with <code>then / catch</code>. Consider how you would do something similar with promises:
+    </p>
+    <pre>
+const getMyTodos = () => {
+    getDatabaseConnection().then(con => {
+        getUser(con).then(user => {
+            getTodos(con, user).then(todos => {
+                // do some stuff with the todos
+            })
+        })
+    })
+}
+    </pre>
+    <p>
+        Fiddle: <a href="https://tsfiddle.tsmean.com/fiddle/y1aKReQG">https://tsfiddle.tsmean.com/fiddle/y1aKReQG</a>
+    </p>
+    <p>
+        The syntax with <code>then / catch</code> is clearly more verbose than the syntax with await. Another very important point to take away from this: <b>async / awit is not a replacement for promises</b>! It's rather a <b>replacement for then / catch</b>, meaning a simpler way of <b>consuming promises</b>. But in order to use <code>async / await</code>, you need some promises in the first place.
+    </p>
+    <p>
+        The above example of the <code>getMyTodos</code> with then/catch and async/await still aren't fully equivalent. In the <code>async/await</code> case we had a return statement, in the promise case we have 'done the stuff' right inside of the function. Of course this isn't really reusable, what if we'd like to 'do some other stuff' in some other place of our code? So we'd actually need something like this to be equivalent:
+    </p>
+<pre>
+const getMyTodos = () => {
+    return new Promise(resolve => {
+        getDatabaseConnection().then(con => {
+            getUser(con).then(user => {
+                getTodos(con, user).then(todos => {
+                    resolve(todos)
+                })
+            })
+        })
+    })
+}
+getMyTodos.then((todos) => {
+    // do some stuff with the todos
+});
+</pre>
+<p>
+    Fiddle: https://tsfiddle.tsmean.com/fiddle/9wdLwbjP
+</p>
+<p>
+    This reveals the second property of async / await. <b>An async function returns a promise!</b> If you scroll back up to the async / await example, you'll see how on <code>getMyTodos</code> a <code>.then</code> call is made. To be more precise, it's an already resolved promise. But why does async await wrap our return value in a promise, doesn't make this consuming the return value more complicated? Well, in this simple case yes. But consider you have an async function where you want to invoke another async function. Then it's useful that you get a promise, since this allows you to await async functions. All clear? Here's an example, based on the <code>getMyTodos async-function from the top</code>:
+</p>
+<pre>async function getMyTodosAndThenUpdateThem() {
+  const todos = await getMyTodos();
+  // now do the updating...    
+}
+</pre>
+<p>
+    While we had to create a <code>new Promise</code> manually in the <code>then / catch</code>, the <code>async await</code> automagically returns a promise. So far we have seen, that async await can be much more concise, linear (instead of triangular) and hence readable than the then/catch syntax. But how do we handle errors?
+</p>
+<h3>Error handling in async await</h3>
+<p>Let's first have a look at how we'd handle errors in the then/catch example.</p>
+<pre>
+const getMyTodos = () => {
+    return new Promise(resolve => {
+        getDatabaseConnection().then(con => {
+            getUser(con).then(user => {
+                getTodos(con, user).then(todos => {
+                    resolve(todos)
+                }).catch(todoFetchError => {...})
+            }).catch(userFetchError => {...})
+        }).catch(conError => {...})
+    })
+}
+getMyTodos
+    .then(todos => {
+        // do some stuff with the todos
+    })
+    .catch(err => {
+        // handle the error.
+    });
+</pre>
+<p>
+        https://tsfiddle.tsmean.com/fiddle/N1aMAaWm
+</p>
+<p>
+    We could also use one common error handler function <code>handleError</code> that we then pass to all the catches if we don't want to handle each catch individually.
+</p>
+<p>
+    To enhance the example with error handling, we'd extend our async await function with one or more try/catch blocks, leading us to our final async await code:
+</p>
+<pre>
+getDatabaseConnection: () => Promise&lt;DatabaseConnection&gt; = ...
+getUser: (con: DatabaseConnection) => Promise&lt;User&gt; = ...
+getTodos: (con: DatabaseConnection, user: User) => Promise&lt;Todo[]&gt; = ...
+const getMyTodos async () => {
+    let todos;
+    try {
+        const con = await getDatabaseConnection();
+        const user = await getUser(con);
+        todos = await getTodos(con, user);
+    } catch (err) {
+        // Handle the error. Either `throw new Error` or if //TODO verify
+        // you have a sensible fallback (e.g. getTodosFromOtherDb()) use that.
+    }
+    return todos;
+}
+getMyTodos().then((todos) => {
+    // do some stuff with the todos
+});
+</pre>
+
+<h3>Another Example: Sequential For-Loops</h3>
+<p>
+    Another even more compelling use case is when you have a for-loop, where in each iteration you need to run an asynchrnous operation, but the next iteration needs to wait for the current iteration to finish.
+</p>
+<p>
+    Traditionally, you would do this with recursion:
+</p>
+<pre>
+const updateUser = () => {
+    return new Promise((resolve, reject) => {
+        // ... do stuff
+    })
+}
+const sequentialUserUpdate = (userList) => {
+    [head, ...tail] = userList;
+    if (head != null) {
+        updateUser(user).then(() => {
+            sequentialUserUpdate(tail);
+        });
+    }
+}
+sequentialUserUpdate(someUsers);
+</pre>
+<p>
+    With async / await the code becomes more readable:
+</p>
+<pre>
+const sequentialUserUpdate = async (userList) => {
+    userList.forEach(user => {
+        await updateUser(user);
+    });
+}
+sequentialUserUpdate(someUsers);
+</pre>
+
+<h3>
+    Summary
+</h3>
+<ul>
+    <li>Async / await can simplify the way you consume promises.</li>
+    <li>It's not a replacement for promises, it's a replacement for <code>.then</code> and <code>.catch</code>.</li>
+    <li>The syntax is <code>async function() { ... await somePromise ...}</code>.</li>
+    <li>An async function <b>returns a resolved promise</b>.</li>
+</ul>
+
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
