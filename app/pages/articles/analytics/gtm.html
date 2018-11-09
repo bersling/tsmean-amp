@@ -1,0 +1,112 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Efficient GTM Setup</title>
+  <meta name="description" content="Basic GTM (Google Tag Manager) Setup in Combination with GA (Google Analytics).">
+  <meta name="keywords"
+        content="GTM, GA">
+  <link rel="canonical" href="https://www.tsmean.com/articles/analytics/google-tag-manager-gtm" />
+</head>
+<body class="landing">
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <div>
+      <!-- TODO: featured image-->
+      <amp-img src="/assets/img/google-tag-manager-gdpr-810.png"
+               alt="GTM Google Tag Manager"
+               width="250"
+               height="250">
+      </amp-img>
+    </div>
+    <h1 class="jumbo-title">
+      Efficient GTM Setup
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">November 2018</span>
+    </div>
+  
+  </div>
+  
+  <article class="flex-auto">
+    
+    <p>
+      Setting up GTM the wrong way can lead to hundreds of tags and triggers that are completely unnecessary and make GTM hard to manage. In the following I'll describe how to set up one powerful trigger-tag-combination that helps you with a good baseline tracking. Let's get started.
+    </p>
+    <p>
+      Most of the times, what you'll want to track is a click. To set up a trigger that fires when ANYTHING is clicked, head over to the triggers section, create a new trigger and select the trigger type "click". In order to restrict your tracking to elements that actually should get tracked, add a restriction that looks like this: <code>[data-tracking-id], [data-tracking-id] *</code> (credits to https://medium.com/@postman31/conquer-nested-elements-clicks-tracking-in-gtm-71195a3f609b). This allows you to track clicks on HTML Elements that have a <code>data-tracking-id</code> attribute. This second part (<code>[data-tracking-id] *</code>) is necessary to track clicks on nested elements such as a click on a span in a button, when it is actually the button that has the <code>data-tracking-id</code> property.
+    </p>
+    <p>
+      Next what we'd like to do is to send an "Event" to Google Analytics. An event is a Google Analytics concept. Basically it is a database entry in the Google Analytics database with four fields: <code>category</code> (mandatory), <code>action</code> (mandatory), <code>label</code> (optional but recommended) and <code>value</code> (optional non-negative integer). Note that if you don't adhere to this your data will not get stored to Google Analytics! Anyways, we'd like to set up the event with the following data:
+    </p>
+    <table>
+      <tr>
+        <td>Category</td>
+        <td>Last part of page path. For example <code>from www.mydomain.com/hello?bla=5</code>, it would be <code>hello</code></td>
+      </tr>
+      <tr>
+        <td>Action</td>
+        <td>A hardcoded string called 'click'</td>
+      </tr>
+      <tr>
+        <td>Label</td>
+        <td>The attribute value of the clicked <code>data-tracking-id</code> attribute</td>
+      </tr>
+      <tr>
+        <td>Value</td>
+        <td>Leave this empty</td>
+      </tr>
+    </table>
+    <p>
+      Now this leaves us with two problems. How can we get the last part of the url and the <code>data-tracking-id</code>-attribute-value of the clicked element? The answer is a  GTM "Custom JavaScript Variable" in both cases! Create a new <b>user-defined</b> variable and select <b>Custom JavaScript</b> as the variable type. This lets you <b>run custom JavaScript through GTM on your page</b>. This is an extremely powerful, but also an extremely dangerous thing to have. Anyone with access to your GTM account can execute custom JavaScript on your production page with this! So keep your GTM account well secured. But back to the actual problem. To get the value of the <code>data-tracking-id</code> attribute, we'll use the following code:
+    </p>
+    <pre>function() {
+    var hasTrackingId = function(elt) {
+        return elt.hasAttribute('data-tracking-id');
+    };
+    var getTrackingId = function(elt) {
+        if (elt == null || elt === document.body) {
+            return 'no-data-tracking-id-attribute';
+        } else if (hasTrackingId(elt)) {
+            return elt.getAttribute('data-tracking-id');
+        } else {
+            return getTrackingId(elt.parentElement);
+        }
+    };
+    return getTrackingId({{Click Element}});
+}</pre>
+  <p>
+    And to get the last part of the URL we'll use this code snippet in another custom variable:
+  </p>
+    <pre>function() {
+    var fullPath = {{Page Path}}; // something like '/en/.../overview'
+    if (!fullPath || fullPath === '/') {
+        return 'root'
+    } else if (fullPath.charAt(fullPath.length - 1) === '/') {
+        fullPath = fullPath.slice(0, fullPath.length - 1); // remove the final slash if there is one
+    }
+    var pathParts = fullPath.split('/'); // something like ['en', ... , 'overview']
+    return pathParts[pathParts.length - 1];
+}</pre>
+    <p>
+      We made use of the built in variable page-path here.
+    </p>
+    <p>
+      With this we finally have it all together. A good baseline tracking, and all of this with 1 tag and 1 trigger!
+    </p>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
