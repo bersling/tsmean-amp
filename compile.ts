@@ -119,6 +119,11 @@ addPagesToDirectory(
   ['typescript-front-to-back'],
   pages
 );
+addPagesToDirectory(
+  'articles/analytics',
+  ['gtm'],
+  pages
+);
 
 
 

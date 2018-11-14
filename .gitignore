@@ -2,6 +2,7 @@ node_modules
 dist
 .idea
 styles.css
+compile.js
 
 # Latex things
 *.aux

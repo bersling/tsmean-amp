@@ -21,10 +21,10 @@
   <div class="jumbo-vertical">
     <div>
       <!-- TODO: featured image-->
-      <amp-img src="/assets/img/google-tag-manager-gdpr-810.png"
+      <amp-img src="/assets/img/gtm-icon.png"
                alt="GTM Google Tag Manager"
-               width="250"
-               height="250">
+               width="175"
+               height="175">
       </amp-img>
     </div>
     <h1 class="jumbo-title">
@@ -40,15 +40,15 @@
   <article class="flex-auto">
     
     <p>
-      Setting up GTM the wrong way can lead to hundreds of tags and triggers that are completely unnecessary and make GTM hard to manage. In the following I'll describe how to set up one powerful trigger-tag-combination that helps you with a good baseline tracking. Let's get started.
+      Setting up GTM the wrong way can lead to hundreds of tags and triggers that are completely unnecessary and make GTM hard to manage. In the following we'll describe how to set up one powerful trigger-tag-combination that helps you with a good baseline tracking. Let's get started.
     </p>
     <p>
       Most of the times, what you'll want to track is a click. To set up a trigger that fires when ANYTHING is clicked, head over to the triggers section, create a new trigger and select the trigger type "click". In order to restrict your tracking to elements that actually should get tracked, add a restriction that looks like this: <code>[data-tracking-id], [data-tracking-id] *</code> (credits to https://medium.com/@postman31/conquer-nested-elements-clicks-tracking-in-gtm-71195a3f609b). This allows you to track clicks on HTML Elements that have a <code>data-tracking-id</code> attribute. This second part (<code>[data-tracking-id] *</code>) is necessary to track clicks on nested elements such as a click on a span in a button, when it is actually the button that has the <code>data-tracking-id</code> property.
     </p>
     <p>
-      Next what we'd like to do is to send an "Event" to Google Analytics. An event is a Google Analytics concept. Basically it is a database entry in the Google Analytics database with four fields: <code>category</code> (mandatory), <code>action</code> (mandatory), <code>label</code> (optional but recommended) and <code>value</code> (optional non-negative integer). Note that if you don't adhere to this your data will not get stored to Google Analytics! Anyways, we'd like to set up the event with the following data:
+      Next what we'd like to do is to send an "Event" to Google Analytics. An event is a Google Analytics concept. Basically it is a database entry in the Google Analytics database with four fields: <code>category</code> (mandatory), <code>action</code> (mandatory), <code>label</code> (optional but recommended) and <code>value</code> (optional non-negative integer). Note that if you don't adhere to this, your data will not get stored to Google Analytics! Anyways, we'd like to set up the event with the following data:
     </p>
-    <table>
+    <table class="pure-table">
       <tr>
         <td>Category</td>
         <td>Last part of page path. For example <code>from www.mydomain.com/hello?bla=5</code>, it would be <code>hello</code></td>
@@ -102,6 +102,9 @@
     </p>
     <p>
       With this we finally have it all together. A good baseline tracking, and all of this with 1 tag and 1 trigger!
+    </p>
+    <p>
+      A final word of caution: If your company or project has strict rollout guidelines, it might not be appropriate for you to set up those custom JavaScript GTM variables directly in GTM. In GTM you won't have git as source control (even though GTM is also versioned) and more importantly, once you'll hit "Submit" everything will be live instantly (unless you introduce different environments).
     </p>
   
   </article>

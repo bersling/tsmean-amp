@@ -105,7 +105,7 @@ getMyTodos.then((todos) => {
 });
 </pre>
 <p>
-    Fiddle: https://tsfiddle.tsmean.com/fiddle/9wdLwbjP
+    Fiddle: <a href="https://tsfiddle.tsmean.com/fiddle/9wdLwbjP">https://tsfiddle.tsmean.com/fiddle/9wdLwbjP</a>
 </p>
 <p>
     This reveals the second property of async / await. <b>An async function returns a promise!</b> If you scroll back up to the async / await example, you'll see how on <code>getMyTodos</code> a <code>.then</code> call is made. To be more precise, it's an already resolved promise. But why does async await wrap our return value in a promise, doesn't make this consuming the return value more complicated? Well, in this simple case yes. But consider you have an async function where you want to invoke another async function. Then it's useful that you get a promise, since this allows you to await async functions. All clear? Here's an example, based on the <code>getMyTodos async-function from the top</code>:
@@ -141,7 +141,7 @@ getMyTodos
     });
 </pre>
 <p>
-        https://tsfiddle.tsmean.com/fiddle/N1aMAaWm
+  Fiddle: <a href="https://tsfiddle.tsmean.com/fiddle/N1aMAaWm">https://tsfiddle.tsmean.com/fiddle/N1aMAaWm</a>
 </p>
 <p>
     We could also use one common error handler function <code>handleError</code> that we then pass to all the catches if we don't want to handle each catch individually.
