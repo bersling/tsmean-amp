@@ -37,7 +37,6 @@ const partials = {
   'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
   'header': buildPartial('components/header/header.html'),
   'learnMore': buildPartial('components/learn-more/learn-more.html'),
-  'gorrion': buildPartial('components/gorrion/gorrion.html'),
   'logoAccent': buildPartial('components/logo/accent.html'),
   'logoPrimary': buildPartial('components/logo/primary.html'),
   'logoWhite': buildPartial('components/logo/white.html'),
