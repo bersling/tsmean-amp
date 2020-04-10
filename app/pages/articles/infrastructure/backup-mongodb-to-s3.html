@@ -1,0 +1,193 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Backup MongoDB</title>
+  <meta name="description" content="Backing up your MongoDB is of utmost importance. Here's how you do it.">
+  <meta name="keywords"
+        content="MongoDB, Mongo, mongodump, AWS, S3">
+  <link rel="author" content="Daniel Niederberger" href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical" href="https://www.tsmean.com/articles/infrastructure/backup-mongodb-to-s3" />
+  
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    
+    <div class="jumbo-image-wrapper">
+      <div class="jumbo-image-wrapper">
+        <amp-img class="jumbo-image"
+                 alt="AWS S3 Logo"
+                 width="200"
+                 height="200"
+                 src="/assets/img/aws-s3.svg">
+        </amp-img>
+        <amp-img class="jumbo-image"
+                 alt="MongoDB Logo"
+                 width="400"
+                 height="200"
+                 src="/assets/img/mongodb.svg">
+        </amp-img>
+      </div>
+    </div>
+    
+    <h1 class="jumbo-title">
+      Backup MongoDB to AWS S3
+    </h1>
+    
+    <div class="meta-header">
+      <div class="updated">April 2020</div>
+    </div>
+  </div>
+  
+  <article class="flex-auto">
+    <h2>Backing up to S3</h2>
+    <p>
+      I don't think I need to tell you how important it is to back up your production database. Having said this, a replica set is NOT what I mean when I say "backing up". A replica set is always synced, so if something bad happens to your data, the bad things are synced to the replica. What you need is a scheduled backup for the worst case scenario. And what could be better suited to store a database dump than S3? So here we're going to learn how to backup a MongoDB to S3, but you could basically use this knowledge to backup any database (MySQL, Postgres, ...).
+    </p>
+    <p>
+      This article aims at people that are hosting their database themselves. People that rent servers, install MongoDB on those servers and maintain the setup themselves. There are also managed MongoDB setups, like for example Atlas, that would take care of those concerns for you.
+    </p>
+    
+    <h3>The backup script</h3>
+    <p>
+      So let's get started with the final script and then let's disassemble it.
+    </p>
+    <pre>#!/bin/bash
+    
+# Set up necessary variables
+backup_name=backup_`date +%Y-%m-%d-%H%M`
+backup_path=~/s3-backups/$backup_name
+log_path=~/s3-backups/$backup_name.log
+s3_location=s3://my-backups/$backup_name
+
+# Dump the database
+mongodump --out $backup_path &> $log_path
+
+# Upload to S3
+aws s3 cp $backup_path $s3_location --recursive &>> $log_path
+
+# Send parts of the logs by email to check if everything went well
+grep -hnr "done dumping" $log_path | mail -s "Backup Status: Dumped Collections" youremail@example.com
+aws s3 ls $s3_location --recursive | wc -l | mail -s "Backup Status: Upload" youremail@example.com
+
+# Cleanup
+rm -rf $backup_path
+</pre>
+    
+    <p>
+      So what we're doing here is we:
+    </p>
+    <ol>
+      <li>
+        Set up the varibles we need
+      </li>
+      <li>
+        Run <code>mongodump</code>. If you're using another database system, this will be a different command
+      </li>
+      <li>
+        Upload it to S3
+      </li>
+      <li>
+        Send an email, to verify that everything worked (optional)
+      </li>
+      <li>
+        Remove the dump, so you're not running out of disk space.
+      </li>
+    </ol>
+  
+    <h3>The steps needed to make the script work</h3>
+    <p>
+      To make this work, we still have a few missing parts. You will need to:
+    </p>
+    <ol>
+      <li>
+        Create an S3 bucket "my-backups".
+      </li>
+      <li>
+        Create a Lifecycle Rule for your bucket (optional but recommended). You can read more about creating life cycle rules at: <a href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-lifecycle.html">https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-lifecycle.html</a>. I've created a rule, that archives backups to AWS Glacier DeepArchive after one week and permanently erases them after two months.
+      </li>
+      <li>
+        In AWS IAM, create a new policy:
+        <amp-accordion>
+          <section>
+            <h5 class="file-label-two">Show Policy</h5>
+            <pre>{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-backups"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-backups/*"
+            ]
+        }
+    ]
+}</pre>
+          </section>
+        </amp-accordion>
+        Also create a user in IAM and attach the created policy to that user.
+      </li>
+      <li>
+        Install the aws-cli. You could just run <code>sudo apt-get install aws</code> to do so. Then run <code>aws configure</code> to grant the scripts access to AWS. Configure with the Access Key and Secret you obtained for the user created previously.
+      </li>
+      <li>
+        Install the email client (optional). I've described how this works in a separate article here: <a href="/article/how-to-send-mail-from-the-command-line">Sending Emails from Ubuntu</a>
+      </li>
+    </ol>
+    <p>
+      You can now check if everything is working correctly by running your script: <code>./backup-s3.sh.</code> (after you've ran <code>chmod +x ./backup-s3.sh</code>)
+    </p>
+    
+    <h3>The cron job</h3>
+    <p>
+      Now there is one missing piece to the puzzle. Your script needs to be scheduled! Here, a cronjob comes in handy. You can set up a new cronjob by running <code>crontab -e</code>. Then you can insert the following script:
+    </p>
+    <pre>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+0 * * * * ./backup-s3.sh
+</pre>
+    <p>
+      The first line is important, otherwise the cronjob doesn't have access to your aws cli. This is the script for an hourly backup. You can adapt it to your needs.
+    </p>
+    <p>
+      Well, that's it! Now you have backups, and you'll also be informed about the status of the backups. Of course, the status update once an hour might get a bit annoying. You can change the backup script, such that it just sends the mails once a day:
+    </p>
+    <pre>if [[ "$backup_name" == *"0600" ]]; then
+  # send the mail
+fi</pre>
+    <p>
+      This would just send the logs generated at 6 am.
+    </p>
+    
+    <h3>Final Notes</h3>
+    <p>
+      You should run this script on the replica server and not the primary database server. This takes the load off of the critical server. See for example <a href="https://dba.stackexchange.com/questions/156197/mongodump-affects-app-performance-really-bad">this Stackoverflow discussion</a>.
+    </p>
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

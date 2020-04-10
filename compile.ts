@@ -87,7 +87,10 @@ addPagesToDirectory(
 );
 addPagesToDirectory(
   'articles/infrastructure',
-  ['how-to-send-mail-from-the-command-line'],
+  [
+    'how-to-send-mail-from-the-command-line',
+    'backup-mongodb-to-s3'
+  ],
   pages
 );
 addPagesToDirectory(
