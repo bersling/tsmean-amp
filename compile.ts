@@ -86,6 +86,11 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/infrastructure',
+  ['how-to-send-mail-from-the-command-line'],
+  pages
+);
+addPagesToDirectory(
   'articles/motivation',
   ['typescript-mean'],
   pages

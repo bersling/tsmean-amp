@@ -1,0 +1,83 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>How to send mail from the command line</title>
+  <meta name="description" content="Sending e-mails from your server is actually quite easy. Here's how you can do it.">
+  <meta name="keywords"
+        content="Ubuntu, ssmtp, Send emails">
+  <link rel="author" content="Daniel Niederberger" href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical" href="https://www.tsmean.com/articles/infrastructure/how-to-send-mail-from-the-command-line" />
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    
+    <div class="jumbo-image-wrapper">
+      <div class="jumbo-image-wrapper">
+        <amp-img class="jumbo-image"
+                 alt="Gmail Logo"
+                 width="200"
+                 height="200"
+                 src="/assets/img/gmail.svg">
+        </amp-img>
+        </amp-img>
+      </div>
+    </div>
+    
+    <h1 class="jumbo-title">
+      Sending Mails from your Ubuntu Server
+    </h1>
+    
+    <div class="meta-header">
+      <div class="updated">April 2020</div>
+    </div>
+  </div>
+  
+  <article class="flex-auto">
+    <h2>How can I send mails from the command line?</h2>
+    <p>
+      The first thing you'll need is a gmail account, that is dedicated to this purpose. So go ahead and create one. Then what you need to do is to also allow "less secure apps" to send e-mails. You can do that at
+      <a href="https://myaccount.google.com/lesssecureapps">https://myaccount.google.com/lesssecureapps</a>.
+    </p>
+    <p>
+      After having set up your Gmail Account for sending mails, you can log in to your server and run through the following steps.
+    </p>
+    <ol>
+      <li>
+        <pre>sudo apt-get install ssmtp mailutils</pre>
+      </li>
+      <li>
+        Open the following file in your favorite text editor (vim, nano, ...):
+        <pre>nano /etc/ssmtp/ssmtp.conf</pre>
+      </li>
+      <li>
+        Append the following lines:
+        <pre>root=username@gmail.com
+mailhub=smtp.gmail.com:465
+rewriteDomain=gmail.com
+AuthUser=username@gmail.com
+AuthPass=password
+FromLineOverride=YES
+UseTLS=YES</pre>
+      </li>
+      <li>
+        Finally, send mails like this: <pre>echo "Hi there!" | mail -s "My Subject" recipient@example.com</pre>
+      </li>
+    </ol>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
