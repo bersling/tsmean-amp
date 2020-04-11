@@ -1,0 +1,390 @@
+<!doctype html>
+<html ⚡
+      lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>The Ultimate Mustache Tutorial</title>
+  <meta name="keywords"
+        content="nginx, ssl, letsencrypt">
+  <link rel="author"
+        content="Daniel Niederberger"
+        href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/mustache/the-ultimate-mustache-tutorial"/>
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top"
+     class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <div class="jumbo-image-wrapper">
+      <amp-img class="jumbo-image"
+               alt="AWS S3 Logo"
+               width="412"
+               height="157"
+               src="/assets/img/the-ultimate-mustache-tutorial/Screen-Shot-2017-09-21-at-23.18.16--1024x390.png">
+      </amp-img>
+    </div>
+    </amp-img>
+    <h1 class="jumbo-title">
+      The Ultimate Mustache Tutorial
+    </h1>
+    <div class="meta-header">
+      <div class="written">September 2017</div>
+    </div>
+  </div>
+  
+  <article>
+    <!-- Changing the delimiter for mustache for this article -->
+    {{=<% %>=}}
+    <p>
+      <strong>Learning Mustache</strong> is <strong>a lot </strong>faster if you understand properly what it's all about
+      and learn the underlying concepts. You'll grasp a firmer understanding of Mustache by going through this tutorial,
+      than by directly diving into the official docs, which often seem confusing at first.
+    </p>
+    
+    <h2>What is Mustache?</h2>
+    <p>
+      The first thing to learn is that Mustache is <strong>NOT a templating engine</strong>. Mustache is<strong> a
+      specification for a templating language</strong>. This specification can be found
+      <a href="https://mustache.github.io/mustache.5.html">here</a>, but don't read that just yet. You're not ready yet.
+    </p>
+    <p>
+      The idea is, that you write <strong>templates</strong> that adhere to the Mustache specification, that then can be
+      <strong>compiled / rendered</strong> to create an output.
+    </p>
+    
+    <h3>What's a Templating Language and what's it for?</h3>
+    <p>
+      Let's say you want to send the same email to 100 people, except you want to personalize the salutation with their
+      respective first names. You could replace the first name by some <strong>placeholder</strong>:
+    </p>
+    <pre>Dear *|FNAME|*
+
+I hearby blablabla ...</pre>
+    <p>
+      Here I have invented (=stolen it from Mailchimp) a <strong>syntax for a</strong> <strong>placeholder</strong>:
+      *|FNAME|*
+    </p>
+    <p>
+      The mustache syntax looks a bit different. This case would be covered by the following template:
+    </p>
+    <pre>Dear {{fname}}
+
+I hearby blablabla ...</pre>
+    <p>
+      As you can see, in Mustache we have <strong>curly braces</strong> for placeholders, which look like a mustache
+      when
+      rotated 90 degrees clockwise:
+    </p>
+    
+    <amp-img class="aligncenter app-row-img"
+             layout="responsive"
+             src="/assets/img/the-ultimate-mustache-tutorial/Screen-Shot-2017-09-21-at-23.18.16--1024x390.png"
+             alt=""
+             style="max-width: 412px;"
+             width="412"
+             height="157">
+    </amp-img>
+    
+    <p>
+      Hence the name of the language. There's more to the Mustache than that, but before diving any deeper into the
+      language, it's useful to first cover another concept.
+    </p>
+    
+    <p>
+      By simply having specified a templating language and having written a template doesn't produce 100 emails for me.
+      Much like with a programming language, just learning the language doesn't actually mean you know how to run a
+      program. For example you might read in your first JavaScript tutorial that " <code>var x = 5 + 3</code> ;" is
+      JavaScript, but you might not know exactly how you could run the code. Similarly with Mustache, you might learn
+      about the language in a tutorial, but have no idea how to actually convert your templates to an output. Or to put
+      it
+      differently: How the heck can I create my 100 emails from 1 single Mustache template? You'll need a ...
+    </p>
+    
+    <h3>Templating Engine</h3>
+    <p>
+      So once a syntax aka. templating language is defined, you need <strong>a tool that</strong> <strong>fills the
+      placeholders in the template(s) with actual data and produces an output</strong>. This is called a templating
+      engine:
+    </p>
+    
+    <amp-img class="app-row-img"
+             src="/assets/img/the-ultimate-mustache-tutorial/templating_language_vs_templating_engine-1.png"
+             alt=""
+             layout="responsive"
+             style="max-width: 371px;"
+             width="371"
+             height="425">
+    </amp-img>
+    
+    <p>
+      To strech this point again, Mustache is <strong>not </strong>the templating engine. It's the
+      <strong>specification</strong> for how the <strong>template file </strong>must look like.
+    </p>
+    
+    <amp-img class="app-row-img"
+             src="/assets/img/the-ultimate-mustache-tutorial/templating_language_vs_templating_engine-2.png"
+             alt=""
+             layout="responsive"
+             style="max-width: 353px"
+             width="353"
+             height="405">
+    </amp-img>
+    
+    <p>
+      Or to come back to the example with programming languages. Mustache is the language. Not the execution
+      environment.
+      You can learn about the language in a book. But to actually use the language, you'll need a computer and something
+      that can interpret and run your code. The programming language JavaScript, for example can be ran and interpreted
+      by
+      Firefox, Chrome, Microsoft Edge and Safari, but they all use a different underlying <strong>engine </strong>to
+      interpret and run it.
+    </p>
+    
+    <h2>What's the Templating Engine for Mustache?</h2>
+    <p>
+      Like for JavaScript there, isn't just one thing that can compile Mustache. <strong>There's a multitude of tools
+      out
+      there that can take a Mustache Template, some input data, and produce an output. </strong>The multitude of tools
+      is
+      actually overwhelming. There are tools that do their job well. And then there are obsolete ones that are badly
+      maintained and don't actually adhere to the Mustache specification. So which one should you choose from the
+      multitude of options? The answer is: It depends on where and how you want to use Mustache. I will make some
+      examples
+      here, but I encourage you not to get lost in the actual links to those tools, but rather stick with the tutorial.
+      When you leave now, you'll be into the nitty gritty of how to use <strong>one tool </strong>without having the
+      greater picture.
+    </p>
+    <p>
+      <strong>Example 1</strong>: You have a Java server and want to send out emails to users. So you use our Mustache
+      Template from above for the emails and extend it a bit. So now you'd like to tell your Java code "hey, I've got a
+      mustache template and 3 users that go by the name of ["Hans", "Gertrude", "Fritz"], can you send them a welcome
+      mail"? Then your best bet would be to use the <strong>most popular Mustache Engine written in Java</strong>:
+      <a href="https://github.com/spullara/mustache.java">https://github.com/spullara/mustache.java</a> . Why? Because
+      you
+      have the <strong>data </strong>already in your Java code. The Mustache template file you can load through regular
+      I/O:
+    </p>
+    
+    <pre>// DOESN'T ACTUALLY WORK THAT WAY, BUT WAS EASIER TO ILLUSTRATE
+String[] users = {"Hans","Gertrude","Fritz"};
+for (String user : users) {
+  String renderedEmail = mf.compile("emailTemplate.mustache", user);
+  // ...then send email to user...
+}</pre>
+    <p>
+      <strong>Example 2</strong>: You have a Python server and want to send an E-Mail. Pretty much the same as above,
+      except that you'd use the <strong>most popular Mustache Engine written for Python</strong>:
+      <a href="https://github.com/defunkt/pystache">https://github.com/defunkt/pystache</a>.
+    </p>
+    <p>
+      <strong>Example 3: </strong>You just want to print 100 personalized invitations to your birthday party, but have
+      no
+      idea about coding whatsoever (which is obvious, since coders don't have 100 friends). Then unfortunately Mustache
+      is
+      not a good choice for you, since literally all engines for Mustache are connected to a <strong>programming
+      language</strong>. There isn't such a thing that takes an excel list of invitees<strong> </strong>plus a Mustache
+      template and generates 100 pdfs out of it.<em> </em>At least I haven't found something like that. Even though in
+      principle it would work since it's just a case of [Template + Input Data = Output] there just aren't enough people
+      that want to build their birthday cards that way...
+    </p>
+    <p>
+      Actually, this example 3 was really educational. We've learned that all available Mustache engines are <strong>connected
+      to programming languages</strong>. Which ones are the available languages?
+    </p>
+    <p>
+      Here's a screenshot from the official Mustache page answering that question:
+    </p>
+    <amp-img class="app-row-img"
+             layout="responsive"
+             src="/assets/img/the-ultimate-mustache-tutorial/Screen-Shot-2017-09-22-at-00.57.02-.png"
+             width="1256"
+             height="680">
+    </amp-img>
+    <p>
+      Okay, that's quite a lot of implementations. As I mentioned, some are good, some are bad. For example, the one
+      listed for "node.js" is not maintained and buggy, while the one under "JavaScript" actually also supports node.js.
+      So as you can see this list isn't the be-all end-all. Maybe some of the listed links are outdated. Maybe some
+      other
+      ones are not included. At the same time, it's still the best list that I'm aware of.
+    </p>
+    <p>
+      So now that we've covered the conceptual basics, we can dive deeper into the Mustache Templating language. But
+      let's
+      first repeat what we've learned so far:
+    </p>
+    <ul>
+      <li>Mustache is a templating language, not a templating engine</li>
+      <li>There are tons of implementations for mustache engines, but be careful when choosing since not all are good.
+      </li>
+    </ul>
+    <h2>Learning the Mustache Template Syntax</h2>
+    <p>
+      Now for the rest of the tutorial you have two choices. Either you select a templating engine from above and learn
+      how it works. Then you can actually test the examples on your machine, which makes it a bit more tangible. But
+      since
+      Mustache is just a language, you might also be lying at a beach right now, slurping your drink, and reading the
+      rest
+      of the tutorial.
+    </p>
+    
+    <h3>The Basics</h3>
+    <p>
+      We already have seen our very first template above, but let's repeat it in a similar fashion because it was so
+      beautiful:
+    </p>
+    <pre><span style="color: #ff0000;">Hello {{planet}}</span></pre>
+    <pre><span style="color: #0000ff;">{</span>
+<span style="color: #0000ff;">  "planet": "Earth"</span>
+<span style="color: #0000ff;">}</span></pre>
+    <p>
+      We choose JSON to describe our data here, but this would depend on the engine you're using.
+    </p>
+    <p>
+      The template plus the data would produce the output:
+    <pre><span style="color: #339966;">Hello Earth</span></pre>
+    Now depending on your tool this output might be stored in a variable of your program or written to the filesystem.
+    For example, the JavaScript mustache engine has two modes: Either it can be used as a command line tool to produce
+    files, or it could be used to dynamically render html files.
+    </p>
+    
+    <h3>Conditionals</h3>
+    <p>
+      In Mustache, there are no if and else statements and also no loops. That's why they call it logic-less templating.
+      At least they're <strong>not directly represented as keywords in the templating language</strong>. It is however
+      possible to conditionally show or hide a block of text. And this is how:
+    </p>
+    
+    <p>
+      Mustache Template:
+    <pre><span style="color: #ff0000;">Hello
+{{#myCondition}}</span>
+<span style="color: #ff0000;">  la di da</span>
+<span style="color: #ff0000;">{{/myCondition}}</span></pre>
+    Data:
+    <pre><span style="color: #0000ff;">{</span>
+<span style="color: #0000ff;">  "myCondition": false</span>
+<span style="color: #0000ff;">}</span></pre>
+    Output:
+    <pre><span style="color: #339966;">Hello</span></pre>
+    </p>
+    
+    <h3>Loops through Arrays / Lists</h3>
+    <p>
+      Loops are also not represented directly in the mustache language, but indirectly via the data and how the mustache
+      specification specifies behaviour when the data is an array.
+    </p>
+    
+    <p>
+      Data:
+    <pre><span style="color: #0000ff;">{</span>
+<span style="color: #0000ff;">  "users": ["Hans", "Fritz", "Geraldine"]</span>
+<span style="color: #0000ff;">}</span></pre>
+    Mustache Template:
+    <pre><span style="color: #ff0000;">{{#users}}</span>
+<span style="color: #ff0000;">  {{.}}</span>
+<span style="color: #ff0000;">{{users}}</span></pre>
+    Output:
+    <pre><span style="color: #339966;">Hans</span>
+<span style="color: #339966;">Fritz</span>
+<span style="color: #339966;">Geraldine</span></pre>
+    If you want all names on the same line, you'll have to write {{#users}}{{.}} {{/users}} on one line in the template
+    (and put a space in there for legibility).
+    </p>
+    
+    <p>
+      The elements could also be objects instead of strings, in which case access is given by just writing the property
+      names into the brackets:
+    </p>
+    
+    Data:
+    <pre><span style="color: #0000ff;">{</span>
+<span style="color: #0000ff;">  "users": [{
+    "name": "Hans"
+  }, {
+    "name": "Fritz"
+  }, {
+    "name": "Geraldine"
+  }]</span>
+<span style="color: #0000ff;">}</span></pre>
+    Mustache Template:
+    <pre><span style="color: #ff0000;">{{#users}}</span>
+<span style="color: #ff0000;">  {{name}}</span>
+<span style="color: #ff0000;">{{users}}</span></pre>
+    Output:
+    <pre><span style="color: #339966;">Hans</span>
+<span style="color: #339966;">Fritz</span>
+<span style="color: #339966;">Geraldine</span></pre>
+    <h3>Using templates inside of templates: "Partials"</h3>
+    One Mustache template can load another template. The specification states that this should work with the syntax
+    <pre><span style="color: #ff0000;">I am a template and I'm loading</span>
+<span style="color: #ff0000;">{{&gt; template2 }}</span>
+<span style="color: #ff0000;">and now I continue</span></pre>
+    This works fine as long as template2 doesn't require template1, then you'll get an infinite recursion which your
+    templating engine can't handle.
+    <h3>Passing Data to Partials</h3>
+    Passing data to partials is actually a bit tricky and one of the things that took me the longest to figure out. It
+    works like this:
+    <pre><span style="color: #ff0000;">{{#buttonOne}}
+  {{&gt; mybutton}}
+{{/buttonOne}}
+{{#buttonTwo}}
+  {{&gt; mybutton}}
+{{/buttonTwo}}</span></pre>
+    and in the
+    <span style="font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;">
+      <span style="font-size: 15px;">data</span>
+    </span>
+    you’d specify
+    <pre><span style="color: #0000ff;">{
+  "buttonOne": {
+    "title": "Cancel"
+  },
+  "buttonTwo": {
+    "title": "Save"
+  }
+}</span></pre>
+    In the partial there could be the code
+    <pre><span style="color: #ff0000;">&lt;button class="my-cool-button"&gt;{{title}}&lt;/button&gt;</span></pre>
+    The result would print
+    <pre><span style="color: #339966;">&lt;button class="my-cool-button"&gt;Cancel&lt;/button&gt;
+&lt;button class="my-cool-button"&gt;Save&lt;/button&gt;
+</span></pre>
+    <h3>Comments</h3>
+    <p>
+      Comments begin with an exclamation point and are ignored. The following template:
+    <pre><span style="color: #ff0000;">&lt;h1&gt;Hello{{! ignore me }}.&lt;/h1&gt;</span></pre>
+    Will render as follows:
+    <pre><span style="color: #339966;">&lt;h1&gt;Hello.&lt;/h1&gt;</span></pre>
+    Comments may contain newlines.
+    </p>
+    
+    <h2>Summarized Learnings</h2>
+    <p>
+      Grasping the concepts at first isn't easy because there are so many different implementations of Mustache and
+      they're often confused with the actual Mustache specification. Yet through a clear separation, the Mustache
+      <strong>language </strong>can
+      be learned independently, and then the skills can be used together with a <strong>carefully chosen </strong>engine
+      (since not all of them are good or adhere to the <a href="https://mustache.github.io/mustache.5.html">official
+      Mustache specs</a>). Thanks for reading the tutorial, I hope you learned a lot, don't forget to subscribe if
+      you're
+      interested in Web Development and share the post with friends!
+    </p>
+    
+    <!-- Changing back the mustache delimiter -->
+    <%={{ }}=%>
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>www vs non-www and http vs https for SEO</title>
+  <meta name="keywords"
+        content="http, https, www, non-www">
+  <link rel="canonical" href="https://www.tsmean.com/articles/how-to-setup-www-vs-non-www-for-seo" />
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top" class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/002-product.svg">
+    </amp-img>
+    
+    <h1 class="jumbo-title">
+      www vs non-www and http vs https for SEO
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">Apri 2016</span>
+    </div>
+  
+  </div>
+  
+  <article class="flex-auto">
+    <p>When learning about SEO, you have probably read that you should only use www or non-www and only http or https. This begs the question: What does "only" even mean? Does it mean in all your blogs and PR events you must link consistently to https://www.example.com or is a forward from http://example.com to https://www.example.com good enough? My research for this suggests that a forward is enough and you do not need to worry, as long as you register all the versions of your site in the Google Search Console.</p>
+    <p>Nowadays if you have a somewhat potent webapp, you probably need users to login and therefore you need SSL (https). Whether you use www or non-www doesn't matter as long as you are consistent. Quora.com redirects to www and stackoverflow redirects to non-www, so you have examples of two sites that are good at SEO with different settings.</p>
+    <p>Now lets say we want to setup our www https page. What we can't do is a 301 permanent redirect on the registrar, since they can't redirect https non-www. So we will have to write the redirects on our own servers. So in the end we will have:</p>
+  
+    <pre>A record: @ pointing to &lt;my_IP&gt;
+CNAME alias: www pointing to @
+</pre>
+    <p>while the redirects non-www to www and http to https happen on the server. <a href="http://www.bersling.com/2016/04/22/install-ssl-certificate-through-letsencrypt-on-nginx/">Here is an example for how to redirect from http to https using nginx</a>.</p>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,121 @@
+<!doctype html>
+<html ⚡
+      lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Backup MongoDB</title>
+  <meta name="keywords"
+        content="nginx, ssl, letsencrypt">
+  <link rel="author"
+        content="Daniel Niederberger"
+        href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/infrastructure/host-static-files-with-apache-on-digitalocean"/>
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top"
+     class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <h1 class="jumbo-title">
+      Host static files with Apache on Digital Ocean
+    </h1>
+    <div class="meta-header">
+      <div class="written">April 2016</div>
+    </div>
+  </div>
+  
+  <article>
+    <h2>1. Setup Digital Ocean Server</h2>
+    <p>Login or create an account and spin up a new ubuntu 14.04 droplet at <a href="http://www.digitalocean.com">www.digitalocean.com</a>,
+      it is pretty self explanatory. In the options, you should choose login through SSH if you want to follow this
+      article step by step.</p>
+    <p>Then login to your Server:
+      <code>ssh root@
+        <span>&lt;yourIp&gt;</span>
+      </code> (e.g. ssh root@46.101.131.21).
+    </p>
+    
+    <h2>2. Install Apache</h2>
+    <p><code>sudo apt-get update</code>
+      <code>sudo apt-get install apache2</code>
+      When you type
+      <span>&lt;yourIp&gt;
+        <span>into your browser (e.g.
+          <amp-img class="alignnone wp-image-36"
+                   src="/assets/img/host-static-files-with-apache-on-digitalocean/Screen-Shot-2016-04-29-at-12.12.09--300x70.png"
+                   alt="Screen Shot 2016-04-29 at 12.12.09"
+                   width="124"
+                   height="29">
+          </amp-img>
+          ), y
+        </span>
+      </span>
+      ou should now be able to see the following:
+      <amp-img class="alignnone size-medium wp-image-37"
+               src="/assets/img/host-static-files-with-apache-on-digitalocean/Screen-Shot-2016-04-29-at-12.10.23--300x59.png"
+               alt="Screen Shot 2016-04-29 at 12.10.23"
+               width="300"
+               height="59"></amp-img>
+    </p>
+    
+    <h2>3. Change index.html</h2>
+    <p>Now "hosting static files" can mean two things. Either you want to host something like mycoolfile.txt or you want
+      a classic website.</p>
+    
+    <h3>Option 1: Host files for downloading</h3>
+    <ol>
+      <li>Switch directory to <code>cd /var/www/html</code> and remove the index.html file (<code>rm index.html</code>)
+      </li>
+      <li>Copy the files to your server. Navigate to the directory containing your file in a new terminal window and
+        <code>scp mycoolfile.txt root@&lt;yourIp&gt;:/var/www/html</code>.
+      </li>
+    </ol>
+    <p>You should see the following result when navigating to yourIp in your browser:</p>
+    <p>
+      <amp-img class="alignnone size-medium wp-image-39"
+               src="/assets/img/host-static-files-with-apache-on-digitalocean/Screen-Shot-2016-04-29-at-12.40.03--300x154.png"
+               alt="Screen Shot 2016-04-29 at 12.40.03"
+               width="300"
+               height="154">
+        <amp-img>
+    </p>
+    
+    <h3>Option 2: Host your personal website</h3>
+    <ol>
+      <li>Switch directory to <code>cd /var/www/html</code> and remove the index.html file (<code>rm index.html</code>)
+      </li>
+      <li>Then <code>nano index.html</code>. Then you can write any valid html, for example:
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Much Doge! Wow!&lt;/h2&gt;
+&lt;img src="https://s-media-cache-ak0.pinimg.com/736x/ee/b7/71/eeb771122eebac79dda2eb99d43e3d82.jpg" alt="Doge" width=300px&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+        <p>which should yield:
+          <amp-img class="alignnone size-medium wp-image-40"
+                   src="/assets/img/host-static-files-with-apache-on-digitalocean/Screen-Shot-2016-04-29-at-12.54.40--300x232.png"
+                   alt="Screen Shot 2016-04-29 at 12.54.40"
+                   width="300"
+                   height="232"></amp-img>
+        </p>
+      </li>
+    </ol>&nbsp;
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

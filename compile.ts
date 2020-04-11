@@ -86,10 +86,27 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/seo',
+  [
+    'how-to-setup-www-vs-non-www-for-seo'
+  ],
+  pages
+);
+addPagesToDirectory(
   'articles/infrastructure',
   [
     'how-to-send-mail-from-the-command-line',
-    'backup-mongodb-to-s3'
+    'backup-mongodb-to-s3',
+    'install-ssl-certificate-through-letsencrypt-on-nginx',
+    'host-static-files-with-apache-on-digitalocean',
+    'password-protect-parts-of-your-website'
+  ],
+  pages
+);
+addPagesToDirectory(
+  'articles/mustache',
+  [
+    'the-ultimate-mustache-tutorial'
   ],
   pages
 );
