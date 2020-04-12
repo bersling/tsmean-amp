@@ -30,7 +30,7 @@
                alt="AWS S3 Logo"
                width="412"
                height="157"
-               src="/assets/img/the-ultimate-mustache-tutorial/Screen-Shot-2017-09-21-at-23.18.16--1024x390.png">
+               src="/assets/img/the-ultimate-mustache-tutorial/mustache-logo.png">
       </amp-img>
     </div>
     </amp-img>
@@ -38,7 +38,7 @@
       The Ultimate Mustache Tutorial
     </h1>
     <div class="meta-header">
-      <div class="written">September 2017</div>
+      <div class="updated">April 2020</div>
     </div>
   </div>
   
@@ -50,7 +50,6 @@
       and learn the underlying concepts. You'll grasp a firmer understanding of Mustache by going through this tutorial,
       than by directly diving into the official docs, which often seem confusing at first.
     </p>
-    
     <h2>What is Mustache?</h2>
     <p>
       The first thing to learn is that Mustache is <strong>NOT a templating engine</strong>. Mustache is<strong> a
@@ -88,7 +87,7 @@ I hearby blablabla ...</pre>
     
     <amp-img class="aligncenter app-row-img"
              layout="responsive"
-             src="/assets/img/the-ultimate-mustache-tutorial/Screen-Shot-2017-09-21-at-23.18.16--1024x390.png"
+             src="/assets/img/the-ultimate-mustache-tutorial/mustache-logo.png"
              alt=""
              style="max-width: 412px;"
              width="412"
@@ -206,16 +205,16 @@ for (String user : users) {
     </p>
     <amp-img class="app-row-img"
              layout="responsive"
-             src="/assets/img/the-ultimate-mustache-tutorial/Screen-Shot-2017-09-22-at-00.57.02-.png"
+             src="/assets/img/the-ultimate-mustache-tutorial/available-mustache-languages.png"
              width="1256"
              height="680">
     </amp-img>
     <p>
-      Okay, that's quite a lot of implementations. As I mentioned, some are good, some are bad. For example, the one
-      listed for "node.js" is not maintained and buggy, while the one under "JavaScript" actually also supports node.js.
-      So as you can see this list isn't the be-all end-all. Maybe some of the listed links are outdated. Maybe some
-      other
-      ones are not included. At the same time, it's still the best list that I'm aware of.
+      Okay, that's quite a lot of implementations. As I mentioned, some are good, some are bad. For example, there was
+      one listed for "node.js" which wasn't maintained and was quite buggy, while the one under "JavaScript" actually
+      also supports node.js. They now removed that one from the list, but as you can see this list isn't the be-all
+      end-all. Maybe some of the listed links are outdated. Maybe some other ones are not included. At the same time,
+      it's still the best list that I'm aware of.
     </p>
     <p>
       So now that we've covered the conceptual basics, we can dive deeper into the Mustache Templating language. But
@@ -277,6 +276,16 @@ for (String user : users) {
     Output:
     <pre><span style="color: #339966;">Hello</span></pre>
     </p>
+    <p>
+      At first, this syntax might look a bit weird to you. But it get's clearer once we read those sections from the
+      docs (a bit adjust by me):
+    </p>
+    <blockquote>[Mustache] works by expanding <b>tags</b> in a template using values provided in a hash or object. [...]
+      A <b>section</b> begins with a pound and ends with a slash. That is, {{#person}} begins a "person" section while
+      {{/person}} ends it. If the person key exists and has a value of false or an empty list, the <b>[content]
+        between</b> the pound and slash will not be displayed. [...] If the person key exists and has a non-false value,
+      the [content] between the pound and slash will be rendered and displayed.
+    </blockquote>
     
     <h3>Loops through Arrays / Lists</h3>
     <p>
@@ -292,7 +301,7 @@ for (String user : users) {
     Mustache Template:
     <pre><span style="color: #ff0000;">{{#users}}</span>
 <span style="color: #ff0000;">  {{.}}</span>
-<span style="color: #ff0000;">{{users}}</span></pre>
+<span style="color: #ff0000;">{{/users}}</span></pre>
     Output:
     <pre><span style="color: #339966;">Hans</span>
 <span style="color: #339966;">Fritz</span>
@@ -303,7 +312,7 @@ for (String user : users) {
     
     <p>
       The elements could also be objects instead of strings, in which case access is given by just writing the property
-      names into the brackets:
+      names into the braces:
     </p>
     
     Data:
@@ -319,11 +328,13 @@ for (String user : users) {
     Mustache Template:
     <pre><span style="color: #ff0000;">{{#users}}</span>
 <span style="color: #ff0000;">  {{name}}</span>
-<span style="color: #ff0000;">{{users}}</span></pre>
+<span style="color: #ff0000;">{{/users}}</span></pre>
     Output:
+    
     <pre><span style="color: #339966;">Hans</span>
 <span style="color: #339966;">Fritz</span>
 <span style="color: #339966;">Geraldine</span></pre>
+    
     <h3>Using templates inside of templates: "Partials"</h3>
     One Mustache template can load another template. The specification states that this should work with the syntax
     <pre><span style="color: #ff0000;">I am a template and I'm loading</span>
@@ -331,7 +342,8 @@ for (String user : users) {
 <span style="color: #ff0000;">and now I continue</span></pre>
     This works fine as long as template2 doesn't require template1, then you'll get an infinite recursion which your
     templating engine can't handle.
-    <h3>Passing Data to Partials</h3>
+    
+    <h4>Passing Data to Partials</h4>
     Passing data to partials is actually a bit tricky and one of the things that took me the longest to figure out. It
     works like this:
     <pre><span style="color: #ff0000;">{{#buttonOne}}
@@ -359,6 +371,12 @@ for (String user : users) {
     <pre><span style="color: #339966;">&lt;button class="my-cool-button"&gt;Cancel&lt;/button&gt;
 &lt;button class="my-cool-button"&gt;Save&lt;/button&gt;
 </span></pre>
+    <p>
+      You can think about it like this: The surrounding <code>{{#buttonOne}}...{{/buttonOne}}</code> is setting the <b>context</b>
+      to <code>buttonOne</code> in the input data. Then the partial inherits this context and replaces the variable
+      <code>title</code> accordingly.
+    </p>
+    
     <h3>Comments</h3>
     <p>
       Comments begin with an exclamation point and are ignored. The following template:
@@ -367,6 +385,75 @@ for (String user : users) {
     <pre><span style="color: #339966;">&lt;h1&gt;Hello.&lt;/h1&gt;</span></pre>
     Comments may contain newlines.
     </p>
+    
+    <h3>Further reading</h3>
+    <p>
+      There are some concepts we haven't discussed here, such as for example Lambdas. If you want to learn about those
+      concepts, I suggest you head over to the
+      <a href="https://mustache.github.io/mustache.5.html">Original Mustache Specs</a>.
+    </p>
+    
+    <h2>An Example with an Actual Templating Engine</h2>
+    <p>
+      So now that we've learned a bit about the mustache <b>language</b>, it is time that we also look at an example of a templating engine. After all, just knowing the language usually isn't your goal, you want to be able to use the language to get a job done. And the templating engine gets the job done, once you provide it with a template and the input data.
+    </p>
+    <p>
+      Let's take the JavaScript templating engine found here https://github.com/janl/mustache.js, since Mustache seems to be most commonly used together with JavaScript.
+    </p>
+    <p>
+      So you'd get started by installing the templating engine like this:
+    </p>
+    <pre>mkdir mustache-tutorial
+cd mustache-tutorial
+npm init</pre>
+    <p>Hit enter a few times, then:</p>
+    <pre>npm install mustache</pre>
+    <p>
+      Then you can create the <b>template file</b> called <code>letter-template.mustache</code> and put the following template in there:
+    </p>
+    <pre>I hereby greet all my friends.
+{{#users}}
+  Hello {{name}}
+{{/users}}
+
+Nice knowing y'all!</pre>
+    <p>
+      Now we also need a second file, that specifies who my friends are! So we'll put the friendlist from above in a JSON called <code>friends.json</code>
+    </p>
+    <pre>{
+  "users": [{
+    "name": "Hans"
+  }, {
+    "name": "Fritz"
+  }, {
+    "name": "Geraldine"
+  }]
+}</pre>
+    <p>
+      And now the final step. Combining the <b>template</b> and the <b>data</b>. If you look at the schematics above, this is where the templating engine comes into play. With the JavaScript engine, it'll now work like this:
+    </p>
+    <pre>npx mustache friends.json letter-template.mustache > letter.txt</pre>
+    <p>
+      Now if you look what you have produced (<code>cat letter.txt</code>), you'll see the following:
+    </p>
+    <pre>I hereby greet all my friends.
+  Hello Hans
+  Hello Fritz
+  Hello Geraldine
+
+Nice knowing y'all!
+</pre>
+    <p>You'll notice, that all the "Hello ..." lines are indented by two spaces. That's because they are also indented in the template. So to get rid of those spaces, change the template to:</p>
+    <pre>I hereby greet all my friends.
+{{#users}
+Hello {{name}}
+{{/users}}
+
+Nice knowing y'all!</pre>
+    <p>
+      Well, and that's it!
+    </p>
+    
     
     <h2>Summarized Learnings</h2>
     <p>
