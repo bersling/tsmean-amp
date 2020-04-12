@@ -239,23 +239,32 @@ for (String user : users) {
     <h3>The Basics</h3>
     <p>
       We already have seen our very first template above, but let's repeat it in a similar fashion because it was so
-      beautiful:
+      beautiful.
+    </p>
+    <p>
+      Mustache Template:
     </p>
     <pre><span style="color: #ff0000;">Hello {{planet}}</span></pre>
+    <p>
+      Input Data:
+    </p>
     <pre><span style="color: #0000ff;">{</span>
 <span style="color: #0000ff;">  "planet": "Earth"</span>
 <span style="color: #0000ff;">}</span></pre>
     <p>
-      We choose JSON to describe our data here, but this would depend on the engine you're using.
+      We choose JSON to describe our data here, but this would depend on the engine you're using. If you throw the <span style="color: #ff0000;">mustache template</span> plus the <span style="color: #0000ff;">input data</span> at a templating engine, it should (if it's not buggy) produce the following <span style="color: #339966;">output</span>:
+    </p>
+    <pre><span style="color: #339966;">Hello Earth</span></pre>
+    <p>
+      So the templating engine <b>replaces</b> (also known as <b>expands</b>) the <b>tags</b> (the curly brace things) with what it finds in the input data. If in the template it's written: <code>{{someVariableName}}</code>, the engine will search the input data for the key "someVariableName" and replace the tag with the value it finds for this key. Here, "planet" was the lookup key and "Earth" was the value the engine found for this key.
     </p>
     <p>
-      The template plus the data would produce the output:
-    <pre><span style="color: #339966;">Hello Earth</span></pre>
-    Now depending on your tool this output might be stored in a variable of your program or written to the filesystem.
-    For example, the JavaScript mustache engine has two modes: Either it can be used as a command line tool to produce
-    files, or it could be used to dynamically render html files.
+      Now, depending on your chosen templating engine, the output might be stored in a variable of your program or written to the
+      filesystem.
+      For example, the JavaScript mustache engine has two modes: Either it can be used as a command line tool to produce
+      files, or it could be used to dynamically render html files.
     </p>
-    
+
     <h3>Conditionals</h3>
     <p>
       In Mustache, there are no if and else statements and also no loops. That's why they call it logic-less templating.
@@ -278,7 +287,7 @@ for (String user : users) {
     </p>
     <p>
       At first, this syntax might look a bit weird to you. But it get's clearer once we read those sections from the
-      docs (a bit adjust by me):
+      docs, which I have changed slightly:
     </p>
     <blockquote>[Mustache] works by expanding <b>tags</b> in a template using values provided in a hash or object. [...]
       A <b>section</b> begins with a pound and ends with a slash. That is, {{#person}} begins a "person" section while
@@ -299,9 +308,9 @@ for (String user : users) {
 <span style="color: #0000ff;">  "users": ["Hans", "Fritz", "Geraldine"]</span>
 <span style="color: #0000ff;">}</span></pre>
     Mustache Template:
-    <pre><span style="color: #ff0000;">{{#users}}</span>
-<span style="color: #ff0000;">  {{.}}</span>
-<span style="color: #ff0000;">{{/users}}</span></pre>
+    <pre style="color: red">{{#users}}
+{{.}}
+{{/users}}</pre>
     Output:
     <pre><span style="color: #339966;">Hans</span>
 <span style="color: #339966;">Fritz</span>
@@ -326,9 +335,9 @@ for (String user : users) {
   }]</span>
 <span style="color: #0000ff;">}</span></pre>
     Mustache Template:
-    <pre><span style="color: #ff0000;">{{#users}}</span>
-<span style="color: #ff0000;">  {{name}}</span>
-<span style="color: #ff0000;">{{/users}}</span></pre>
+    <pre style="color: #ff0000;">{{#users}}
+{{name}}
+{{/users}}</pre>
     Output:
     
     <pre><span style="color: #339966;">Hans</span>
@@ -395,10 +404,14 @@ for (String user : users) {
     
     <h2>An Example with an Actual Templating Engine</h2>
     <p>
-      So now that we've learned a bit about the mustache <b>language</b>, it is time that we also look at an example of a templating engine. After all, just knowing the language usually isn't your goal, you want to be able to use the language to get a job done. And the templating engine gets the job done, once you provide it with a template and the input data.
+      So now that we've learned a bit about the mustache <b>language</b>, it is time that we also look at an example of
+      a templating engine. After all, just knowing the language usually isn't your goal, you want to be able to use the
+      language to get a job done. And the templating engine gets the job done, once you provide it with a template and
+      the input data.
     </p>
     <p>
-      Let's take the JavaScript templating engine found here https://github.com/janl/mustache.js, since Mustache seems to be most commonly used together with JavaScript.
+      Let's take the JavaScript templating engine found here https://github.com/janl/mustache.js, since Mustache seems
+      to be most commonly used together with JavaScript.
     </p>
     <p>
       So you'd get started by installing the templating engine like this:
@@ -409,18 +422,20 @@ npm init</pre>
     <p>Hit enter a few times, then:</p>
     <pre>npm install mustache</pre>
     <p>
-      Then you can create the <b>template file</b> called <code>letter-template.mustache</code> and put the following template in there:
+      Then you can create the <b>template file</b> called <code>letter-template.mustache</code> and put the following
+      template in there:
     </p>
-    <pre>I hereby greet all my friends.
+    <pre style="color: #ff0000;">I hereby greet all my friends.
 {{#users}}
   Hello {{name}}
 {{/users}}
 
 Nice knowing y'all!</pre>
     <p>
-      Now we also need a second file, that specifies who my friends are! So we'll put the friendlist from above in a JSON called <code>friends.json</code>
+      Now we also need a second file, that specifies who my friends are! So we'll put the friendlist from above in a
+      JSON called <code>friends.json</code>
     </p>
-    <pre>{
+    <pre style="color: #0000ff;">{
   "users": [{
     "name": "Hans"
   }, {
@@ -430,21 +445,23 @@ Nice knowing y'all!</pre>
   }]
 }</pre>
     <p>
-      And now the final step. Combining the <b>template</b> and the <b>data</b>. If you look at the schematics above, this is where the templating engine comes into play. With the JavaScript engine, it'll now work like this:
+      And now the final step. Combining the <b>template</b> and the <b>data</b>. If you look at the schematics above,
+      this is where the templating engine comes into play. With the JavaScript engine, it'll now work like this:
     </p>
     <pre>npx mustache friends.json letter-template.mustache > letter.txt</pre>
     <p>
       Now if you look what you have produced (<code>cat letter.txt</code>), you'll see the following:
     </p>
-    <pre>I hereby greet all my friends.
+    <pre style="color: #339966">I hereby greet all my friends.
   Hello Hans
   Hello Fritz
   Hello Geraldine
 
 Nice knowing y'all!
 </pre>
-    <p>You'll notice, that all the "Hello ..." lines are indented by two spaces. That's because they are also indented in the template. So to get rid of those spaces, change the template to:</p>
-    <pre>I hereby greet all my friends.
+    <p>You'll notice, that all the "Hello ..." lines are indented by two spaces. That's because they are also indented
+      in the template. So to get rid of those spaces, change the template to:</p>
+    <pre style="color: #ff0000;">I hereby greet all my friends.
 {{#users}
 Hello {{name}}
 {{/users}}
@@ -453,7 +470,6 @@ Nice knowing y'all!</pre>
     <p>
       Well, and that's it!
     </p>
-    
     
     <h2>Summarized Learnings</h2>
     <p>
