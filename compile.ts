@@ -72,7 +72,11 @@ addPagesToDirectory(
 );
 addPagesToDirectory(
   'articles/vs',
-  ['mongo-vs-mysql-for-webapps', 'typescript-vs-javascript'],
+  [
+    'mongo-vs-mysql-for-webapps',
+    'typescript-vs-javascript',
+    'best-browser-based-wysiwyg-for-html-in-2020'
+  ],
   pages
 );
 addPagesToDirectory(
