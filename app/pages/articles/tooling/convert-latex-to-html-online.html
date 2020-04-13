@@ -1,0 +1,75 @@
+<!doctype html>
+<html ⚡
+      lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>Convert Latex to HTML online</title>
+  <meta name="description"
+        content="Easily convert Latex to HTML online. All you need is Pandoc!">
+  <meta name="keywords"
+        content="Pandoc, Latex, HTML">
+  <link rel="author"
+        content="Daniel Niederberger"
+        href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/tooling/convert-latex-to-html-online"/>
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top"
+     class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <h1 class="jumbo-title">
+      Convert Latex to HTML online
+    </h1>
+    <div class="meta-header">
+      <div class="written">September 2017</div>
+    </div>
+  </div>
+  <article>
+    <p>
+      Yesterday I wanted to convert a snippet of latex code to html. Unfortunately, the results when Googling for "latex
+      to html online" are only cr*p. I knew a tool that was really <strong>great </strong>at converting latex <strong>files </strong>to
+      html files. This tool is called Pandoc. However, it seemed like a bit of overhead to always <strong>create </strong><strong>a
+      file</strong>, store the latex snippet, remember what the pandoc command was to convert, enter the entire command
+      (e.g. <code>pandoc mysnippet.tex -o mysnippet.html</code>), open the html file and get the snippet... That's why I'd
+      much prefer an online tool that does this chore for me. Since I couldn't find any, I implemented it myself.
+    </p>
+    
+    <p>
+      The result is open sourced, the code can be found on Github at <a href="https://github.com/bersling/latex2html">https://github.com/bersling/latex2html</a>.
+    </p>
+    
+    <p>
+      It's a small self-contained piece of code with one html file and one TypeScript file at its core.
+    </p>
+    
+    <p>
+      But here's the interesting part, if I hadn't been so bad at googling, I would have found that there is the exact
+      same functionality available at
+    </p>
+    
+    <div class="bers-box">
+      <p style="text-align: center;"><strong><a href="https://pandoc.org/try/">https://pandoc.org/try/</a> </strong></p>
+    </div>
+    
+    <p>
+      ... So there might be even a better learning for me than the additional coding experience I gained: Before you
+      build something, Google, google, google if it already exists. For example had I tried googling "convert with
+      pandoc online" this converter would have been the first hit. For me, it was a small price to pay, since I built
+      the solution in little time and it was quite fun, but if you're working on a larger project and didn't research
+      what's already out there, you're gonna have a bad time.
+    </p>
+  </article>
+  {{> articleFooter}}
+
+</body>
+</html>

@@ -1,4 +1,5 @@
 import * as Mustache from 'mustache';
+
 const fs = require('fs');
 const path = require('path');
 const ampHtmlValidator = require('amphtml-validator');
@@ -26,9 +27,9 @@ const outDirRoot = './dist';
  * All partials (=components) need to be declared here
  */
 const partialRootPath = './app/';
-const buildPartial  = (partialPath) => {
+const buildPartial = (partialPath) => {
   return fs.readFileSync(path.join(partialRootPath, partialPath), 'utf8');
-}
+};
 const partials = {
   'styles': buildPartial('styles/styles.css'),
   'articleFooter': buildPartial('components/article/article-footer.html'),
@@ -49,9 +50,8 @@ const partials = {
   'subscribeToReleases': buildPartial('components/subscribe-to-releases/subscribe-to-releases.html'),
   'valueBullets': buildPartial('components/value-bullets/value-bullets.html'),
   'analytics': buildPartial('components/analytics.html'),
-  'commonHead': buildPartial('components/common-head.html'),
-}
-
+  'commonHead': buildPartial('components/common-head.html')
+};
 
 
 /**
@@ -60,7 +60,7 @@ const partials = {
  */
 const pagesRootPath = './app/pages';
 const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing', 'alpha', 'learn-typescript/index'];
-addPagesToDirectory (
+addPagesToDirectory(
   'articles/how-to-write-a-typescript-library',
   ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'],
   pages
@@ -82,6 +82,13 @@ addPagesToDirectory(
 addPagesToDirectory(
   'articles/learn-typescript',
   ['no-implicit-any-best-practice', 'strict-null-checks-best-practice'],
+  pages
+);
+addPagesToDirectory(
+  'articles/tooling',
+  [
+    'convert-latex-to-html-online'
+  ],
   pages
 );
 addPagesToDirectory(
@@ -154,18 +161,17 @@ addPagesToDirectory(
 );
 
 
-
-
 /**
  * execute all compilation steps
  */
-async function doCompile () {
+async function doCompile() {
   compileSass();
   copyRobotsTxt();
   buildSitemap(pages);
   compileMustache();
   await validateAmp(pages);
 }
+
 doCompile();
 
 // fs.watch('./app', {
@@ -196,7 +202,7 @@ async function validateAmp(pages: string[]) {
   });
 }
 
-function compileSass () {
+function compileSass() {
   const sass = require('node-sass');
   const result = sass.renderSync({
     file: './app/styles/styles.scss',
@@ -206,7 +212,7 @@ function compileSass () {
 };
 
 function copyRobotsTxt() {
-  copyFile('./app/pages/robots.txt', './dist/robots.txt', function(err) {
+  copyFile('./app/pages/robots.txt', './dist/robots.txt', function (err) {
     if (err) {
       console.error('Error on copying robots', err);
     }
@@ -218,21 +224,21 @@ function distLocation(page: string) {
 }
 
 function compileMustache() {
-  
-    // ensure that all directories are created, so compilation doesn't fail
-    pages.forEach(page => {
-      mkdir(path.dirname(distLocation(page)));
-    });
-  
-    pages.forEach(page => {
-      const template = fs.readFileSync(path.join(pagesRootPath, `${page}.html`), {encoding: 'utf8'});
-      const renderedPage = Mustache.render(template, {
-        projectUrl: projectConstants.projectUrl
-      }, partials);
-      fs.writeFileSync(distLocation(page), renderedPage);
-    });
 
-  }
+  // ensure that all directories are created, so compilation doesn't fail
+  pages.forEach(page => {
+    mkdir(path.dirname(distLocation(page)));
+  });
+
+  pages.forEach(page => {
+    const template = fs.readFileSync(path.join(pagesRootPath, `${page}.html`), {encoding: 'utf8'});
+    const renderedPage = Mustache.render(template, {
+      projectUrl: projectConstants.projectUrl
+    }, partials);
+    fs.writeFileSync(distLocation(page), renderedPage);
+  });
+
+}
 
 function buildSitemap(pages) {
   let changedPages = [];
@@ -262,7 +268,7 @@ function buildSitemap(pages) {
  * And even less interesting, here are some helper functions...
  * ============================================================
  */
-function addPagesToDirectory (dirName: string, newPages: string[], existingPages: string[]) {
+function addPagesToDirectory(dirName: string, newPages: string[], existingPages: string[]) {
   newPages.forEach(page => {
     existingPages.push(path.join(dirName, page));
   });
@@ -272,14 +278,14 @@ function copyFile(source, target, cb) {
   var cbCalled = false;
 
   var rd = fs.createReadStream(source);
-  rd.on("error", function(err) {
+  rd.on('error', function (err) {
     done(err);
   });
   var wr = fs.createWriteStream(target);
-  wr.on("error", function(err) {
+  wr.on('error', function (err) {
     done(err);
   });
-  wr.on("close", function(ex) {
+  wr.on('close', function (ex) {
     done(ex);
   });
   rd.pipe(wr);
@@ -296,7 +302,7 @@ function copyFile(source, target, cb) {
  * synchronously creates directory (chain)
  * @param targetDir
  */
-function mkdir (targetDir: string) {
+function mkdir(targetDir: string) {
   const sep = path.sep;
   const initDir = path.isAbsolute(targetDir) ? sep : '';
   targetDir.split(sep).reduce((parentDir, childDir) => {
@@ -317,7 +323,7 @@ function formatDate(date: Date): string {
   var dd = date.getDate();
 
   return [date.getFullYear(),
-    (mm>9 ? '' : '0') + mm,
-    (dd>9 ? '' : '0') + dd
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd
   ].join('-');
 }
