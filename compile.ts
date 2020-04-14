@@ -110,7 +110,14 @@ addPagesToDirectory(
     'backup-mongodb-to-s3',
     'install-ssl-certificate-through-letsencrypt-on-nginx',
     'host-static-files-with-apache-on-digitalocean',
-    'password-protect-parts-of-your-website'
+    'password-protect-parts-of-your-website',
+  ],
+  pages
+);
+addPagesToDirectory(
+  'articles/infrastructure/gcloud',
+  [
+    'the-ultimate-google-cloud-functions-tutorial-for-nodejs'
   ],
   pages
 );
