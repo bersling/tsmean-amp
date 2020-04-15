@@ -1,0 +1,242 @@
+<!doctype html>
+<html ⚡
+      lang="en">
+<head>
+  
+  {{> commonHead}}
+  {{> articleHead}}
+  <title>The Ultimate Google Cloud Functions Tutorial for Node.js</title>
+  <meta name="description"
+        content="Want to get started with AWS Lambda using Node.js? Here's how.">
+  <meta name="keywords"
+        content="AWS, Lambda, node.js">
+  <link rel="author"
+        content="Daniel Niederberger"
+        href="https://plus.google.com/111090153962851545927"/>
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/aws/the-ultimate-aws-lambda-tutorial-for-nodejs"/>
+
+</head>
+<body>
+  
+  <!--
+  
+  Useful on Stackoverflow:
+  
+  https://stackoverflow.com/questions/34437900/how-to-load-npm-modules-in-aws-lambda
+  
+  
+  -->
+  
+  {{> analytics}}
+  
+  <a name="top"
+     class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/gcloud-logo.png"
+             alt="Google Cloud Functions Logo"
+             width="256"
+             height="256">
+    </amp-img>
+    
+    <h1 class="jumbo-title">
+      The Ultimate AWS Lambda Tutorial for Node.js
+    </h1>
+    
+    <div class="meta-header">
+      <div class="written">April 2020</div>
+    </div>
+  </div>
+  
+  <article>
+    
+    <h3>Getting Started - The Basics</h3>
+    
+    <p>
+      At first it helps to see where AWS Lambda is in the larger AWS ecosystem. There are the
+      following major categories of services that AWS is offering:
+    </p>
+    <ul>
+      <li>Compute</li>
+      <li>Containers</li>
+      <li>Storage</li>
+      <li>Database</li>
+      <li>Networking and Content Delivery</li>
+      <li>...</li>
+      <li>IoT</li>
+      <li>Quantum Technologies</li>
+      <li>Game Development</li>
+    </ul>
+    <p>
+      Soo... pretty much everyhing that you could potentially do in a cloud. It's obvious that in this jungle of
+      services it's not always all too easy to find what you need. In order to use any of those services, you'll first
+      need an account for AWS, so go ahead and create one if you haven't done so yet.
+    </p>
+    <p>
+      As you probably would have guessed, AWS Lambda are part of the Compute-Family. The compute family isn't actually
+      too extensive:
+    </p>
+    <amp-img class="app-row-img app-mw400"
+             style="border: 1px solid #eee"
+             alt="Google Cloud Offering"
+             layout="responsive"
+             width="578"
+             height="550"
+             src="/assets/img/XXXX/">
+    </amp-img>
+    <p>
+      But probably you won't be able to use AWS Lambda, without using one of the Services from that "Networking &
+      Content Delivery" family. And that service would be "AWS API Gateway". We'll learn about API Gateway in the
+      process of getting to know AWS Lambda.
+    </p>
+    <p>
+      Also take a look at the icon for AWS Lambda, which is now just the greek letter "Lambda": λ. Might be helpful for
+      better recognizability. So now that we have some sort of compass in the overall AWS ecosystem, let's dive a little
+      deeper into AWS Lambda.
+    </p>
+    <p>
+      The first step is to go to the AWS Lambda page, either by the "Find Service" Search on the AWS dashboard, or by
+      scrolling down a bit and selecting it from the full list of services under compute.
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/go-to-aws-lambda.png"></amp-img>
+    <p>
+      Then simply hit "Create function".
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-aws-lamba-function.png"></amp-img>
+    <p>
+      The defaults of the function creation interface are mostly fine, you just need to select a name for your function.
+      Let's call it "tutorial-function".
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-aws-lamba-function-interface.png"></amp-img>
+    <p>
+      After clicking "Create function", your function is actually already being created! You can test whether your
+      function is working properly, by creating a "Test". Click the "Select a test event"-Dropdown Menu and click
+      configure test. Give your test a name, for example test1 and then hit "Create". Now "test1" will be selected in
+      the dropdown menu and you can can hit "Test" to run the test. The log outputs will be printed on the screen:
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-lamba-test.png"></amp-img>
+    <p>
+      Cool, everything is working already! But we're missing one part to a real life scenario. And that is: How are we
+      going to call (also known as trigger) our function?! To call/trigger the function we actually several options. We
+      either could create a URL Endpoint, which could then be called by a server. I think that is probably the most
+      common use case. You can also use other triggers, such as when something is happening to a S3 bucket or similar,
+      but we'll focus on the HTTP-endpoint scenario here.
+    </p>
+    <p>
+      To call your function through a HTTP request, you'll need to leverage "AWS API-Gateway". But you don't need to
+      leave the AWS Lambda interface to do so. Simply click on "Add trigger" and you can create an endpoint with API
+      Gateway from there. Select HTTP endpoint instead of rest endpoint since they are simpler and cheaper.
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-api-gateway.png"></amp-img>
+    <p>
+      This whole process used to be way more complicated, but AWS has simplified it greatly. What used to be tons of
+      settings and steps necessary to create this API can now be done with two clicks. So be careful, when you see any
+      old tutorial on AWS Lambda with API Gateway. It's much simpler now.
+      Now you can verify that everything worked by just clicking the "API Endpoint" at the bottom of the page.
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-api-gateway.png"></amp-img>
+    <p>
+      This should open a new tab and the text "Hello from Lambda!" should appear. Keep that tab open for later. Let's
+      head back to the AWS Lambda function tab and click on "tutorial-function" in the designer. Now the bottom of the
+      page changes and shows you the function code that was executed when you're calling the function. Now you know
+      where that text "Hello from Lambda!" is coming from. You can change the body of the function to anything you like,
+      for example change text to "Hello from Tutorial!" and then hit "Save". If you now hit "Test" or refresh the
+      endpoint, you should see the new result.
+    </p>
+    
+    <h3>Switching to a local development environment</h3>
+    <p>
+      Now for any changes that go beyond this simple "Hello World" example, let's switch to a better development
+      environment. What I mean by this, is to create a folder locally on your machine and start working with your
+      favorite IDE. So let's create the directory first with <code>mkdir aws-lambda-tutorial</code> and switch to that
+      directory <code>cd aws-lambda-tutorial</code>. Next, you'll want to pull the function that we've created
+      previously in the cloud to your local machine. If you have the aws cli installed, you can get the function like
+      this: <code>aws lambda get-function --function-name tutorial-function</code> and then <code>wget &lt;use the
+      download link you see under location&gt;</code>. If you don't have permissions, create a new user in IAM. Then
+      create a new policy that looks like this and attach it to the user:
+    </p>
+    <pre>{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:UpdateFunctionCode",
+                "lambda:GetFunction"
+            ],
+            "Resource": "arn:aws:lambda:eu-central-1:*:function:tutorial-function"
+        }
+    ]
+}</pre>
+    <p>
+      You could also give the user full admin access to AWS Lambda (which is a predefined policy), but I usually try to
+      go by the principle of least privileges. Now you can register this user locally through <code>aws configure
+      --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code>export
+      AWS_PROFILE=yourusername</code>. Now you can download your function like this:
+    </p>
+    <pre>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</pre>
+    <p>
+      You can get your function out of the zip with <code>unzip tutorial-function.zip</code>. Now let's make another
+      small modification to the function and upload it again. For example <code>nano tutorial-function/index.js</code>
+      and change the response string to "Hello from Localhost!". Then try to push the changed function with the
+      following code:
+    </p>
+    <pre>
+      rm tutorial-function.zip
+      zip -r ./tutorial-function.zip .
+      aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
+    </pre>
+    <p>
+      You can check that everything worked by refreshing your browser tab with the endpoint. Now it's time to do
+      something a bit more complicated with your function!
+    </p>
+    
+    <h3>Installing npm packages for your AWS Lambda function</h3>
+    <p>
+      You can install npm packages as you normally would. Let's install immutable to make an example: <code>npm init</code>, hit enter a few times, then <code>npm install
+      immutable</code>.
+      Now let's change the code of the index.js file to to something with the immutable package. Let's just take the
+      code from their readme:
+    </p>
+    <pre>const {List} = require('immutable');
+
+exports.handler = async (event) => {
+  const list1 = List([ 1, 2 ]);
+  const list2 = list1.push(3, 4, 5);
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify(list2),
+  };
+  return response;
+};</pre>
+    <p>
+      Now you can repeat the steps from before to upload your function. At this point it becomes clear that it's best it you have a small bash script to do that since it won't be the last time you'll do it. I usually put it in a <code>deploy.sh</code> file and <code>chmod +x deploy.sh</code> it so I can run it with <code>./deploy.sh</code> for small projects. For larger projects you might want to integrate it with your CI/CD. Again you can check your endpoint to see if everyting is working. You should now see: [1,2,3,4,5].
+    </p>
+    <p>
+      So that was all pretty easy so far and we've come quite a long way. We've managed to set up the function and the endpoint, develop and manage the code locally and install node modules. Now the next thing you probably want to do as you're progressing to better Lambda functions would probably be to write some unit tests.
+    </p>
+    
+    <h3>Testing</h3>
+    
+    
+    <h3>Versioning</h3>
+    TODO
+    
+    <h3>Logging</h3>
+    TODO
+    
+    <h3>Monitoring</h3>
+    TODO
+  
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

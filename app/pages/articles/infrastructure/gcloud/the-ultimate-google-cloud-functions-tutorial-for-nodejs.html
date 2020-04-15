@@ -9,7 +9,7 @@
   <meta name="description"
         content="Want to get started with Google Cloud using Node.js? Here's how.">
   <meta name="keywords"
-        content="MongoDB, Mongo, mongodump, AWS, S3">
+        content="GCF, Google Cloud Functions, Tutorial">
   <link rel="author"
         content="Daniel Niederberger"
         href="https://plus.google.com/111090153962851545927"/>
@@ -27,8 +27,8 @@
   {{> header}}
   
   <div class="jumbo-vertical">
-  
-    <amp-img src="/assets/img/the-ultimate-google-cloud-functions-tutorial-for-nodejs/gcloud-logo.png"
+    
+    <amp-img src="/pages/articles/aws/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-lambda-logo.svg.png"
              alt="Google Cloud Functions Logo"
              width="256"
              height="256">
@@ -62,7 +62,12 @@
     </ul>
     <p>
       Soo... pretty much everyhing that you could potentially do in a cloud. It's obvious that in this jungle of
-      services it's not always all too easy to find what you need. But as you probably would have guessed, the Google
+      services it's not always all too easy to find what you need. In order to use any of those services, you'll first
+      need (a) an account for the Google Cloud and (b) a project. On account creation, a project "My First Project" will
+      be created for you. If you don't have one, just create one.
+    </p>
+    <p>
+      As you probably would have guessed, the Google
       Cloud Functions are part of the Compute-Family. The compute family isn't actually too extensive:
     </p>
     <amp-img class="app-row-img app-mw400"
@@ -74,11 +79,29 @@
              src="/assets/img/the-ultimate-google-cloud-functions-tutorial-for-nodejs/gcloud-compute-offering.png">
     </amp-img>
     <p>
-      Also take a look at the icon for cloud functions similar to [...]. Might be helpful for better recognizability.
+      Also take a look at the icon for cloud functions similar to [...]. Might be helpful for better recognizability. So
+      now that we have some sort of compass in the overall Google Cloud ecosystem, let's dive a little deeper into the
+      Google Cloud Functions.
     </p>
-    
     <p>
-      Ok, so first you'll need the
+      The first thing you'll need to do is enable billing, of course. Then you can get started with creating your first
+      cloud function super easily, once you hit "Create Function". You can leave the defaults pretty much as they are,
+      let's just give them some more meaningful names. So let's call it the "ultimate-tutorial-function". Notice, that
+      the "Function to execute" field must be the same as the name after the "exports". The default is helloWorld, but
+      let's change it to ultimateTutorialFunction, so it looks like this:
+    </p>
+    <amp-img class="create-cloud-function"
+             src="/assets/img/the-ultimate-google-cloud-functions-tutorial-for-nodejs/create-new-cloud-function.png"
+             width="1156"
+             height="896"
+             layout="responsive"
+             class="app-row-img app-mw500">
+    </amp-img>
+    <p>
+      Now you can just hit create. It'll spin up a cloud function.
+    </p>
+    <p>
+      This stuff is still so buggy :/
     </p>
   
   </article>
