@@ -154,9 +154,8 @@
       environment. What I mean by this, is to create a folder locally on your machine and start working with your
       favorite IDE. So let's create the directory first with <code>mkdir aws-lambda-tutorial</code> and switch to that
       directory <code>cd aws-lambda-tutorial</code>. Next, you'll want to pull the function that we've created
-      previously in the cloud to your local machine. If you have the aws cli installed, you can get the function like
-      this: <code>aws lambda get-function --function-name tutorial-function</code> and then <code>wget &lt;use the
-      download link you see under location&gt;</code>. If you don't have permissions, create a new user in IAM. Then
+      previously in the cloud to your local machine. You'll need to create a new user in IAM, if you don't have one
+      already. Then
       create a new policy that looks like this and attach it to the user:
     </p>
     <pre>{
@@ -177,19 +176,22 @@
       You could also give the user full admin access to AWS Lambda (which is a predefined policy), but I usually try to
       go by the principle of least privileges. Now you can register this user locally through <code>aws configure
       --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code>export
-      AWS_PROFILE=yourusername</code>. Now you can download your function like this:
+      AWS_PROFILE=aws-lambda-tutorial-user</code>. Now you can download your function like this:
     </p>
     <pre>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</pre>
     <p>
-      You can get your function out of the zip with <code>unzip tutorial-function.zip</code>. Now let's make another
-      small modification to the function and upload it again. For example <code>nano tutorial-function/index.js</code>
+      You can get your function out of the zip with <code>unzip tutorial-function.zip -d src</code>. Now let's make
+      another
+      small modification to the function and upload it again. For example <code>nano src/index.js</code>
       and change the response string to "Hello from Localhost!". Then try to push the changed function with the
       following code:
     </p>
     <pre>
-      rm tutorial-function.zip
-      zip -r ./tutorial-function.zip .
-      aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
+rm tutorial-function.zip
+cd src
+zip -r ../tutorial-function.zip .
+cd ..
+aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
     </pre>
     <p>
       You can check that everything worked by refreshing your browser tab with the endpoint. Now it's time to do
@@ -198,7 +200,8 @@
     
     <h3>Installing npm packages for your AWS Lambda function</h3>
     <p>
-      You can install npm packages as you normally would. Let's install immutable to make an example: <code>npm init</code>, hit enter a few times, then <code>npm install
+      You can install npm packages as you normally would. Let's install immutable to make an example: <code>npm
+      init</code>, hit enter a few times, then <code>npm install
       immutable</code>.
       Now let's change the code of the index.js file to to something with the immutable package. Let's just take the
       code from their readme:
@@ -215,23 +218,53 @@ exports.handler = async (event) => {
   return response;
 };</pre>
     <p>
-      Now you can repeat the steps from before to upload your function. At this point it becomes clear that it's best it you have a small bash script to do that since it won't be the last time you'll do it. I usually put it in a <code>deploy.sh</code> file and <code>chmod +x deploy.sh</code> it so I can run it with <code>./deploy.sh</code> for small projects. For larger projects you might want to integrate it with your CI/CD. Again you can check your endpoint to see if everyting is working. You should now see: [1,2,3,4,5].
+      Now you can repeat the steps from before to upload your function. At this point it becomes clear that it's best it
+      you have a small bash script to do that since it won't be the last time you'll do it. I usually put it in a <code>deploy.sh</code>
+      file and <code>chmod +x deploy.sh</code> it so I can run it with <code>./deploy.sh</code> for small projects. For
+      larger projects you might want to integrate it with your CI/CD. We need some adjustments to the previous script to
+      make it work.
+    </p>
+    <pre>
+rm -rf ./dist && mkdir dist
+cp -r ./src/* ./dist
+cp package.json package-lock.json ./dist
+cd dist
+npm install --only=prod
+zip -r ./tutorial-function.zip .
+aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
+cd ..
+    </pre>
+    <p>
+      Again you can check your endpoint to see if
+      everything is working. You should now see: [1,2,3,4,5].
     </p>
     <p>
-      So that was all pretty easy so far and we've come quite a long way. We've managed to set up the function and the endpoint, develop and manage the code locally and install node modules. Now the next thing you probably want to do as you're progressing to better Lambda functions would probably be to write some unit tests.
+      So that was all pretty easy so far and we've come quite a long way. We've managed to set up the function and the
+      endpoint, develop and manage the code locally and install node modules. Now the next thing you probably want to do
+      as you're progressing to better Lambda functions would probably be to write some unit tests.
     </p>
     
     <h3>Testing</h3>
-    
-    
-    <h3>Versioning</h3>
-    TODO
-    
-    <h3>Logging</h3>
-    TODO
-    
-    <h3>Monitoring</h3>
-    TODO
+    <p>
+      Let's use Jest for testing as an example, but basically any framework could be used. Start by installing Jest with <code>npm install --save-dev jest</code>. It's important that you install Jest as a dev dependency, so we don't ship it to production and blow up the size of our lambda function. Let's create a first test, <code>nano src/index.test.js</code>:
+    </p>
+    <pre>
+const index = require('./index');
+
+test('has size five', async () => {
+  const resp = await index.handler();
+  expect(JSON.parse(resp.body).length).toBe(5);
+});
+    </pre>
+    <p>
+      To be able to run the test, you must modify the <code>package.json</code> to include
+    </p>
+    <pre>  "scripts": {
+  "test": "jest"
+}</pre>
+    <p>
+      What's important to notice is that the test is asynchronous! Thus we need to <code>await</code> the response of the handler. This is due to the nature of the the async function in the index.js. This was just a small example of a test, but I think you get the general idea. Theoretically you should also remove the test from your production distribution, but I don't think this weighs in here.
+    </p>
   
   
   </article>
