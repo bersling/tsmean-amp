@@ -71,6 +71,13 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/aws',
+  [
+    'the-ultimate-aws-lambda-tutorial-for-nodejs'
+  ],
+  pages
+);
+addPagesToDirectory(
   'articles/vs',
   [
     'mongo-vs-mysql-for-webapps',

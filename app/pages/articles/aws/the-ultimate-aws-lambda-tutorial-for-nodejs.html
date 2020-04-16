@@ -19,15 +19,6 @@
 </head>
 <body>
   
-  <!--
-  
-  Useful on Stackoverflow:
-  
-  https://stackoverflow.com/questions/34437900/how-to-load-npm-modules-in-aws-lambda
-  
-  
-  -->
-  
   {{> analytics}}
   
   <a name="top"
@@ -81,12 +72,12 @@
       too extensive:
     </p>
     <amp-img class="app-row-img app-mw400"
-             style="border: 1px solid #eee"
+             style="border: 1px solid #eee; width: 192px;"
              alt="Google Cloud Offering"
              layout="responsive"
-             width="578"
-             height="550"
-             src="/assets/img/XXXX/">
+             width="384"
+             height="482"
+             src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-compute-family.png">
     </amp-img>
     <p>
       But probably you won't be able to use AWS Lambda, without using one of the Services from that "Networking &
@@ -102,23 +93,41 @@
       The first step is to go to the AWS Lambda page, either by the "Find Service" Search on the AWS dashboard, or by
       scrolling down a bit and selecting it from the full list of services under compute.
     </p>
-    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/go-to-aws-lambda.png"></amp-img>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/go-to-aws-lambda.png"
+             layout="responsive"
+             alt="Go to AWS Lambda"
+             height="1176"
+             width="1634">
+    </amp-img>
     <p>
       Then simply hit "Create function".
     </p>
-    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-aws-lamba-function.png"></amp-img>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-aws-lambda-function.png"
+             width="1692"
+             height="576"
+             alt="Create Lambda Function"
+             layout="responsive">
+    </amp-img>
     <p>
       The defaults of the function creation interface are mostly fine, you just need to select a name for your function.
       Let's call it "tutorial-function".
     </p>
-    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-aws-lamba-function-interface.png"></amp-img>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-aws-lambda-function-interface.png"
+             width="1862"
+             height="1380"
+             layout="responsive">
+    </amp-img>
     <p>
       After clicking "Create function", your function is actually already being created! You can test whether your
       function is working properly, by creating a "Test". Click the "Select a test event"-Dropdown Menu and click
       configure test. Give your test a name, for example test1 and then hit "Create". Now "test1" will be selected in
       the dropdown menu and you can can hit "Test" to run the test. The log outputs will be printed on the screen:
     </p>
-    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-lamba-test.png"></amp-img>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-lambda-test.png"
+             width="1878"
+             height="502"
+             layout="responsive">
+    </amp-img>
     <p>
       Cool, everything is working already! But we're missing one part to a real life scenario. And that is: How are we
       going to call (also known as trigger) our function?! To call/trigger the function we actually several options. We
@@ -138,7 +147,10 @@
       old tutorial on AWS Lambda with API Gateway. It's much simpler now.
       Now you can verify that everything worked by just clicking the "API Endpoint" at the bottom of the page.
     </p>
-    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-api-gateway.png"></amp-img>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-api-gateway.png"
+             width="1084"
+             height="1376"
+             layout="responsive"></amp-img>
     <p>
       This should open a new tab and the text "Hello from Lambda!" should appear. Keep that tab open for later. Let's
       head back to the AWS Lambda function tab and click on "tutorial-function" in the designer. Now the bottom of the
@@ -246,7 +258,10 @@ cd ..
     
     <h3>Testing</h3>
     <p>
-      Let's use Jest for testing as an example, but basically any framework could be used. Start by installing Jest with <code>npm install --save-dev jest</code>. It's important that you install Jest as a dev dependency, so we don't ship it to production and blow up the size of our lambda function. Let's create a first test, <code>nano src/index.test.js</code>:
+      Let's use Jest for testing as an example, but basically any framework could be used. Start by installing Jest with
+      <code>npm install --save-dev jest</code>. It's important that you install Jest as a dev dependency, so we don't
+      ship it to production and blow up the size of our lambda function. Let's create a first test, <code>nano
+      src/index.test.js</code>:
     </p>
     <pre>
 const index = require('./index');
@@ -263,7 +278,10 @@ test('has size five', async () => {
   "test": "jest"
 }</pre>
     <p>
-      What's important to notice is that the test is asynchronous! Thus we need to <code>await</code> the response of the handler. This is due to the nature of the the async function in the index.js. This was just a small example of a test, but I think you get the general idea. Theoretically you should also remove the test from your production distribution, but I don't think this weighs in here.
+      What's important to notice is that the test is asynchronous! Thus we need to <code>await</code> the response of
+      the handler. This is due to the nature of the the async function in the index.js. This was just a small example of
+      a test, but I think you get the general idea. Theoretically you should also remove the test from your production
+      distribution, but I don't think this weighs in here.
     </p>
   
   
