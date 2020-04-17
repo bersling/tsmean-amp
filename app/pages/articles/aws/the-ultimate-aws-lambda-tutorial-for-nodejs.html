@@ -44,9 +44,49 @@
   </div>
   
   <article>
+    <h2>What is AWS Lambda and why should you use it?</h2>
+    <p>
+      AWS Lambda is a technology to run code in the cloud, without managing servers yourself. Because of this, it's
+      called a "serverless" technology. Instead you just tell AWS Lambda "this is my code" and it will run your code for
+      you. It's auto-scaling, meaning it should cost you exactly as much as needed. If your code is triggered 0 times,
+      it should cost you 0$. If your code is ran 1000 times, it should cost you roughly 10 times more than when it's run
+      100 times. The code your giving to AWS Lambda consists of functions. Each function can take some inputs, for
+      example about how it was triggered, and provide an output to the caller. It's called "Lambda" because of the
+      concept of Lambda functions (aka anonymous functions) in programming.
+    </p>
+    <p>
+      So why and when do we need AWS Lambda? There's actually a couple of good reasons to choose AWS Lambda:
+    </p>
+    <ul>
+      <li>
+        It's auto-scaling. Pay for what you need. No more servers idling around, just costing you money for doing
+        nothing.
+      </li>
+      <li>
+        You don't need to manage servers. No need to update your servers with security patches or operating systems. No
+        need to worry about the underlying operating system.
+      </li>
+      <li>
+        It's versioned. So if you're building a versioned API, you have this built in.
+      </li>
+      <li>
+        Trigger a function when something happens somewhere in AWS Cloud, for example a file is uploaded to an S3
+        Bucket. But there are also triggers for partner event sources, for example you can also trigger a function when
+        something happens in New Relic or OneLogin.
+      </li>
+      <li>
+        Compared to other serverless technologies, it's very mature. For example, Google Cloud Functions is bugging out
+        all time, this yet has to happen to me with AWS Lambda. It's also got advanced features for managing a larger
+        number of Lambdas, like for example the concept of layers.
+      </li>
+    </ul>
+    <p>
+      In this tutorial will get some orientation where Lambda is in the AWS jungle, learn how to build our first
+      function, and learn about the next steps, like installing node modules, developing locally and with the command
+      line or testing.
+    </p>
     
-    <h3>Getting Started - The Basics</h3>
-    
+    <h2>An orientation in the AWS jungle</h2>
     <p>
       At first it helps to see where AWS Lambda is in the larger AWS ecosystem. There are the
       following major categories of services that AWS is offering:
@@ -69,26 +109,23 @@
     </p>
     <p>
       As you probably would have guessed, AWS Lambda are part of the Compute-Family. The compute family isn't actually
-      too extensive:
+      too extensive: EC2, Lightsail, <b>Lambda</b>, Batch, Elastic Beanstalk, Serverless Application Repository, AWS
+      Outposts, EC2 Image Builder.
     </p>
-    <amp-img class="app-row-img app-mw400"
-             style="border: 1px solid #eee; width: 192px;"
-             alt="Google Cloud Offering"
-             layout="responsive"
-             width="384"
-             height="482"
-             src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-compute-family.png">
-    </amp-img>
     <p>
-      But probably you won't be able to use AWS Lambda, without using one of the Services from that "Networking &
+      In case you're building a function that can be triggered by calling a URL, like we'll do in this tutorial, you'll
+      also need another service from
+      the "Networking &
       Content Delivery" family. And that service would be "AWS API Gateway". We'll learn about API Gateway in the
       process of getting to know AWS Lambda.
     </p>
     <p>
-      Also take a look at the icon for AWS Lambda, which is now just the greek letter "Lambda": λ. Might be helpful for
+      Also take a look at the icon for AWS Lambda, which is just the greek letter "Lambda": λ. Might be helpful for
       better recognizability. So now that we have some sort of compass in the overall AWS ecosystem, let's dive a little
       deeper into AWS Lambda.
     </p>
+    
+    <h2>Getting started - Create your first function</h2>
     <p>
       The first step is to go to the AWS Lambda page, either by the "Find Service" Search on the AWS dashboard, or by
       scrolling down a bit and selecting it from the full list of services under compute.
@@ -118,8 +155,8 @@
              layout="responsive">
     </amp-img>
     <p>
-      After clicking "Create function", your function is actually already being created! You can test whether your
-      function is working properly, by creating a "Test". Click the "Select a test event"-Dropdown Menu and click
+      After clicking "Create function", your function is already being created! You can test whether your
+      function is working properly by creating a "Test". Click the "Select a test event"-Dropdown Menu and click
       configure test. Give your test a name, for example test1 and then hit "Create". Now "test1" will be selected in
       the dropdown menu and you can can hit "Test" to run the test. The log outputs will be printed on the screen:
     </p>
@@ -130,9 +167,9 @@
     </amp-img>
     <p>
       Cool, everything is working already! But we're missing one part to a real life scenario. And that is: How are we
-      going to call (also known as trigger) our function?! To call/trigger the function we actually several options. We
-      either could create a URL Endpoint, which could then be called by a server. I think that is probably the most
-      common use case. You can also use other triggers, such as when something is happening to a S3 bucket or similar,
+      going to call (also known as trigger) our function?! To call/trigger the function we have several options. We
+      either could create a HTTP-endpoint, which could then be called by a server. This is certainly one of the most
+      common use cases. You can also use other triggers, such as when something is happening to a S3 bucket or similar,
       but we'll focus on the HTTP-endpoint scenario here.
     </p>
     <p>
@@ -142,15 +179,24 @@
     </p>
     <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-api-gateway.png"></amp-img>
     <p>
-      This whole process used to be way more complicated, but AWS has simplified it greatly. What used to be tons of
+      <b>Note:</b> This whole process used to be way more complicated, but AWS has simplified it greatly. What used to
+      be tons of
       settings and steps necessary to create this API can now be done with two clicks. So be careful, when you see any
       old tutorial on AWS Lambda with API Gateway. It's much simpler now.
-      Now you can verify that everything worked by just clicking the "API Endpoint" at the bottom of the page.
     </p>
     <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/create-api-gateway.png"
              width="1084"
              height="1376"
-             layout="responsive"></amp-img>
+             layout="responsive">
+    </amp-img>
+    <p>
+      Now you can verify that everything worked by just clicking the "API Endpoint" at the bottom of the page.
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/api-gateway-endpoint.png"
+             width="2500"
+             height="1126"
+             layout="responsive">
+    </amp-img>
     <p>
       This should open a new tab and the text "Hello from Lambda!" should appear. Keep that tab open for later. Let's
       head back to the AWS Lambda function tab and click on "tutorial-function" in the designer. Now the bottom of the
@@ -160,9 +206,9 @@
       endpoint, you should see the new result.
     </p>
     
-    <h3>Switching to a local development environment</h3>
+    <h2>Switching to a local development environment</h2>
     <p>
-      Now for any changes that go beyond this simple "Hello World" example, let's switch to a better development
+      For any changes that go beyond this simple "Hello World" example, let's switch to a better development
       environment. What I mean by this, is to create a folder locally on your machine and start working with your
       favorite IDE. So let's create the directory first with <code>mkdir aws-lambda-tutorial</code> and switch to that
       directory <code>cd aws-lambda-tutorial</code>. Next, you'll want to pull the function that we've created
@@ -198,21 +244,20 @@
       and change the response string to "Hello from Localhost!". Then try to push the changed function with the
       following code:
     </p>
-    <pre>
-rm tutorial-function.zip
+    <pre>rm tutorial-function.zip
 cd src
 zip -r ../tutorial-function.zip .
 cd ..
-aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
-    </pre>
+aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip</pre>
     <p>
       You can check that everything worked by refreshing your browser tab with the endpoint. Now it's time to do
       something a bit more complicated with your function!
     </p>
     
-    <h3>Installing npm packages for your AWS Lambda function</h3>
+    <h2>Installing npm packages for your AWS Lambda function</h2>
     <p>
-      You can install npm packages as you normally would. Let's install immutable to make an example: <code>npm
+      You can install npm packages as you normally would. Let's install the package <code>immutable</code> to illustrate
+      this: <code>npm
       init</code>, hit enter a few times, then <code>npm install
       immutable</code>.
       Now let's change the code of the index.js file to to something with the immutable package. Let's just take the
@@ -230,37 +275,41 @@ exports.handler = async (event) => {
   return response;
 };</pre>
     <p>
-      Now you can repeat the steps from before to upload your function. At this point it becomes clear that it's best it
+      It's important to notice that the <code>require</code> is outside of the handler. This is a best practice, because
+      like this AWS can <b>reuse the execution context</b>. This means, that for subsequent invocations, the same
+      resources can be reused. This becomes more relevant for larger static objects. You can think of this as caching to
+      improve performance and redurce costs.
+    </p>
+    <p>
+      Now you can repeat the steps from before to upload your function. At this point it becomes clear that it's best if
       you have a small bash script to do that since it won't be the last time you'll do it. I usually put it in a <code>deploy.sh</code>
       file and <code>chmod +x deploy.sh</code> it so I can run it with <code>./deploy.sh</code> for small projects. For
       larger projects you might want to integrate it with your CI/CD. We need some adjustments to the previous script to
       make it work.
     </p>
-    <pre>
-rm -rf ./dist && mkdir dist
+    <pre>rm -rf ./dist && mkdir dist
 cp -r ./src/* ./dist
 cp package.json package-lock.json ./dist
 cd dist
 npm install --only=prod
 zip -r ./tutorial-function.zip .
 aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
-cd ..
-    </pre>
+cd ..</pre>
     <p>
-      Again you can check your endpoint to see if
-      everything is working. You should now see: [1,2,3,4,5].
+      Again, you can check your endpoint to see if
+      everything is working. You should now see: <code>[1,2,3,4,5]</code> when you go to your endpoint.
     </p>
     <p>
       So that was all pretty easy so far and we've come quite a long way. We've managed to set up the function and the
-      endpoint, develop and manage the code locally and install node modules. Now the next thing you probably want to do
-      as you're progressing to better Lambda functions would probably be to write some unit tests.
+      endpoint, develop and manage the code locally and install node modules. The next thing we're going to do is to
+      write a unit test for our AWS Lambda function.
     </p>
     
-    <h3>Testing</h3>
+    <h2>Unit Testing</h2>
     <p>
-      Let's use Jest for testing as an example, but basically any framework could be used. Start by installing Jest with
+      Let's use Jest for testing, but basically any framework could be used. Start by installing Jest with
       <code>npm install --save-dev jest</code>. It's important that you install Jest as a dev dependency, so we don't
-      ship it to production and blow up the size of our lambda function. Let's create a first test, <code>nano
+      ship it to production and blow up the size of our Lambda function. Let's create a first test, <code>nano
       src/index.test.js</code>:
     </p>
     <pre>
@@ -269,22 +318,89 @@ const index = require('./index');
 test('has size five', async () => {
   const resp = await index.handler();
   expect(JSON.parse(resp.body).length).toBe(5);
-});
-    </pre>
-    <p>
-      To be able to run the test, you must modify the <code>package.json</code> to include
-    </p>
-    <pre>  "scripts": {
-  "test": "jest"
-}</pre>
+});</pre>
     <p>
       What's important to notice is that the test is asynchronous! Thus we need to <code>await</code> the response of
       the handler. This is due to the nature of the the async function in the index.js. This was just a small example of
       a test, but I think you get the general idea. Theoretically you should also remove the test from your production
       distribution, but I don't think this weighs in here.
     </p>
-  
-  
+    <p>
+      To be able to run the test, you must modify the <code>package.json</code> to include
+    </p>
+    <pre>"scripts": {
+  "test": "jest"
+}</pre>
+    <p>
+      We saw, that testing our code was a bit more complex than it needed to be because we had to think about the
+      asynchronicity of the handler. To avoid this, it's a best practice to separate your handler logic from your core
+      logic. In our case, we could rewrite the function and test like so:
+    </p>
+    <pre>const {List} = require('immutable');
+
+exports.handler = async (event) => {
+
+  const myList = getList();
+
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify(myList),
+  };
+  return response;
+};
+
+getList = () => {
+  const list1 = List([ 1, 2 ]);
+  const list2 = list1.push(3, 4, 5);
+  return list2;
+};
+
+exports.getList = getList;
+</pre>
+    
+    and the test
+    
+    <pre>const index = require('./index');
+
+test('has size 5', () => {
+  const resp = index.getList();
+  expect(resp.size).toBe(5); // it's size instead of length, because we're using the immutable library.
+});
+
+test('handler responds correctly', async () => {
+  const resp = await index.handler();
+  expect(JSON.parse(resp.body).length).toBe(5);
+});
+</pre>
+    <p>
+      It might be a bit eagerly optimized, but the test sources also don't need to be shipped to production. So you can
+      change your deployment script like so:
+    </p>
+    <pre>...
+cp -r ./src/* ./dist
+cp package.json package-lock.json ./dist
+rm ./dist/**/*.test.js
+...</pre>
+    <p>
+      This is just following the best practice of not shipping any unnecessary to production. It's good not to take
+      shortcuts here and always keep this in mind, because eventually this will give us speedier lambda functions.
+    </p>
+    
+    <h2>Managing your Lambda functions</h2>
+    <p>
+      Over time you'll develop more and more Lambda functions. What means of organization do you have so it won't get a
+      total mess? There's no such thing as folders for AWS Lambda functions, but what you can do, is to prefix your
+      function name. For example, you could have a <code>tutorial-function-hello</code> and a <code>tutorial-function-goodbye</code>.
+      Like this, the functions that belong together will also be listed together in the AWS console. In terms of your
+      code, I suggest you have your functions in one git repository and edit and version changes there. Like this, you
+      can also reuse common deployment infrastructure.
+    </p>
+    
+    <h2>Summary</h2>
+    <p>
+      Creating, managing and deploying AWS Lambda functions got a lot easier over the years. There really shouldn't be much holding you back from trying it out in our of your projects! We've covered how we can create functions, create a HTTP-trigger, edit code on your local machine and then push and install npm packages. Of course there's more to AWS Lambda functions, like for example getting to know about layers or how to run binaries that aren't part of npm. But we'll save that for another day and a tutorial part II. Until then: Have fun with your Lambdas!
+    </p>
+    
   </article>
   
   {{> articleFooter}}
