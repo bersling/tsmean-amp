@@ -8,5 +8,8 @@
     "deploy": "aws lambda get-function --function-name tsmean-mailchimp-subscribe --query 'Code.Location' | xargs wget -O function.zip"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
 }

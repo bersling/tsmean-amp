@@ -1,17 +1,54 @@
+const request = require('request');
+
+function jsonForMailchimp(mergeFields) {
+  return {
+    "email_address": mergeFields.EMAIL,
+    "status": "pending",
+    "merge_fields": mergeFields
+  }
+}
+
+const config = {
+  user: process.env.user,
+  key: process.env.user,
+  url: process.env.url,
+};
+
+function optionsFactory() {
+  return {
+    url: undefined, //added dynamically
+    body: undefined, //added dynamically
+    json: true,
+    auth: {
+      user: config.user,
+      pass: config.key
+    },
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+}
+
+
 exports.handler = async (event) => {
 
-  if (req.query && req.query.listid) {
-    const optionsCopy = CoreUtils.deepCopy(options);
+  const response = {
+    headers: {
+      'AMP-Access-Control-Allow-Source-Origin': event.queryStringParameters.__amp_source_origin,
+      'Access-Control-Expose-Headers': 'AMP-Access-Control-Allow-Source-Origin'
+    }
+  };
 
-    // set correct headers for amp
-    res.setHeader('AMP-Access-Control-Allow-Source-Origin', req.query.__amp_source_origin);
-    res.setHeader('Access-Control-Expose-Headers', 'AMP-Access-Control-Allow-Source-Origin');
+  if (event.queryStringParameters && event.queryStringParameters.listid) {
 
-    optionsCopy.url = `${config.url}/lists/${req.query.listid}/members/`;
+    const options = optionsFactory();
 
-    if (req.body && req.body.EMAIL) {
+    options.url = `${config.url}/lists/${event.queryStringParameters.listid}/members/`;
 
-      optionsCopy.body = jsonForMailchimp(req.body);
+    if (event.requestContext && event.requestContext.EMAIL) {
+
+      optionsCopy.body = jsonForMailchimp(event.requestContext);
 
       request(optionsCopy, function (err, mailchimpResponse) {
 
@@ -20,27 +57,20 @@ exports.handler = async (event) => {
           throw err
         }
 
-        const headers = mailchimpResponse.headers;
-        const statusCode = mailchimpResponse.statusCode;
-
-        res.status(statusCode).send(mailchimpResponse);
+        response.statusCode = mailchimpResponse.statusCode;
+        response.body = mailchimpResponse;
       });
+
     } else {
-      res.status(400).send('You need a payload with an "EMAIL" property');
+      response.statusCode = 400;
+      response.body = JSON.stringify('You need a payload with an "EMAIL" property');
     }
 
   } else {
-    res.status(400).send('You need to have the listid query parameter');
+    response.statusCode = 400;
+    response.body = JSON.stringify('You need to have the listid query parameter');
   }
 
-
-
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify('Hello from Lambda!'),
-  };
   return response;
-
-
 
 };

@@ -230,7 +230,8 @@
     ]
 }</pre>
     <p>
-      You could also give the user full admin access to AWS Lambda (which is a predefined policy), but I usually try to
+      AWS will need a minute until the changes are live. You could also give the user full admin access to AWS Lambda
+      (which is a predefined policy), but I usually try to
       go by the principle of least privileges. Now you can register this user locally through <code>aws configure
       --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code>export
       AWS_PROFILE=aws-lambda-tutorial-user</code>. Now you can download your function like this:
@@ -395,6 +396,14 @@ rm ./dist/**/*.test.js
       someone/something triggers your function. So you need to adopt the mindset, to only ship and include what's
       absolutely
       necessary to run your code.
+    </p>
+    
+    <h3>Using environment variables</h3>
+    <p>
+      Using environment variables is dead simple. You simply add them in the AWS GUI under the section "Environment
+      variables". This is useful everything you have something that you don't want to commit to your source code, like a
+      key, or something that's changing on the environment. In node.js you can then access the environment variables
+      through <code>process.env</code>, for example <code>process.env.mysupervariable</code>.
     </p>
     
     <h2>Managing your Lambda functions</h2>
