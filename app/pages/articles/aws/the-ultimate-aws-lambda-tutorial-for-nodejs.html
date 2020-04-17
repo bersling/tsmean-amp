@@ -47,10 +47,11 @@
     <h2>What is AWS Lambda and why should you use it?</h2>
     <p>
       AWS Lambda is a technology to run code in the cloud, without managing servers yourself. Because of this, it's
-      called a "serverless" technology. Instead you just tell AWS Lambda "this is my code" and it will run your code for
-      you. It's auto-scaling, meaning it should cost you exactly as much as needed. If your code is triggered 0 times,
-      it should cost you 0$. If your code is ran 1000 times, it should cost you roughly 10 times more than when it's run
-      100 times. The code your giving to AWS Lambda consists of functions. Each function can take some inputs, for
+      called a "serverless" technology. Instead of provisioning a server yourself you just tell AWS Lambda "this is my
+      code" and it will run your code whenever necessary. It's auto-scaling, meaning it should cost you exactly as much
+      as needed. If your code is triggered 0 times,
+      it should cost you 0$. The code your giving to AWS Lambda consists of functions. Each function can take some
+      inputs, for
       example about how it was triggered, and provide an output to the caller. It's called "Lambda" because of the
       concept of Lambda functions (aka anonymous functions) in programming.
     </p>
@@ -60,18 +61,18 @@
     <ul>
       <li>
         It's auto-scaling. Pay for what you need. No more servers idling around, just costing you money for doing
-        nothing.
+        nothing. Also, no more applications crashing during peak times.
       </li>
       <li>
-        You don't need to manage servers. No need to update your servers with security patches or operating systems. No
-        need to worry about the underlying operating system.
+        You don't need to manage servers. No need to update your servers with security patches or operating systems.
       </li>
       <li>
         It's versioned. So if you're building a versioned API, you have this built in.
       </li>
       <li>
-        Trigger a function when something happens somewhere in AWS Cloud, for example a file is uploaded to an S3
-        Bucket. But there are also triggers for partner event sources, for example you can also trigger a function when
+        You can trigger a function when something happens somewhere in AWS Cloud, for example a file is uploaded to an
+        S3
+        Bucket. There are also triggers for partner event sources, for example you can also trigger a function when
         something happens in New Relic or OneLogin.
       </li>
       <li>
@@ -82,8 +83,7 @@
     </ul>
     <p>
       In this tutorial will get some orientation where Lambda is in the AWS jungle, learn how to build our first
-      function, and learn about the next steps, like installing node modules, developing locally and with the command
-      line or testing.
+      function, and learn about the next steps, like installing node modules, developing locally and testing.
     </p>
     
     <h2>An orientation in the AWS jungle</h2>
@@ -108,7 +108,7 @@
       need an account for AWS, so go ahead and create one if you haven't done so yet.
     </p>
     <p>
-      As you probably would have guessed, AWS Lambda are part of the Compute-Family. The compute family isn't actually
+      As you probably would have guessed, AWS Lambda are part of the compute family. The compute family isn't actually
       too extensive: EC2, Lightsail, <b>Lambda</b>, Batch, Elastic Beanstalk, Serverless Application Repository, AWS
       Outposts, EC2 Image Builder.
     </p>
@@ -199,7 +199,7 @@
     </amp-img>
     <p>
       This should open a new tab and the text "Hello from Lambda!" should appear. Keep that tab open for later. Let's
-      head back to the AWS Lambda function tab and click on "tutorial-function" in the designer. Now the bottom of the
+      head back to the AWS Lambda function tab and click on "tutorial-function" in the designer. The bottom of the
       page changes and shows you the function code that was executed when you're calling the function. Now you know
       where that text "Hello from Lambda!" is coming from. You can change the body of the function to anything you like,
       for example change text to "Hello from Tutorial!" and then hit "Save". If you now hit "Test" or refresh the
@@ -238,7 +238,7 @@
     </p>
     <pre>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</pre>
     <p>
-      You can get your function out of the zip with <code>unzip tutorial-function.zip -d src</code>. Now let's make
+      You can get your function out of the zip with <code>unzip tutorial-function.zip -d src</code>. Let's make
       another
       small modification to the function and upload it again. For example <code>nano src/index.js</code>
       and change the response string to "Hello from Localhost!". Then try to push the changed function with the
@@ -276,9 +276,9 @@ exports.handler = async (event) => {
 };</pre>
     <p>
       It's important to notice that the <code>require</code> is outside of the handler. This is a best practice, because
-      like this AWS can <b>reuse the execution context</b>. This means, that for subsequent invocations, the same
+      like this AWS can reuse the execution context. This means, that for subsequent invocations, the same
       resources can be reused. This becomes more relevant for larger static objects. You can think of this as caching to
-      improve performance and redurce costs.
+      improve performance and reduce costs.
     </p>
     <p>
       Now you can repeat the steps from before to upload your function. At this point it becomes clear that it's best if
@@ -320,7 +320,7 @@ test('has size five', async () => {
   expect(JSON.parse(resp.body).length).toBe(5);
 });</pre>
     <p>
-      What's important to notice is that the test is asynchronous! Thus we need to <code>await</code> the response of
+      What's important to notice is that the test is asynchronous! We need to <code>await</code> the response of
       the handler. This is due to the nature of the the async function in the index.js. This was just a small example of
       a test, but I think you get the general idea. Theoretically you should also remove the test from your production
       distribution, but I don't think this weighs in here.
@@ -332,9 +332,10 @@ test('has size five', async () => {
   "test": "jest"
 }</pre>
     <p>
-      We saw, that testing our code was a bit more complex than it needed to be because we had to think about the
+      You can now run the tests with <code>npm test</code>. We saw, that testing our code was a bit more complex than it
+      needed to be because we had to think about the
       asynchronicity of the handler. To avoid this, it's a best practice to separate your handler logic from your core
-      logic. In our case, we could rewrite the function and test like so:
+      logic. In our case, we could rewrite the function like so:
     </p>
     <pre>const {List} = require('immutable');
 
@@ -373,7 +374,7 @@ test('handler responds correctly', async () => {
 });
 </pre>
     <p>
-      It might be a bit eagerly optimized, but the test sources also don't need to be shipped to production. So you can
+      It might be a bit eagerly optimized, but the test sources don't need to be shipped to production. So you can
       change your deployment script like so:
     </p>
     <pre>...
@@ -382,25 +383,42 @@ cp package.json package-lock.json ./dist
 rm ./dist/**/*.test.js
 ...</pre>
     <p>
-      This is just following the best practice of not shipping any unnecessary to production. It's good not to take
-      shortcuts here and always keep this in mind, because eventually this will give us speedier lambda functions.
+      This is just following the best practice of not shipping anything unnecessary to production. This is a
+      different mindset than the backend development you might be used to when deploying to a server. There
+      we don't care how large our
+      libraries are and how big our application gets. It just needs to be loaded once during deployment and then the
+      server
+      keeps on running. This is different for Lambda functions, they have a cold start problem. The larger the Lambda
+      is,
+      the longer it will have to start up. And this is critical, because as opposed to manually provisioned servers that
+      are always up and idling around, the infrastructure for a Lambda function is only provisioned by AWS automatically
+      as soon as
+      someone/something triggers your function. So you need to adopt the mindset, to only ship and include what's
+      absolutely
+      necessary to run your code.
     </p>
     
     <h2>Managing your Lambda functions</h2>
     <p>
-      Over time you'll develop more and more Lambda functions. What means of organization do you have so it won't get a
+      Over time you'll develop more and more Lambda functions. How can you organize them so it won't get a
       total mess? There's no such thing as folders for AWS Lambda functions, but what you can do, is to prefix your
       function name. For example, you could have a <code>tutorial-function-hello</code> and a <code>tutorial-function-goodbye</code>.
       Like this, the functions that belong together will also be listed together in the AWS console. In terms of your
-      code, I suggest you have your functions in one git repository and edit and version changes there. Like this, you
-      can also reuse common deployment infrastructure.
+      code, I suggest you have your functions in a git repository. This helps with organizing your code the way you
+      want. It also helps with sharing common scripts, such as those for the deployment of functions. Last but not
+      least, like this you can also run your unit tests on on your CI/CD pipelines.
     </p>
     
     <h2>Summary</h2>
     <p>
-      Creating, managing and deploying AWS Lambda functions got a lot easier over the years. There really shouldn't be much holding you back from trying it out in our of your projects! We've covered how we can create functions, create a HTTP-trigger, edit code on your local machine and then push and install npm packages. Of course there's more to AWS Lambda functions, like for example getting to know about layers or how to run binaries that aren't part of npm. But we'll save that for another day and a tutorial part II. Until then: Have fun with your Lambdas!
+      Creating, managing and deploying AWS Lambda functions got a lot easier over the years. There really shouldn't be
+      much holding you back from trying it out in our of your projects! We've covered how we can create functions,
+      create a HTTP-trigger, edit code on your local machine, install node modules, test your code and how to deploy
+      your functions. Of course there's
+      more to AWS Lambda functions, like for example getting to know about layers or how to run binaries that aren't
+      part of npm. But we'll save that for another day and a tutorial part II. Until then: Have fun with your Lambdas!
     </p>
-    
+  
   </article>
   
   {{> articleFooter}}
