@@ -1,6 +1,7 @@
 const request = require('request');
 const Busboy = require('busboy');
 const inspect = require('util').inspect;
+const parser = require('parse-multipart');
 
 function jsonForMailchimp(mergeFields) {
   return {
@@ -35,12 +36,26 @@ function optionsFactory() {
 function parseMultipartForm(event) {
   return new Promise((resolve, reject) => {
     const contentType = event.headers['Content-Type'] || event.headers['content-type'];
-    const busboy = new Busboy({headers: {
+    const busboy = new Busboy({
+      headers: {
         'content-type': contentType
-      }});
+      }
+    });
 
-    busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
+    busboy.on('field', function (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
       resolve('Field [' + fieldname + ']: value: ' + inspect(val));
+    });
+  });
+}
+
+function sendRequestToMailchimp(options) {
+  return new Promise((resolve, reject) => {
+    request(options, function (err, mailchimpResponse) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(mailchimpResponse);
+      }
     });
   });
 }
@@ -48,12 +63,10 @@ function parseMultipartForm(event) {
 
 exports.handler = async (event) => {
 
-  console.log('staring the handler');
-
-  const inputData = await parseMultipartForm(event);
-  console.log(inputData);
+  const inputData = parser.parse(event);
 
   const response = {
+    statusCode: 500,
     headers: {
       'AMP-Access-Control-Allow-Source-Origin': event.queryStringParameters.__amp_source_origin,
       'Access-Control-Expose-Headers': 'AMP-Access-Control-Allow-Source-Origin'
@@ -62,24 +75,26 @@ exports.handler = async (event) => {
 
   if (event.queryStringParameters && event.queryStringParameters.listid) {
 
-    const options = optionsFactory();
-
-    options.url = `${config.url}/lists/${event.queryStringParameters.listid}/members/`;
-
     if (inputData && inputData.EMAIL) {
 
-      options.body = jsonForMailchimp(inputData);
+      try {
+        const options = optionsFactory();
+        options.url = `${config.url}/lists/${event.queryStringParameters.listid}/members/`;
+        options.body = jsonForMailchimp(inputData);
 
-      request(options, function (err, mailchimpResponse) {
+        const mailchimpResponse = await sendRequestToMailchimp(options);
 
-        if (err) {
-          console.error('error posting json: ', err);
-          throw err
-        }
+        console.log()
 
         response.statusCode = mailchimpResponse.statusCode;
         response.body = mailchimpResponse;
-      });
+
+        console.log('reached 3');
+        console.log(response)
+
+      } catch (e) {
+        console.error(e);
+      }
 
     } else {
       response.statusCode = 400;
