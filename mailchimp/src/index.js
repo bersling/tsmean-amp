@@ -1,6 +1,4 @@
 const request = require('request');
-const Busboy = require('busboy');
-const inspect = require('util').inspect;
 const parser = require('parse-multipart');
 
 function jsonForMailchimp(mergeFields) {
@@ -13,7 +11,7 @@ function jsonForMailchimp(mergeFields) {
 
 const config = {
   user: process.env.user,
-  key: process.env.user,
+  key: process.env.key,
   url: process.env.url,
 };
 
@@ -31,21 +29,6 @@ function optionsFactory() {
       'content-type': 'application/json'
     }
   };
-}
-
-function parseMultipartForm(event) {
-  return new Promise((resolve, reject) => {
-    const contentType = event.headers['Content-Type'] || event.headers['content-type'];
-    const busboy = new Busboy({
-      headers: {
-        'content-type': contentType
-      }
-    });
-
-    busboy.on('field', function (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
-      resolve('Field [' + fieldname + ']: value: ' + inspect(val));
-    });
-  });
 }
 
 function sendRequestToMailchimp(options) {
@@ -66,7 +49,7 @@ exports.handler = async (event) => {
   const inputData = parser.parse(event);
 
   const response = {
-    statusCode: 500,
+    statusCode: 501,
     headers: {
       'AMP-Access-Control-Allow-Source-Origin': event.queryStringParameters.__amp_source_origin,
       'Access-Control-Expose-Headers': 'AMP-Access-Control-Allow-Source-Origin'
@@ -84,14 +67,8 @@ exports.handler = async (event) => {
 
         const mailchimpResponse = await sendRequestToMailchimp(options);
 
-        console.log()
-
         response.statusCode = mailchimpResponse.statusCode;
-        response.body = mailchimpResponse;
-
-        console.log('reached 3');
-        console.log(response)
-
+        response.body = JSON.stringify(mailchimpResponse.body);
       } catch (e) {
         console.error(e);
       }
