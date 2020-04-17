@@ -1,4 +1,6 @@
 const request = require('request');
+const Busboy = require('busboy');
+const inspect = require('util').inspect;
 
 function jsonForMailchimp(mergeFields) {
   return {
@@ -30,8 +32,26 @@ function optionsFactory() {
   };
 }
 
+function parseMultipartForm(event) {
+  return new Promise((resolve, reject) => {
+    const contentType = event.headers['Content-Type'] || event.headers['content-type'];
+    const busboy = new Busboy({headers: {
+        'content-type': contentType
+      }});
+
+    busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
+      resolve('Field [' + fieldname + ']: value: ' + inspect(val));
+    });
+  });
+}
+
 
 exports.handler = async (event) => {
+
+  console.log('staring the handler');
+
+  const inputData = await parseMultipartForm(event);
+  console.log(inputData);
 
   const response = {
     headers: {
@@ -46,11 +66,11 @@ exports.handler = async (event) => {
 
     options.url = `${config.url}/lists/${event.queryStringParameters.listid}/members/`;
 
-    if (event.requestContext && event.requestContext.EMAIL) {
+    if (inputData && inputData.EMAIL) {
 
-      optionsCopy.body = jsonForMailchimp(event.requestContext);
+      options.body = jsonForMailchimp(inputData);
 
-      request(optionsCopy, function (err, mailchimpResponse) {
+      request(options, function (err, mailchimpResponse) {
 
         if (err) {
           console.error('error posting json: ', err);
