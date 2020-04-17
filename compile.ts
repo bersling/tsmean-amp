@@ -121,13 +121,13 @@ addPagesToDirectory(
   ],
   pages
 );
-addPagesToDirectory(
-  'articles/infrastructure/gcloud',
-  [
-    'the-ultimate-google-cloud-functions-tutorial-for-nodejs'
-  ],
-  pages
-);
+// addPagesToDirectory(
+//   'articles/infrastructure/gcloud',
+//   [
+//     'the-ultimate-google-cloud-functions-tutorial-for-nodejs'
+//   ],
+//   pages
+// );
 addPagesToDirectory(
   'articles/mustache',
   [
