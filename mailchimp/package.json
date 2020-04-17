@@ -1,0 +1,12 @@
+{
+  "name": "sendmail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "aws lambda get-function --function-name tsmean-mailchimp-subscribe --query 'Code.Location' | xargs wget -O function.zip"
+  },
+  "author": "",
+  "license": "ISC"
+}
