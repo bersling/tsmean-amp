@@ -49,11 +49,7 @@ exports.handler = async (event) => {
   const inputData = parser.parse(event);
 
   const response = {
-    statusCode: 501,
-    headers: {
-      'AMP-Access-Control-Allow-Source-Origin': event.queryStringParameters.__amp_source_origin,
-      'Access-Control-Expose-Headers': 'AMP-Access-Control-Allow-Source-Origin',
-    }
+    statusCode: 500
   };
 
   if (event.queryStringParameters && event.queryStringParameters.listid) {

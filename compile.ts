@@ -188,13 +188,6 @@ async function doCompile() {
 
 doCompile();
 
-// fs.watch('./app', {
-//   recursive: true
-// }, () => {
-//   doCompile();
-// });
-
-
 /**
  * From here on downwards are only some implementation details...
  * ==============================================================
@@ -217,12 +210,14 @@ async function validateAmp(pages: string[]) {
 }
 
 function compileSass() {
+  console.log('compiling scss');
   const sass = require('node-sass');
   const result = sass.renderSync({
     file: './app/styles/styles.scss',
     outFile: './app/styles/styles.css'
   });
   fs.writeFileSync('./app/styles/styles.css', result.css);
+  console.log('compiled scss');
 };
 
 function copyRobotsTxt() {
