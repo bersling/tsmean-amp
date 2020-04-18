@@ -78,7 +78,8 @@
       <li>
         Compared to other serverless technologies, it's very mature. For example, Google Cloud Functions is bugging out
         all time, this yet has to happen to me with AWS Lambda. It's also got advanced features for managing a larger
-        number of Lambdas, like for example the concept of layers.
+        number of Lambdas, like for example the concept of layers. And the start-up speed of AWS Lambda functions seems
+        to be faster than for other serverless technologies, from what I have experienced.
       </li>
     </ul>
     <p>
@@ -339,6 +340,12 @@ test('has size five', async () => {
     </p>
     <pre>const {List} = require('immutable');
 
+function getList() {
+  const list1 = List([ 1, 2 ]);
+  const list2 = list1.push(3, 4, 5);
+  return list2;
+}
+
 exports.handler = async (event) => {
 
   const myList = getList();
@@ -348,12 +355,6 @@ exports.handler = async (event) => {
     body: JSON.stringify(myList),
   };
   return response;
-};
-
-getList = () => {
-  const list1 = List([ 1, 2 ]);
-  const list2 = list1.push(3, 4, 5);
-  return list2;
 };
 
 exports.getList = getList;
@@ -402,16 +403,33 @@ rm ./dist/**/*.test.js
     <p>
       In order to log, you can simply use <code>console.log</code>. Those logs will then be visible at AWS CloutWatch.
       CloudWatch is our third service of the AWS jungle we're getting to know today. The name is pretty self
-      explanatory, it's purpose is to watch your cloud. This also includes view the logs that your lambda function is producing.
-      TODO elaborate with example.
+      explanatory, it's purpose is to watch your cloud. This also includes viewing the logs that your lambda function is
+      producing. In order to try this, add a <code>console.log</code> statement to your function code, for example you
+      could log the incoming event:
     </p>
+    <pre>exports.handler = async (event) => {
+  
+  console.log('Event:', JSON.stringify(event));
+
+  ...
+</pre>
+    <p>
+      Then call your function through your API endpoint and afterwards head over to CloudWatch. Click on the latest log stream. You should then see something like this:
+    </p>
+    <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-lambda-cloudwatch-logging.png"
+             alt="AWS Lambda Logo"
+             layout="responsive"
+             width="1902"
+             height="848">
+    </amp-img>
     
     <h2>Using environment variables</h2>
     <p>
       Using environment variables is dead simple. You simply add them in the AWS GUI under the section "Environment
-      variables". This is useful everything you have something that you don't want to commit to your source code, like a
-      key, or something that's changing on the environment. In node.js you can then access the environment variables
-      through <code>process.env</code>, for example <code>process.env.mysupervariable</code>.
+      variables". This is useful when you have something that you don't want to commit to your source code, like a
+      key, or something that's changing depending on the environment. In node.js you can then access the environment
+      variables
+      through <code>process.env</code>, for example <code>process.env.mykey</code>.
     </p>
     
     <h2>Managing your Lambda functions</h2>
