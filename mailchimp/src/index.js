@@ -52,7 +52,7 @@ exports.handler = async (event) => {
     statusCode: 501,
     headers: {
       'AMP-Access-Control-Allow-Source-Origin': event.queryStringParameters.__amp_source_origin,
-      'Access-Control-Expose-Headers': 'AMP-Access-Control-Allow-Source-Origin'
+      'Access-Control-Expose-Headers': 'AMP-Access-Control-Allow-Source-Origin',
     }
   };
 
