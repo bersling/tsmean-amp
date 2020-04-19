@@ -1,6 +1,6 @@
 {
   "watch": ["app"],
-  "ext": "ts,html",
+  "ext": "ts,html,.scss",
   "ignore": ["src/**/*.spec.ts"],
   "exec": "npm run build && ts-node ./server.ts"
 }

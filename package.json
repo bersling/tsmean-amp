@@ -7,7 +7,7 @@
     "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && mkdir -p dist && cp -r assets dist && npm run mustache",
-    "mustache": "npx ts-node compile.ts",
+    "mustache": "npx -s sh ts-node compile.ts",
     "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html",
     "deploy": "./deploy.sh prod"
   },

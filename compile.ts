@@ -12,12 +12,6 @@ const projectConstants = {
 };
 
 /**
- * ATTENTION: The creation is a bit problematic when styles.css is missing.
- * If you ever need this fixed, consult with the amp-starter-project compile.js file
- */
-
-
-/**
  * Where the result is saved
  */
 const outDirRoot = './dist';

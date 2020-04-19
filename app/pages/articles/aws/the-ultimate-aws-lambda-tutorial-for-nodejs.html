@@ -414,7 +414,8 @@ rm ./dist/**/*.test.js
   ...
 </pre>
     <p>
-      Then call your function through your API endpoint and afterwards head over to CloudWatch. Click on the latest log stream. You should then see something like this:
+      Then call your function through your API endpoint and afterwards head over to CloudWatch. Click on the latest log
+      stream. You should then see something like this:
     </p>
     <amp-img src="/assets/img/the-ultimate-aws-lambda-tutorial-for-nodejs/aws-lambda-cloudwatch-logging.png"
              alt="AWS Lambda Logo"
@@ -441,6 +442,41 @@ rm ./dist/**/*.test.js
       code, I suggest you have your functions in a git repository. This helps with organizing your code the way you
       want. It also helps with sharing common scripts, such as those for the deployment of functions. Last but not
       least, like this you can also run your unit tests on on your CI/CD pipelines.
+    </p>
+    
+    <h2>Accessing the Input Data: Payload, Path Parameters and Query Parameters</h2>
+    <p>
+      So far our function didn't receive any input data, so it always returned the same meaningless output. Most real
+      world cases would take some kind of input data. You can read the input data off of the <code>event</code> object.
+    </p>
+    <ul>
+      <li>
+        To get query parameters: <code>event.queryStringParameters.myqueryparam</code>
+      </li>
+      <li>
+        To get path parameters: <code>event.pathParameters.mypathparam</code>
+      </li>
+      <li>
+        To get the request payload: <code>event.body</code>
+      </li>
+    </ul>
+    <p>The full list of accessible parameters can be found on the <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html">AWS docs</a>, they're:</p>
+    <pre>{
+    "resource": "Resource path",
+    "path": "Path parameter",
+    "httpMethod": "Incoming request's method name"
+    "headers": {String containing incoming request headers}
+    "multiValueHeaders": {List of strings containing incoming request headers}
+    "queryStringParameters": {query string parameters }
+    "multiValueQueryStringParameters": {List of query string parameters}
+    "pathParameters":  {path parameters}
+    "stageVariables": {Applicable stage variables}
+    "requestContext": {Request context, including authorizer-returned key-value pairs}
+    "body": "A JSON string of the request payload."
+    "isBase64Encoded": "A boolean flag to indicate if the applicable request payload is Base64-encode"
+}</pre>
+    <p>
+      As an example, let's say the request is to the AWS API Gateway at <code>https://...amazonaws.com/tutorial-function?listid=1234</code> and the request payload is <code>{"hello": "world"}</code>, then you can get "1234" through <code>event.queryStringParameters.listid</code> and  <code>{"hello": "world"}</code> through <code>event.body</code>.
     </p>
     
     <h2>Summary</h2>

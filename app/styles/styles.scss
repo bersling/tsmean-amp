@@ -104,6 +104,13 @@ If your styles are for a custom ui component, put them in the same folder as the
   margin-bottom: 15px;
 }
 
+code {
+  padding: 2px 4px;
+  color: $accent;
+  background-color: #fbe5e1;
+  border-radius: 4px;
+  font-size: 90%;
+}
 
 // used to highlight especially important bits of the text
 .highlight {
@@ -252,4 +259,3 @@ amp-accordion>section>pre.code-snippet {
   }
 
 }
-
