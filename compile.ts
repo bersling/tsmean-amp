@@ -30,28 +30,7 @@ const partialRootPath = './app/';
 const buildPartial = (partialPath) => {
   return fs.readFileSync(path.join(partialRootPath, partialPath), 'utf8');
 };
-const partials = {
-  'styles': buildPartial('styles/styles.css'),
-  'articleFooter': buildPartial('components/article/article-footer.html'),
-  'articleHead': buildPartial('components/article/article-head.html'),
-  'footer': buildPartial('components/footer/footer.html'),
-  'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
-  'header': buildPartial('components/header/header.html'),
-  'learnMore': buildPartial('components/learn-more/learn-more.html'),
-  'logoAccent': buildPartial('components/logo/accent.html'),
-  'logoPrimary': buildPartial('components/logo/primary.html'),
-  'logoWhite': buildPartial('components/logo/white.html'),
-  'primaryNavMenu': buildPartial('components/primary-nav-menu/primary-nav-menu.html'),
-  'sidebar': buildPartial('components/sidebar/sidebar.html'),
-  'socialFooter': buildPartial('components/social-footer/social-footer.html'),
-  'subscribeLightbox': buildPartial('components/subscribe-lightbox/subscribe-lightbox.html'),
-  'subscribeToNewsletter': buildPartial('components/subscribe-to-newsletter/subscribe-to-newsletter.html'),
-  'subscribeToReleaseLightbox': buildPartial('components/subscribe-to-release-lightbox/subscribe-to-release-lightbox.html'),
-  'subscribeToReleases': buildPartial('components/subscribe-to-releases/subscribe-to-releases.html'),
-  'valueBullets': buildPartial('components/value-bullets/value-bullets.html'),
-  'analytics': buildPartial('components/analytics.html'),
-  'commonHead': buildPartial('components/common-head.html')
-};
+let partials;
 
 
 /**
@@ -180,6 +159,7 @@ addPagesToDirectory(
  */
 async function doCompile() {
   compileSass();
+  buildPartials();
   copyRobotsTxt();
   buildSitemap(pages);
   compileMustache();
@@ -209,6 +189,31 @@ async function validateAmp(pages: string[]) {
   });
 }
 
+function buildPartials() {
+  partials = {
+    'styles': buildPartial('styles/styles.css'),
+    'articleFooter': buildPartial('components/article/article-footer.html'),
+    'articleHead': buildPartial('components/article/article-head.html'),
+    'footer': buildPartial('components/footer/footer.html'),
+    'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
+    'header': buildPartial('components/header/header.html'),
+    'learnMore': buildPartial('components/learn-more/learn-more.html'),
+    'logoAccent': buildPartial('components/logo/accent.html'),
+    'logoPrimary': buildPartial('components/logo/primary.html'),
+    'logoWhite': buildPartial('components/logo/white.html'),
+    'primaryNavMenu': buildPartial('components/primary-nav-menu/primary-nav-menu.html'),
+    'sidebar': buildPartial('components/sidebar/sidebar.html'),
+    'socialFooter': buildPartial('components/social-footer/social-footer.html'),
+    'subscribeLightbox': buildPartial('components/subscribe-lightbox/subscribe-lightbox.html'),
+    'subscribeToNewsletter': buildPartial('components/subscribe-to-newsletter/subscribe-to-newsletter.html'),
+    'subscribeToReleaseLightbox': buildPartial('components/subscribe-to-release-lightbox/subscribe-to-release-lightbox.html'),
+    'subscribeToReleases': buildPartial('components/subscribe-to-releases/subscribe-to-releases.html'),
+    'valueBullets': buildPartial('components/value-bullets/value-bullets.html'),
+    'analytics': buildPartial('components/analytics.html'),
+    'commonHead': buildPartial('components/common-head.html')
+  }
+}
+
 function compileSass() {
   console.log('compiling scss');
   const sass = require('node-sass');
@@ -218,7 +223,7 @@ function compileSass() {
   });
   fs.writeFileSync('./app/styles/styles.css', result.css);
   console.log('compiled scss');
-};
+}
 
 function copyRobotsTxt() {
   copyFile('./app/pages/robots.txt', './dist/robots.txt', function (err) {
