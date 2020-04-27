@@ -19,7 +19,7 @@
   
   <h1>Hello World!</h1>
   
-  <pre><code class="language-js">var name = "World";
+  <pre class="app-pre"><code class="language-js">var name = "World";
 console.warn("Hello, " + name + "!")</code></pre>
   
   {{> header}}
@@ -52,12 +52,12 @@ console.warn("Hello, " + name + "!")</code></pre>
     </h2>
   
     <p>What the <code>noImplicitAny</code> compiler option does, is it basically converts TypeScript from an optionally-typed language to a necessarily-typed language. This gets TypeScript a little further away from being a superset of JavaScript, since a simple</p>
-    <pre><code>function logMe(x) {
+    <pre class="app-pre"><code>function logMe(x) {
   console.log(x);
 }
 // error TS7006: Parameter &#39;x&#39; implicitly has an &#39;any&#39; type.</code></pre>
     <p>would throw an error. You would have to <em>explicitly</em> declare that <code>x</code> is of type <code>any</code>:</p>
-    <pre><code>function logMe(x: any) {
+    <pre class="app-pre"><code>function logMe(x: any) {
   console.log(x);
 }
  // OK</code></pre>

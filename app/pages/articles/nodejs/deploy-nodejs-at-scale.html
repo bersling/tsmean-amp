@@ -48,7 +48,7 @@
       To automate deployments, a lot of people immediately think about containerization and Docker. While it's nice that this will give your server detailed installation instructions, for Node.js applications this often isn't necessary. Think about it. What do you actually need to know to install most Node.js applications? When you download something from Github and want to install it, what do the installation instructions usually say? It's usually just the following two commands:
     </p>
     
-    <pre>npm install
+    <pre class="app-pre">npm install
 npm start</pre>
     
     <p>
@@ -76,7 +76,7 @@ npm start</pre>
       And what about Node.js apps written in TypeScript? It's just as easy, simply add TypeScript to your npm dependencies and provide a start script like the following:
     </p>
     
-    <pre>"scripts": {
+    <pre class="app-pre">"scripts": {
   "start": "./node_modules/.bin/tsc && node dist/server.js"
 },
 "dependencies": {

@@ -63,7 +63,7 @@
     <p>
       So let's get started with the final script and then let's disassemble it.
     </p>
-    <pre>#!/bin/bash
+    <pre class="app-pre">#!/bin/bash
     
 # Set up necessary variables
 backup_name=backup_`date +%Y-%m-%d-%H%M`
@@ -122,7 +122,7 @@ rm -rf $backup_path
         <amp-accordion>
           <section>
             <h5 class="file-label-two">Show Policy</h5>
-            <pre>{
+            <pre class="app-pre">{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -164,7 +164,7 @@ rm -rf $backup_path
     <p>
       Now there is one missing piece to the puzzle. Your script needs to be scheduled! Here, a cronjob comes in handy. You can set up a new cronjob by running <code>crontab -e</code>. Then you can insert the following script:
     </p>
-    <pre>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    <pre class="app-pre">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 0 * * * * ./backup-s3.sh
 </pre>
@@ -174,7 +174,7 @@ rm -rf $backup_path
     <p>
       Well, that's it! Now you have backups, and you'll also be informed about the status of the backups. Of course, the status update once an hour might get a bit annoying. You can change the backup script, such that it just sends the mails once a day:
     </p>
-    <pre>if [[ "$backup_name" == *"0600" ]]; then
+    <pre class="app-pre">if [[ "$backup_name" == *"0600" ]]; then
   # send the mail
 fi</pre>
     <p>

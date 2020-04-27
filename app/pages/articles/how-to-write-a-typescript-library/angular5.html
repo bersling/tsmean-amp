@@ -88,7 +88,7 @@
       I am going to call my library <code>libex</code> (for "library-example", and it was still free on npm)
       so I call the new project <code>libex-project</code>
     </p>
-    <pre>ng new libex-project  <span class="highlight">--prefix libex</span></pre>
+    <pre class="app-pre">ng new libex-project  <span class="highlight">--prefix libex</span></pre>
     
     <p>
       Use your library title instead of libex. Prefix is what you'll write in front of your components, for example
@@ -101,20 +101,20 @@
       Your library will reside in it's own module. But first we've got to create said module.
     </p>
     
-    <pre>ng g module libex</pre>
+    <pre class="app-pre">ng g module libex</pre>
     
     <p>Then we <code>cd</code> into that folder.</p>
     
-    <pre><code>cd src/app/libex/</code></pre>
+    <pre class="app-pre"><code>cd src/app/libex/</code></pre>
     
     <h2><span class="step">Step 3:</span> Build your library module</h2>
     <p>Create components, services etc., e.g.</p>
     
-    <pre>ng g component hello</pre>
+    <pre class="app-pre">ng g component hello</pre>
     
     <p>When you're done, you'll have to <strong class="highlight">export</strong> the desired components:</p>
     
-    <pre>@NgModule({
+    <pre class="app-pre">@NgModule({
   imports: [
     CommonModule
   ],
@@ -122,13 +122,13 @@
   <span class="highlight">exports: [HelloComponent]</span>
 })</pre>
     <p>You can use your <code>AppModule</code> to test the library:</p>
-    <pre><code>...
+    <pre class="app-pre"><code>...
 imports: [
   BrowserModule,
   LibexModule
 ],</code></pre>
     <p>If you need singleton services, you should modify your library module like so:</p>
-    <pre>@NgModule({
+    <pre class="app-pre">@NgModule({
   providers: [ /* Don't add the services here */ ]
 })
 export class LibexModule {
@@ -140,7 +140,7 @@ export class LibexModule {
   }
 }</pre>
     <p>and change the imports in <code>AppModule</code> to:</p>
-    <pre><code>...
+    <pre class="app-pre"><code>...
 imports: [
   BrowserModule,
   LibexModule.forRoot()
@@ -153,7 +153,7 @@ imports: [
       command. It should look somewhat like this:
     </p>
     
-    <pre>{
+    <pre class="app-pre">{
   "name": "libex",
   "version": "1.0.16",
   "description": "An Example Library.",
@@ -200,7 +200,7 @@ imports: [
       can also specify this in your <code>.angular-cli.json</code>:
     </p>
     
-<pre>"defaults": {
+<pre class="app-pre">"defaults": {
   ...
   "build": {
     "preserveSymlinks": true
@@ -212,7 +212,7 @@ imports: [
       you'll need:
     </p>
     
-<pre>"include": [
+<pre class="app-pre">"include": [
   "src/**/*",
   "node_modules/your-library/index.ts",
 ]</pre>

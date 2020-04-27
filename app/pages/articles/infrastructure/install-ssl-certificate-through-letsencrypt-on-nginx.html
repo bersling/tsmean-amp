@@ -43,7 +43,7 @@
     <p>1) Go to your registrar and point your site, e.g. example.com to your servers IP e.g. 107.170.33.76.</p>
     <p>2) Login to your server (ssh root@107.170.33.76 on digital ocean for example), then:</p>
     
-    <pre>git clone https://github.com/letsencrypt/letsencrypt
+    <pre class="app-pre">git clone https://github.com/letsencrypt/letsencrypt
 cd letsencrypt
 ./letsencrypt-auto certonly --standalone --email youremail@gmail.com -d example.com -d www.example.com
 cd /etc/nginx/ssl/
@@ -51,7 +51,7 @@ ln -s /etc/letsencrypt/live/example.com/privkey.pem example.com.key
 ln -s /etc/letsencrypt/live/exmpale.com/fullchain.pem example.com.crt</pre>
     <p>3) Use the following inside your http block of the nginx.conf file:</p>
     
-    <pre>  upstream project {
+    <pre class="app-pre">  upstream project {
     ip_hash;
     server localhost:8080;
   }

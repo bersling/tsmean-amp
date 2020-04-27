@@ -54,15 +54,15 @@
     </p>
     <ol>
       <li>
-        <pre>sudo apt-get install ssmtp mailutils</pre>
+        <pre class="app-pre">sudo apt-get install ssmtp mailutils</pre>
       </li>
       <li>
         Open the following file in your favorite text editor (vim, nano, ...):
-        <pre>nano /etc/ssmtp/ssmtp.conf</pre>
+        <pre class="app-pre">nano /etc/ssmtp/ssmtp.conf</pre>
       </li>
       <li>
         Append the following lines:
-        <pre>root=username@gmail.com
+        <pre class="app-pre">root=username@gmail.com
 mailhub=smtp.gmail.com:465
 rewriteDomain=gmail.com
 AuthUser=username@gmail.com
@@ -71,7 +71,7 @@ FromLineOverride=YES
 UseTLS=YES</pre>
       </li>
       <li>
-        Finally, send mails like this: <pre>echo "Hi there!" | mail -s "My Subject" recipient@example.com</pre>
+        Finally, send mails like this: <pre class="app-pre">echo "Hi there!" | mail -s "My Subject" recipient@example.com</pre>
       </li>
     </ol>
   

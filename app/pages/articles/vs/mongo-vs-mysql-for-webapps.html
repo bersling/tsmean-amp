@@ -78,7 +78,7 @@
     <p>
       Then the argument for NoSQL would be that you could store everything denormalized as
     </p>
-    <pre>{
+    <pre class="app-pre">{
   content: "bla bla"
   user: {
     name: "Jeremy Barns"
@@ -102,7 +102,7 @@
       Of course you could do the same with Mongo:
     </p>
   
-    <pre>{
+    <pre class="app-pre">{
   content: "bla bla"
   user: 58e5ee14d37470005df49bcb
   comments: [
@@ -122,7 +122,7 @@
       Wrong. Let's say we implement the following data model:
     </p>
   
-    <pre>interface Message {
+    <pre class="app-pre">interface Message {
   content: string;
   user: User;
   comments: Message[];
@@ -137,7 +137,7 @@ interface User {
       would we have to do one million times all of those table-joins:
     </p>
   
-    <pre>message -&gt; user
+    <pre class="app-pre">message -&gt; user
 message -&gt; message -&gt; user (n times, where n = #comments)</pre>
     ?
     <p>

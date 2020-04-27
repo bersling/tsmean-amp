@@ -80,7 +80,7 @@
     </p>
   
     <span class="file-label">resource.store.ts</span>
-    <pre>
+    <pre class="app-pre">
 import {Injectable} from '@angular/core';
 import {Resource} from './resource';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -155,7 +155,7 @@ interface ResourceStore {
     <amp-accordion>
       <section expanded>
         <h5 class="file-label-two">item-list.store.ts</h5>
-        <pre>import {Injectable} from '@angular/core';
+        <pre class="app-pre">import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -260,7 +260,7 @@ export class AnimalDashboardListStore {
       If the state is localized to one component, it's fine to store the state on the component itself. For example, if you were to use a &lt;spacer height="20"&gt;&lt;/spacer&gt; component, that just inserts a div of a certain height in pixels.
     </p>
   
-    <pre>import {Component, Input} from '@angular/core';
+    <pre class="app-pre">import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'spacer',
@@ -276,7 +276,7 @@ export class SpacerComponent {
       To be precise, we are also storing state in the components when using services as stores:
     </p>
     <span class="file-label">some.component.ts</span>
-    <pre>...
+    <pre class="app-pre">...
 itemStore.subscribe(item => {this.item = item})</pre>
     <p>
       What's different, is that the <i>update requests</i> always go through the service.

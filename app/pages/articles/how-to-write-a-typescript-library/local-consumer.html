@@ -47,7 +47,7 @@
       If your library is contained for example in <code>mylib</code>, then create <code>libconsumer</code>
       next to it so your folder structure looks like this:
     
-    <pre>somewhere-on-your-machine
+    <pre class="app-pre">somewhere-on-your-machine
 ├── mylib
 └── libconsumer</pre>
     
@@ -57,7 +57,7 @@
     <p>
       Create a <code>package.json</code> file. It could look somewhat like this one:
     <div class="file-label">libconsumer/package.json</div>
-    <pre>{
+    <pre class="app-pre">{
   "name": "libconsumer",
   "version": "1.0.0",
   "description": "",
@@ -78,7 +78,7 @@
     
     <p>
       Now comes the magic. Run
-    <pre>npm link ../mylib</pre>
+    <pre class="app-pre">npm link ../mylib</pre>
     This will create a symlink in <code>libconsumer</code>'s <code>node_modules</code> to the <code>mylib</code> library.
     To read more on <code>npm link</code>, <a href="https://docs.npmjs.com/cli/link">see the docs</a>.
     </p>
@@ -90,14 +90,14 @@
     <p>
       Write some file(s) to consume your library. For example
     <div class="file-label">libconsumer/somefile.ts</div>
-    <pre>import {sayHello} from 'hwrld'
+    <pre class="app-pre">import {sayHello} from 'hwrld'
 sayHello();</pre>
     
     You compile this simple example like this:
-    <pre>tsc somefile.ts</pre>
+    <pre class="app-pre">tsc somefile.ts</pre>
     
     Finally you can run
-    <pre>node somefile.js</pre>
+    <pre class="app-pre">node somefile.js</pre>
     and in this example it should log <code>hi</code> to the console. And that's it!
     </p>
   

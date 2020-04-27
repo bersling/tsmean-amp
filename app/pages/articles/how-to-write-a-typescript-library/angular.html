@@ -82,7 +82,7 @@
       I am going to call my library <code>libex</code> (for "library-example", and it was still free on npm)
       so I call the new project <code>libex-project</code>.
     </p>
-    <pre>ng new libex-project <span class="highlight">--prefix libex</span></pre>
+    <pre class="app-pre">ng new libex-project <span class="highlight">--prefix libex</span></pre>
     
     <p>
       Use your library title instead of libex. Prefix is what you'll write in front of your components, for example
@@ -95,20 +95,20 @@
       Your library will reside in it's own module. But first we've got to create that module.
     </p>
     
-    <pre>ng g module libex</pre>
+    <pre class="app-pre">ng g module libex</pre>
     
     <p>Then we <code>cd</code> into that folder.</p>
     
-    <pre><code>cd src/app/libex/</code></pre>
+    <pre class="app-pre"><code>cd src/app/libex/</code></pre>
     
     <h2><span class="step">Step 3:</span> Build your library module</h2>
     <p>Create components, services etc., e.g.</p>
     
-    <pre>ng g component hello</pre>
+    <pre class="app-pre">ng g component hello</pre>
     
     <p>When you're done, you'll have to <strong class="highlight">export</strong> the desired components:</p>
     
-    <pre>@NgModule({
+    <pre class="app-pre">@NgModule({
   imports: [
     CommonModule
   ],
@@ -116,13 +116,13 @@
   <span class="highlight">exports: [HelloComponent]</span>
 })</pre>
     <p>You can use your <code>AppModule</code> to test the library:</p>
-    <pre><code>...
+    <pre class="app-pre"><code>...
 imports: [
   BrowserModule,
   LibexModule
 ],</code></pre>
     <p>If you need singleton services, you should modify your library module like so:</p>
-    <pre>@NgModule({
+    <pre class="app-pre">@NgModule({
   providers: [ /* Don't add the services here */ ]
 })
 export class LibexModule {
@@ -134,7 +134,7 @@ export class LibexModule {
   }
 }</pre>
     <p>and change the imports in <code>AppModule</code> to:</p>
-    <pre><code>...
+    <pre class="app-pre"><code>...
 imports: [
   BrowserModule,
   LibexModule.forRoot()
@@ -144,15 +144,15 @@ imports: [
     <p>
       To declare the public API for your consumers, you should setup an index.ts where you export all modules, components etc. your consumers should have access to. Here for example it would look like this:
     </p>
-    <pre>export {LibexModule} from './libex.module';
+    <pre class="app-pre">export {LibexModule} from './libex.module';
 export {HelloService} from './hello.service';
 export {HelloComponent} from './hello/hello.component';</pre>
     <p>
       That way, it's also easier to import for the consumers of the library, as they can just use something like.
     </p>
-    <pre>import {HelloComponent} from 'libex'</pre>
+    <pre class="app-pre">import {HelloComponent} from 'libex'</pre>
     <p>instead of</p>
-    <pre>import {HelloComponent} from 'libex/hello/hello.component'</pre>
+    <pre class="app-pre">import {HelloComponent} from 'libex/hello/hello.component'</pre>
     <p>
       This will also help you to generate an <code>index.d.ts</code> in the next step, which in turn helps your IDE with autocompletion. Having a so called "barrel" file (a file, that re-exports some classes) can lead to some problems. If you run into an Angular DI Exception, see <a href="https://stackoverflow.com/a/38000323/3022127">this stackoverflow thread</a>.
     </p>
@@ -163,7 +163,7 @@ export {HelloComponent} from './hello/hello.component';</pre>
       So far, we have pretty much set up a regular Angular application. Now we want to get it to npm! How can we achieve this? We need to have a <code>package.json</code> and bundle all the files we want to distribute together. Personally, I'm using a small node script to do this build task. It looks like this:
     </p>
     
-    <pre>const fsextra = require('fs-extra');
+    <pre class="app-pre">const fsextra = require('fs-extra');
 const { exec } = require('child_process');
 
 fsextra.copy('./src/app/libex', './dist-lib', err => {
@@ -248,7 +248,7 @@ function createPackageJson() {
       can also specify this in your <code>.angular-cli.json</code>:
     </p>
     
-<pre>"defaults": {
+<pre class="app-pre">"defaults": {
   ...
   "build": {
     "preserveSymlinks": true
@@ -260,7 +260,7 @@ function createPackageJson() {
       you'll need:
     </p>
     
-<pre>"include": [
+<pre class="app-pre">"include": [
   "src/**/*",
   “node_modules/your-library/index.ts",
 ]</pre>

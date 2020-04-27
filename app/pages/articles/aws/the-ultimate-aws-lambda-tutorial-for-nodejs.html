@@ -233,8 +233,8 @@
     <p>
       AWS will need a minute until the changes are live. You could also give the user full admin access to AWS Lambda
       (which is a predefined policy), but I usually try to
-      go by the principle of least privileges. Now you can register this user locally through <code>aws configure
-      --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code>export
+      go by the principle of least privileges. Now you can register this user locally through <code class="app-code">aws configure
+      --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code class="app-code">export
       AWS_PROFILE=aws-lambda-tutorial-user</code>. Now you can download your function like this:
     </p>
     <pre><code>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</code></pre>
@@ -245,11 +245,11 @@
       and change the response string to "Hello from Localhost!". Then try to push the changed function with the
       following code:
     </p>
-    <pre>rm tutorial-function.zip
+    <pre><code>rm tutorial-function.zip
 cd src
 zip -r ../tutorial-function.zip .
 cd ..
-aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip</pre>
+aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip</code></pre>
     <p>
       You can check that everything worked by refreshing your browser tab with the endpoint. Now it's time to do
       something a bit more complicated with your function!
@@ -264,7 +264,7 @@ aws lambda update-function-code --function-name tutorial-function --zip-file fil
       Now let's change the code of the index.js file to to something with the immutable package. Let's just take the
       code from their readme:
     </p>
-    <pre>const {List} = require('immutable');
+    <pre><code class="language-js">const {List} = require('immutable');
 
 exports.handler = async (event) => {
   const list1 = List([ 1, 2 ]);
@@ -274,7 +274,7 @@ exports.handler = async (event) => {
     body: JSON.stringify(list2),
   };
   return response;
-};</pre>
+};</code></pre>
     <p>
       It's important to notice that the <code>require</code> is outside of the handler. This is a best practice, because
       like this AWS can reuse the execution context. This means, that for subsequent invocations, the same
@@ -288,14 +288,14 @@ exports.handler = async (event) => {
       larger projects you might want to integrate it with your CI/CD. We need some adjustments to the previous script to
       make it work.
     </p>
-    <pre>rm -rf ./dist && mkdir dist
+    <pre><code>rm -rf ./dist && mkdir dist
 cp -r ./src/* ./dist
 cp package.json package-lock.json ./dist
 cd dist
 npm install --only=prod
 zip -r ./tutorial-function.zip .
 aws lambda update-function-code --function-name tutorial-function --zip-file fileb://tutorial-function.zip
-cd ..</pre>
+cd ..</code></pre>
     <p>
       Again, you can check your endpoint to see if
       everything is working. You should now see: <code>[1,2,3,4,5]</code> when you go to your endpoint.
@@ -313,13 +313,12 @@ cd ..</pre>
       ship it to production and blow up the size of our Lambda function. Let's create a first test, <code>nano
       src/index.test.js</code>:
     </p>
-    <pre>
-const index = require('./index');
+    <pre><code class="language-js">const index = require('./index');
 
 test('has size five', async () => {
   const resp = await index.handler();
   expect(JSON.parse(resp.body).length).toBe(5);
-});</pre>
+});</code></pre>
     <p>
       What's important to notice is that the test is asynchronous! We need to <code>await</code> the response of
       the handler. This is due to the nature of the the async function in the index.js. This was just a small example of
@@ -329,16 +328,16 @@ test('has size five', async () => {
     <p>
       To be able to run the test, you must modify the <code>package.json</code> to include
     </p>
-    <pre>"scripts": {
+    <pre><code class="language-json">"scripts": {
   "test": "jest"
-}</pre>
+}</code></pre>
     <p>
       You can now run the tests with <code>npm test</code>. We saw, that testing our code was a bit more complex than it
       needed to be because we had to think about the
       asynchronicity of the handler. To avoid this, it's a best practice to separate your handler logic from your core
       logic. In our case, we could rewrite the function like so:
     </p>
-    <pre>const {List} = require('immutable');
+    <pre><code class="language-js">const {List} = require('immutable');
 
 function getList() {
   const list1 = List([ 1, 2 ]);
@@ -358,11 +357,11 @@ exports.handler = async (event) => {
 };
 
 exports.getList = getList;
-</pre>
+</code></pre>
     
     and the test
     
-    <pre>const index = require('./index');
+    <pre><code class="language-js">const index = require('./index');
 
 test('has size 5', () => {
   const resp = index.getList();
@@ -373,16 +372,16 @@ test('handler responds correctly', async () => {
   const resp = await index.handler();
   expect(JSON.parse(resp.body).length).toBe(5);
 });
-</pre>
+</code></pre>
     <p>
       It might be a bit eagerly optimized, but the test sources don't need to be shipped to production. So you can
       change your deployment script like so:
     </p>
-    <pre>...
+    <pre><code>...
 cp -r ./src/* ./dist
 cp package.json package-lock.json ./dist
 rm ./dist/**/*.test.js
-...</pre>
+...</code></pre>
     <p>
       This is just following the best practice of not shipping anything unnecessary to production. This is a
       different mindset than the backend development you might be used to when deploying to a server. There
@@ -407,12 +406,12 @@ rm ./dist/**/*.test.js
       producing. In order to try this, add a <code>console.log</code> statement to your function code, for example you
       could log the incoming event:
     </p>
-    <pre>exports.handler = async (event) => {
+    <pre><code class="language-js">exports.handler = async (event) => {
   
   console.log('Event:', JSON.stringify(event));
 
   ...
-</pre>
+</code></pre>
     <p>
       Then call your function through your API endpoint and afterwards head over to CloudWatch. Click on the latest log
       stream. You should then see something like this:
@@ -461,7 +460,7 @@ rm ./dist/**/*.test.js
       </li>
     </ul>
     <p>The full list of accessible parameters can be found on the <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html">AWS docs</a>, they're:</p>
-    <pre><code class="language-js">{
+    <pre class="app-pre"><code class="language-json">{
     "resource": "Resource path",
     "path": "Path parameter",
     "httpMethod": "Incoming request's method name"

@@ -39,7 +39,7 @@
     <p>Nowadays if you have a somewhat potent webapp, you probably need users to login and therefore you need SSL (https). Whether you use www or non-www doesn't matter as long as you are consistent. Quora.com redirects to www and stackoverflow redirects to non-www, so you have examples of two sites that are good at SEO with different settings.</p>
     <p>Now lets say we want to setup our www https page. What we can't do is a 301 permanent redirect on the registrar, since they can't redirect https non-www. So we will have to write the redirects on our own servers. So in the end we will have:</p>
   
-    <pre>A record: @ pointing to &lt;my_IP&gt;
+    <pre class="app-pre">A record: @ pointing to &lt;my_IP&gt;
 CNAME alias: www pointing to @
 </pre>
     <p>while the redirects non-www to www and http to https happen on the server. <a href="http://www.bersling.com/2016/04/22/install-ssl-certificate-through-letsencrypt-on-nginx/">Here is an example for how to redirect from http to https using nginx</a>.</p>

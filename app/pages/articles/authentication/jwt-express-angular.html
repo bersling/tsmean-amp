@@ -49,23 +49,23 @@
       JWT is short for JSON Web Tokens. One use case is to help you with authentication. It doesn't help you with <i>initial</i> authentication, but rather with authentication for returning users. So it is actually comparable to regular session handling.
     </p>
     <p>As the name JWT suggests, "tokens" are the centerpiece of the technology. But what are those tokens? To understand, let's have a look at two main parts of JWT. Those would be the <b>encryption</b> and the <b>decryption</b> methods. The encryption is the so called "signing" function. It has the following signature:</p>
-    <pre>jwt.sign(JSON Data, secret:string) => token:string</pre>
+    <pre class="app-pre">jwt.sign(JSON Data, secret:string) => token:string</pre>
   <p>Aha, so here we have the token. So the jwt.sign function takes JSON Data, usually the user-json, combines it with a secret, and produces a token. The counterpart to the encryption is called, in Express at least, the verify (and also decode) function. It has the following signature:</p>
-    <pre>jwt.decode(token, secret: string) => JSON Data</pre>
+    <pre class="app-pre">jwt.decode(token, secret: string) => JSON Data</pre>
     <p>If you provide a valid token (previously produced by the <code>sign</code>-function), and also the same secret that was used to encrypt the data, the jwt.decode function will be able to reproduce the JSON Data that was initially encrypted.</p>
     <p>What's pretty cool about this, is that you can handle sessions in a stateless manner. You can shut down your server and restart it or have 10 servers, as long as you have the same secret everywhere, all the servers will decode the same token into the same JSON Data.</p>
     <p>Let's make an actual example.</p>
     <ol>
       <li>John logs in with john@gmail.com and his password - no JWT involved here.</li>
       <li>The backend checks if the password is correct</li>
-      <li>If the password is correct, the backend fetches John from the database. Something like <pre>const john = {email: "john@gmail", firstName: "John", lastName: "Doe"}</pre> is returned from the database. Still no JWT.</li>
+      <li>If the password is correct, the backend fetches John from the database. Something like <pre class="app-pre">const john = {email: "john@gmail", firstName: "John", lastName: "Doe"}</pre> is returned from the database. Still no JWT.</li>
       <li>Now JWT enters the game. The backend applies jwt sign function: <code>jwt.sign(john, secret)</code> and <i>attaches the generated token to the express response</i>.</li>
       <li>The frontend stores the token, for example in local storage.</li>
       <li>On subsequent requests (which require authentication), the frontend attaches the token to the request, so the backend can identify the client.</li>
     </ol>
     
     <p>The code to generate the token might look like this in Express:</p>
-    <pre>app.post('/api/login', validatePayloadMiddleware, (req, res) => {
+    <pre class="app-pre">app.post('/api/login', validatePayloadMiddleware, (req, res) => {
   const user = appUsers[req.body.email];
   if (user && user.pw === req.body.password) {
     const token = jwt.sign(user, serverJWT_Secret); // <==== The all-important "jwt.sign" function
@@ -81,7 +81,7 @@
 });</pre>
     
     <p>The code to decrypt / decode the token might look like this:</p>
-    <pre>const jwtMiddleware = (req, res, next) => {
+    <pre class="app-pre">const jwtMiddleware = (req, res, next) => {
   /**
    * In JWT it is convention that the token is provided to the server in the authorization header including a prefix,
    * separated by a space. The authorization header could be:
@@ -107,7 +107,7 @@
     <p>
       The responsible frontend code will attach the authorization header:
     </p>
-    <pre>import {Injectable} from '@angular/core';
+    <pre class="app-pre">import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';

@@ -67,7 +67,7 @@
       Let's say you want to send the same email to 100 people, except you want to personalize the salutation with their
       respective first names. You could replace the first name by some <strong>placeholder</strong>:
     </p>
-    <pre>Dear *|FNAME|*
+    <pre class="app-pre">Dear *|FNAME|*
 
 I hearby blablabla ...</pre>
     <p>
@@ -77,7 +77,7 @@ I hearby blablabla ...</pre>
     <p>
       The mustache syntax looks a bit different. This case would be covered by the following template:
     </p>
-    <pre>Dear {{fname}}
+    <pre class="app-pre">Dear {{fname}}
 
 I hearby blablabla ...</pre>
     <p>
@@ -175,7 +175,7 @@ I hearby blablabla ...</pre>
       I/O:
     </p>
     
-    <pre>// DOESN'T ACTUALLY WORK THAT WAY, BUT WAS EASIER TO ILLUSTRATE
+    <pre class="app-pre">// DOESN'T ACTUALLY WORK THAT WAY, BUT WAS EASIER TO ILLUSTRATE
 String[] users = {"Hans","Gertrude","Fritz"};
 for (String user : users) {
   String renderedEmail = mf.compile("emailTemplate.mustache", user);
@@ -245,17 +245,17 @@ for (String user : users) {
     <p>
       Mustache Template:
     </p>
-    <pre><span style="color: #ff0000;">Hello {{planet}}</span></pre>
+    <pre class="app-pre"><span style="color: #ff0000;">Hello {{planet}}</span></pre>
     <p>
       Input Data:
     </p>
-    <pre><span style="color: #0000ff;">{</span>
+    <pre class="app-pre"><span style="color: #0000ff;">{</span>
 <span style="color: #0000ff;">  "planet": "Earth"</span>
 <span style="color: #0000ff;">}</span></pre>
     <p>
       We choose JSON to describe our data here, but this would depend on the engine you're using. If you throw the <span style="color: #ff0000;">mustache template</span> plus the <span style="color: #0000ff;">input data</span> at a templating engine, it should (if it's not buggy) produce the following <span style="color: #339966;">output</span>:
     </p>
-    <pre><span style="color: #339966;">Hello Earth</span></pre>
+    <pre class="app-pre"><span style="color: #339966;">Hello Earth</span></pre>
     <p>
       So the templating engine <b>replaces</b> (also known as <b>expands</b>) the <b>tags</b> (the curly brace things) with what it finds in the input data. If in the template it's written: <code>{{someVariableName}}</code>, the engine will search the input data for the key "someVariableName" and replace the tag with the value it finds for this key. Here, "planet" was the lookup key and "Earth" was the value the engine found for this key.
     </p>
@@ -275,16 +275,16 @@ for (String user : users) {
     
     <p>
       Mustache Template:
-    <pre><span style="color: #ff0000;">Hello
+    <pre class="app-pre"><span style="color: #ff0000;">Hello
 {{#myCondition}}</span>
 <span style="color: #ff0000;">  la di da</span>
 <span style="color: #ff0000;">{{/myCondition}}</span></pre>
     Data:
-    <pre><span style="color: #0000ff;">{</span>
+    <pre class="app-pre"><span style="color: #0000ff;">{</span>
 <span style="color: #0000ff;">  "myCondition": false</span>
 <span style="color: #0000ff;">}</span></pre>
     Output:
-    <pre><span style="color: #339966;">Hello</span></pre>
+    <pre class="app-pre"><span style="color: #339966;">Hello</span></pre>
     </p>
     <p>
       At first, this syntax might look a bit weird to you. But it get's clearer once we read those sections from the
@@ -305,15 +305,15 @@ for (String user : users) {
     
     <p>
       Data:
-    <pre><span style="color: #0000ff;">{</span>
+    <pre class="app-pre"><span style="color: #0000ff;">{</span>
 <span style="color: #0000ff;">  "users": ["Hans", "Fritz", "Geraldine"]</span>
 <span style="color: #0000ff;">}</span></pre>
     Mustache Template:
-    <pre style="color: red">{{#users}}
+    <pre class="app-pre" style="color: red">{{#users}}
 {{.}}
 {{/users}}</pre>
     Output:
-    <pre><span style="color: #339966;">Hans</span>
+    <pre class="app-pre"><span style="color: #339966;">Hans</span>
 <span style="color: #339966;">Fritz</span>
 <span style="color: #339966;">Geraldine</span></pre>
     If you want all names on the same line, you'll have to write {{#users}}{{.}} {{/users}} on one line in the template
@@ -326,7 +326,7 @@ for (String user : users) {
     </p>
     
     Data:
-    <pre><span style="color: #0000ff;">{</span>
+    <pre class="app-pre"><span style="color: #0000ff;">{</span>
 <span style="color: #0000ff;">  "users": [{
     "name": "Hans"
   }, {
@@ -336,18 +336,18 @@ for (String user : users) {
   }]</span>
 <span style="color: #0000ff;">}</span></pre>
     Mustache Template:
-    <pre style="color: #ff0000;">{{#users}}
+    <pre class="app-pre" style="color: #ff0000;">{{#users}}
 {{name}}
 {{/users}}</pre>
     Output:
     
-    <pre><span style="color: #339966;">Hans</span>
+    <pre class="app-pre"><span style="color: #339966;">Hans</span>
 <span style="color: #339966;">Fritz</span>
 <span style="color: #339966;">Geraldine</span></pre>
     
     <h3>Using templates inside of templates: "Partials"</h3>
     One Mustache template can load another template. The specification states that this should work with the syntax
-    <pre><span style="color: #ff0000;">I am a template and I'm loading</span>
+    <pre class="app-pre"><span style="color: #ff0000;">I am a template and I'm loading</span>
 <span style="color: #ff0000;">{{&gt; template2 }}</span>
 <span style="color: #ff0000;">and now I continue</span></pre>
     This works fine as long as template2 doesn't require template1, then you'll get an infinite recursion which your
@@ -356,7 +356,7 @@ for (String user : users) {
     <h4>Passing Data to Partials</h4>
     Passing data to partials is actually a bit tricky and one of the things that took me the longest to figure out. It
     works like this:
-    <pre><span style="color: #ff0000;">{{#buttonOne}}
+    <pre class="app-pre"><span style="color: #ff0000;">{{#buttonOne}}
   {{&gt; mybutton}}
 {{/buttonOne}}
 {{#buttonTwo}}
@@ -367,7 +367,7 @@ for (String user : users) {
       <span style="font-size: 15px;">data</span>
     </span>
     you’d specify
-    <pre><span style="color: #0000ff;">{
+    <pre class="app-pre"><span style="color: #0000ff;">{
   "buttonOne": {
     "title": "Cancel"
   },
@@ -376,9 +376,9 @@ for (String user : users) {
   }
 }</span></pre>
     In the partial there could be the code
-    <pre><span style="color: #ff0000;">&lt;button class="my-cool-button"&gt;{{title}}&lt;/button&gt;</span></pre>
+    <pre class="app-pre"><span style="color: #ff0000;">&lt;button class="my-cool-button"&gt;{{title}}&lt;/button&gt;</span></pre>
     The result would print
-    <pre><span style="color: #339966;">&lt;button class="my-cool-button"&gt;Cancel&lt;/button&gt;
+    <pre class="app-pre"><span style="color: #339966;">&lt;button class="my-cool-button"&gt;Cancel&lt;/button&gt;
 &lt;button class="my-cool-button"&gt;Save&lt;/button&gt;
 </span></pre>
     <p>
@@ -390,9 +390,9 @@ for (String user : users) {
     <h3>Comments</h3>
     <p>
       Comments begin with an exclamation point and are ignored. The following template:
-    <pre><span style="color: #ff0000;">&lt;h1&gt;Hello{{! ignore me }}.&lt;/h1&gt;</span></pre>
+    <pre class="app-pre"><span style="color: #ff0000;">&lt;h1&gt;Hello{{! ignore me }}.&lt;/h1&gt;</span></pre>
     Will render as follows:
-    <pre><span style="color: #339966;">&lt;h1&gt;Hello.&lt;/h1&gt;</span></pre>
+    <pre class="app-pre"><span style="color: #339966;">&lt;h1&gt;Hello.&lt;/h1&gt;</span></pre>
     Comments may contain newlines.
     </p>
     
@@ -417,16 +417,16 @@ for (String user : users) {
     <p>
       So you'd get started by installing the templating engine like this:
     </p>
-    <pre>mkdir mustache-tutorial
+    <pre class="app-pre">mkdir mustache-tutorial
 cd mustache-tutorial
 npm init</pre>
     <p>Hit enter a few times, then:</p>
-    <pre>npm install mustache</pre>
+    <pre class="app-pre">npm install mustache</pre>
     <p>
       Then you can create the <b>template file</b> called <code>letter-template.mustache</code> and put the following
       template in there:
     </p>
-    <pre style="color: #ff0000;">I hereby greet all my friends.
+    <pre class="app-pre" style="color: #ff0000;">I hereby greet all my friends.
 {{#users}}
   Hello {{name}}
 {{/users}}
@@ -436,7 +436,7 @@ Nice knowing y'all!</pre>
       Now we also need a second file, that specifies who my friends are! So we'll put the friendlist from above in a
       JSON called <code>friends.json</code>
     </p>
-    <pre style="color: #0000ff;">{
+    <pre class="app-pre" style="color: #0000ff;">{
   "users": [{
     "name": "Hans"
   }, {
@@ -449,11 +449,11 @@ Nice knowing y'all!</pre>
       And now the final step. Combining the <b>template</b> and the <b>data</b>. If you look at the schematics above,
       this is where the templating engine comes into play. With the JavaScript engine, it'll now work like this:
     </p>
-    <pre>npx mustache friends.json letter-template.mustache > letter.txt</pre>
+    <pre class="app-pre">npx mustache friends.json letter-template.mustache > letter.txt</pre>
     <p>
       Now if you look what you have produced (<code>cat letter.txt</code>), you'll see the following:
     </p>
-    <pre style="color: #339966">I hereby greet all my friends.
+    <pre class="app-pre" style="color: #339966">I hereby greet all my friends.
   Hello Hans
   Hello Fritz
   Hello Geraldine
@@ -462,7 +462,7 @@ Nice knowing y'all!
 </pre>
     <p>You'll notice, that all the "Hello ..." lines are indented by two spaces. That's because they are also indented
       in the template. So to get rid of those spaces, change the template to:</p>
-    <pre style="color: #ff0000;">I hereby greet all my friends.
+    <pre class="app-pre" style="color: #ff0000;">I hereby greet all my friends.
 {{#users}
 Hello {{name}}
 {{/users}}

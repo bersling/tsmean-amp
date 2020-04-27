@@ -46,7 +46,7 @@
     <p>
       First of all, let's see a very simple example application using express and sessions. There's a quite simple one on Tutorialspoint, which looks somewhat like this:
     </p>
-    <pre>
+    <pre class="app-pre">
 var express = require('express');
 var session = require('express-session');
 
@@ -75,7 +75,7 @@ app.listen(3000);
     <p>
       Getting things to work with Angular requires an extra step, to how you'd usually send a request. You'll need to have the <code>{withCredentials: true}</code> option present on your requests! If you don't attach this, the cookie won't be sent. So resulting code might look like this:
     </p>
-    <pre>getLogin() {
+    <pre class="app-pre">getLogin() {
     this.http.get(environment.apiUrl + '/login', {
       withCredentials: true  // <=========== important!
     }).subscribe((resp: any) => {
@@ -87,7 +87,7 @@ app.listen(3000);
     <p>
       Another thing you'll need to think of, is CORS (Cross Origin Resource Sharing). Since your backend and frontend will live at different domains / different ports, you'll need to enable CORS in the backend. This can easily be achieved with Express like this:
     </p>
-    <pre>const cors = require('cors');
+    <pre class="app-pre">const cors = require('cors');
       const app = express();
 app.use(cors({origin: [
   "http://localhost:4736"

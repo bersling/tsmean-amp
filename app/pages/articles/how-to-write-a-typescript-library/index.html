@@ -54,7 +54,7 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/tsconfig.json</div>
-    <pre>{
+    <pre class="app-pre">{
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
@@ -86,7 +86,7 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/src/hello-world.ts</div>
-    <pre>export function sayHello() {
+    <pre class="app-pre">export function sayHello() {
   console.log('hi')
 }
 export function sayGoodbye() {
@@ -104,14 +104,14 @@ export function sayGoodbye() {
     </p>
     
     <div class="file-label">typescript-library/src/index.ts</div>
-    <pre>export {sayHello, sayGoodbye} from './hello-world'</pre>
+    <pre class="app-pre">export {sayHello, sayGoodbye} from './hello-world'</pre>
     
     <p>
       The consumer would be able to use the library later on like so:
     </p>
     
     <div class="file-label">someotherproject/src/somefile.ts</div>
-    <pre>import {sayHello} from '<span class="highlight">hwrld</span>'
+    <pre class="app-pre">import {sayHello} from '<span class="highlight">hwrld</span>'
 sayHello();
 </pre>
     
@@ -141,7 +141,7 @@ sayHello();
     
     
     <div class="file-label">typescript-library/package.json</div>
-    <pre>{
+    <pre class="app-pre">{
   "name": "hwrld",
   "version": "1.0.0",
   "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
@@ -176,7 +176,7 @@ sayHello();
     <div class="file-label">
       typescript-library/.npmignore
     </div>
-    <pre>tsconfig.json
+    <pre class="app-pre">tsconfig.json
 src</pre>
     
     
@@ -186,7 +186,7 @@ src</pre>
       To publish your first version to npm run:
     </p>
     
-    <pre>tsc
+    <pre class="app-pre">tsc
 npm publish
 </pre>
     
@@ -195,7 +195,7 @@ npm publish
       Now you're all set to go! Consume your library anywhere you want by running:
     </p>
     
-    <pre>npm install --save hwrld</pre>
+    <pre class="app-pre">npm install --save hwrld</pre>
     
     <p>
       
@@ -203,7 +203,7 @@ npm publish
     
     </p>
     
-    <pre>import {sayHello} from 'hwrld'
+    <pre class="app-pre">import {sayHello} from 'hwrld'
 sayHello();</pre>
     
     <p>
