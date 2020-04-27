@@ -216,7 +216,7 @@
       already. Then
       create a new policy that looks like this and attach it to the user:
     </p>
-    <pre>{
+    <pre><code class="language-json">{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -229,7 +229,7 @@
             "Resource": "arn:aws:lambda:eu-central-1:*:function:tutorial-function"
         }
     ]
-}</pre>
+}</code></pre>
     <p>
       AWS will need a minute until the changes are live. You could also give the user full admin access to AWS Lambda
       (which is a predefined policy), but I usually try to
@@ -237,7 +237,7 @@
       --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code>export
       AWS_PROFILE=aws-lambda-tutorial-user</code>. Now you can download your function like this:
     </p>
-    <pre>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</pre>
+    <pre><code>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</code></pre>
     <p>
       You can get your function out of the zip with <code>unzip tutorial-function.zip -d src</code>. Let's make
       another
@@ -461,7 +461,7 @@ rm ./dist/**/*.test.js
       </li>
     </ul>
     <p>The full list of accessible parameters can be found on the <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html">AWS docs</a>, they're:</p>
-    <pre>{
+    <pre><code class="language-js">{
     "resource": "Resource path",
     "path": "Path parameter",
     "httpMethod": "Incoming request's method name"
@@ -474,7 +474,7 @@ rm ./dist/**/*.test.js
     "requestContext": {Request context, including authorizer-returned key-value pairs}
     "body": "A JSON string of the request payload."
     "isBase64Encoded": "A boolean flag to indicate if the applicable request payload is Base64-encode"
-}</pre>
+}</code></pre>
     <p>
       As an example, let's say the request is to the AWS API Gateway at <code>https://...amazonaws.com/tutorial-function?listid=1234</code> and the request payload is <code>{"hello": "world"}</code>, then you can get "1234" through <code>event.queryStringParameters.listid</code> and  <code>{"hello": "world"}</code> through <code>event.body</code>.
     </p>

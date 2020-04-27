@@ -4,6 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const ampHtmlValidator = require('amphtml-validator');
 
+//used to highlight
+const rehype = require('rehype');
+const highlight = require('rehype-highlight');
+const vfile = require('to-vfile');
+
 /**
  * Some constants for your project
  */
@@ -186,6 +191,7 @@ async function validateAmp(pages: string[]) {
 function buildPartials() {
   partials = {
     'styles': buildPartial('styles/styles.css'),
+    'highlightStyles': buildPartial('../node_modules/highlight.js/styles/tomorrow-night-bright.css'),
     'articleFooter': buildPartial('components/article/article-footer.html'),
     'articleHead': buildPartial('components/article/article-head.html'),
     'footer': buildPartial('components/footer/footer.html'),
@@ -243,7 +249,16 @@ function compileMustache() {
     const renderedPage = Mustache.render(template, {
       projectUrl: projectConstants.projectUrl
     }, partials);
+
     fs.writeFileSync(distLocation(page), renderedPage);
+
+    // apply highlight
+    rehype()
+      .use(highlight)
+      .process(vfile.readSync(distLocation(page)), function(err, file) {
+        fs.writeFileSync(distLocation(page), String(file));
+      });
+
   });
 
 }

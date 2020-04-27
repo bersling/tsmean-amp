@@ -38,12 +38,16 @@
     "node-sass": "4.13.1",
     "nodemon": "2.0.2",
     "normalize-scss": "^7.0.0",
+    "rehype": "^10.0.0",
+    "rehype-highlight": "^4.0.0",
+    "to-vfile": "^6.1.0",
     "ts-node": "8.8.1",
     "typescript": "3.8.3",
     "watch": "^1.0.2"
   },
   "dependencies": {
     "command-line-args": "5.1.1",
+    "highlight.js": "^10.0.0",
     "replace": "1.1.5"
   }
 }
