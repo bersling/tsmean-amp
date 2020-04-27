@@ -72,7 +72,7 @@
 }</pre>
     
     <div class="file-label">src/user.ts</div>
-    <pre class="app-pre"><code>interface User {
+    <pre class="app-pre">interface User {
   name: string;
   age?: number;
 }
@@ -90,7 +90,7 @@ function printUserInfo(user: User) {
   console.log(user.name + ', ' + user.age != null ? user.age.toString() : 'age unknown');
   // =&gt; Unfortunately TypeScript can't infer that age is non-null here.
 }
-</code></pre>
+</pre>
     <p>
       As you can see, the exclamation point denotes that you are sure (e.g. by performing a check somewhere in the code) that something that’s potentially null actually isn’t. If you perform an if-check, TypeScript can infer that something is non-null. However, for the ternary operator this is unfortunately not the case.
     </p>

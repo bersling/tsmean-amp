@@ -105,7 +105,7 @@
     
     <p>Then we <code>cd</code> into that folder.</p>
     
-    <pre class="app-pre"><code>cd src/app/libex/</code></pre>
+    <pre class="app-pre">cd src/app/libex/</pre>
     
     <h2><span class="step">Step 3:</span> Build your library module</h2>
     <p>Create components, services etc., e.g.</p>
@@ -140,11 +140,11 @@ export class LibexModule {
   }
 }</pre>
     <p>and change the imports in <code>AppModule</code> to:</p>
-    <pre class="app-pre"><code>...
+    <pre class="app-pre">...
 imports: [
   BrowserModule,
   LibexModule.forRoot()
-],</code></pre>
+],</pre>
     
     <h2><span class="step">Step 4:</span> Publish</h2>
     

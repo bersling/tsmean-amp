@@ -99,7 +99,7 @@
     
     <p>Then we <code>cd</code> into that folder.</p>
     
-    <pre class="app-pre"><code>cd src/app/libex/</code></pre>
+    <pre class="app-pre">cd src/app/libex/</pre>
     
     <h2><span class="step">Step 3:</span> Build your library module</h2>
     <p>Create components, services etc., e.g.</p>
@@ -116,11 +116,11 @@
   <span class="highlight">exports: [HelloComponent]</span>
 })</pre>
     <p>You can use your <code>AppModule</code> to test the library:</p>
-    <pre class="app-pre"><code>...
+    <pre class="app-pre">...
 imports: [
   BrowserModule,
   LibexModule
-],</code></pre>
+],</pre>
     <p>If you need singleton services, you should modify your library module like so:</p>
     <pre class="app-pre">@NgModule({
   providers: [ /* Don't add the services here */ ]
