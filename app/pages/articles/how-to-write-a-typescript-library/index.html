@@ -54,17 +54,17 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/tsconfig.json</div>
-    <pre class="app-pre">{
+    <pre><code class="language-json">{
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    <span class="highlight">"declaration": true,</span>
+    "declaration": true,
     "outDir": "./dist"
   },
   "include": [
     "src/**/*"
   ]
-}</pre>
+}</code></pre>
     
     <p>
       Pretty much like a setup for a non-library project, but with one important addition:
@@ -86,34 +86,34 @@ here is a simple yet comprehensive tutorial!">
     </p>
     
     <div class="file-label">typescript-library/src/hello-world.ts</div>
-    <pre class="app-pre">export function sayHello() {
+    <pre><code class="language-ts">export function sayHello() {
   console.log('hi')
 }
 export function sayGoodbye() {
   console.log('goodbye')
 }
-</pre>
+</code></pre>
 
     
     <h2><span class="step">Step 3</span>: Create an index.ts file</h2>
     
     <p>
-      Add an <code>index.ts</code> file to your <code>src</code> folder.
+      Add an <code class="app-code">index.ts</code> file to your <code class="app-code">src</code> folder.
       The purpose of it is to export all the parts of the library you want to make available for consumers.
       In our case it would simply be:
     </p>
     
     <div class="file-label">typescript-library/src/index.ts</div>
-    <pre class="app-pre">export {sayHello, sayGoodbye} from './hello-world'</pre>
+    <pre><code class="language-ts">export {sayHello, sayGoodbye} from './hello-world'</code></pre>
     
     <p>
       The consumer would be able to use the library later on like so:
     </p>
     
     <div class="file-label">someotherproject/src/somefile.ts</div>
-    <pre class="app-pre">import {sayHello} from '<span class="highlight">hwrld</span>'
+    <pre><code class="language-ts">import {sayHello} from '<span class="highlight">hwrld</span>'
 sayHello();
-</pre>
+</code></pre>
     
     <p>
       You see that we have a new name here, "hwrld",
@@ -129,29 +129,29 @@ sayHello();
       so I prefer to not have it too long and if possible with no hyphens since it's easiest
       just to type a string when declaring the library as an import
       (an the consumers editor doesn't have auto-import). If you have to type
-      <code>import * as typescript-library from 'my-crazy-library-name'</code> each time, it's not so pleasant.
-      For this demo I have have chosen <code>hwrld</code> since it was still available on npm.
+      <code class="app-code">import * as typescript-library from 'my-crazy-library-name'</code> each time, it's not so pleasant.
+      For this demo I have have chosen <code class="app-code">hwrld</code> since it was still available on npm.
     </p>
     
     <p>
       The package name
-      is usually right at the top of the <code>package.json</code>. The whole <code>package.json</code>
+      is usually right at the top of the <code class="app-code">package.json</code>. The whole <code class="app-code">package.json</code>
       would look like so:
     </p>
     
     
     <div class="file-label">typescript-library/package.json</div>
-    <pre class="app-pre">{
+    <pre><code class="language-json">{
   "name": "hwrld",
   "version": "1.0.0",
   "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
   "main": "dist/index.js",
-  <span class="highlight">"types": "dist/index.d.ts"</span>
+  "types": "dist/index.d.ts"
 }
-</pre>
+</code></pre>
     
     <p>
-      If you don't have a package yet you can create one with <code>npm init</code> and it will guide you through the process.
+      If you don't have a package yet you can create one with <code class="app-code">npm init</code> and it will guide you through the process.
       Remember, the package name you choose will be the one people later use in their imports, so choose wisely!
     </p>
     
@@ -176,8 +176,8 @@ sayHello();
     <div class="file-label">
       typescript-library/.npmignore
     </div>
-    <pre class="app-pre">tsconfig.json
-src</pre>
+    <pre><code>tsconfig.json
+src</code></pre>
     
     
     <h2><span class="step">Step 6</span>: Publish to npm</h2>
@@ -186,16 +186,16 @@ src</pre>
       To publish your first version to npm run:
     </p>
     
-    <pre class="app-pre">tsc
+    <pre><code>tsc
 npm publish
-</pre>
+</code></pre>
     
     
     <p>
       Now you're all set to go! Consume your library anywhere you want by running:
     </p>
     
-    <pre class="app-pre">npm install --save hwrld</pre>
+    <pre><code>npm install --save hwrld</code></pre>
     
     <p>
       
@@ -203,22 +203,22 @@ npm publish
     
     </p>
     
-    <pre class="app-pre">import {sayHello} from 'hwrld'
-sayHello();</pre>
+    <pre><code>import {sayHello} from 'hwrld'
+sayHello();</code></pre>
     
     <p>
-      For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run <code>npm version patch</code>,
-      for new features run <code>npm version minor</code> and on breaking changes of your api run <code>npm version major</code>.
+      For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run <code class="app-code">npm version patch</code>,
+      for new features run <code class="app-code">npm version minor</code> and on breaking changes of your api run <code class="app-code">npm version major</code>.
     </p>
   
-    <hr class="stars">
+    <hr class="app-hr">
     
     <p>
       Check out the full source of the demo library on github:
       <a href="https://github.com/bersling/typescript-library-starter">https://github.com/bersling/typescript-library-starter</a>.
     </p>
   
-    <hr class="stars">
+    <hr class="app-hr">
     
     <p>
       The above tutorial contains all the steps necessary to build & publish a working library.

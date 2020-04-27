@@ -47,15 +47,15 @@
     </h2>
   
     <p>What the <code>noImplicitAny</code> compiler option does, is it basically converts TypeScript from an optionally-typed language to a necessarily-typed language. This gets TypeScript a little further away from being a superset of JavaScript, since a simple</p>
-    <pre class="app-pre">function logMe(x) {
+    <pre><code class="language-ts">function logMe(x) {
   console.log(x);
 }
-// error TS7006: Parameter &#39;x&#39; implicitly has an &#39;any&#39; type.</pre>
+// error TS7006: Parameter &#39;x&#39; implicitly has an &#39;any&#39; type.</code></pre>
     <p>would throw an error. You would have to <em>explicitly</em> declare that <code>x</code> is of type <code>any</code>:</p>
-    <pre class="app-pre">function logMe(x: any) {
+    <pre><code class="language-ts">function logMe(x: any) {
   console.log(x);
 }
- // OK</pre>
+ // OK</code></pre>
     <p>This means that migrating existing JS codebases to TS becomes much more work than just changing the file extension. It also means, that when coding you need to have much more focus on the types, since the compiler will always complain if you don’t specify the type. Since explicitly declaring <code>any</code> when in reality it’s not any is considered bad practice, you’re confronted with assigning correct types much earlier on in the development process. Without an explicit any declaration it could just mean “I was just too lazy to annotate the types here correctly”. </p>
     <p>
       Whether this is a good or a bad thing is strongly debatable. The community seems to be split on the issue. Here are some industry-leading TypeScript projects and whether they use the <code>noImplicitAny</code> compiler flag or not:

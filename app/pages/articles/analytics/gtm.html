@@ -69,7 +69,7 @@
     <p>
       Now this leaves us with two problems. How can we get the last part of the url and the <code>data-tracking-id</code>-attribute-value of the clicked element? The answer is a  GTM "Custom JavaScript Variable" in both cases! Create a new <b>user-defined</b> variable and select <b>Custom JavaScript</b> as the variable type. This lets you <b>run custom JavaScript through GTM on your page</b>. This is an extremely powerful, but also an extremely dangerous thing to have. Anyone with access to your GTM account can execute custom JavaScript on your production page with this! So keep your GTM account well secured. But back to the actual problem. To get the value of the <code>data-tracking-id</code> attribute, we'll use the following code:
     </p>
-    <pre class="app-pre">function() {
+    <pre><code>function() {
     var hasTrackingId = function(elt) {
         return elt.hasAttribute('data-tracking-id');
     };
@@ -83,11 +83,11 @@
         }
     };
     return getTrackingId({{Click Element}});
-}</pre>
+}</code></pre>
   <p>
     And to get the last part of the URL we'll use this code snippet in another custom variable:
   </p>
-    <pre class="app-pre">function() {
+    <pre><code>function() {
     var fullPath = {{Page Path}}; // something like '/en/.../overview'
     if (!fullPath || fullPath === '/') {
         return 'root'
@@ -96,7 +96,7 @@
     }
     var pathParts = fullPath.split('/'); // something like ['en', ... , 'overview']
     return pathParts[pathParts.length - 1];
-}</pre>
+}</code></pre>
     <p>
       We made use of the built in variable page-path here.
     </p>

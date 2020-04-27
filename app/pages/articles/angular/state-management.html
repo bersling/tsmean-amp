@@ -80,8 +80,7 @@
     </p>
   
     <span class="file-label">resource.store.ts</span>
-    <pre class="app-pre">
-import {Injectable} from '@angular/core';
+    <pre><code>import {Injectable} from '@angular/core';
 import {Resource} from './resource';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
@@ -130,8 +129,7 @@ interface ResourceStore {
   [resourceName: string]: {
     [resourceId: string]: BehaviorSubject&lt;Resource&gt;
   };
-}
-</pre>
+}</code></pre>
     
     <p>
       Note that we’re not adding the resources directly, but instead we’re adding an observable. In case you’ve never heard of observables, you first need to familiarize yourself with the concept in order to understand this.
@@ -155,7 +153,7 @@ interface ResourceStore {
     <amp-accordion>
       <section expanded>
         <h5 class="file-label-two">item-list.store.ts</h5>
-        <pre class="app-pre">import {Injectable} from '@angular/core';
+        <pre><code>import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
@@ -240,7 +238,7 @@ export class AnimalDashboardListStore {
     this.dashboardList.next(newValue);
   }
 
-}</pre>
+}</code></pre>
       </section>
       
     </amp-accordion>
@@ -260,7 +258,7 @@ export class AnimalDashboardListStore {
       If the state is localized to one component, it's fine to store the state on the component itself. For example, if you were to use a &lt;spacer height="20"&gt;&lt;/spacer&gt; component, that just inserts a div of a certain height in pixels.
     </p>
   
-    <pre class="app-pre">import {Component, Input} from '@angular/core';
+    <pre><code>import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'spacer',
@@ -270,14 +268,14 @@ export class SpacerComponent {
   @Input()
   height: number;
 }
-</pre>
+</code></pre>
     
     <p>
       To be precise, we are also storing state in the components when using services as stores:
     </p>
     <span class="file-label">some.component.ts</span>
-    <pre class="app-pre">...
-itemStore.subscribe(item => {this.item = item})</pre>
+    <pre><code>...
+itemStore.subscribe(item => {this.item = item})</code></pre>
     <p>
       What's different, is that the <i>update requests</i> always go through the service.
     </p>
