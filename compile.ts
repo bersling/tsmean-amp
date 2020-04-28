@@ -66,7 +66,11 @@ addPagesToDirectory(
 );
 addPagesToDirectory(
   'articles/learn-typescript',
-  ['no-implicit-any-best-practice', 'strict-null-checks-best-practice'],
+  [
+    'no-implicit-any-best-practice',
+    'strict-null-checks-best-practice',
+    'typescript-module-compiler-option'
+  ],
   pages
 );
 addPagesToDirectory(
@@ -95,7 +99,7 @@ addPagesToDirectory(
     'backup-mongodb-to-s3',
     'install-ssl-certificate-through-letsencrypt-on-nginx',
     'host-static-files-with-apache-on-digitalocean',
-    'password-protect-parts-of-your-website',
+    'password-protect-parts-of-your-website'
   ],
   pages
 );
@@ -211,7 +215,7 @@ function buildPartials() {
     'valueBullets': buildPartial('components/value-bullets/value-bullets.html'),
     'analytics': buildPartial('components/analytics.html'),
     'commonHead': buildPartial('components/common-head.html')
-  }
+  };
 }
 
 function compileSass() {
@@ -255,7 +259,7 @@ function compileMustache() {
     // apply highlight
     rehype()
       .use(highlight)
-      .process(vfile.readSync(distLocation(page)), function(err, file) {
+      .process(vfile.readSync(distLocation(page)), function (err, file) {
         fs.writeFileSync(distLocation(page), String(file));
       });
 

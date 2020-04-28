@@ -16,6 +16,10 @@ th {
   padding: 0;
 }
 
+.pure-table-wrapper {
+  overflow-x: scroll;
+}
+
 
 .pure-table {
   /* Remove spacing between table cells (from Normalize.css) */
@@ -23,6 +27,9 @@ th {
   border-spacing: 0;
   empty-cells: show;
   border: 1px solid #cbcbcb;
+  max-width: 100%;
+  overflow: auto;
+  table-layout: fixed;
 }
 
 .pure-table caption {
