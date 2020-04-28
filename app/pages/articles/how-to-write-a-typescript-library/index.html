@@ -1,63 +1,67 @@
 <!doctype html>
-<html ⚡ lang="en">
+<html ⚡
+      lang="en">
 <head>
   {{> commonHead}}
   {{> articleHead}}
   <title>Tutorial for Writing a TypeScript Library</title>
-  <meta name="description" content="Looking for how to write a typescript library in 2017 and publish it to npm? Look no further,
+  <meta name="description"
+        content="Looking for how to write a typescript library in 2017 and publish it to npm? Look no further,
 here is a simple yet comprehensive tutorial!">
   <meta name="keywords"
         content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library">
-  <link rel="canonical" href="https://www.tsmean.com/articles/how-to-write-a-typescript-library" />
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/how-to-write-a-typescript-library"/>
 </head>
 <body>
   
   {{> analytics}}
   
-  <a name="top" class="anchor"></a>
+  <a name="top"
+     class="anchor"></a>
   
   {{> header}}
   
   <div class="jumbo-vertical">
-  
+    
     <amp-img class="jumbo-image"
              width="150"
              height="150"
              src="/assets/img/002-product.svg">
     </amp-img>
-  
-    <h1 class="jumbo-title">
-      Building a typescript library?
-    </h1>
-  
-    <div class="meta-header">
-      <span class="written">July 2017</span>
-    </div>
     
+    <h1 class="jumbo-title">
+      How to Write a TypeScript Library
+    </h1>
+    
+    <div class="meta-header">
+      <span class="updated">April 2020</span>
+    </div>
+  
   </div>
   
   <article class="flex-auto">
     
-    <h2>How to write a typescript library</h2>
-    
     <p>
       Writing modular code is a good idea. And nothing is more modular than writing a library.
-      How can you write a typescript library? Well, that's exactly what this website is about!
-      This tutorial is from <b>mid 2017</b> and written for <b>Typescript 2.x</b>!
+      How can you write a TypeScript library? Well, that's exactly what this tutorial is about!
+      This tutorial works with <b>TypeScript 3.x</b> and <b>TypeScript 2.x</b>.
     </p>
     
-    <h2><span class="step">Step 1</span>: Setup tsconfig.json</h2>
+    <h2>
+      <span class="step">Step 1</span>: Setup tsconfig.json
+    </h2>
     <p>
-      Create a project folder, in this tutorial we'll call it <code>typescript-library</code>.
-      Then proceed to create a <code>tsconfig.json</code> in <code>typescript-library</code>.
-      Your <code>tsconfig.json</code> file should look somewhat like this:
+      Create a project folder, in this tutorial we'll call it <code class="app-code">typescript-library</code>.
+      Then proceed to create a <code class="app-code">tsconfig.json</code> in
+      <code class="app-code">typescript-library</code>.
+      Your <code class="app-code">tsconfig.json</code> file should look somewhat like this:
     </p>
-    
     <div class="file-label">typescript-library/tsconfig.json</div>
     <pre><code class="language-json">{
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2015",
     "declaration": true,
     "outDir": "./dist"
   },
@@ -65,26 +69,24 @@ here is a simple yet comprehensive tutorial!">
     "src/**/*"
   ]
 }</code></pre>
-    
     <p>
       Pretty much like a setup for a non-library project, but with one important addition:
-      You need to add the "<span class="highlight">declaration: true</span>" flag. This will generate the
-      typings required for the consumers to use this library.
+      You need to add the <code class="app-code">"declaration": true</code> flag. This will generate the <code class="app-code">.d.ts</code> files (aka declaration files) which contain the types of your code. This way, if someone is using your library and they also use TypeScript, they get the benefits of typesafety and autocomplete!
+    </p>
+    <p>
+      Regarding the other options, let's quickly go through those: <code class="app-code">"module": "commonjs"</code> is required is your want your code to run seamlessly with most current node.js applications. <code class="app-code">"target": "es2015"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js you want to support. Choosing es2015 as the compile target makes your library compatible with node.js version 8 and upwards. <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
     </p>
     
     <h2>
       <span class="step">Step 2</span>: Implement your library
     </h2>
-    
     <p>
-      Proceed as you would if you wouldn't write a library. Create a <code>src</code> folder
-      and in that <code>src</code> folder all the files that make up your heart of your library.
+      Proceed in the same way, as if you weren't writing a library. Create a <code class="app-code">src</code> folder
+      and put all the source files of your library (application logic, data, and assets) there.
     </p>
-    
     <p>
-      For this  demo, we'll setup a silly <code>hello-world.ts</code> file, that looks like so:
+      For this demo, we'll setup a silly <code class="app-code">hello-world.ts</code> file, that looks like so:
     </p>
-    
     <div class="file-label">typescript-library/src/hello-world.ts</div>
     <pre><code class="language-ts">export function sayHello() {
   console.log('hi')
@@ -93,53 +95,40 @@ export function sayGoodbye() {
   console.log('goodbye')
 }
 </code></pre>
-
     
-    <h2><span class="step">Step 3</span>: Create an index.ts file</h2>
-    
+    <h2>
+      <span class="step">Step 3</span>: Create an index.ts file
+    </h2>
     <p>
       Add an <code class="app-code">index.ts</code> file to your <code class="app-code">src</code> folder.
-      The purpose of it is to export all the parts of the library you want to make available for consumers.
+      Its purpose is to export all the parts of the library you want to make available for consumers.
       In our case it would simply be:
     </p>
-    
     <div class="file-label">typescript-library/src/index.ts</div>
     <pre><code class="language-ts">export {sayHello, sayGoodbye} from './hello-world'</code></pre>
-    
     <p>
       The consumer would be able to use the library later on like so:
     </p>
-    
     <div class="file-label">someotherproject/src/somefile.ts</div>
     <pre><code class="language-ts">import {sayHello} from '<span class="highlight">hwrld</span>'
 sayHello();
 </code></pre>
-    
     <p>
       You see that we have a new name here, "hwrld",
       we haven't seen anywhere yet.
       What is this name?
-      It's the name of the library you're gonna publish to npm also known as the <span class="highlight">package name</span>!
+      It's the name of the library you're gonna publish to npm also known as the package name!
     </p>
     
-    <h2><span class="step">Step 4</span>: Configure package.json</h2>
-    
+    <h2>
+      <span class="step">Step 4</span>: Configure the package.json
+    </h2>
     <p>
-      The package name is what the consumer going to use in the imports later on,
-      so I prefer to not have it too long and if possible with no hyphens since it's easiest
-      just to type a string when declaring the library as an import
-      (an the consumers editor doesn't have auto-import). If you have to type
-      <code class="app-code">import * as typescript-library from 'my-crazy-library-name'</code> each time, it's not so pleasant.
-      For this demo I have have chosen <code class="app-code">hwrld</code> since it was still available on npm.
-    </p>
-    
-    <p>
-      The package name
+      The package name is what the consumer is going to use to import functionality from your library later on. For this
+      demo I have have chosen <code class="app-code">hwrld</code> since it was still available on npm. The package name
       is usually right at the top of the <code class="app-code">package.json</code>. The whole <code class="app-code">package.json</code>
       would look like so:
     </p>
-    
-    
     <div class="file-label">typescript-library/package.json</div>
     <pre><code class="language-json">{
   "name": "hwrld",
@@ -149,93 +138,89 @@ sayHello();
   "types": "dist/index.d.ts"
 }
 </code></pre>
-    
     <p>
-      If you don't have a package yet you can create one with <code class="app-code">npm init</code> and it will guide you through the process.
-      Remember, the package name you choose will be the one people later use in their imports, so choose wisely!
+      If you don't have a package yet you can create one with <code class="app-code">npm init</code> and it will guide
+      you through the process.
+      Remember, the package name you choose will be used by people for their imports, so choose wisely!
     </p>
-    
     <p>
       There's also one all-important flag in this package.json: You
       have to declare where to find the type declarations!
-      This is done using <span class="highlight">"types": "dist/index.d.ts"</span>
+      This is done using
+      <code class="app-code">"types": "dist/index.d.ts"</code>
       Otherwise the consumer won't find your module!
     </p>
     
-    <h2><span class="step">Step 5</span>: Configure .npmignore</h2>
-    
-    <div class="">
-      When you look at your package when loading it from npm,
-      you'll notice that it contains the dist AND the src folder.
-      However, you don't really need the source folder,
-      as the compiled files along with the typings (.d.ts files)
-      live in the dist folder. Thus you can create an .npmignore
+    <h2>
+      <span class="step">Step 5</span>: Configure .npmignore
+    </h2>
+    <p>
+      If you would compile your code now with <code class="app-code">tsc</code> and run <code class="app-code">npm
+      publish</code>, you'd
+      publish the <code class="app-code">dist</code> folder along with all the other files.
+      However, you don't really need the source folder. To avoid publishing unnecessary files to npm, you can create an
+      <code class="app-code">.npmignore</code>
       file. In our case it's simple:
-    </div>
-    
+    </p>
     <div class="file-label">
       typescript-library/.npmignore
     </div>
-    <pre><code>tsconfig.json
+    <pre><code class="language-bash">tsconfig.json
 src</code></pre>
+    <p>
+      The only two things we don't need to publish are the <code class="app-code">tsconfig.json</code> file and the
+      <code class="app-code">src</code> folder. As your project grows, more files will come, for example test files.
+    </p>
+    <p>
+      An alternative to using an <code class="app-code">.npmignore</code> file would be to also copy the package.json
+      into the <code class="app-code">dist</code> folder, then <code class="app-code">cd</code> into that folder and
+      publish from there. In that case you'd need to also adjust the paths in the package.json.
+    </p>
     
-    
-    <h2><span class="step">Step 6</span>: Publish to npm</h2>
-    
+    <h2>
+      <span class="step">Step 6</span>: Publish to npm
+    </h2>
     <p>
       To publish your first version to npm run:
     </p>
-    
-    <pre><code>tsc
+    <pre><code class="language-bash">tsc
 npm publish
 </code></pre>
-    
-    
     <p>
       Now you're all set to go! Consume your library anywhere you want by running:
     </p>
-    
-    <pre><code>npm install --save hwrld</code></pre>
-    
+    <pre><code class="language-bash">npm install --save hwrld</code></pre>
     <p>
-      
       and consume it using
-    
     </p>
-    
-    <pre><code>import {sayHello} from 'hwrld'
+    <pre><code class="language-ts">import {sayHello} from 'hwrld'
 sayHello();</code></pre>
-    
     <p>
-      For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run <code class="app-code">npm version patch</code>,
-      for new features run <code class="app-code">npm version minor</code> and on breaking changes of your api run <code class="app-code">npm version major</code>.
+      For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run
+      <code class="app-code">npm version patch</code>,
+      for new features run <code class="app-code">npm version minor</code> and on breaking changes of your api run
+      <code class="app-code">npm version major</code>.
     </p>
-  
-    <hr class="app-hr">
-    
     <p>
       Check out the full source of the demo library on github:
       <a href="https://github.com/bersling/typescript-library-starter">https://github.com/bersling/typescript-library-starter</a>.
     </p>
-  
-    <hr class="app-hr">
-    
     <p>
       The above tutorial contains all the steps necessary to build & publish a working library.
       However, you should probably also include some unit tests and you might want to test the behavior of your library
       locally first, without publishing.
       Here are some more resources for this:
-      <ul>
-        <li>
-          <a href="./unit-testing">How to unit-test your library</a>
-        </li>
-        <li>
-          <a href="./local-consumer">How to set up a local consumer without publishing to npm</a>
-        </li>
-        <li>
-          <a href="./global-installation">How to make your library available as a system command</a>
-        </li>
-      </ul>
+    <ul>
+      <li>
+        <a href="./unit-testing">How to unit test your library</a>
+      </li>
+      <li>
+        <a href="./local-consumer">How to set up a local consumer without publishing to npm</a>
+      </li>
+      <li>
+        <a href="./global-installation">How to make your library available as a system command</a>
+      </li>
+    </ul>
     </p>
   
   </article>

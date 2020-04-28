@@ -35,7 +35,7 @@
     <div class="meta-header">
       <div class="written">July 2017</div>
       <div class="written-updated-delimiter"></div>
-      <div class="updated">September 2017</div>
+      <div class="updated">April 2020</div>
     </div>
   
   </div>
@@ -91,6 +91,9 @@ function printUserInfo(user: User) {
   // =&gt; Unfortunately TypeScript can't infer that age is non-null here.
 }
 </code></pre>
+    <p>
+      You can check for yourself at the <a href="https://www.typescriptlang.org/play/?ssl=1&ssc=1&pln=24&pc=1#code/JYOwLgpgTgZghgYwgAgKoGdrIN4ChnIhwC2EAXMumFKAOYDc+yctEA-BSAK7EBG0jAL64YXEAjDAA9iGQAHGuAzQAkiBhSAFF0xQKyqAEocTBDPRSANhAB0lqbU0ADACTYd0G0VKCANMjcPKBsWWzApAGVqOk1DQSdDJgB6JOQAXgA+ZGgoKShkABUIgCYAVgBmYooAeV4AKwgJZGB0eSl0dGBeSwBPZAByMQATCBhQCCH+m1NzK1t7R1d3XS8SCD8A5c9QgEIbcKjFRziE5NTM5GqAaX8eqS5kM3VgKGJkMAALODBkO65+qAodBcQHIIIhVjNVogGQAWm4lks0yYwBgyG0K1CyB2aUIXERxjwBAITws1jsDmcgRW3nW-mp21Y+0i0RAx3iiQIwgIKXSWWu-k+KFRsKeQ2Akhkjw+jQA1hN3l8fuCsS1CHCEUjcDMQGT5pTwbTkABqAb+fomsGYyE4vGI5BsK2MsIso6xZAUfpYsSymEAdxA-UMjB55yyqHUeTAYm+EF6hR6cggEQQNDkPwQcEDP1AMCwn2+zEhaphIHh+MsyBlgOmgiAA">typescript playground</a>.
+    </p>
     <p>
       As you can see, the exclamation point denotes that you are sure (e.g. by performing a check somewhere in the code) that something that’s potentially null actually isn’t. If you perform an if-check, TypeScript can infer that something is non-null. However, for the ternary operator this is unfortunately not the case.
     </p>

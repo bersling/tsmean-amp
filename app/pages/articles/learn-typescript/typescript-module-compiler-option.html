@@ -1,0 +1,246 @@
+<!doctype html>
+<html ⚡
+      lang="en">
+<head>
+  
+  <title>Module Compiler Option in TypeScript</title>
+  <meta name="description"
+        content="What does the module option in the TypeScript compiler options do exactly? Learn what CommonJS, AMD or ES6 actually do.">
+  <meta name="keywords"
+        content="TypeScript, Compiler Options">
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/learn-typescript/typescript-module-compiler-option"/>
+  {{> commonHead}}
+  {{> articleHead}}
+
+</head>
+<body>
+  
+  {{> analytics}}
+  
+  <a name="top"
+     class="anchor"></a>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    
+    <amp-img src="/assets/img/001-coding.svg"
+             class="jumbo-image"
+             alt="Articles"
+             width="150"
+             height="150">
+    </amp-img>
+    
+    <h1 class="jumbo-title">
+      The TypeScript Module Compiler Option
+    </h1>
+    
+    <div class="meta-header">
+      <div class="written">April 2020</div>
+    </div>
+  
+  </div>
+  
+  <article>
+    
+    <p>
+      At times, the TypeScript compiler options can be confusing. There are just so many of them and they are not always
+      that clear to someone who didn't go too deep into the rabbit hole of the JavaScript universe. But this is
+      basically what it comes down to: How do you want or need to want your <b>generated JavaScript</b> to look like in
+      the end? Let's first have a look at what the docs have to say about the <code class="app-code">"module"</code>
+      compiler option.
+    </p>
+    
+    <h2>
+      How the TypeScript docs describe the module compiler option
+    </h2>
+    <p>
+      So what the docs are specifying for this compiler option is currently the following:
+    </p>
+    <pre><code>Specify module code generation: "None", "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015" or "ESNext".
+► Only "AMD" and "System" can be used in conjunction with --outFile.
+► "ES6" and "ES2015" values may be used when targeting "ES5" or lower.</code></pre>
+    <p>
+      with the beautiful default <code class="app-code">target === "ES3" or "ES5" ? "CommonJS" : "ES6"</code>.
+    </p>
+    <p>
+      To understand which option you should choose mostly comes down to understanding JavaScript modules in general and
+      knowing which system (node.js, browser) understands which module syntax. So let's continue with this,
+      generating an understanding of JavaScript modules.
+    </p>
+    
+    <h2>
+      An introduction to modules
+    </h2>
+    <p>
+      To understand what the <code class="app-code">modules</code> compiler flag is doing, we first have to understand
+      what a module is. As crazy as it may sound, in JavaScript, there wasn't always a way to write modular code, in the
+      sense that one JavaScript file could just import functionality of another one. The way different pieces of code
+      could still work together, was that different pieces of code bound to the global context, and then other pieces of
+      code could use it. So for example, you'd import <code class="app-code">jquery</code> in a <code class="app-code">script</code>
+      tag at the top of your <code class="app-code">head</code> tag in HTML, and then a subsequent script could use it
+      by accessing the globally introduced <code class="app-code">$</code> variable. Of course this has several
+      drawbacks, for example that the order of the script tags matters! Another important problem is that it's not
+      modular at all, so if you imported a library through a script tag, you imported all of its parts, not just the
+      ones you needed. You were also lacking the means of organizing your own code into multiple files without
+      cluttering up the global namespace. Pretty crazy huh?
+    </p>
+    <p>
+      With the introduction of node.js, but also with the rise of Single Page Applications with more JavaScript logic,
+      those impediments were a real problem. But since there wasn't one official way (defined by the ECMA standards
+      body) how to write modules, multiple different attempts to bring modules to the JavaScript world emerged. This
+      makes the whole thing quite a bit more complicated, as you get different module syntax', each only being supported
+      by some JavaScript engines. Some aren't even supported by any JavaScript engine directly, but they need to be
+      converted into a non-modular form first by a bundler!
+    </p>
+    <p>
+      To make it short, we'll not be going into <code class="app-code">AMD</code>, <code class="app-code">UMD</code> or
+      <code class="app-code">System</code>, because those are less common use cases. Here's a comparison
+      between <code class="app-code">CommonJS</code> and <code class="app-code">ES6 / ES2015 / ESNext</code>:
+    </p>
+    <div class="pure-table-wrapper">
+      <table class="pure-table">
+        <tr>
+          <th></th>
+          <th>CommonJS</th>
+          <th>ES6 / ES2015 / ESNext</th>
+        </tr>
+        <tr>
+          <td>Export</td>
+          <td>
+            <pre><code class="language-js app-small-code">exports.hello = 'Hello!';
+function sayHello() {
+    console.log(exports.hello);
+}
+exports.sayHello = sayHello;</code></pre>
+          </td>
+          <td>
+            <pre><code class="language-js app-small-code">export const hello = 'Hello!';
+export function sayHello() {
+    console.log(hello);
+}</code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Import
+          </td>
+          <td>
+            <pre><code class="language-js app-small-code">const hello = require('./hello.js');
+console.log(hello.hello);
+hello.sayHello();</code></pre>
+          </td>
+          <td>
+            <pre><code class="language-js app-small-code">import {hello, sayHello} from './hello.js'
+console.log(hello);
+sayHello();</code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Understood by
+          </td>
+          <td>
+            node.js
+          </td>
+          <td>
+            Modern Browsers, node.js
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Website
+          </td>
+          <td>
+            <a href="http://www.commonjs.org/">http://www.commonjs.org/</a>
+          </td>
+          <td>
+            <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-modules">
+              https://www.ecma-international.org
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      Now those of you somewhat familiar with node.js applications in JavaScript will immediately recognise the
+      <code class="app-code">require</code> syntax in CommonJS. You might not even have known up to this point, that the
+      <code class="app-code">require</code> is actually just CommonJS' way to import a module.
+    </p>
+    <p>
+      For those of you working more with TypeScript, the right side will look more familiar. But as you also know, what
+      your write is <b>not</b> what you get, because your code will be transpiled
+      by <code class="app-code">tsc</code> into JavaScript code before it's actually used by a JavaScript engine.
+    </p>
+    <p>
+      So if you choose <code class="app-code">module: "CommonJS"</code>, the JavaScript code that will be generated
+      adheres to the CommonJS syntax:
+    </p>
+    <amp-img layout="responsive"
+             class="app-bordered"
+             alt="CommonJS Export Syntax"
+             src="/assets/img/typescript-module-compiler-option/common-js.png"
+             width="1590"
+             height="352">
+    </amp-img>
+    <p>
+      You can try this yourself on the TypeScript playground by selecting "CommonJS" as the module, as is illustrated
+      <a href="https://www.typescriptlang.org/play/?target=1&module=1#code/KYDwDg9gTgLgBAYwgOwM7wBbADbYnAXjgHIAJHPAQmIChRJY4AzAV2QRgEsU5UBDAJ7lcEABQBKOAG8acOXCjAYLKMjhYRAbhoBfIA">here</a>.
+    </p>
+    <p>
+      Now on the other hand, if you choose <code class="app-code">module: "ESNext"</code> or ES6 or ES2015
+      <a href="https://www.typescriptlang.org/play/?target=1#code/KYDwDg9gTgLgBAYwgOwM7wBbADbYnAXjgHIAJHPAQmIChRJY4AzAV2QRgEsU5UBDAJ7lcEABQBKOAG8acOXCjAYLKMjhYRAbhoBfIA">you
+        will get</a>:
+    </p>
+    <amp-img layout="responsive"
+             class="app-bordered"
+             alt="ES6 and ES2015 and ESNext Syntax"
+             src="/assets/img/typescript-module-compiler-option/es6-es2015-esnext.png"
+             width="1348"
+             height="226">
+    </amp-img>
+    <p>
+      As you can notice, the code didn't change at all, except that <code class="app-code">const</code> got changed to
+      <code class="app-code">var</code> since we chose <code class="app-code">ES5</code> as a compile target.
+    </p>
+    <p>
+      Now you must be asking yourself: "Ok, that's nice and all, we have different module definitions, but when should I
+      use which one?!". This question is what we'll answer next.
+    </p>
+    
+    <h2>CommonJS vs ESNext</h2>
+    <p>
+      Generally speaking, ESNext is the way forward. With a big BUT.
+    </p>
+    <p>
+      ECMA came a bit late to the party, that's why other module systems
+      arose, but now that they've defined an official standard for modules, all systems are trying to move in this
+      direction. While all modern browsers now support ES Modules, node.js also adopted support for them.
+    </p>
+    <p>
+      But since node.js already had a module system in place with CommonJS, it still feels a bit weird, because ES
+      Modules need to live in files with the extension <code class="app-code">.mjs</code>. TypeScript also isn't a great
+      help, since you cannot choose the extension of the transpiled files, they're all <code class="app-code">.js</code>.
+      And changing this extension with some script also doesn't solve your problem, because the files are referenced
+      extensionless by other files. So all in all this can be summarized as: Using TypeScript, node.js and the
+      TypeScript compiler option <code class="app-code">"module": "esnext"</code> together is next to impossible. So if
+      you're building code that should be ran with node.js, in 2020, you should still choose <code class="app-code">"module":
+      "commonjs"</code>.
+    </p>
+    <p>
+      If you're building code that is to be used by browsers, things are different. Browsers don't have the slightest
+      clue about CommonJs modules, but all modern browsers on the other hand now do support ES modules. If you want to target older browsers (looking at you, Internet Explorer), you will probably want to bundle your code together, which can be done for example by Webpack.
+    </p>
+    
+    <h2>Conclusion</h2>
+    <p>
+      Understanding modules in JavaScript is difficult, which is what makes understanding the TypeScript compiler option corresponding to JavaScript modules difficult. By knowing where you want to run your code, you can make a decision whether to choose CommonJS in the case of node.js or esnext if your target are browsers.
+    </p>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
