@@ -13,7 +13,7 @@ const vfile = require('to-vfile');
  * Some constants for your project
  */
 const projectConstants = {
-  projectUrl: 'http://amp-project-starter.com'
+  projectUrl: 'https://www.tsmean.com'
 };
 
 /**
@@ -255,8 +255,11 @@ function compileMustache() {
 
   pages.forEach(page => {
     const template = fs.readFileSync(path.join(pagesRootPath, `${page}.html`), {encoding: 'utf8'});
+    const pageUrl = projectConstants.projectUrl + '/' + page.split('index')[0];
     const renderedPage = Mustache.render(template, {
-      projectUrl: projectConstants.projectUrl
+      projectUrl: projectConstants.projectUrl,
+      pageUrl,
+      encodedPageUrl: encodeURIComponent(pageUrl)
     }, partials);
 
     fs.writeFileSync(distLocation(page), renderedPage);
