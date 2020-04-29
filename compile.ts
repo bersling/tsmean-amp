@@ -37,7 +37,12 @@ let partials;
  * By specifying this explicity you gain full control and can also have drafts (unpublished html files)
  */
 const pagesRootPath = './app/pages';
-const pages = ['index', 'articles/index', 'starter-kit/index', 'thank-you-for-subscribing', 'alpha', 'learn-typescript/index'];
+const pages = [
+  'index',
+  'articles/index',
+  'thank-you-for-subscribing',
+  'about/index'
+];
 addPagesToDirectory(
   'articles/how-to-write-a-typescript-library',
   ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'],

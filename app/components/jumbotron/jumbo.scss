@@ -39,20 +39,6 @@
     text-align: center;
   }
 
-  // Desktop styles
-  @media(min-width: 700px) {
-    flex-direction: row;
-
-    .jumbo-subtitle, .jumbo-title, .jumbo-button {
-      text-align: left;
-    }
-
-    .jumbo-title-container {
-      text-align: left;
-    }
-
-  }
-
 }
 
 .jumbo-horizontal {
