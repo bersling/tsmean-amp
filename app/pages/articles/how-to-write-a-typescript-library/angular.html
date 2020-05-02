@@ -43,6 +43,20 @@
   </div>
   
   <article class="flex-auto">
+  
+    <p>
+      <b>
+        This tutorial originated before Angular provided a good way to implement libraries out of the box. Now they do. So please rather consider following this guide:
+        <a href="https://angular.io/guide/creating-libraries">https://angular.io/guide/creating-libraries</a>
+      </b>
+    </p>
+    
+    <p>
+      <b>
+        What this tutorial describes is how you can also <b>use TypeScript source files</b> to build your library. That's <b>only recommendable</b> if you want to use the libraries for <b>company internal</b> purposes. You'll have to keep in mind, that the <b>consumer</b> of your library will have to use a <b>compatible TypeScript version</b>! So if you use a TypeScript 2.8 feature in the library, but the consumer is only at TypeScript 2.7, the code won't compile. That's why it's not an ideal solution for a community library. A good use case for this method could be a company with a MonoRepo, that still wants to split everything into multiple npm modules and libraries.
+      </b>
+    </p>
+    
     <h2>How to write an Angular library</h2>
     <p>
       <i>
@@ -71,9 +85,6 @@
     <p>
       When should you use which method? If you're writing a module for the community, then you should stick with the complicated setup. This is <i>not</i> what is covered in this tutorial, but instead you can use "ng generate library my-lib" starting with AngularCLI 6. This sets up the complicated build pipeline for you and you don't have to understand exactly what it does. One drawback of this method is that when there's a problem with the magic, it's a hard-to-debug black box. Another drawback is that you'll have to compile the library every single time you'll make a change. Not exactly the hot reloading and rapid development we're used to. But it's quite certainly the right choice for building a community package. If you do so, you can stop reading this article now and head over to
       <a href="https://github.com/angular/angular-cli/wiki/stories-create-library">https://github.com/angular/angular-cli/wiki/stories-create-library</a>.
-    </p>
-    <p>
-      What this tutorial describes is how you can also <b>use TypeScript source files</b> to build your library. That's <b>only recommendable</b> if you want to use the libraries for <b>company internal</b> purposes. You'll have to keep in mind, that the <b>consumer</b> of your library will have to use a <b>compatible TypeScript version</b>! So if you use a TypeScript 2.8 feature in the library, but the consumer is only at TypeScript 2.7, the code won't compile. That's why it's not an ideal solution for a community library. A good usecase for this method could be a company with a MonoRepo, that still wants to split everything into multiple npm modules and libraries.
     </p>
     
     <h2><span class="step">Step 1:</span> Create a new project with the AngularCLI</h2>
