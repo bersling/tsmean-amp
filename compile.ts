@@ -79,9 +79,24 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/mysql',
+  [
+    'fixing-a-typo-in-a-json-in-mysql'
+  ],
+  pages
+);
+addPagesToDirectory(
+  'articles/error-handling',
+  [
+    'always-handle-errors'
+  ],
+  pages
+);
+addPagesToDirectory(
   'articles/tooling',
   [
-    'convert-latex-to-html-online'
+    'convert-latex-to-html-online',
+    'if-you-are-a-programmer-do-not-use-wordpress'
   ],
   pages
 );
@@ -269,7 +284,11 @@ function compileMustache() {
     rehype()
       .use(highlight)
       .process(vfile.readSync(distLocation(page)), function (err, file) {
-        fs.writeFileSync(distLocation(page), String(file));
+        if (err) {
+          console.error(err);
+        } else {
+          fs.writeFileSync(distLocation(page), String(file));
+        }
       });
 
   });

@@ -1,0 +1,76 @@
+import * as fs from 'fs';
+
+const category = process.argv[2];
+const title = process.argv[3];
+const dashCaseTitle = title.toLowerCase().replace(/ /g, `-`);
+
+function htmlFactory() {
+
+  return `<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>{{title}}</title>
+  <meta name="description" content="XXX">
+  <meta name="keywords"
+        content="XXX">
+  <link rel="canonical" href="https://www.tsmean.com/articles/${category}/${dashCaseTitle}" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      ${title}
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">XXX 2020</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    YOUR CONTENT HERE
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
+`
+}
+
+const html = htmlFactory();
+
+fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseTitle}.html`, html);
+
+console.log(`
+addPagesToDirectory(
+  'articles/${category}',
+  [
+    '${dashCaseTitle}'
+  ],
+  pages
+);
+`);
+
+
+console.log(`
+<li>
+  <a href="${category}/${dashCaseTitle}">
+  ${title}
+</a>
+</li>
+`);
+

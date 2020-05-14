@@ -1,0 +1,73 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>{{title}}</title>
+  <meta name="description" content="Reasons to avoid Wordpress as a blogging choice if you are a developer">
+  <meta name="keywords"
+        content="blogging, wordpress, developer">
+  <link rel="canonical" href="https://www.tsmean.com/articles/tooling/if-you-are-a-programmer-do-not-use-wordpress" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      If You Are a Programmer, Do Not Use Wordpress
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">May 2020</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    <p>
+      I've written my first blog with Wordpress. I'd consider that a mistake today. Here are my reasons why:
+    </p>
+    <ul>
+      <li>
+        Hosting costs are annoying
+      </li>
+      <li>
+        No full control
+      </li>
+      <li>
+        Migration away is not that easy
+      </li>
+      <li>
+        It's not as much fun as programming something yourself
+      </li>
+      <li>
+        No more "Error database connection could not be established" where your whole blog goes down...
+      </li>
+      <li>
+        It's a bit bloated, which is bad for SEO
+      </li>
+    </ul>
+    <p>
+      Since then I've switched to using the AMP framework together with the mustache templating engine.
+    </p>
+    <p>
+      Rolling your own blog isn't that hard. All you need to do is throwing together some HTML files and them throw them at AWS Cloudfront! You'll have a ultra cheap, ultra fast, ultra scalable in no-time!
+    </p>
+    <p>
+      You can always check out the code of this website here: <a href="https://github.com/bersling/tsmean-amp">https://github.com/bersling/tsmean-amp</a> in case you'd like to build something similar.
+    </p>
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

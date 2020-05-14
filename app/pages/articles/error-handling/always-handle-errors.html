@@ -1,0 +1,92 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>Error handling</title>
+  <meta name="description" content="Always handle your errors!">
+  <meta name="keywords"
+        content="error handling">
+  <link rel="canonical" href="https://www.tsmean.com/articles/error-handling/always-handle-errors" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      Just a quick reminder to always handle errors
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">May 2020</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    
+    <p>
+      You should always handle errors. It's a lot harder to debug if you don't. And it's the sort of debugging that would be avoidable if you just weren't as lazy in the first place!
+    </p>
+    <p>
+      Here's an actual example that has happened to me while writing the code for blog:
+    </p>
+    <pre><code>// apply highlight
+rehype()
+  .use(highlight)
+  .process(vfile.readSync(distLocation(page)), function (err, file) {
+    fs.writeFileSync(distLocation(page), String(file));
+  });
+    </code></pre>
+    <p>
+      I thought: well, what could possibly happen here, I know this will always work. No need to handle the error.
+    </p>
+    <p>
+      Then, couple of weeks later I get the following problem: A file simply has the content "undefined". What happened here?! After a bit of debugging I found the culprit: Highlight.js didn't know the language "mysql" I tried to use, so it failed. But since I swalled the error I had no idea whatsoever where in my code something had gone wrong. Had I simply handled the error like this:
+    </p>
+    <pre><code>// apply highlight
+rehype()
+  .use(highlight)
+  .process(vfile.readSync(distLocation(page)), function (err, file) {
+    if (err) {
+      console.error(err);
+    } else {
+      fs.writeFileSync(distLocation(page), String(file));
+    }
+  });
+    </code></pre>
+    <p>
+      I could have saved myself a bit of trouble, since the following error message would have been printed:
+    </p>
+    <pre><code class="language-plaintext">
+Error: Unknown language: `mysql` is not registered
+    at FormattedError (.../node_modules/fault/index.js:29:12)
+    at coreHighlight (.../node_modules/lowlight/lib/core.js:195:11)
+    at High.highlight (.../node_modules/lowlight/lib/core.js:112:20)
+    at visitor (.../node_modules/rehype-highlight/index.js:71:27)
+    at overload (.../node_modules/unist-util-visit/index.js:27:12)
+    at one (.../node_modules/unist-util-visit-parents/index.js:34:25)
+    at all (.../node_modules/unist-util-visit-parents/index.js:57:16)
+    at one (.../node_modules/unist-util-visit-parents/index.js:42:28)
+    at all (.../node_modules/unist-util-visit-parents/index.js:57:16)
+    at one (.../node_modules/unist-util-visit-parents/index.js:42:28)
+    </code></pre>
+    <p>
+      Still not perfect, but a lot better than getting nothing!
+    </p>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

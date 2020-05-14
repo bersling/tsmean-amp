@@ -1,0 +1,60 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>Fixing a typo in a json in MySQL</title>
+  <meta name="description" content="Fixing a typo in a json in MySQL">
+  <meta name="keywords"
+        content="mysql, typo, fix">
+  <link rel="canonical" href="https://www.tsmean.com/articles/mysql/fixing-a-typo-in-a-json-in-mysql" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      Fixing a Typo in JSON in MySQL
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">May 2020</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    
+    <p>
+      Let's say you have the table <code>Documents</code> which has a column <code>content</code> that contains a JSON. And while writing your application logic, you've accidentally misspelled a word in a key of a JSON property and now the word is misspelled in all your stored <code>Document</code> entries. Fixing such a typo in a JSON property key can actually be quite easy:
+    </p>
+    
+    <pre><code class="language-sql">
+UPDATE Documents
+SET Documents.content = REPLACE(Documents.content, '\"myTpyo\"', '\"myTypo\"')
+    </code></pre>
+    
+    <p>
+      Like this, you'll replace all occurrences of that <code>"myTpyo"</code> with the correct string <code>"myTypo"</code>. Note that it's important to put the quotes around the string, so you don't accidentally match the string in a text field. Even though, who knows, maybe those occurrences should be fixed as well? In that case just drop the quotes:
+    </p>
+  
+    <pre><code class="language-sql">
+UPDATE Documents
+SET Documents.content = REPLACE(Documents.content, 'myTpyo', 'myTypo')
+    </code></pre>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
