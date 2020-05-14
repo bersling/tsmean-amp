@@ -14,7 +14,6 @@
 </head>
 <body class="landing">
   
-  
   <a name="top" class="anchor"></a>
   
   {{> header}}
@@ -31,6 +30,8 @@
   
     <div class="meta-header">
       <span class="written">July 2017</span>
+      <span class="written-updated-delimiter"></span>
+      <span class="updated">May 2020</span>
     </div>
     
   </div>
@@ -38,18 +39,18 @@
   <article class="flex-auto">
   
     <p>
-      <b>tl,dr;</b> I'm not really the biggest fan of a MongoDB backing entire webapps. You can use it to solve some specific problems, but I wouldn't recommend storing all your data (e.g. user profiles etc) there. I think MongoDB is great for prototyping, but when it comes to production systems, it wouldn't be my database of choice.
+      <b>tl,dr;</b> I'm not really the biggest fan of a MongoDB backing entire webapps. You can use it to solve some specific problems, but I wouldn't recommend storing all your data (e.g. user profiles etc) there. I think MongoDB is ok for prototyping, but when it comes to production systems, it wouldn't be my database of choice.
     </p>
   
     <hr class="app-hr">
     
     <p>
-      The following is a general argument against NoSQL in web-apps,
+      The following is a general argument against NoSQL in web apps,
       but code is going to be mostly MongoDB-related.
-      Also note that I don't say there is absolutely no use-case
+      Also note that I don't say there is absolutely no use case
       for a NoSQL database. I'm just saying your app should be backed by an SQL database to store
-      things like your registered users and so on. In the unlikely event that you really have a
-      special use-case, then use a separate NoSQL database for this, but don't put your relational data in there too!
+      things like your registered users and so on. In the unlikely case that you really have a
+      special use case, then use a separate NoSQL database for this, but don't put your relational data in there too!
       Now let's proceed by crushing some of the most common reasons people think they need MongoDB for their webapps.
     </p>
   
@@ -90,7 +91,7 @@
   ]
 }</pre>
     <p>
-      Now in our cool web-app we could fetch all the information we needed without any table-joins, just by extracting
+      Now in our cool web app we could fetch all the information we needed without any table joins, just by extracting
       <strong>one </strong>document from the database. Super fast.
     </p>
   
@@ -112,7 +113,7 @@
 }</pre>
     <p>
       and then in your application code you query the Message and from the Message you query the users,
-      but then it already looks awfully much like a relational database.
+      but then it already looks awfully much like a relational database with extra steps.
       And you still haven't solved all problems with this. What if you now need a feature "delete a user and all of his
       related data". Easy and consistent with a relational database. Impossible with NoSQL.
     </p>
@@ -133,7 +134,7 @@ interface User {
   ...
 }</pre>
     <p>
-      where we use the same type "Message" for questions and replies. Now to build our view above one million time,
+      where we use the same type "Message" for questions and replies. Now to build our view above one million times,
       would we have to do one million times all of those table-joins:
     </p>
   
@@ -257,17 +258,19 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
       for one project for exactly this reason but we quickly
       outgrew the capabilities of it and switched to Lucene.
     </p>
+    
+    <p>
+      So let's summarise some of the main points we've made:
+    </p>
   
-    <h2>Conclusion</h2>
-
     <p>
       Advantages:
     </p>
     <ul>
-      <li>Cool for prototyping, easy to get started</li>
+      <li>Easy to get started</li>
       <li>Easier for sharding</li>
     </ul>
-
+  
     <p>
       Disadvantages of NoSQL / MongoDB:
     </p>
@@ -276,6 +279,12 @@ message -&gt; message -&gt; user (n times, where n = #comments)</pre>
       <li>No transaction safety / No rollbacks</li>
       <li>Less powerful queries</li>
     </ul>
+  
+    <h2>Conclusion</h2>
+    <p>
+      In my opinion, the use cases for a NoSQL db are quite limited. SQL is powerful and should be leveraged. It doesn't make sense to write application logic, when you could also let SQL do the job. Denormalization is not the best idea for your primary database storing user data. You rarely truly have no schema. So all in all, for most web apps, prefer an SQL database to any NoSQL database.
+    </p>
+
 
   </article>
   

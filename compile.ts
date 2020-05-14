@@ -202,6 +202,7 @@ function buildPartials() {
     'styles': buildPartial('styles/styles.css'),
     'highlightStyles': buildPartial('../node_modules/highlight.js/styles/tomorrow-night-bright.css'),
     'articleFooter': buildPartial('components/article/article-footer.html'),
+    'cleanCode': buildPartial('components/clean-code/clean-code.html'),
     'articleHead': buildPartial('components/article/article-head.html'),
     'footer': buildPartial('components/footer/footer.html'),
     'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
