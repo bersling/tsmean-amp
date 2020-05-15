@@ -67,10 +67,15 @@ addPagesToDirectory(
 
 
 console.log(`
-<li>
-  <a href="${category}/${dashCaseTitle}">
-  ${title}
-</a>
-</li>
+<h3>
+  XXX
+</h3>
+<ul>
+  <li>
+    <a href="${category}/${dashCaseTitle}">
+      ${title}
+    </a>
+  </li>
+</ul>
 `);
 
