@@ -50,7 +50,11 @@ addPagesToDirectory(
 );
 addPagesToDirectory(
   'articles/angular',
-  ['pitfalls', 'state-management'],
+  [
+    'pitfalls',
+    'state-management',
+    'angular-control-value-accessor-example'
+  ],
   pages
 );
 addPagesToDirectory(

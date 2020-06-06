@@ -1,0 +1,190 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>{{title}}</title>
+  <meta name="description" content="Working with Control Value Accessor">
+  <meta name="keywords"
+        content="Angular, Control Value Accessor, CVA">
+  <link rel="canonical" href="https://www.tsmean.com/articles/angular/angular-control-value-accessor-example" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      Angular Control Value Accessor Example
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">June 2020</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    
+    <h2>
+      Why would you want to implement the Control Value Accessor interface?
+    </h2>
+    <p>
+      The fact that you are probably means that you have googled for Control Value Accessor because you had a specific need. I can imagine this need to be one of the following:
+    </p>
+    <ul>
+      <li>
+        You want to make a custom form control, for example a <code>&lt;my-input&gt;&lt;/my-input&gt;</code> component, and you want to be able to use it with Angular forms (template driven or reactive forms). For example, you want to be able to write <code>&lt;my-input formControlName="age"&gt;&lt;/my-input&gt;</code>
+      </li>
+      <li>
+        You want to be able to use ngModel with your custom component.
+      </li>
+    </ul>
+    
+    <h2>
+      How to implement the Control Value Accessor interface
+    </h2>
+    <p>
+      The implementation seems a bit daunting, because you'll have to do a lot of stuff that you actually don't "want" to do, and this will add quite a bit of boilerplate to your custom component. Unfortunately this is just the way it is with the CVA (Control Value Accessor). So let's get started with the parts that you can just <b>copy paste</b>, don't <i>really</i> need to understand and that will always stay the same for each and every CVA you implement.
+    </p>
+    <h3>
+      Boilerplate (= the stuff you can just copy paste)
+    </h3>
+    <p>
+      First, you'll need to add some weird stuff to your component annotation:
+    </p>
+    <pre class="language-ts"><code>import {Component, OnInit, forwardRef} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+
+@Component({
+  selector: 'app-custom-input',
+  templateUrl: './custom-input.component.html',
+  styleUrls: ['./custom-input.component.scss'],
+
+  // Step 1: copy paste this providers property
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true
+    }
+  ]
+})
+// Step 2: Add "implements ControlValueAccessor"
+export class CustomInputComponent implements ControlValueAccessor {</code></pre>
+    
+    <p>
+      Also append `implements ControlValueAccessor` in order to make sure you implement the Control Value Accessor interface correctly.
+      Next, you'll need to add some methods to your class:
+    </p>
+    <pre class="language-ts"><code>// Step 3: Copy paste this stuff here into your class
+onChange: any = () => {}
+onTouch: any = () => {}
+registerOnChange(fn: any): void {
+  this.onChange = fn;
+}
+registerOnTouched(fn: any): void {
+  this.onTouch = fn;
+}</code></pre>
+    <p>
+      You don't really need to understand this in depth. It just gives Angular the means to do it's thing when setting up everything necessary for the custom form control. What's important, is that <b>you don't get a say in how the onChange and onTouch functions look like</b>. They will be provided by Angular. All that <code>onChange</code> is doing, is to write any changes inside of your component to the form control. And all that <code>onTouch</code> does is to mark a form control as dirty. What you <b>do get a say in</b> is when you want to <b>call</b> those functions. So if you never <b>call</b> onChange, the form control on the ouside will never be updated. We'll unterstand better how that works in the next section.
+    </p>
+    
+    <h3>
+      The stuff that needs to be customized
+    </h3>
+    <p>
+      Let's assume that we're implementing a component that revolves around a <code>&lt;input type="text"/&gt;</code>. For a button or any other thing, that could supply us with a value to put into the formControl on the parent component, the process will be similar.
+    </p>
+    <p>
+      First, we'll need to add the last missing function of the Control Value Accessor interface, <code>writeValue</code>. What you'll need to do here is to define what's happening when a new value appears on the FormControl <b>outside</b>. So for example, let's say you have <code>username: FormControl('')</code> on the outside, and your custom form control is handling the <code>username</code> through <code>&lt;app-custom-input [formControl]="username"&gt;&lt;/app-custom-input&gt;</code>. Now if in the parent component the username is set <i>somehow</i> (e.g. form initialized, form reset, ...), then this function will get triggered. Typically, what you'll want to do, is to write the value to a local variable:
+    </p>
+    <pre><code>writeValue(input: string) {
+  this.input = input;
+}</code></pre>
+    <p>
+      So this means, that anytime the age changes in the parent form control, this function will get triggered with that value and you're writing that value to a local variable. Of course, you could do something else with the value, but that's what you'll do most of the times.
+    </p>
+    <p>
+      So now that you've defined how a <b>change on the outside is reflected on the inside</b>, you'll have to define how a <b>change on the inside is reflected on the outside</b>. For that you'll listen to changes inside of your custom component as you normally would if this weren't a Control Value Accessor. For example, if it's a button, you're listening to the click, if it's an input, you're listening to keystrokes or input changes or whatever it is that you want to listen to in your custom component. There's one key difference, and that is that you'll have to call <code class="app-code">this.onChange(...);</code> instead of <code class="app-code">this.myEventEmitter.emit(...)</code> when you want to inform the outside world about changes. When to call it is up to you, but typically you want to do this at the same point you would have called the <code class="app-code">.emit</code>. For example, you could leverage this and build an input field, that only updates the form control every 500 milliseconds. That could be useful to not spam servers with request if you have an autocomplete feature or similar.
+    </p>
+    <p>
+      So in the simplest of simple cases, you could just trigger the onChange when something in your local form element changes:
+    </p>
+    <pre><code>&lt;input type=&quot;text&quot;
+       [ngModel]=&quot;input&quot;
+       (ngModelChange)=&quot;onChange($event)&quot;&gt;</code></pre>
+    <p>
+      You can view this simplest of simple examples here on Stackblitz:
+      
+      <a href="https://stackblitz.com/edit/angular-control-value-accessor-simple-example-tsmean">
+        https://stackblitz.com/edit/angular-control-value-accessor-simple-example-tsmean
+      </a>
+    </p>
+    The relevant code is this:
+    <pre><code>import {Component, OnInit, forwardRef} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+
+@Component({
+  selector: 'app-custom-input',
+  templateUrl: './custom-input.component.html',
+  styleUrls: ['./custom-input.component.scss'],
+
+  // Step 1: copy paste this providers property
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true
+    }
+  ]
+})
+// Step 2: Add implements ControlValueAccessor
+export class CustomInputComponent implements ControlValueAccessor {
+
+  // Step 3: Copy paste this stuff here
+  onChange: any = () => {}
+  onTouch: any = () => {}
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  // Step 4: Define what should happen in this component, if something changes outside
+  input: string;
+  writeValue(input: string) {
+    this.input = input;
+  }
+
+  // Step 5: Handle "what should happen on the outside, if something changes on the inside"
+  // in this simple case, we've handled all of that in the .html
+  // a) we've bound to the local variable with ngModel
+  // b) we emit to the outside by calling onChange on ngModelChange
+
+}</code></pre>
+    
+    <h2>
+      Conclusion
+    </h2>
+    <p>
+      Implementing the Control Value Accessor interface isn't rocket science, but since you'll have to a add a lot of boilerplate code and still understand the basics of what's going on, it's quite confusing at first. However, I hope I could clear up some of the confusion around Control Value Accessor and illustrate how to use it!
+    </p>
+    
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
