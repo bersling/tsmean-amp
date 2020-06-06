@@ -23,7 +23,7 @@
              src="/assets/img/001-light-bulb.svg">
     </amp-img>
     <h1 class="jumbo-title">
-      Angular Control Value Accessor Example
+      Angular's Control Value Accessor
     </h1>
     
     <div class="meta-header">
@@ -38,7 +38,7 @@
       Why would you want to implement the Control Value Accessor interface?
     </h2>
     <p>
-      The fact that you are probably means that you have googled for Control Value Accessor because you had a specific need. I can imagine this need to be one of the following:
+      The fact that you are here probably means that you have googled for Control Value Accessor because you had a specific need. I can imagine this need to be one of the following:
     </p>
     <ul>
       <li>
@@ -83,8 +83,8 @@ import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/for
 export class CustomInputComponent implements ControlValueAccessor {</code></pre>
     
     <p>
-      Also append `implements ControlValueAccessor` in order to make sure you implement the Control Value Accessor interface correctly.
-      Next, you'll need to add some methods to your class:
+      Also append <code class="app-code">implements ControlValueAccessor</code> in order to make sure you implement the Control Value Accessor interface correctly.
+      Next, you'll need to add two methods to your class:
     </p>
     <pre class="language-ts"><code>// Step 3: Copy paste this stuff here into your class
 onChange: any = () => {}
@@ -112,7 +112,7 @@ registerOnTouched(fn: any): void {
   this.input = input;
 }</code></pre>
     <p>
-      So this means, that anytime the age changes in the parent form control, this function will get triggered with that value and you're writing that value to a local variable. Of course, you could do something else with the value, but that's what you'll do most of the times.
+      So this means, that anytime the username changes in the parent form control, this function will get triggered with that value and you're writing that value to a local variable. Of course, you could do something else with the value, but that's what you'll do most of the times.
     </p>
     <p>
       So now that you've defined how a <b>change on the outside is reflected on the inside</b>, you'll have to define how a <b>change on the inside is reflected on the outside</b>. For that you'll listen to changes inside of your custom component as you normally would if this weren't a Control Value Accessor. For example, if it's a button, you're listening to the click, if it's an input, you're listening to keystrokes or input changes or whatever it is that you want to listen to in your custom component. There's one key difference, and that is that you'll have to call <code class="app-code">this.onChange(...);</code> instead of <code class="app-code">this.myEventEmitter.emit(...)</code> when you want to inform the outside world about changes. When to call it is up to you, but typically you want to do this at the same point you would have called the <code class="app-code">.emit</code>. For example, you could leverage this and build an input field, that only updates the form control every 500 milliseconds. That could be useful to not spam servers with request if you have an autocomplete feature or similar.
@@ -174,6 +174,31 @@ export class CustomInputComponent implements ControlValueAccessor {
   // b) we emit to the outside by calling onChange on ngModelChange
 
 }</code></pre>
+    
+    <h2>
+      More Examples
+    </h2>
+    
+    <h3>
+      Lazy Input
+    </h3>
+    <p>
+      A lazy input can be useful, if you want to program something like an autocomplete. Like this, the form control would only be updated once in a while and the server wouldn't be spammed with requests.
+    </p>
+    <p>
+      Here is the link to the example:
+      <a href="https://stackblitz.com/edit/angular-control-value-accessor-lazy-input-example-tsmean?file=src%2Fapp%2Fcustom-input%2Fcustom-input.component.ts">Lazy Input Example</a>
+    </p>
+    
+    <h3>
+      Button
+    </h3>
+    <p>
+      Another classic in the world of examples is the button increasing a counter. So if your custom form element revolves around a button, choose this as an orientation.
+    </p>
+    <p>
+      Link to a Control Value Accessor example with a button: <a href="https://stackblitz.com/edit/angular-control-value-accessor-button-example-tsmean">Button example</a>
+    </p>
     
     <h2>
       Conclusion
