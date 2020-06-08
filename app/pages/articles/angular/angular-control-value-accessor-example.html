@@ -96,17 +96,17 @@ registerOnTouched(fn: any): void {
   this.onTouch = fn;
 }</code></pre>
     <p>
-      You don't really need to understand this in depth. It just gives Angular the means to do it's thing when setting up everything necessary for the custom form control. What's important, is that <b>you don't get a say in how the onChange and onTouch functions look like</b>. They will be provided by Angular. All that <code>onChange</code> is doing, is to write any changes inside of your component to the form control. And all that <code>onTouch</code> does is to mark a form control as dirty. What you <b>do get a say in</b> is when you want to <b>call</b> those functions. So if you never <b>call</b> onChange, the form control on the ouside will never be updated. We'll unterstand better how that works in the next section.
+      You don't really need to understand this in depth. It just gives Angular the means to do it's thing when setting up everything necessary for the custom form control. What's important to understand, is that <b>you don't provide implementations for the onTouch and onChange functions yourself</b>. They will be provided by Angular. What <code>onChange</code> is doing, is to write any changes inside of your component to the form control. And <code>onTouch</code> will mark a form control as dirty. What you <b>do get a say in</b> is when you want to <b>call</b> those functions. So if you never <b>call</b> onChange, the form control on the ouside will never be updated. We'll understand better how that works in the next section.
     </p>
     
     <h3>
       The stuff that needs to be customized
     </h3>
     <p>
-      Let's assume that we're implementing a component that revolves around a <code>&lt;input type="text"/&gt;</code>. For a button or any other thing, that could supply us with a value to put into the formControl on the parent component, the process will be similar.
+      Let's assume that we're implementing a component that revolves around a <code class="app-code">&lt;input type="text"/&gt;</code>. For a button or any other thing, that could supply us with a value to put into the formControl on the parent component, the process will be similar.
     </p>
     <p>
-      First, we'll need to add the last missing function of the Control Value Accessor interface, <code>writeValue</code>. What you'll need to do here is to define what's happening when a new value appears on the FormControl <b>outside</b>. So for example, let's say you have <code>username: FormControl('')</code> on the outside, and your custom form control is handling the <code>username</code> through <code>&lt;app-custom-input [formControl]="username"&gt;&lt;/app-custom-input&gt;</code>. Now if in the parent component the username is set <i>somehow</i> (e.g. form initialized, form reset, ...), then this function will get triggered. Typically, what you'll want to do, is to write the value to a local variable:
+      First, we'll need to add the last missing function of the Control Value Accessor interface, <code class="app-code">writeValue</code>. What you'll need to do here is to define what's happening when a new value appears on the FormControl <b>outside</b>. So for example, let's say you have <code class="app-code">username = FormControl('')</code> on the outside, and your custom form control is handling the <code class="app-code">username</code> through <code>&lt;app-custom-input [formControl]="username"&gt;&lt;/app-custom-input&gt;</code>. Now if in the parent component the username is set <i>somehow</i> (e.g. form initialized, form reset, ...), then this function will get triggered. Typically, what you'll want to do, is to write the value to a local variable:
     </p>
     <pre><code>writeValue(input: string) {
   this.input = input;
@@ -118,13 +118,13 @@ registerOnTouched(fn: any): void {
       So now that you've defined how a <b>change on the outside is reflected on the inside</b>, you'll have to define how a <b>change on the inside is reflected on the outside</b>. For that you'll listen to changes inside of your custom component as you normally would if this weren't a Control Value Accessor. For example, if it's a button, you're listening to the click, if it's an input, you're listening to keystrokes or input changes or whatever it is that you want to listen to in your custom component. There's one key difference, and that is that you'll have to call <code class="app-code">this.onChange(...);</code> instead of <code class="app-code">this.myEventEmitter.emit(...)</code> when you want to inform the outside world about changes. When to call it is up to you, but typically you want to do this at the same point you would have called the <code class="app-code">.emit</code>. For example, you could leverage this and build an input field, that only updates the form control every 500 milliseconds. That could be useful to not spam servers with request if you have an autocomplete feature or similar.
     </p>
     <p>
-      So in the simplest of simple cases, you could just trigger the onChange when something in your local form element changes:
+      So in the simplest of cases, you could just trigger the onChange when something in your local form element changes:
     </p>
     <pre><code>&lt;input type=&quot;text&quot;
        [ngModel]=&quot;input&quot;
        (ngModelChange)=&quot;onChange($event)&quot;&gt;</code></pre>
     <p>
-      You can view this simplest of simple examples here on Stackblitz:
+      You can view this example here on Stackblitz:
       
       <a href="https://stackblitz.com/edit/angular-control-value-accessor-simple-example-tsmean">
         https://stackblitz.com/edit/angular-control-value-accessor-simple-example-tsmean
@@ -183,19 +183,130 @@ export class CustomInputComponent implements ControlValueAccessor {
       Lazy Input
     </h3>
     <p>
-      A lazy input can be useful, if you want to program something like an autocomplete. Like this, the form control would only be updated once in a while and the server wouldn't be spammed with requests.
+      A lazy input can be useful, if you want to program something like an autocomplete. Like this, the form control would only be updated once in a while and the server wouldn't be spammed with requests. Here's the code:
     </p>
+    <pre class="language-ts"><code>import {Component, OnInit, OnDestroy, forwardRef, Input} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+import {ReplaySubject, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+
+@Component({
+  selector: 'app-custom-input',
+  templateUrl: './custom-input.component.html',
+  styleUrls: ['./custom-input.component.scss'],
+
+  // Step 1: copy paste this providers property
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true
+    }
+  ]
+})
+// Step 2: Add "implements ControlValueAccessor"
+export class CustomInputComponent implements ControlValueAccessor, OnInit {
+
+  @Input() debounceTime = 500;
+
+  // Step 3: Copy paste this stuff here
+  onChange: any;
+  onTouch: any;
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  // Step 4: Define what should happen in this component, if something changes outside
+  writeValue(input: string) {
+    this.input.next(input);
+  }
+
+  // Step 5: Handle what should happen on the outside, if something changes on the inside
+  input = new ReplaySubject(1);
+  onInputChange(input: string) {
+    this.input.next(input);
+  }
+  subscriptions: Subscription[] = [];
+  ngOnInit() {
+    this.subscriptions.push(
+      this.input
+        .pipe(
+          debounceTime(1000)
+        )
+        .subscribe(input => {
+          this.onChange(input);
+        })
+    )
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+}</code></pre>
+    
     <p>
       Here is the link to the example:
       <a href="https://stackblitz.com/edit/angular-control-value-accessor-lazy-input-example-tsmean?file=src%2Fapp%2Fcustom-input%2Fcustom-input.component.ts">Lazy Input Example</a>
     </p>
     
     <h3>
-      Button
+      Button Example
     </h3>
     <p>
-      Another classic in the world of examples is the button increasing a counter. So if your custom form element revolves around a button, choose this as an orientation.
+      Another classic in the world of examples is the button increasing a counter. So if your custom form element revolves around a button, choose this as an orientation. Here's the code:
     </p>
+    <pre class="language-ts"><code>import {Component, OnInit, OnDestroy, forwardRef, Input} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+import {ReplaySubject, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+
+@Component({
+  selector: 'app-custom-input',
+  templateUrl: './custom-input.component.html',
+  styleUrls: ['./custom-input.component.scss'],
+
+  // Step 1: copy paste this providers property
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true
+    }
+  ]
+})
+// Step 2: Add "implements ControlValueAccessor"
+export class CustomInputComponent implements ControlValueAccessor {
+
+  // Step 3: Copy paste this stuff here
+  onChange: any;
+  onTouch: any;
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  // Step 4: Define what should happen in this component, if something changes outside
+  writeValue(counter: number) {
+    console.log(`writeValue is called with ${counter}.`)
+    this.counter = counter;
+  }
+
+  // Step 5: Handle what should happen on the outside, if something changes on the inside
+  counter: number = 0;
+  onClick() {
+    this.onChange(++this.counter);
+  }
+  subscriptions: Subscription[] = [];
+
+}</code></pre>
+    
     <p>
       Link to a Control Value Accessor example with a button: <a href="https://stackblitz.com/edit/angular-control-value-accessor-button-example-tsmean">Button example</a>
     </p>
@@ -204,7 +315,7 @@ export class CustomInputComponent implements ControlValueAccessor {
       Conclusion
     </h2>
     <p>
-      Implementing the Control Value Accessor interface isn't rocket science, but since you'll have to a add a lot of boilerplate code and still understand the basics of what's going on, it's quite confusing at first. However, I hope I could clear up some of the confusion around Control Value Accessor and illustrate how to use it!
+      Implementing the Control Value Accessor interface isn't rocket science, but since you'll have to add a lot of boilerplate code and still understand the basics of what's going on, it's quite confusing at first. However, I hope I could clear up some of the confusion around Control Value Accessor and illustrate how to use it with some examples!
     </p>
     
   </article>
