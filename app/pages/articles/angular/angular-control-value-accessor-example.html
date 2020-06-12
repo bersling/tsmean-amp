@@ -11,6 +11,8 @@
   {{> articleHead}}
   {{> analytics}}
 
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+
 </head>
 <body>
   
@@ -61,7 +63,7 @@
     <p>
       First, you'll need to add some weird stuff to your component annotation:
     </p>
-    <pre class="language-ts"><code>import {Component, OnInit, forwardRef} from '@angular/core';
+    <pre><code class="language-ts">import {Component, OnInit, forwardRef} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 
@@ -86,7 +88,7 @@ export class CustomInputComponent implements ControlValueAccessor {</code></pre>
       Also append <code class="app-code">implements ControlValueAccessor</code> in order to make sure you implement the Control Value Accessor interface correctly.
       Next, you'll need to add two methods to your class:
     </p>
-    <pre class="language-ts"><code>// Step 3: Copy paste this stuff here into your class
+    <pre><code class="language-ts">// Step 3: Copy paste this stuff here into your class
 onChange: any = () => {}
 onTouch: any = () => {}
 registerOnChange(fn: any): void {
@@ -175,6 +177,59 @@ export class CustomInputComponent implements ControlValueAccessor {
 
 }</code></pre>
     
+    <h3>Alternative: Using a FormControl</h3>
+    <p>
+      You could have gone a slightly different road inside of your <code>CustomInputComponent</code>. Instead of using ngModel, you could have used a form control here as well. In that case, the example would change like this:
+    </p>
+    <amp-accordion>
+      <section>
+        <h5 class="file-label-two">
+          Alternative: Using a FormControl (click to show code)
+        </h5>
+        <pre><code>
+...
+export class CustomInputComponent implements ControlValueAccessor, OnDestroy {
+
+  // Step 3: Instead of a simple string variable, use a FormControl
+  input = new FormControl('')
+
+  // Step 4: use the setValue method on the form control to update it when a new value comes in from the outside
+  writeValue(input: string) {
+    this.input.setValue(input);
+  }
+
+  // Step 5: Listen to value changes on the form control. If something happens, the function provided by Angular will be called and the outside world will be informed.
+  subscriptions = [];
+  registerOnChange(fn: any): void {
+    this.subscriptions.push(
+      this.input.valueChanges.subscribe(fn)
+    );
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+  
+  // Step 6: onTouch stays the same
+  onTouch: any = () => {}
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+}</code></pre>
+      </section>
+    </amp-accordion>
+    
+    <p>
+      and the html
+    </p>
+    <pre><code>&lt;input type=&quot;text&quot;
+       [formControl]=&quot;input&quot;
+       (blur)=&quot;onTouch()&quot;&gt;</code></pre>
+    
+    <p>
+      I actually think the alternative approach using a form control could be kind of nice, especially the html template gets simpler. The only problem is that we're introducing a pesky subscription which we'll then have to unsubscribe from in the onDestroy.
+    </p>
+    
     <h2>
       More Examples
     </h2>
@@ -185,7 +240,10 @@ export class CustomInputComponent implements ControlValueAccessor {
     <p>
       A lazy input can be useful, if you want to program something like an autocomplete. Like this, the form control would only be updated once in a while and the server wouldn't be spammed with requests. Here's the code:
     </p>
-    <pre class="language-ts"><code>import {Component, OnInit, OnDestroy, forwardRef, Input} from '@angular/core';
+    <amp-accordion>
+      <section>
+        <h5 class="file-label-two">Lazy Input Example (click to show code)</h5>
+        <pre><code class="language-ts">import {Component, OnInit, OnDestroy, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {ReplaySubject, Subscription} from 'rxjs';
@@ -247,6 +305,8 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
   }
 
 }</code></pre>
+      </section>
+    </amp-accordion>
     
     <p>
       Here is the link to the example:
@@ -259,7 +319,10 @@ export class CustomInputComponent implements ControlValueAccessor, OnInit {
     <p>
       Another classic in the world of examples is the button increasing a counter. So if your custom form element revolves around a button, choose this as an orientation. Here's the code:
     </p>
-    <pre class="language-ts"><code>import {Component, OnInit, OnDestroy, forwardRef, Input} from '@angular/core';
+    <amp-accordion>
+      <section>
+        <h5 class="file-label-two">Button Example (click to show code)</h5>
+        <pre><code class="language-ts">import {Component, OnInit, OnDestroy, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {ReplaySubject, Subscription} from 'rxjs';
@@ -306,9 +369,77 @@ export class CustomInputComponent implements ControlValueAccessor {
   subscriptions: Subscription[] = [];
 
 }</code></pre>
-    
+      </section>
+    </amp-accordion>
     <p>
       Link to a Control Value Accessor example with a button: <a href="https://stackblitz.com/edit/angular-control-value-accessor-button-example-tsmean">Button example</a>
+    </p>
+    
+    <h3>
+      Nested Forms Example
+    </h3>
+    <p>
+      Another use case for the Control Value Accessor are nested forms. Say you have a form that looks like this: <code class="app-code">{name: string; address: {street: string; zip: number;}}</code>. The address part you deem is worthy of it's own component. You can also use the CVA to access the nested form inside of the address component. Here's what the <code class="app-code">address-component</code> would look like:
+    </p>
+    <amp-accordion>
+      <section>
+        <h5 class="file-label-two">
+          Nested Forms Example (click to show code)
+        </h5>
+        <div>
+          <pre><code>export class AddressFormComponent implements ControlValueAccessor, OnDestroy {
+
+  addressForm: FormGroup = this.formBuilder.group({
+    street: [''],
+    zip: [''],
+  });
+
+  subscriptions: Subscription[] = [];
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  writeValue(updatedFormValue) {
+    this.addressForm.setValue(updatedFormValue);
+  }
+
+  registerOnChange(fn) {
+    this.addressForm.valueChanges.subscribe(fn);
+  }
+
+  onTouch = () => {}
+  registerOnTouched(fn) {
+    this.onTouch = fn;
+  }
+
+}</code></pre><pre><code>&lt;form [formGroup]=&quot;addressForm&quot;&gt;
+  &lt;input type=&quot;text&quot; formControlName=&quot;street&quot; placeholder=&quot;Street&quot; (blur)=&quot;onTouch()&quot;&gt;
+  &lt;input type=&quot;number&quot; formControlName=&quot;zip&quot; placeholder=&quot;Zip&quot; (blur)=&quot;onTouch()&quot;&gt;
+&lt;/form&gt;</code>
+        </pre><div>and in the parent component</div>
+          <pre><code class="language-ts">// app.component.ts
+mainForm: FormGroup = this.formBuilder.group({
+  name: ['Max'],
+  address: {
+    street: ['Payne'],
+    zip: [50000]
+  }
+});
+</code></pre><pre><code>&lt;!--app.component.html--&gt;
+&lt;form [formGroup]=&quot;mainForm&quot;&gt;
+  &lt;input type=&quot;text&quot; formControlName=&quot;name&quot; placeholder=&quot;Name&quot;&gt;
+  &lt;app-address-form formControlName=&quot;address&quot;&gt;&lt;/app-address-form&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+      </section>
+    </amp-accordion>
+    <p>
+      or view this on Stackblitz: <a href="https://stackblitz.com/edit/angular-nested-forms-control-value-accessor">Nested Forms Example (with Control Value Accessor)</a>
     </p>
     
     <h2>
