@@ -262,3 +262,61 @@ amp-img.app-bordered {
   display: block;
   margin-top: 20px;
 }
+
+.app-article-footer-extra {
+  display: flex;
+
+  border-radius: 3px;
+  background: rgb(0,41,147);
+  background: linear-gradient(162deg, rgba(0,41,147,1) 0%, rgba(0,212,255,1) 100%);
+  color: white;
+  flex-wrap: wrap;
+  $min-width-left-right: 180px;
+
+  @media(max-width: 800px) {
+    flex-direction: column;
+  }
+
+  .app-article-footer-extra-logo {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $min-width-left-right;
+  }
+
+  .app-article-footer-extra-text {
+
+    clip-path: polygon(6% 0, 94% 0, 100% 100%, 0% 100%);
+    @media(max-width: 800px) {
+      clip-path: none;
+    }
+
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 35px;
+
+    flex-grow: 1;
+
+    background: #07ff4f;
+    //background: linear-gradient(356deg, rgba(255,224,0,1) 0%, rgba(7,255,79,1) 100%);
+    color: black;
+  }
+
+  .app-article-footer-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    min-width: $min-width-left-right;
+    .affiliate-link-designator {
+      font-size: 10px;
+      height: 0;
+    }
+  }
+}
