@@ -1,0 +1,149 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>{{title}}</title>
+  <meta name="description" content="Ngrx vs services for state management: Which one should you choose?">
+  <meta name="keywords"
+        content="ngrx, angular, state management">
+  <link rel="canonical" href="https://www.tsmean.com/articles/angular/ngrxstore-vs-angular-services" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      State Management: ngrx/store vs Angular services
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">June 2017</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    <p>
+      State management is one of the most difficult tasks in front-end development. In Angular2 we are presented with a number of options. The most promising ones seem to be holding reusable state in services vs. using the ngrx/store library specifically designed to help with state management. Here are my current views on the pros and cons of each approach, prioritized:
+    </p>
+    <h2>
+      Pros of using ngrx/store
+    </h2>
+    <ol>
+      <li>
+        Dev Tools
+      </li>
+      <li>
+        You have a clear methodology => Other people joining your project will know how to handle state if they know ngrx (or redux or similar), and if not, they know where to inform themselves.
+      </li>
+    </ol>
+    <h2>
+      Cons of using ngrx/store
+    </h2>
+    <ol>
+      <li>
+        You’re adding an extra library. Could become deprecated, badly maintained or have breaking changes all the time. For example, we couldn’t update our project to Angular 5, because ngrx was lagging behind. Also, updating from ngrx/store v2 to nrgrx/store v4 took one afternoon, and that was for a small project.
+      </li>
+      <li>
+        Name-spacing is ugly, e.g. <code class="app-code">'[heroes] UPDATE'</code>. What happens if you choose the same action name by accident?
+        <a href="https://stackoverflow.com/questions/43021376/how-to-check-if-an-action-name-is-already-taken-in-a-large-redux-app">The answers</a>  aren’t really satisfying. With services you’ll get better autocompletion: heroService.updateHero(hero) instead of <code class="app-code">dispatch({type: '[heroes] UPDATE', hero})</code>. Of course you could put the dispatch also in a heroService, but then you’ll have more boilerplate.
+      </li>
+    </ol>
+    <h2>
+      Pros of using services as your store
+    </h2>
+    <ol>
+      <li>
+        No extra library needed, it’s core Angular
+      </li>
+      <li>
+        You don’t have one global state, so you can better modularize. For example you can have a reusable UserModule, that doesn’t know anything about the other parts of the state of your app.
+      </li>
+      <li>
+        No name-spacing problems as every resource has it’s own service
+      </li>
+      <li>
+        Complete flexibility in use. You can throw immutability overboard, if you want.
+      </li>
+    </ol>
+  
+    <h2>
+      Cons of using services as your store
+    </h2>
+    <ul>
+      <li>
+        No-one tells you how to do it, no standards
+      </li>
+    </ul>
+    
+    <h2>
+      Other opinions
+    </h2>
+    <p>
+      Here are also some opinions on this topic from other people. mean.studio says:
+    </p>
+    <blockquote class="app-blockquote">
+      Despite common opinion, ngrx gets hard to maintain and I have seen a lot of spaghetti code which triggers each other and it gets really messy.
+      Despite people assumes that there is only one way to set up ngrx/redux, I have seen tons of different ways which all of then end up to be faulty and need to be rewritten from scratch.
+      Ngrx uses a lot of boilerplate code which is not necessary for most of cases.
+      Some concepts like reducers are totally wrong. In apps I always see list of items, merely I need to apply something to single item. Mappers and filters are good in case you need transform all or portion of data.
+    </blockquote>
+    <p>
+      while James Trefry sees more benefits in using ngrx:
+    </p>
+    <blockquote class="app-blockquote">
+      Here are some other pros of NgRx or NGXS (less boilerplate).
+      <ul>
+        <li>
+          You can hydrate your entire application with a single JSON object – useful for debugging, testing, or returning the user to the exact state they had previously.
+        </li>
+        <li>
+          Single point of entry allows complete logging and interception/filtering/modification of actions.
+        </li>
+        <li>
+          A standard for state management allows the community to provide useful plugins. https://ngxs.gitbook.io/ngxs/plugins
+        </li>
+      </ul>
+      I think services are best for simple apps, but as complexity grows, you will be wishing you had controls to reign in the resulting chaos.
+    </blockquote>
+    <p>
+      bastien on the other hand doesn't think ngrx adds enough value:
+    </p>
+    <blockquote class="app-blockquote">
+      I also go with the shared/singleton services without using observables because in 99% of the cases you do not need them to react to changes
+    </blockquote>
+    
+    <h2>
+      Conclusion
+    </h2>
+    <p>
+      I still prefer the manual approach with services. I think it adds a lot to the flexibility and simplicity that you can shape your data-store as you need it. Often you don’t need the entire store store to be an observable and you can easily extend your store-services to make them observables once you need that feature. For example I’d rather have a store with the signature
+    </p>
+    <pre><code>heroStore: {[heroId: string]: BehaviorSubject&lt;Hero&gt;}</code></pre>
+    <p>
+      than the signature
+    </p>
+    <pre><code>heroStore: BehaviorSubject&lt;{[heroId: string]: Hero}&gt;</code></pre>
+    <p>
+      As long as I don’t need something like the total number of heroes it’s completely sufficient to have the first signature. And in case I suddenly need the store as an observable in my app, I can still easily change the service.
+    </p>
+    <p>
+      Also the mistakes in the docs and an example-app that’s far from real-world scare me a bit.
+    </p>
+    
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

@@ -53,7 +53,8 @@ addPagesToDirectory(
   [
     'pitfalls',
     'state-management',
-    'angular-control-value-accessor-example'
+    'angular-control-value-accessor-example',
+    'ngrxstore-vs-angular-services'
   ],
   pages
 );

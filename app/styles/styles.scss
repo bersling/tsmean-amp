@@ -303,7 +303,6 @@ amp-img.app-bordered {
     flex-grow: 1;
 
     background: #07ff4f;
-    //background: linear-gradient(356deg, rgba(255,224,0,1) 0%, rgba(7,255,79,1) 100%);
     color: black;
   }
 
@@ -319,4 +318,11 @@ amp-img.app-bordered {
       height: 0;
     }
   }
+}
+
+.app-blockquote {
+  border-left: 2px solid $primary-color;
+  margin: 0;
+  padding: 0;
+  padding-left: 10px;
 }

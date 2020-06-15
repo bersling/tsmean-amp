@@ -2,6 +2,12 @@ import * as fs from 'fs';
 
 const category = process.argv[2];
 const title = process.argv[3];
+
+if (category == null || title == null) {
+  console.error(`Expected category and title to be non-null`);
+  process.exit();
+}
+
 const dashCaseTitle = title.toLowerCase().replace(/ /g, `-`);
 
 function htmlFactory() {

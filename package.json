@@ -9,7 +9,8 @@
     "build": "rm -rf dist && mkdir -p dist && cp -r assets dist && npm run mustache",
     "mustache": "npx -s sh ts-node compile.ts",
     "roadmap": "tsc roadmap/roadmap.ts --outDir dist/roadmap/ && cp roadmap/roadmap.css dist/roadmap/roadmap.css && cp roadmap/roadmap.html dist/roadmap/roadmap.html",
-    "deploy": "./deploy.sh prod"
+    "deploy": "./deploy.sh prod",
+    "create-article": "ts-node create-article"
   },
   "repository": {
     "type": "git",
