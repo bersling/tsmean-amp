@@ -1,0 +1,191 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>{{title}}</title>
+  <meta name="description" content="OAuth 2 is a protocol for apps to act on behalf of users. Learn how it works in this tutorial.">
+  <meta name="keywords"
+        content="oauth 2, tutorial, security">
+  <link rel="canonical" href="https://www.tsmean.com/articles/security/oauth2-tutorial" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      OAuth 2: How does it work? A Guide with Examples.
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">June 2020</span>
+    </div>
+  
+  </div>
+  
+  <article>
+    
+    <h2>Why and when do you need Oauth 2?</h2>
+    <p>
+      OAuth 2 is a protocol that enables apps to act on behalf of users. There are many potential use cases for this.
+      Maybe you want to build an app that lets a person know how many facebook likes they've got over their lifetime.
+      But how does facebook know, that your app can get a users data? That's where OAuth 2 comes into play.
+    </p>
+    <p>
+      OAuth 2 is the successor of OAuth 1. It's not backwards compatible and should be seen as a completely new protocol.
+    </p>
+    <p></p>
+    
+    <h2>
+      OAuth 2 Roles
+    </h2>
+    <p>
+      So as you could see from the introduction, there are (at least) three parties involved in the process:
+    </p>
+    <ul>
+      <li>
+        The user - also referred as <b>"Resource Owner"</b>. This is typically <!-- FIXME: always ? --> a human who has an account for a certain service,
+        let's stick with the example of facebook.
+      </li>
+      <li>
+        Facebook itself is the <b>Resource Server</b>, but also the <b>Authorization Server</b>.
+        Facebook will provide authorization to the user or to app and once authorization is granted, they will send the resource.
+        We'll also call it service provider here.
+      </li>
+      <li>
+        Then we have the third party app, because of which we're doing the whole OAuth 2 stuff in the first place.
+        This is referred to as the <b>Client</b>. We'll also call it third party app here.
+      </li>
+    </ul>
+    
+    <h2>Registration of the Third Party App</h2>
+    <p>
+      First, in order for all of this to work, the third party app must be registered with the service provider.
+      In particular, the third party app must provide a redirect URL, where the service provider should redirect the user
+      to after a successful authorization.
+    </p>
+    <p>
+      If the service provider accepts the third party apps registration, it will provide it with
+      a <b>Client ID</b> and a <b>Client Secret</b>. The Client ID is a public string that is used
+      by the service provider to identify the client. The Client Secret lets the service provider verify that
+      a client is really who it says it is.
+    </p>
+    <p>
+      Let's stick with our example of an application that reads the number of facebook likes from a user. We'll call it "Likey".
+      Then a Likey-employee goes to facebook.com and signs up Likey for OAuth 2 at facebook. If the form is accepted,
+      the employee receives the <code class="app-code">client-id: likey-app</code> and <code class="app-code">client-secret: 84HAu1jdjjfXuquq</code>.
+    </p>
+    
+    <h2>
+      OAuth 2 Authorization (Grant Type: Authorization Code)
+    </h2>
+    <p>
+      So now, how does Facebook know that our third party app can access the data of "hans@gmail.com"?
+      Hans somehow needs to tell facebook "hey guys, it's ok that &lt;insert application name here&gt; accesses my data.
+    </p>
+    <p>
+      Let's call our application "Likey", because it gets the number of likes that a user has.
+    </p>
+    <p>
+      Facebook can <b>grant access</b> to Likey in different ways, but the most common is the <b>Grant Type: Authorization Code</b>.
+      This grant type is suited for third party applications, that have web servers themselves. The authorization code that is
+      provided should not be exposed to the user directly.
+    </p>
+    <p>
+      Now, what's the series of events that need to happen here such that Likey gains access to the users facebook data?
+    </p>
+    <h3>
+      Step 1: Authorization Code Link
+    </h3>
+    <p>
+      The user visits the Likey page. Likey has placed a link on their page that points to the facebook oauth endpoint that looks something like:
+    </p>
+    <pre><code>https://api.facebook.com/oauth-2/authorize?response_type=code&client_id=likey-app&redirect_uri=CALLBACK_URL&scope=read_likes</code></pre>
+    <p>
+      As you can see, the user is directed <b>away</b> from the Likey page to the facebook page. But the link <b>also</b> contains the information
+      where the user should be redirected <b>after</b> a successful authentication in the <code class="app-code">redirect_uri</code> parameter.
+      The <b>scope</b> request parameter declares for which part of the service provider access is asked for. For example,
+      you might want to grant Likey access to how many likes you have on posts, but it shouldn't be allowed to view your friends
+      or to write posts on your behalf.
+    </p>
+    <h3>
+      Step 2: User Authorizes Application
+    </h3>
+    <p>
+      Once the user clicks the link, he or she is leaving likey (for the moment) on being routed to the facebook page.
+      What happens there, stays between the user and facebook. This is important, because the user doesn't
+      want to share his or her facebook password with likey. Facebook then asks the user (once he or she is authenticated / logged in)
+      if he or she wants to grant access to the third party app for a certain scope (for example: read likes).
+      The user can then accept or deny this.
+    </p>
+    
+    <h3>
+      Step 3: Application Receives Authorization Code
+    </h3>
+    <p>
+      If the user clicks on "Authorize", the service provider (facebook) redirects the user back to the third party app (likey).
+      In the redirect url, facebook will also put the <code class="app-code">Authorization Code</code>:
+    </p>
+    <pre><code>https://www.likey.com/oauth-callback?code=AUTHORIZATION_CODE</code></pre>
+    
+    <h3>
+      Step 4: Application Requests Access Token
+    </h3>
+    <p>
+      Now that likey has the Authorization Code, it uses that code to get an <code class="app-code">Access Token</code>.
+      To do so, it sends a POST request to an endpoint provided by facebook, which could look like this:
+    </p>
+    <pre><code>https://api.facebook.com/oauth-2/token?client_id=likey-app&client_secret=CLIENT_SECRET&grant_type=authorization_code&code=AUTHORIZATION_CODE&redirect_uri=CALLBACK_URL</code></pre>
+    <p>
+      Again there are <code class="app-code">client_id</code> and <code class="app-code">redirect_uri</code> redirect parameters.
+      Additionally, the <code class="app-code">client_secret</code> is provided.
+<!--      FIXME: explain why this is necessary ... -->
+    </p>
+    
+    <h3>
+      Step 5: Application Receives Access Token
+    </h3>
+    <p>
+      If everything matches, facebook sends back a token that can be used by likey to access certain resources on behalf of the user.
+      That response might look like this:
+    </p>
+    <pre><code>{
+   "access_token": "XYZ",
+   "token_type": "bearer",
+   "expires_in": 2592000,
+   "scope": "read_likes",
+   "uid": 55
+}</code></pre>
+  <p>
+    Now likey can send a request to facebook like this:
+  </p>
+    <pre><code>
+POST to
+
+api.facebook.com/get-likes
+
+// body
+{uid: 55}
+
+// HTTP Headers
+Authorization: 'bearer XYZ'
+    </code></pre>
+    
+<!--  TODO: why is some of this necessary? Why so many roundtrips  -->
+    
+    
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>

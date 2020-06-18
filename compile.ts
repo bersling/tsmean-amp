@@ -180,6 +180,15 @@ addPagesToDirectory(
   ['gtm'],
   pages
 );
+addPagesToDirectory(
+  'articles/security',
+  [
+    'oauth2-tutorial',
+    'authentication-vs-authorization'
+  ],
+  pages
+);
+
 
 
 /**
