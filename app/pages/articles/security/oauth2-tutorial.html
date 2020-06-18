@@ -38,7 +38,7 @@
     <p>
       OAuth 2 is a protocol that enables apps to act on behalf of users. There are many potential use cases for this.
       Maybe you want to build an app that lets a person know how many facebook likes they've got over their lifetime.
-      But how does facebook know, that your app can get a users data? That's where OAuth 2 comes into play.
+      But how does facebook know that your app can get a user's data? That's where OAuth 2 comes into play.
     </p>
     <p>
       OAuth 2 is the successor of OAuth 1. It's not backwards compatible and should be seen as a completely new protocol.
@@ -57,8 +57,8 @@
         let's stick with the example of facebook.
       </li>
       <li>
-        Facebook itself is the <b>Resource Server</b>, but also the <b>Authorization Server</b>.
-        Facebook will provide authorization to the user or to app and once authorization is granted, they will send the resource.
+        facebook itself is the <b>Resource Server</b>, but also the <b>Authorization Server</b>.
+        facebook will provide authorization to the user or to app and once authorization is granted, they will send the resource.
         We'll also call it service provider here.
       </li>
       <li>
@@ -80,8 +80,8 @@
       a client is really who it says it is.
     </p>
     <p>
-      Let's stick with our example of an application that reads the number of facebook likes from a user. We'll call it "Likey".
-      Then a Likey-employee goes to facebook.com and signs up Likey for OAuth 2 at facebook. If the form is accepted,
+      Let's stick with our example of an application that reads the number of facebook likes from a user. We'll call it "likey".
+      Then a likey-employee goes to facebook.com and signs up likey for OAuth 2 at facebook. If the form is accepted,
       the employee receives the <code class="app-code">client-id: likey-app</code> and <code class="app-code">client-secret: 84HAu1jdjjfXuquq</code>.
     </p>
     
@@ -89,32 +89,29 @@
       OAuth 2 Authorization (Grant Type: Authorization Code)
     </h2>
     <p>
-      So now, how does Facebook know that our third party app can access the data of "hans@gmail.com"?
-      Hans somehow needs to tell facebook "hey guys, it's ok that &lt;insert application name here&gt; accesses my data.
+      So now, how does facebook know that our third party app can access the data of "hans@gmail.com"?
+      Hans somehow needs to tell facebook "hey guys, it's ok that &lt;insert application name here&gt; accesses (parts of) my data."
     </p>
     <p>
-      Let's call our application "Likey", because it gets the number of likes that a user has.
-    </p>
-    <p>
-      Facebook can <b>grant access</b> to Likey in different ways, but the most common is the <b>Grant Type: Authorization Code</b>.
+      facebook can <b>grant access</b> to likey in different ways, but the most common is the <b>Grant Type: Authorization Code</b>.
       This grant type is suited for third party applications, that have web servers themselves. The authorization code that is
       provided should not be exposed to the user directly.
     </p>
     <p>
-      Now, what's the series of events that need to happen here such that Likey gains access to the users facebook data?
+      Now, what's the series of events that need to happen here such that likey gains access to the users facebook data?
     </p>
     <h3>
       Step 1: Authorization Code Link
     </h3>
     <p>
-      The user visits the Likey page. Likey has placed a link on their page that points to the facebook oauth endpoint that looks something like:
+      The user visits the likey page. likey has placed a link on their page that points to the facebook oauth endpoint that looks something like:
     </p>
     <pre><code>https://api.facebook.com/oauth-2/authorize?response_type=code&client_id=likey-app&redirect_uri=CALLBACK_URL&scope=read_likes</code></pre>
     <p>
-      As you can see, the user is directed <b>away</b> from the Likey page to the facebook page. But the link <b>also</b> contains the information
+      As you can see, the user is directed <b>away</b> from the likey page to the facebook page. But the link <b>also</b> contains the information
       where the user should be redirected <b>after</b> a successful authentication in the <code class="app-code">redirect_uri</code> parameter.
       The <b>scope</b> request parameter declares for which part of the service provider access is asked for. For example,
-      you might want to grant Likey access to how many likes you have on posts, but it shouldn't be allowed to view your friends
+      you might want to grant likey access to how many likes you have on posts, but it shouldn't be allowed to view your friends
       or to write posts on your behalf.
     </p>
     <h3>
@@ -123,7 +120,7 @@
     <p>
       Once the user clicks the link, he or she is leaving likey (for the moment) on being routed to the facebook page.
       What happens there, stays between the user and facebook. This is important, because the user doesn't
-      want to share his or her facebook password with likey. Facebook then asks the user (once he or she is authenticated / logged in)
+      want to share his or her facebook password with likey. facebook then asks the user (once he or she is authenticated / logged in)
       if he or she wants to grant access to the third party app for a certain scope (for example: read likes).
       The user can then accept or deny this.
     </p>
