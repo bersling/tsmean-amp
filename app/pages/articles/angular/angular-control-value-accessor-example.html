@@ -376,10 +376,19 @@ export class CustomInputComponent implements ControlValueAccessor {
     </p>
     
     <h3>
-      Nested Forms Example
+      Nested Forms
     </h3>
     <p>
-      Another use case for the Control Value Accessor are nested forms. Say you have a form that looks like this: <code class="app-code">{name: string; address: {street: string; zip: number;}}</code>. The address part you deem is worthy of it's own component. You can also use the CVA to access the nested form inside of the address component. Here's what the <code class="app-code">address-component</code> would look like:
+      Should you use Control Value Accessor for nested forms? The answer is <b>NO, NO, NO</b>!
+      I first made this mistake as well, but if you think about it, it's <b>not at all</b> what the CVA is made for.
+      The CVA is made for scenarios where you wrap a <b>form control</b> in a component, not a <b>form group</b>.
+      If you wrap a form group in a component, then you can just pass in the form group!
+    </p>
+    <p>
+      Say you have a form that looks like this: <code class="app-code">{name: string; address: {street: string; zip: number;}}</code>.
+      The address part you deem is worthy of it's own component.
+      Then you can just pass in the sub form into the child component!
+      Here's what the <code class="app-code">AddressFormComponent</code> would look like:
     </p>
     <amp-accordion>
       <section>
@@ -387,66 +396,42 @@ export class CustomInputComponent implements ControlValueAccessor {
           Nested Forms Example (click to show code)
         </h5>
         <div>
-          <pre><code>export class AddressFormComponent implements ControlValueAccessor, OnDestroy {
-
-  addressForm: FormGroup = this.formBuilder.group({
-    street: [''],
-    zip: [''],
+          <pre><code>export class AddressFormComponent {
+  @Input() addressForm: FormGroup;
+}</code></pre><pre><code>&lt;form [formGroup]=&quot;addressForm&quot;&gt;
+  &lt;input type=&quot;text&quot; formControlName=&quot;street&quot; placeholder=&quot;Street&quot;&gt;
+  &lt;input type=&quot;number&quot; formControlName=&quot;zip&quot; placeholder=&quot;Zip&quot;&gt;
+&lt;/form&gt;</code></pre>
+          <div>and in the parent component</div>
+          <pre><code class="language-ts">// app.component.ts
+  mainForm: FormGroup = this.formBuilder.group({
+    name: ['Max'],
+    address: this.formBuilder.group({
+      street: ['PayneStreet'],
+      zip: [50000]
+    })
   });
 
-  subscriptions: Subscription[] = [];
-
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  writeValue(updatedFormValue) {
-    this.addressForm.setValue(updatedFormValue);
-  }
-
-  registerOnChange(fn) {
-    this.addressForm.valueChanges.subscribe(fn);
-  }
-
-  onTouch = () => {}
-  registerOnTouched(fn) {
-    this.onTouch = fn;
-  }
-
-}</code></pre><pre><code>&lt;form [formGroup]=&quot;addressForm&quot;&gt;
-  &lt;input type=&quot;text&quot; formControlName=&quot;street&quot; placeholder=&quot;Street&quot; (blur)=&quot;onTouch()&quot;&gt;
-  &lt;input type=&quot;number&quot; formControlName=&quot;zip&quot; placeholder=&quot;Zip&quot; (blur)=&quot;onTouch()&quot;&gt;
-&lt;/form&gt;</code>
-        </pre><div>and in the parent component</div>
-          <pre><code class="language-ts">// app.component.ts
-mainForm: FormGroup = this.formBuilder.group({
-  name: ['Max'],
-  address: {
-    street: ['Payne'],
-    zip: [50000]
-  }
-});
-</code></pre><pre><code>&lt;!--app.component.html--&gt;
+  get addressForm() {
+    return this.mainForm.get('address') as FormGroup;
+  }</code></pre><pre><code>&lt;!--app.component.html--&gt;
 &lt;form [formGroup]=&quot;mainForm&quot;&gt;
   &lt;input type=&quot;text&quot; formControlName=&quot;name&quot; placeholder=&quot;Name&quot;&gt;
-  &lt;app-address-form formControlName=&quot;address&quot;&gt;&lt;/app-address-form&gt;
+  &lt;app-address-form [addressForm]=&quot;addressForm&quot;&gt;&lt;/app-address-form&gt;
 &lt;/form&gt;</code></pre>
         </div>
       </section>
     </amp-accordion>
     <p>
-      or view this on Stackblitz: <a href="https://stackblitz.com/edit/angular-nested-forms-control-value-accessor">Nested Forms Example (with Control Value Accessor)</a>
+      or view this on Stackblitz: <a href="https://stackblitz.com/edit/angular-nested-forms-input">Nested Forms Example (you do NOT NEED Control Value Accessor)</a>
     </p>
     
     <h2>
       Conclusion
     </h2>
     <p>
-      Implementing the Control Value Accessor interface isn't rocket science, but since you'll have to add a lot of boilerplate code and still understand the basics of what's going on, it's quite confusing at first. However, I hope I could clear up some of the confusion around Control Value Accessor and illustrate how to use it with some examples!
+      Implementing the Control Value Accessor interface isn't rocket science, but since you'll have to add a lot of boilerplate code and still understand the basics of what's going on, it's quite confusing at first.
+      However, I hope I could clear up some of the confusion around Control Value Accessor and illustrate how to use it with some examples!
     </p>
     
   </article>
