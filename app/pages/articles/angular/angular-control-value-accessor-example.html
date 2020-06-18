@@ -404,17 +404,16 @@ export class CustomInputComponent implements ControlValueAccessor {
 &lt;/form&gt;</code></pre>
           <div>and in the parent component</div>
           <pre><code class="language-ts">// app.component.ts
-  mainForm: FormGroup = this.formBuilder.group({
-    name: ['Max'],
-    address: this.formBuilder.group({
-      street: ['PayneStreet'],
-      zip: [50000]
-    })
+          
+  addressForm = this.formBuilder.group({
+    street: ["PayneStreet"],
+    zip: [50000]
   });
 
-  get addressForm() {
-    return this.mainForm.get('address') as FormGroup;
-  }</code></pre><pre><code>&lt;!--app.component.html--&gt;
+  mainForm: FormGroup = this.formBuilder.group({
+    name: ["Max"],
+    address: this.addressForm
+  });</code></pre><pre><code>&lt;!--app.component.html--&gt;
 &lt;form [formGroup]=&quot;mainForm&quot;&gt;
   &lt;input type=&quot;text&quot; formControlName=&quot;name&quot; placeholder=&quot;Name&quot;&gt;
   &lt;app-address-form [addressForm]=&quot;addressForm&quot;&gt;&lt;/app-address-form&gt;
@@ -423,7 +422,7 @@ export class CustomInputComponent implements ControlValueAccessor {
       </section>
     </amp-accordion>
     <p>
-      or view this on Stackblitz: <a href="https://stackblitz.com/edit/angular-nested-forms-input">Nested Forms Example (you do NOT NEED Control Value Accessor)</a>
+      or view this on Stackblitz: <a href="https://stackblitz.com/edit/angular-nested-forms-input-2">Nested Forms Example (you do NOT NEED Control Value Accessor)</a>
     </p>
     
     <h2>
