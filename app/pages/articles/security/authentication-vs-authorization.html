@@ -1,12 +1,15 @@
 <!doctype html>
-<html ⚡ lang="en">
+<html ⚡
+      lang="en">
 <head>
   
   <title>{{title}}</title>
-  <meta name="description" content="Always confusing the terms authentication and authorization? Never confuse them again after reading this.">
+  <meta name="description"
+        content="Always confusing the terms authentication and authorization? Never confuse them again after reading this.">
   <meta name="keywords"
         content="security, authentication, authorization">
-  <link rel="canonical" href="https://www.tsmean.com/articles/security/authentication-vs-authorization" />
+  <link rel="canonical"
+        href="https://www.tsmean.com/articles/security/authentication-vs-authorization"/>
   {{> commonHead}}
   {{> articleHead}}
   {{> analytics}}
@@ -23,7 +26,7 @@
              src="/assets/img/001-light-bulb.svg">
     </amp-img>
     <h1 class="jumbo-title">
-      authentication-vs-authorization
+      Authentication vs. Authorization
     </h1>
     
     <div class="meta-header">
@@ -35,7 +38,8 @@
   <article>
     
     <p>
-      Authorization and Authentication. They sound almost the same, they both start with the letters <b>auth</b> and both end with <b>ation</b>.
+      Authorization and Authentication. They sound almost the same, they both start with the letters <b>auth</b> and
+      both end with <b>ation</b>.
       So what's the difference? And how can you remember the difference?
     </p>
     
@@ -43,29 +47,43 @@
       Authentication
     </h2>
     <p>
-      Authentication is the process of verifying the identity of someone or something. If you are logging in into a platform,
-      you are authenticating yourself. Commonly with a username and a password, but there are also multi factor authentications,
+      Authentication is the process of verifying the identity of someone or something. If you are logging into a
+      platform,
+      you are authenticating yourself. Commonly with a username and a password, but there are also multi factor
+      authentications,
       such as using a mobile phone for added security.
     </p>
     <p>
       How can you remember this? You know the word <b>authentic</b>. You know it means <b>somebody is himself</b>.
       Then it's easy to remember that authentication means to prove that you are who you claim to be!
     </p>
+    <amp-img class="app-row-img mw400"
+             layout="responsive"
+             src="/assets/img/authentication-vs-authorization/authentication.png"
+             width="876"
+             height="522">
+    </amp-img>
     
     <h2>
       Authorization
     </h2>
     <p>
-      With authorization a system already knows who you are, but it still needs to check if <b>you are permitted to do something</b>.
-      For example, I might be logged in as <b>hans@gmail.com</b> into some platform, but that still doesn't mean I'm an admin and can call
-      <b>/api/drop-all-tables</b>.
+      The concern of authorization is to check permissions. A system might know who you are, but you still might not be permitted to do something.
+      For example, I might be logged in as <b>hans@gmail.com</b> into some system, but that still doesn't mean I'm an
+      admin and can call <code class="app-code">/api/drop-all-tables</code>.
     </p>
     <p>
-      How to remember? This word also appears in common language, for example on signs like "only for authorized personnel".
-      You can also remember that <b>YOU SHALL NOT PASS = You are unauthorized to pass</b>. Gandalf knows who you are,
-      but still thinks it's a bad idea for you to pass.
+      How to remember? This word also appears in common language, for example on signs like "only for authorized
+      personnel".
+      You can also remember that <b>YOU SHALL NOT PASS = You are unauthorized</b>. Gandalf knows who you are,
+      but still thinks it's a bad idea for you to pass!
     </p>
-    
+    <amp-img layout="responsive"
+             src="/assets/img/authentication-vs-authorization/authorization.png"
+             width="1016"
+             height="380">
+    </amp-img>
+  
   </article>
   
   {{> articleFooter}}
