@@ -102,8 +102,9 @@
     </p>
     <p>
       facebook can <b>grant access</b> to likey in different ways, but the most common is the <b>Grant Type: Authorization Code</b>.
-      This grant type is suited for third party applications, that have web servers themselves. The authorization code that is
-      provided should not be exposed to the user directly.
+      This grant type is suited for third party applications, that have web servers themselves. That way, the client secret
+      can be used as an additional security measure to prevent attackers from retrieving a user's data, even if they
+      manage to get an authorization code.
     </p>
     <p>
       Now, what's the series of events that need to happen here such that likey gains access to the users facebook data?
@@ -153,14 +154,17 @@
     <p>
       Again there are <code class="app-code">client_id</code> and <code class="app-code">redirect_uri</code> redirect parameters.
       Additionally, the <code class="app-code">client_secret</code> is provided.
-<!--      FIXME: explain why this is necessary ... -->
+    </p>
+    <p>
+      The secret is an additional security layer, such that an attacker that managed to snatch an authorization code
+      somehow still cannot retrieve a user's data without also knowing the client secret.
     </p>
     
     <h3>
       Step 5: Application Receives Access Token
     </h3>
     <p>
-      If everything matches, facebook sends back a token that can be used by likey to access certain resources on behalf of the user.
+      If everything matches, facebook sends back an access token.
       That response might look like this:
     </p>
     <pre><code>{
@@ -170,6 +174,13 @@
    "scope": "read_likes",
    "uid": 55
 }</code></pre>
+    <p>
+      This access token is meant to be kept secret between likey and facebook.
+    </p>
+    
+    <h3>
+      Step 6: Application Uses Access Token
+    </h3>
   <p>
     Now likey can send a request to facebook like this:
   </p>
@@ -184,9 +195,22 @@ api.facebook.com/get-likes
 // HTTP Headers
 Authorization: 'bearer XYZ'
     </code></pre>
+    <p>
+      This allows likey to finally retrieve the user data!
+    </p>
     
-<!--  TODO: why is some of this necessary? Why so many roundtrips  -->
     
+    <h3>
+      Summary
+    </h3>
+    <p>
+      OAuth2 lets third party applications access user data. There are different authorization procedures, of which we have discussed
+      "Grant Type: Authorization Code". This procedure involves two layers of security: First, the
+      user must authenticate at the service provider and tell him "hey, it's okay that this app accesses that part
+      of my data". If the user authorizes the third party app, then the service provider issues an <code class="app-code">authorization code</code>.
+      Second, the third party app must trade that authorization code together with the <code class="app-code">client secret</code> for an <code class="app-code">access token</code>.
+      Only now, with this access token (that stays between app and service), the app can act on behalf of the user.
+    </p>
     
   </article>
   
