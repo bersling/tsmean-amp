@@ -1,5 +1,12 @@
 import * as fs from 'fs';
 
+/*
+* ARGUMENTS:
+* CATEGORY in dash case.     Example: "error-handling"
+* TITLE in quotes.           Example: "Always handle errors"
+* */
+
+
 const category = process.argv[2];
 const title = process.argv[3];
 
@@ -59,6 +66,7 @@ function htmlFactory() {
 
 const html = htmlFactory();
 
+fs.mkdirSync(`./app/pages/articles/${category}`, {recursive: true});
 fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseTitle}.html`, html);
 
 console.log(`
