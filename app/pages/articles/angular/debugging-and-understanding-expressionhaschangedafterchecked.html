@@ -1,0 +1,126 @@
+<!doctype html>
+<html ⚡ lang="en">
+<head>
+  
+  <title>{{title}}</title>
+  <meta name="description" content="Learn how to debug the ExpressionHasChangedAfterChecked error message">
+  <meta name="keywords"
+        content="expressionhaschangedafterchecked, angular">
+  <link rel="canonical" href="https://www.tsmean.com/articles/angular/debugging-and-understanding-expressionhaschangedafterchecked" />
+  {{> commonHead}}
+  {{> articleHead}}
+  {{> analytics}}
+
+</head>
+<body>
+  
+  {{> header}}
+  
+  <div class="jumbo-vertical">
+    <amp-img class="jumbo-image"
+             width="150"
+             height="150"
+             src="/assets/img/001-light-bulb.svg">
+    </amp-img>
+    <h1 class="jumbo-title">
+      Debugging and Understanding
+      <br>
+      ExpressionHasChangedAfterChecked
+    </h1>
+    
+    <div class="meta-header">
+      <span class="written">September 2020</span>
+    </div>
+    
+  </div>
+  
+  <article>
+    
+    <h2>
+      What's going on?
+    </h2>
+    <p>
+      Angular has a LifeCycle Management according to which it will update the a components class and view.
+      It starts with <code class="app-code">ngOnChanges</code>, then progresses to <code class="app-code">ngOnInit</code> (which only runs once), and then progresses to <code class="app-code">ngAfterViewInit</code> (also only running once). I've not listed all lifecycle hooks here, to see the full list check
+      <a href="https://angular.io/guide/lifecycle-hooks" class="app-link">https://angular.io/guide/lifecycle-hooks</a>.
+    </p>
+    <p>
+      Now what Angular doesn't like is if you mess with class properties you're also referencing in the view (= the html) inside of <code class="app-code">ngAfterViewInit</code> or <code class="app-code">ngAfterViewChecked</code>. The reason for this is that Angular has already set up the html and doesn't want to check everything again. If you're doing that, Angular will throw a <code class="app-code">ExpressionChangedAfterItHasBeenCheckedError</code> error and will not update the view for you. So what can you do to mitigate the problem?
+    </p>
+    <h2>
+      Use the ChangeDetectorRef
+    </h2>
+    <p>
+      If you're using an <code class="app-code">ngAfterViewInit</code>, you can try to solve the problem by letting Angular know it needs to check for changes again. Just add the following code to your class:
+    </p>
+    <pre><code class="app-code">import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+
+@Component({
+  selector: 'my-app',
+  template: `{{someProperty}}`
+})
+export class AppComponent  {
+  
+  someProperty = 0;
+
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngAfterViewInit() {
+    this.someProperty = 1;
+    this.cdr.detectChanges();
+  }
+
+}</code></pre>
+    <p>
+      You can find this code on Stackblitz here: <br> <a class="app-link" href="https://stackblitz.com/edit/angular-use-cdr-to-mitigate-expressionhaschangedafterchecked?file=src/app/app.component.ts">https://stackblitz.com/edit/angular-use-cdr-to-mitigate-expressionhaschangedafterchecked?file=src/app/app.component.ts</a>
+    </p>
+    
+    <h2>
+      Find the problematic "expression" aka class property
+    </h2>
+    <p>
+      Often you'll know by looking at the error message which property Angular is talking about. For example if Angular says:
+    </p>
+    <pre><code class="language-ts">ERROR
+
+Error: ExpressionChangedAfterItHasBeenCheckedError:
+Expression has changed after it was checked. Previous value: '5'. Current value: '6'.</code></pre>
+    <p>
+      You'll know, "aha, it was the property I initialized with the value 5" and you'll know which one this is.
+    </p>
+    <p>
+      If you don't know immediately which property Angular is talking about you can try the following things to find it:
+    </p>
+    <ul>
+      <li>
+        Check the error message for a location in the code, e.g.: <code class="app-code">app.component.html:3</code>. Check which properties are being referenced on that line.
+      </li>
+      <li>
+        Search for properties being changed in <code class="app-code">ngAfterViewInit</code> or <code class="app-code">ngAfterViewChanged</code>.
+      </li>
+      <li>
+        Divide and conquer: Comment out parts of your <code class="app-code">ngAfterViewChanged</code> method.
+      </li>
+      <li>
+        Change all the initial values to something distinct you can identify. For example at the end of your <code class="app-code">ngOnInit</code>, change all the properties of your class to something else e.g. <code class="app-code">width = 1; height = 2; ...</code> so you can identify the problematic property with the help of the error message.
+      </li>
+    </ul>
+    <p>
+      Those methods should help you to isolate and track down the problematic expression.
+    </p>
+    
+    <h2>
+      Conclusion
+    </h2>
+    <p>
+      An error message identifier with 43 characters might scare you first. But after understanding the lifecycle methods, you also understand this error better and that it's actually not that hard to debug.
+    </p>
+  
+  </article>
+  
+  {{> articleFooter}}
+
+</body>
+</html>
