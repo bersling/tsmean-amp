@@ -235,7 +235,7 @@
       (which is a predefined policy), but I usually try to
       go by the principle of least privileges. Now you can register this user locally through <code class="app-code">aws configure
       --profile aws-lambda-tutorial-user</code> and then set your current shell to use that user with <code class="app-code">export
-      AWS_PROFILE=aws-lambda-tutorial-user</code>. Now you can download your function like this:
+      AWS_PROFILE=aws-lambda-tutorial-user</code>. If this is not working, you might have set an AWS key in your env variables which will take precedence over this. You can just add <code>--profile my-profile</code> in that case. Now you can download your function like this:
     </p>
     <pre><code>aws lambda get-function --function-name tutorial-function --query 'Code.Location' | xargs wget -O tutorial-function.zip</code></pre>
     <p>
