@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "command-line-args": "5.1.1",
-    "highlight.js": "^10.0.0",
+    "highlight.js": "^10.4.1",
     "replace": "1.1.5"
   }
 }
