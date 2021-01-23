@@ -31,7 +31,85 @@
   </div>
   
   <article>
-    YOUR CONTENT HERE
+    <p>
+      There are a few things you need to understand why there is this pesky thing called CORS that you need to set up, if you want to make a request from page `b.com` to page `a.com`.
+    </p>
+    <p>
+      So what's preventing you from sending of those requests is the <b>Same-Origin-Policy (SOP)</b>. It states that if a website <code>b.com</code> tries to fire a (certain) request to a page <code>a.com</code>, the browser shouldn't even send that request. But why is the browser blocking it, and how are you supposed to make your API calls now?!
+    </p>
+    <p>
+      At first, what's interesting is that the Same-Origin-Policy is something that's only a thing for browsers. When you're firing a cURL request, there's no such thing. So you think, hm, but how does the Same-Origin-Policy protect my servers if someone can just fire requests against them with cURL anyways?
+    </p>
+    <p>
+      Well, the Same-Origin-Policy is not there to protect your servers, or at least not directly. It's there to protect the users of your website, or more broadly speaking the average Joe browsing the internet.
+    </p>
+    <p>
+      So how is average Joe being protected by the Same-Origin-Policy?
+    </p>
+    <p>
+      The Same-Origin-Policy mitigates an attack known as Cross-Site-Request-Forgery (XSRF, CSRF).
+    </p>
+    <p>
+      To understand how XSRF attacks work, we first have to understand one other thing: How cookies are working.
+      So let's say you're on `a.com` and log in. Then `a.com` returns to you a cookie which is then stored in your browser such that you don't have to enter your login details again when you visit the page again. This cookie could say for example `user=john;token=abc`. The browser then <b>attaches this cookie to every subsequent request that is sent to `a.com`</b>. And it does this for all requests, coming from all tabs of your browser, for any website you have open. So if `b.com` then makes a request to `a.com` through javascript, the browser will attach the cookie! The server at `a.com` then receives a request from a <b>fully authenticated user</b>. Such a request could look like so:
+    </p>
+    <pre>
+  POST a.com/do-something
+  cookies: [user=john,token=abc]
+</pre>
+    <p>
+      The server at `a.com` then actually proceeds and does what the code behind `do-something` is supposed to do for a fully authenticated user. This could be anything: Get user data, send emails, transfer amounts of money if `a.com` is a banking site. So in this scenario all an attacker has to do is the following:
+    </p>
+    <ul>
+      <li>Set up a site `b.com`</li>
+      <li>Send a behind-the-scenes-request to `a.com/do-something` for everyone that visits the page</li>
+      <li>Lure some people to `b.com`. That's easier that it sounds, think about it, do you carefully evaluate every link you click? There's just too many link clicks in our everyday life, so nobody does that.</li>
+      <li>Hope some of the people that land on the page `b.com` are authenticated at `a.com`</li>
+      <li>Let the browser to the rest, because the browser will then execute the javascript and send the request to `a.com` <b>and attach the cookies automatically</b>.</li>
+    </ul>
+    <p>
+      So why do we still browse the web with relative carelessness? If every link is such a potential high risk threat to all places where we're logged in? That's because most pages we trust and have accounts at (google, facebook, our bank) and browsers themselves have implemented measures to prevent those XSRF attacks from happening. What exactly are those measures?
+    </p>
+    <h2>Measure 1: The Same-Origin-Policy</h2>
+    <p>
+      If the browser isn't allowed to send requests from <code>b.com</code> to `a.com`, then your problem is solved. The whole workflow above isn't working anymore! So the SOP is a very effective measure to prevent XSRF attacks from happening.
+    </p>
+    <p>
+      However, the SOP isn't as strict, it doesn't block <i>all</i> requests. Only a category of requests. For example simple GET requests aren't guarded by it, so it's a bad idea to have your GET endpoints have state altering side effects (appart from other reasons). This makes a lot of sense, since otherwise you couldn't for example use an image like this in <code>b.com</code> anymore: &lt;img src="a.com"&gt;. But there also some POST requests allowed. Those must adhere to some strict limitations, like for example only the following content types are allowed <code>application/x-www-form-urlencoded</code>, <code>multipart/form-data</code>, <code>text/plain</code>. But <b>if</b> <code>b.com</code> adheres to those limitations <b>and</b> <code>a.com</code> <b>offers a corresponding endpoint</b> (accepting a POST with <code>Content-Type: text/plain</code> for example), then an XSRF attack is still possible.
+    </p>
+    <p>
+      So the website <code>a.com</code> can either not offer such an endpoint or, if that's not possible, use one of the following measures.
+    </p>
+    <h2>Measure 2: Same-Site Cookies</h2>
+    <p>
+      Remember how I told you that cookies are sent along on every request? Well this was also not 100% accurate. While it might have started out that way, today this isn't the case anymore. There's now an attribute for cookies that helps servers to determine when cookies should get attached to requests. For example, if you have a backend and a frontend that are on the same domain and you know that's the only usecase you have, then you can set <code>SameSite=strict</code>. This will then tell the browser to <b>not</b> attach the cookie to a request when it's coming from another origin. So a cross origin request from <code>b.com</code> to <code>a.com</code> would still get sent, but it wouldn't have the cookie attached. This is now the default for all modern browsers.
+    </p>
+    <h2>Measure 3: XSRF tokens</h2>
+    <p>
+      In addition to other measures, the server sometimes issues a one-time-token to requests it expects. This means a cookie isn't enough anymore for the server to perceive a request as fully authenticated. In addition the server also expects that the client knows this one-time token. So if you go to <code>b.com</code> and a request to transfer your money is sent to <code>a.com</code>, the server at <code>a.com</code> will reject the request programmatically even though there's a cookie present because the token is missing. The implementation of such XSRF-token workflows is most often done by frameworks, such as e.g. Spring Security for Java or the Django framework for python.
+    </p>
+    <p>
+      While the previous two measures (SOP and Same-Site Cookies) mostly put burden of implementation on <b>browser vendors</b>, XSRF tokens need to be implemented by web developers.
+    </p>
+    
+    <h2>
+      Summary: What do I need to know as a web developer?
+    </h2>
+    <ul>
+      <li>
+        XSRF used to be a very prevalent attack, because cookies used to be attached to every request sent from any site.
+      </li>
+      <li>
+        The Same-Origin-Policy deals with this by simply not allowing (certain) requests other than to the page you're currently on. So you can't send (certain) requests from <code>b.com</code> to <code>a.com</code>. Of course sometimes you're not evil, but still want to be able to send cross site requests. That's where CORS comes into play.
+      </li>
+      <li>
+        Another layer of security is the cookie attribute <code>SameSite</code>, which doesn't attach cookies to requests originating from another page.
+      </li>
+      <li>
+        Another measure to prevent XSRF attacks are one time tokens (XSRF tokens).
+      </li>
+    </ul>
+    
   </article>
   
   {{> articleFooter}}
