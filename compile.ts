@@ -185,7 +185,8 @@ addPagesToDirectory(
   'articles/security',
   [
     'oauth2-tutorial',
-    'authentication-vs-authorization'
+    'authentication-vs-authorization',
+    // DRAFT: 'on-the-same-origin-policy-sop-cors-cookies-and-xsrf-attacks'
   ],
   pages
 );
