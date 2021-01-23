@@ -11,7 +11,16 @@ const category = process.argv[2];
 const title = process.argv[3];
 
 if (category == null || title == null) {
-  console.error(`Expected category and title to be non-null`);
+  console.error(`Expected category (arg 1) and title (arg 2) to be non-null and of format:
+  
+/*
+* ARGUMENTS:
+* CATEGORY in dash case.     Example: "error-handling"
+* TITLE in quotes.           Example: "Always handle errors"
+* */
+  
+  
+  `);
   process.exit();
 }
 

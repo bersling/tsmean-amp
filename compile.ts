@@ -54,7 +54,8 @@ addPagesToDirectory(
     'pitfalls',
     'state-management',
     'angular-control-value-accessor-example',
-    'ngrxstore-vs-angular-services'
+    'ngrxstore-vs-angular-services',
+    'debugging-and-understanding-expressionhaschangedafterchecked'
   ],
   pages
 );
@@ -184,7 +185,8 @@ addPagesToDirectory(
   'articles/security',
   [
     'oauth2-tutorial',
-    'authentication-vs-authorization'
+    'authentication-vs-authorization',
+    'on-the-same-origin-policy-sop-cors-cookies-and-xsrf-attacks'
   ],
   pages
 );
