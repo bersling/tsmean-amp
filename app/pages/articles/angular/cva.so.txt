@@ -1,0 +1,193 @@
+The error means, that Angular doesn't know what to do when you put a `formControl` on a `div`.
+To fix this, you have two options.
+
+1. You put the `formControlName` on an element, that is supported by Angular out of the box. Those are: `input`, `textarea` and `select`.
+2. You implement the `ControlValueAccessor` interface. By doing so, you're telling Angular "how to access the value of your control" (hence the name). Or in simple terms: What to do, when you put a `formControlName` on an element, that doesn't naturally have a value associated with it.
+
+
+Now, implementing the `ControlValueAccessor` interface can be a bit daunting at first. Especially because there isn't much good documentation of this out there and you need to add a lot of boilerplate to your code. So let me try to break this down in some simple-to-follow steps.
+
+## Move your form control into its own component
+
+In order to implement the `ControlValueAccessor`, you need to create a new component (or directive). Move the code related to your form control there. Like this it will also be easily reusable. Having a control already inside a component might be the reason in the first place, why you need to implement the `ControlValueAccessor` interface, because otherwise you will not be able to use your custom component together with Angular forms.
+
+
+## Add the boilerplate to your code
+
+Implementing the `ControlValueAccessor` interface is quite verbose, here's the boilerplate that comes with it:
+
+```
+import {Component, OnInit, forwardRef} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+
+@Component({
+  selector: 'app-custom-input',
+  templateUrl: './custom-input.component.html',
+  styleUrls: ['./custom-input.component.scss'],
+
+  // a) copy paste this providers property (adjust the component name in the forward ref)
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true
+    }
+  ]
+})
+// b) Add "implements ControlValueAccessor"
+export class CustomInputComponent implements ControlValueAccessor {
+
+  // c) copy paste this code
+  onChange: any = () => {}
+  onTouch: any = () => {}
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  // d) copy paste this code
+  writeValue(input: string) {
+    // TODO
+  }
+```
+
+So what are the individual parts doing?
+
+- a) Lets Angular know during runtime that you implemented the `ControlValueAccessor` interface
+- b) Makes sure you're implementing the `ControlValueAccessor` interface
+- c) This is probably the most confusing part. Basically what you're doing is, you give Angular the means to override your class properties/methods `onChange` and `onTouch` with it's own implementation during runtime, such that you can then call those functions. So this point is important to understand: **You don't need to implement onChange and onTouch yourself** (other than the initial empty implementation). The only thing your doing with (c) is to let Angular attach it's own functions to your class. Why? So you can then **call** the `onChange` and `onTouch` methods provided by Angular at the appropriate time. We'll see how this works down below.
+- d) We'll also see how the `writeValue` method works in the next section, when we implement it. I've put it here, so all required properties on `ControlValueAccessor` are implemented and your code still compiles.
+
+## Implement writeValue
+
+What `writeValue` does, is to **do something inside your custom component, when the form control is changed on the outside**. So for example, if you have named your custom form control component `app-custom-input` and you'd be using it in the parent component like this:
+```
+<form [formGroup]="form">
+  <app-custom-input formControlName="myFormControl"></app-custom-input>
+</form>
+```
+then `writeValue` gets triggered whenever the parent component somehow changes the value of `myFormControl`. This could be for example during the initialization of the form (`this.form = this.formBuilder.group({myFormControl: ""});`) or on a form reset `this.form.reset();`.
+
+What you'll typically want to do if the value of the form control changes on the outside, is to write it to a local variable which represents the form control value. For example, if your `CustomInputComponent` revolves around a text based form control, it could look like this:
+```
+writeValue(input: string) {
+  this.input = input;
+}
+```
+and in the html of `CustomInputComponent`:
+```
+<input type="text"
+       [ngModel]="input">
+```
+
+You could also write it directly to the input element as described in the Angular docs.
+
+Now you have handled what happens inside of your component when something changes outside. Now let's look at the other direction. How do you inform the outside world when something changes inside of your component?
+
+## Calling onChange
+
+The next step is to inform the parent component about changes inside of your `CustomInputComponent`. This is where the `onChange` and `onTouch` functions from (c) from above come into play. By calling those functions you can inform the outside about changes inside your component. In order to propagate changes of the value to the outside, you need to **call onChange with the new value as the argument**. For example, if the user types something in the `input` field in your custom component, you call `onChange` with the updated value:
+
+```
+<input type="text"
+       [ngModel]="input"
+       (ngModelChange)="onChange($event)">
+```
+
+If you check the implementation (c) from above again, you'll see what's happening: Angular bound it's own implementation to the `onChange` class property. That implementation expects one argument, which is the updated control value. What you're doing now is you're calling that method and thus letting Angular know about the change. Angular will now go ahead and change the form value on the outside. This is the key part in all this. **You told Angular when it should update the form control and with what value by calling `onChange`**. You've given it the means to "access the control value".
+
+By the way: The name `onChange` is chosen by me. You could choose anything here, for example `propagateChange` or similar. However you name it though, it will be the same function that takes one argument, that is provided by Angular and that is bound to your class by the `registerOnChange` method during runtime.
+
+## Calling onTouch
+
+Since form controls can be "touched", you should also give Angular the means to understand when your custom form control is touched. You can do it, you guessed it, by calling the `onTouch` function. So for our example here, if you want to stay compliant with how Angular is doing it for the out-of-the-box form controls, you should call `onTouch` when the input field is blurred:
+
+```
+<input type="text"
+       [(ngModel)]="input"
+       (ngModelChange)="onChange($event)"
+       (blur)="onTouch()">
+```
+
+Again, `onTouch` is a name chosen by me, but what it's actual function is provided by Angular and it takes zero arguments. Which makes sense, since you're just letting Angular know, that the form control has been touched.
+
+## Putting it all together
+
+So how does that look when it comes all together? It should look like this:
+
+
+```
+// custom-input.component.ts
+import {Component, OnInit, forwardRef} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+
+@Component({
+  selector: 'app-custom-input',
+  templateUrl: './custom-input.component.html',
+  styleUrls: ['./custom-input.component.scss'],
+
+  // Step 1: copy paste this providers property
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CustomInputComponent),
+      multi: true
+    }
+  ]
+})
+// Step 2: Add "implements ControlValueAccessor"
+export class CustomInputComponent implements ControlValueAccessor {
+
+  // Step 3: Copy paste this stuff here
+  onChange: any = () => {}
+  onTouch: any = () => {}
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  // Step 4: Define what should happen in this component, if something changes outside
+  input: string;
+  writeValue(input: string) {
+    this.input = input;
+  }
+
+  // Step 5: Handle what should happen on the outside, if something changes on the inside
+  // in this simple case, we've handled all of that in the .html
+  // a) we've bound to the local variable with ngModel
+  // b) we emit to the ouside by calling onChange on ngModelChange
+
+}
+```
+
+```
+// custom-input.component.html
+<input type="text"
+       [(ngModel)]="input"
+       (ngModelChange)="onChange($event)"
+       (blur)="onTouch()">
+```
+
+```
+// parent.component.html
+<app-custom-input [formControl]="inputTwo"></app-custom-input>
+
+// OR
+
+<form [formGroup]="form" >
+  <app-custom-input formControlName="myFormControl"></app-custom-input>
+</form>
+```
+
+
+## More Examples
+
+- Example with Input: https://stackblitz.com/edit/angular-control-value-accessor-simple-example-tsmean
+- Example with Lazy Loaded Input: https://stackblitz.com/edit/angular-control-value-accessor-lazy-input-example-tsmean
+- Example with Button: https://stackblitz.com/edit/angular-control-value-accessor-button-example-tsmean

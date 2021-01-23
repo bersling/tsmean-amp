@@ -137,7 +137,16 @@ heroObs.subscribe(newHero =&gt; { ... do thing 2</code></pre>
     .map(resp =&gt; resp.json().data);
   return $data.catch(this.handleError);
 }</code></pre>
-  
+    
+    <h2>@Input set myVar</h2>
+    <p>
+      It is quite handy, that you can have side effects on an <code>@Input</code> variable. The docs is calling this concept
+      <a href="https://angular.io/guide/component-interaction#intercept-input-property-changes-with-a-setter">"Intercept input property changes with a setter"</a>.
+      However, this comes with a huge problem. If you're e.g. trying to fetch some data through <code>http.get</code> when a
+      new value is passed in, this causes an infinite loop.
+    </p>
+    
+    
     <hr class="app-hr" />
   
     I'll update this article constantly as I run into more pitfalls during development, so stay posted by subscribing!
