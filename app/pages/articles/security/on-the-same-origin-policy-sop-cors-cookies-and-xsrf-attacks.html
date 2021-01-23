@@ -79,7 +79,19 @@
       However, the SOP isn't as strict, it doesn't block <i>all</i> requests. Only a category of requests. For example simple GET requests aren't guarded by it, so it's a bad idea to have your GET endpoints have state altering side effects (appart from other reasons). This exception makes a lot of sense, since otherwise you couldn't for example use an image like this in <code>b.com</code> anymore: &lt;img src="a.com"&gt;. But there are also some POST requests allowed. Those must adhere to some strict limitations, for example only the following content types are allowed: <code>application/x-www-form-urlencoded</code>, <code>multipart/form-data</code>, <code>text/plain</code>. But <b>if</b> <code>b.com</code> adheres to those limitations <b>and</b> <code>a.com</code> <b>offers a corresponding endpoint</b> (accepting a POST with <code>Content-Type: text/plain</code> for example), then an XSRF attack is still possible.
     </p>
     <p>
-      So the website <code>a.com</code> can either not offer such an endpoint or, if that's not possible, use one of the following measures.
+      So the website <code>a.com</code> can either not offer such an endpoint or, if that's not possible, use one of the following measures. But let's first investigate the opposite case: What if the SOP is restricting you from making a call from <code>myapi.com</code> to <code>myfrontend.com</code>, but you actually own both domains and the SOP is just getting in your way of making requests?
+    </p>
+    <h3>
+      Cross-Origin-Resource-Sharing (CORS)
+    </h3>
+    <p>
+      The first time you might have heard of the same origin policy was maybe when you ran into a problem. Namely when you tried the exact thing the SOP tries to prevent: Firing a request from <code>b.com</code> to <code>a.com</code>. We nowadays often have this scenario: the backend or at least part of it runs under a different domain than the frontend of the page. Still, you'll have to send those requests somehow. That's where Cross-Origin-Resource-Sharing (CORS) comes into play.
+    </p>
+    <p>
+      CORS lets the server inform the browser where a request is allowed to come from. While under the Same-Origin-Policy the browser wouldn't allow any request (of a certain kind) from another origin, this allows the server to tell the browser: "Hey look, I actually know <b>b.com</b>, he's a good friend of mine. I trust him". This is happening in a so called "preflight request". The browser doesn't send the POST (or PUT or DELETE) request immediately, it first sends an OPTIONS request that asks "is it okay if I send you a POST request from <code>b.com</code>"? Then the server may respond with "Yeah sure, I trust that guy" (1), or "heck no, I don't know who that is!" (2) or "uhm I don't care where a request comes from" (3).
+    </p>
+    <p>
+      To achieve (1), the server has to allow-list the origin <code>b.com</code> in the response of the preflight request in an <code>Access-Control-Allow-Origin: https://b.com</code> header. To achieve (2) the server actually doesn't have to do anything, that's the standard behaviour, to block cross-origin-requests. The third option is possible by either returning a wildcard <code>Access-Control-Allow-Origin: *</code> or by checking where the request is coming from and then just putting that origin in the <code>Access-Control-Allow-Origin</code> header no matter what it is. But unless you're building a public API that should be accessible directly from the browser as well, you should only relax the SOP through CORS as little as required, by whitelisting your known frontend-domains.
     </p>
     <h2>Measure 2: Same-Site Cookies</h2>
     <p>
