@@ -32,10 +32,10 @@
   
   <article>
     <p>
-      There are a few things you need to understand why there is this pesky thing called CORS that you need to set up, if you want to make a request from page <code>b.com</code> to page <code>a.com</code>.
+      There are a few things you need to understand why there is this pesky thing called CORS that you need to set up, if you want to make a request from page <code class="app-code">b.com</code> to page <code class="app-code">a.com</code>.
     </p>
     <p>
-      So what's preventing you from sending those requests is the <b>Same-Origin-Policy (SOP)</b>. It states that if a website <code>b.com</code> tries to fire a (certain type of) request to a page <code>a.com</code>, the browser shouldn't even send that request. But why is the browser blocking it, and how are you supposed to make your cross origin API calls now?!
+      So what's preventing you from sending those requests is the <b>Same-Origin-Policy (SOP)</b>. It states that if a website <code class="app-code">b.com</code> tries to fire a (certain type of) request to a page <code class="app-code">a.com</code>, the browser shouldn't even send that request. But why is the browser blocking it, and how are you supposed to make your cross origin API calls now?!
     </p>
     <p>
       At first, what's interesting is that the Same-Origin-Policy is something that's only a thing for browsers. When you're firing a cURL request, there's no such thing. So you think, hm, but how does the Same-Origin-Policy protect my servers if someone can just fire requests against them with cURL anyways?
@@ -52,54 +52,52 @@
     <h2>On XSRF Attacks</h2>
     <p>
       To understand how XSRF attacks work, we first have to understand one other thing: How cookies are working.
-      So let's say you're on <code>a.com</code> and log in. Then <code>a.com</code> returns a cookie which is then stored in your browser such that you don't have to enter your login details again when you visit the page again. This cookie could say for example <code>user=john;token=abc</code>. The browser then <b>attaches this cookie to every subsequent request that is sent to <code>a.com</code></b>. And it does this for all requests, coming from all tabs of your browser, for any website you have open. So if <code>b.com</code> then makes a request to <code>a.com</code> through javascript, the browser will attach the cookie! The server at <code>a.com</code> then receives a request from a <b>fully authenticated user</b>. Such a request could look like so:
+      So let's say you're on <code class="app-code">a.com</code> and log in. Then <code class="app-code">a.com</code> returns a cookie which is then stored in your browser such that you don't have to enter your login details again when you visit the page again. This cookie could say for example <code class="app-code">user=john;token=abc</code>. The browser then <b>attaches this cookie to every subsequent request that is sent to <code class="app-code">a.com</code></b>. And it does this for all requests, coming from all tabs of your browser, for any website you have open. So if <code class="app-code">b.com</code> then makes a request to <code class="app-code">a.com</code> through javascript, the browser will attach the cookie! The server at <code class="app-code">a.com</code> then receives a request from a <b>fully authenticated user</b>. Such a request could look like so:
     </p>
-    <pre>
-  POST a.com/do-something
-  cookies: [user=john,token=abc]
-</pre>
+    <pre><code class="language-plaintext">POST a.com/do-something
+cookies: [user=john,token=abc]</code></pre>
     <p>
-      The server at <code>a.com</code> then actually proceeds and does what the code behind <code>do-something</code> is supposed to do for a fully authenticated user. This could be anything: Get user data, send emails, transfer money. So in this scenario all an attacker has to do is the following:
+      The server at <code class="app-code">a.com</code> then actually proceeds and does what the code behind <code class="app-code">do-something</code> is supposed to do for a fully authenticated user. This could be anything: Get user data, send emails, transfer money. So in this scenario all an attacker has to do is the following:
     </p>
     <ul>
-      <li>Set up a site <code>b.com</code></li>
-      <li>Send a behind-the-scenes-request to <code>a.com/do-something</code> for everyone that visits the page</li>
-      <li>Lure some people to <code>b.com</code>. That's easier that it sounds, think about it, do you carefully evaluate every link you click? There's just too many link clicks in our everyday life, so nobody does that.</li>
-      <li>Hope some of the people that land on the page <code>b.com</code> are authenticated at <code>a.com</code></li>
-      <li>Let the browser do the rest, because the browser will then execute the javascript and send the request to <code>a.com</code> <b>and attach the cookies automatically</b>.</li>
+      <li>Set up a site <code class="app-code">b.com</code></li>
+      <li>Send a behind-the-scenes-request to <code class="app-code">a.com/do-something</code> for everyone that visits the page</li>
+      <li>Lure some people to <code class="app-code">b.com</code>. That's easier that it sounds, think about it, do you carefully evaluate every link you click? There's just too many link clicks in our everyday life, so nobody does that.</li>
+      <li>Hope some of the people that land on the page <code class="app-code">b.com</code> are authenticated at <code class="app-code">a.com</code></li>
+      <li>Let the browser do the rest, because the browser will then execute the javascript and send the request to <code class="app-code">a.com</code> <b>and attach the cookies automatically</b>.</li>
     </ul>
     <p>
-      So why do we still browse the web with relative carelessness and trust? If every link is such a potential high risk threat to all places where we're logged in? That's because most pages we trust and have accounts at (google, facebook, our bank) and browsers themselves have implemented measures to prevent those XSRF attacks from happening, so it's unlikely that severe damage is caused just by opening <code>evilsite.com</code>. What exactly are those measures?
+      So why do we still browse the web with relative carelessness and trust? If every link is such a potential high risk threat to all places where we're logged in? That's because most pages we trust and have accounts at (google, facebook, our bank) and browsers themselves have implemented measures to prevent those XSRF attacks from happening, so it's unlikely that severe damage is caused just by opening <code class="app-code">evilsite.com</code>. What exactly are those measures?
     </p>
     <h2>Measure 1: The Same-Origin-Policy</h2>
     <p>
-      The Same-Origin-Policy says that only <code>a.com</code> may send (a certain kind of) requests to <code>a.com</code>. If the browser isn't allowed to send requests from <code>b.com</code> to <code>a.com</code>, then your problem is solved. The whole workflow above isn't working anymore! So the SOP is a very effective measure to prevent XSRF attacks from happening.
+      The Same-Origin-Policy says that only <code class="app-code">a.com</code> may send (a certain kind of) requests to <code class="app-code">a.com</code>. If the browser isn't allowed to send requests from <code class="app-code">b.com</code> to <code class="app-code">a.com</code>, then your problem is solved. The whole workflow above isn't working anymore! So the SOP is a very effective measure to prevent XSRF attacks from happening.
     </p>
     <p>
-      However, the SOP isn't as strict, it doesn't block <i>all</i> requests. Only a category of requests. For example simple GET requests aren't guarded by it, so it's a bad idea to have your GET endpoints have state altering side effects (apart from other reasons). This exception makes a lot of sense, since otherwise you couldn't for example use an image like this in <code>b.com</code> anymore: &lt;img src="a.com"&gt;. But there are also some POST requests allowed. Those must adhere to some strict limitations, for example only the following content types are allowed: <code>application/x-www-form-urlencoded</code>, <code>multipart/form-data</code>, <code>text/plain</code>. But <b>if</b> <code>b.com</code> adheres to those limitations <b>and</b> <code>a.com</code> <b>offers a corresponding endpoint</b> (accepting a POST with <code>Content-Type: text/plain</code> for example), then an XSRF attack is still possible.
+      However, the SOP isn't as strict, it doesn't block <i>all</i> requests. Only a category of requests. For example simple GET requests aren't guarded by it, so it's a bad idea to have your GET endpoints have state altering side effects (apart from other reasons). This exception makes a lot of sense, since otherwise you couldn't for example use an image like this in <code class="app-code">b.com</code> anymore: &lt;img src="a.com"&gt;. But there are also some POST requests allowed. Those must adhere to some strict limitations, for example only the following content types are allowed: <code class="app-code">application/x-www-form-urlencoded</code>, <code class="app-code">multipart/form-data</code>, <code class="app-code">text/plain</code>. But <b>if</b> <code class="app-code">b.com</code> adheres to those limitations <b>and</b> <code class="app-code">a.com</code> <b>offers a corresponding endpoint</b> (accepting a POST with <code class="app-code">Content-Type: text/plain</code> for example), then an XSRF attack is still possible.
     </p>
     <p>
-      So the website <code>a.com</code> can either not offer such an endpoint or, if that's not possible, use one of the following measures. But let's first investigate the opposite case: What if the SOP is restricting you from making a call from <code>myapi.com</code> to <code>myfrontend.com</code>, but you actually own both domains and the SOP is just getting in your way of making requests?
+      So the website <code class="app-code">a.com</code> can either not offer such an endpoint or, if that's not possible, use one of the following measures. But let's first investigate the opposite case: What if the SOP is restricting you from making a call from <code class="app-code">myapi.com</code> to <code class="app-code">myfrontend.com</code>, but you actually own both domains and the SOP is just getting in your way of making requests?
     </p>
     <h3>
       Cross-Origin-Resource-Sharing (CORS)
     </h3>
     <p>
-      The first time you might have heard of the same origin policy was maybe when you ran into a problem. Namely when you tried the exact thing the SOP tries to prevent: Firing a request from <code>b.com</code> to <code>a.com</code>. We nowadays often have this scenario: the backend or at least part of it runs under a different domain than the frontend of the page. Still, you'll have to send those requests somehow. That's where Cross-Origin-Resource-Sharing (CORS) comes into play.
+      The first time you might have heard of the same origin policy was maybe when you ran into a problem. Namely when you tried the exact thing the SOP tries to prevent: Firing a request from <code class="app-code">b.com</code> to <code class="app-code">a.com</code>. We nowadays often have this scenario: the backend or at least part of it runs under a different domain than the frontend of the page. Still, you'll have to send those requests somehow. That's where Cross-Origin-Resource-Sharing (CORS) comes into play.
     </p>
     <p>
-      CORS lets the server inform the browser where a request is allowed to come from. While under the Same-Origin-Policy the browser wouldn't allow any request (of a certain kind) from another origin, this allows the server to tell the browser: "Hey look, I actually know <b>b.com</b>, he's a good friend of mine. I trust him". This is happening in a so-called "preflight request". The browser doesn't send the POST (or PUT or DELETE) request immediately, it first sends an OPTIONS request that asks "is it okay if I send you a POST request from <code>b.com</code>"? Then the server may respond with "Yeah sure, I trust that guy" (1), or "heck no, I don't know who that is!" (2) or "uhm I don't care where a request comes from" (3).
+      CORS lets the server inform the browser where a request is allowed to come from. While under the Same-Origin-Policy the browser wouldn't allow any request (of a certain kind) from another origin, this allows the server to tell the browser: "Hey look, I actually know <b>b.com</b>, he's a good friend of mine. I trust him". This is happening in a so-called "preflight request". The browser doesn't send the POST (or PUT or DELETE) request immediately, it first sends an OPTIONS request that asks "is it okay if I send you a POST request from <code class="app-code">b.com</code>"? Then the server may respond with "Yeah sure, I trust that guy" (1), or "heck no, I don't know who that is!" (2) or "uhm I don't care where a request comes from" (3).
     </p>
     <p>
-      To achieve (1), the server has to allow-list the origin <code>b.com</code> in the response of the preflight request in an <code>Access-Control-Allow-Origin: https://b.com</code> header. To achieve (2) the server actually doesn't have to do anything, that's the standard behaviour, to block cross-origin-requests. The third option is possible by either returning a wildcard <code>Access-Control-Allow-Origin: *</code> or by checking where the request is coming from and then just putting that origin in the <code>Access-Control-Allow-Origin</code> header no matter what it is. But unless you're building a public API that should be accessible directly from the browser as well, you should only relax the SOP through CORS as little as required, by whitelisting your known frontend-domains.
+      To achieve (1), the server has to allow-list the origin <code class="app-code">b.com</code> in the response of the preflight request in an <code class="app-code">Access-Control-Allow-Origin: https://b.com</code> header. To achieve (2) the server actually doesn't have to do anything, that's the standard behaviour, to block cross-origin-requests. The third option is possible by either returning a wildcard <code class="app-code">Access-Control-Allow-Origin: *</code> or by checking where the request is coming from and then just putting that origin in the <code class="app-code">Access-Control-Allow-Origin</code> header no matter what it is. But unless you're building a public API that should be accessible directly from the browser as well, you should only relax the SOP through CORS as little as required, by whitelisting your known frontend-domains.
     </p>
     <h2>Measure 2: Same-Site Cookies</h2>
     <p>
-      Remember how I told you that cookies are sent along on every request? Well this was also not 100% accurate. While it might have started out that way, today this isn't the case anymore. There's now an attribute for cookies that helps servers to determine when cookies should get attached to requests. For example, if you have a backend and a frontend that are on the same domain and you know that's the only usecase you have, then you can set <code>SameSite=strict</code>. This will then tell the browser to <b>not</b> attach the cookie to a request when it's coming from another origin. So a cross origin request from <code>b.com</code> to <code>a.com</code> would still get sent, but it wouldn't have the cookie attached. This (respectively <code>SameSite=Lax</code>, a similar setting) is now the default for all modern browsers.
+      Remember how I told you that cookies are sent along on every request? Well this was also not 100% accurate. While it might have started out that way, today this isn't the case anymore. There's now an attribute for cookies that helps servers to determine when cookies should get attached to requests. For example, if you have a backend and a frontend that are on the same domain and you know that's the only usecase you have, then you can set <code class="app-code">SameSite=strict</code>. This will then tell the browser to <b>not</b> attach the cookie to a request when it's coming from another origin. So a cross origin request from <code class="app-code">b.com</code> to <code class="app-code">a.com</code> would still get sent, but it wouldn't have the cookie attached. This (respectively <code class="app-code">SameSite=Lax</code>, a similar setting) is now the default for all modern browsers.
     </p>
     <h2>Measure 3: XSRF tokens</h2>
     <p>
-      In addition to other measures, the server sometimes issues a one-time-token to requests it expects. This means a cookie isn't enough anymore for the server to perceive a request as fully authenticated. In addition the server also expects that the client knows this one-time token. So if you go to <code>b.com</code> and a request to transfer your money is sent to <code>a.com</code>, the server at <code>a.com</code> will reject the request programmatically even though there's a cookie present because the token is missing. The implementation of such XSRF-token workflows is most often done by frameworks, such as Spring Security for Java or the Django framework for python.
+      In addition to other measures, the server sometimes issues a one-time-token to requests it expects. This means a cookie isn't enough anymore for the server to perceive a request as fully authenticated. In addition the server also expects that the client knows this one-time token. So if you go to <code class="app-code">b.com</code> and a request to transfer your money is sent to <code class="app-code">a.com</code>, the server at <code class="app-code">a.com</code> will reject the request programmatically even though there's a cookie present because the token is missing. The implementation of such XSRF-token workflows is most often done by frameworks, such as Spring Security for Java or the Django framework for python.
     </p>
     <p>
       While the previous two measures (SOP and Same-Site Cookies) mostly put the burden of implementation on <b>browser vendors</b>, XSRF tokens need to be implemented by web developers.
@@ -110,13 +108,13 @@
     </h2>
     <ul>
       <li>
-        XSRF used to be a very prevalent attack, because cookies <b>from</b> <code>a.com</code> were attached to <b>every</b> request <b>to</b> <code>a.com</code>, even to those requests originating from <code>b.com</code>.
+        XSRF used to be a very prevalent attack, because cookies <b>from</b> <code class="app-code">a.com</code> were attached to <b>every</b> request <b>to</b> <code class="app-code">a.com</code>, even to those requests originating from <code class="app-code">b.com</code>.
       </li>
       <li>
-        The Same-Origin-Policy deals with this by simply not allowing (certain) requests other than to the page you're currently on. So you can't send (certain) requests from <code>b.com</code> to <code>a.com</code>. Of course sometimes you're not evil, but still want to be able to send cross site requests. That's where CORS comes into play.
+        The Same-Origin-Policy deals with this by simply not allowing (certain) requests other than to the page you're currently on. So you can't send (certain) requests from <code class="app-code">b.com</code> to <code class="app-code">a.com</code>. Of course sometimes you're not evil, but still want to be able to send cross site requests. That's where CORS comes into play.
       </li>
       <li>
-        Another layer of security is the cookie attribute <code>SameSite</code>, which instructs the browser not to attach cookies to requests originating from another origin.
+        Another layer of security is the cookie attribute <code class="app-code">SameSite</code>, which instructs the browser not to attach cookies to requests originating from another origin.
       </li>
       <li>
         Another measure to prevent XSRF attacks are one time tokens (XSRF tokens).
