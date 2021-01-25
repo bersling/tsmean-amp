@@ -24,7 +24,12 @@ if (category == null || title == null) {
   process.exit();
 }
 
-const dashCaseTitle = title.toLowerCase().replace(/ /g, `-`);
+const dashCaseUrlTitle = title.toLowerCase()
+  .replace(/ /g, `-`)
+  .replace(/,/g, '')
+  .replace(/"/g, '')
+  .replace(/%/g, '')
+  .replace(/'/g, '');
 
 function htmlFactory() {
 
@@ -36,7 +41,7 @@ function htmlFactory() {
   <meta name="description" content="XXX">
   <meta name="keywords"
         content="XXX">
-  <link rel="canonical" href="https://www.tsmean.com/articles/${category}/${dashCaseTitle}" />
+  <link rel="canonical" href="https://www.tsmean.com/articles/${category}/${dashCaseUrlTitle}" />
   {{> commonHead}}
   {{> articleHead}}
   {{> analytics}}
@@ -76,13 +81,13 @@ function htmlFactory() {
 const html = htmlFactory();
 
 fs.mkdirSync(`./app/pages/articles/${category}`, {recursive: true});
-fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseTitle}.html`, html);
+fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseUrlTitle}.html`, html);
 
 console.log(`
 addPagesToDirectory(
   'articles/${category}',
   [
-    '${dashCaseTitle}'
+    '${dashCaseUrlTitle}'
   ],
   pages
 );
@@ -95,7 +100,7 @@ console.log(`
 </h3>
 <ul>
   <li>
-    <a href="${category}/${dashCaseTitle}">
+    <a href="${category}/${dashCaseUrlTitle}">
       ${title}
     </a>
   </li>
