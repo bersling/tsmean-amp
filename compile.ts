@@ -55,7 +55,8 @@ addPagesToDirectory(
     'state-management',
     'angular-control-value-accessor-example',
     'ngrxstore-vs-angular-services',
-    'debugging-and-understanding-expressionhaschangedafterchecked'
+    'debugging-and-understanding-expressionhaschangedafterchecked',
+    // 'implementing-a-live-search-aka-search-as-you-type-with-angular' draft
   ],
   pages
 );

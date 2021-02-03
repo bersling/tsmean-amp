@@ -26,6 +26,9 @@ if (category == null || title == null) {
 
 const dashCaseUrlTitle = title.toLowerCase()
   .replace(/ /g, `-`)
+  .replace(/\./g, ``)
+  .replace(/\(/g, ``)
+  .replace(/\)/g, ``)
   .replace(/,/g, '')
   .replace(/"/g, '')
   .replace(/%/g, '')
@@ -84,6 +87,7 @@ fs.mkdirSync(`./app/pages/articles/${category}`, {recursive: true});
 fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseUrlTitle}.html`, html);
 
 console.log(`
+// compile.ts
 addPagesToDirectory(
   'articles/${category}',
   [
@@ -95,6 +99,7 @@ addPagesToDirectory(
 
 
 console.log(`
+// app/pages/articles/index.html
 <h3>
   XXX
 </h3>
