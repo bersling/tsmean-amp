@@ -6,6 +6,11 @@ The terminology isn't as clearly cut and there are a lot of nuances to it as you
 
 However, we'll get started with our live search now!
 
+```
+code line 1
+code line 2
+```
+
 ## Live Search Example with Angular
 
 The way to go for building something like this in Angular is with rxjs and observables. What we're going to build is an input field that triggers emits debounced, distinct values while you're typing. We think that this is enough for most needs.

@@ -260,14 +260,13 @@ function compileMarkdown() {
   console.log('compiling markdown');
   const { spawnSync } = require( 'child_process' );
   pages.forEach(page => {
-    const pagePath = path.join(pagesRootPath, `${page}.md`);
-    const hasMarkdown = fs.existsSync(path.join(pagesRootPath, `${page}.md`));
+    const markdownPath = path.join(pagesRootPath, `${page}.md`);
+    const outHtmlPath = `${markdownPath}.html`
+    const hasMarkdown = fs.existsSync(markdownPath);
     if (hasMarkdown) {
-      const markdown = fs.readFileSync(path.join(pagesRootPath, `${page}.md`), {encoding: 'utf8'});
-      spawnSync( 'pandoc', [ pagePath, '-o', `${pagePath}.html` ] );
-      console.log(markdown);
+      spawnSync( 'pandoc', [ markdownPath, '--highlight-style', 'pygments', '-o',  outHtmlPath] );
+      fs.unlinkSync(outHtmlPath)
     }
-    console.log(hasMarkdown);
   });
 }
 
