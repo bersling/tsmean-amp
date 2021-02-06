@@ -203,9 +203,6 @@ async function doCompile() {
   buildPartials();
   copyRobotsTxt();
   buildSitemap(pages);
-
-  console.log(partials);
-
   compileMustache();
 
   await validateAmp(pages);
@@ -324,7 +321,7 @@ function compileMustache() {
 
     // apply highlight
     rehype()
-      .use(highlight)
+      .use(highlight) // comment this line to disable highlight
       .process(vfile.readSync(distLocation(page)), function (err, file) {
         if (err) {
           console.error(err);

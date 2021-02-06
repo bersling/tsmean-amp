@@ -2,7 +2,7 @@ A "Live Search" or "search as you type" functionality is one, where you type par
 
 It is similar to an autocomplete functionality, but instead of just displaying a possible completion of the search term, the actual search results are loaded on the fly and displayed. For example, Google only has an autocomplete as of January 2021. This is usually the more common approach. A Live Search can be found for example in Apple Mail, even though there it is arguably more a "Filter as you type" functionality, since it doesn't need to make a request to a server and the not matching results are just filtered out.
 
-The terminology isn't as clearly cut and there are a lot of nuances to it as you could see e.g. here https://ux.stackexchange.com/questions/20607/is-there-a-name-for-this-instant-filter-search-pattern or here https://hybrismart.com/2019/01/08/autocomplete-live-search-suggestions-autocorrection-best-practice-design-patterns/.
+The terminology isn't as clearly cut and there are a lot of nuances to it as you could see e.g. here [https://ux.stackexchange.com/questions/20607/is-there-a-name-for-this-instant-filter-search-pattern](https://ux.stackexchange.com/questions/20607/is-there-a-name-for-this-instant-filter-search-pattern) or here [https://hybrismart.com/2019/01/08/autocomplete-live-search-suggestions-autocorrection-best-practice-design-patterns/](https://hybrismart.com/2019/01/08/autocomplete-live-search-suggestions-autocorrection-best-practice-design-patterns/).
 
 However, we'll get started with our live search now!
 
