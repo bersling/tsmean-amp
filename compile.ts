@@ -56,7 +56,7 @@ addPagesToDirectory(
     'angular-control-value-accessor-example',
     'ngrxstore-vs-angular-services',
     'debugging-and-understanding-expressionhaschangedafterchecked',
-    // 'implementing-a-live-search-aka-search-as-you-type-with-angular' draft
+    'implementing-a-live-search-aka-search-as-you-type-with-angular'
   ],
   pages
 );
@@ -198,12 +198,13 @@ addPagesToDirectory(
  * execute all compilation steps
  */
 async function doCompile() {
-  compileSass();
-  buildPartials();
-  copyRobotsTxt();
-  buildSitemap(pages);
-  compileMustache();
-  await validateAmp(pages);
+  compileMarkdown();
+  // compileSass();
+  // buildPartials();
+  // copyRobotsTxt();
+  // buildSitemap(pages);
+  // compileMustache();
+  // await validateAmp(pages);
 }
 
 doCompile();
@@ -253,6 +254,16 @@ function buildPartials() {
     'analytics': buildPartial('components/analytics.html'),
     'commonHead': buildPartial('components/common-head.html')
   };
+}
+
+function compileMarkdown() {
+  console.log('compiling markdown');
+  const { spawnSync } = require( 'child_process' );
+  pages.forEach(page => {
+    // const ls = spawnSync( 'pandoc', [ '-lh', '/usr' ] );
+    const hasMarkdown = fs.existsSync(path.join(pagesRootPath, `${page}.md`));
+    console.log(hasMarkdown);
+  });
 }
 
 function compileSass() {
