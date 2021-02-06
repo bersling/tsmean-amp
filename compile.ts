@@ -260,8 +260,13 @@ function compileMarkdown() {
   console.log('compiling markdown');
   const { spawnSync } = require( 'child_process' );
   pages.forEach(page => {
-    // const ls = spawnSync( 'pandoc', [ '-lh', '/usr' ] );
+    const pagePath = path.join(pagesRootPath, `${page}.md`);
     const hasMarkdown = fs.existsSync(path.join(pagesRootPath, `${page}.md`));
+    if (hasMarkdown) {
+      const markdown = fs.readFileSync(path.join(pagesRootPath, `${page}.md`), {encoding: 'utf8'});
+      spawnSync( 'pandoc', [ pagePath, '-o', `${pagePath}.html` ] );
+      console.log(markdown);
+    }
     console.log(hasMarkdown);
   });
 }
