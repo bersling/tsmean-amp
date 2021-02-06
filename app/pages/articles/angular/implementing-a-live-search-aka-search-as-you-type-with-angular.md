@@ -38,4 +38,4 @@ Building a live search can be a daunting task at first. However, you don't reall
 
 ## Further reading
 
-If you have more complicated requirements than those, I've played around on Stackblitz with quite a few options around this concept: https://stackblitz.com/edit/understanding-switch-map?file=src%2Fapp%2Fmvp-client%2Fmvp-client.component.ts .
+If you have more complicated requirements than those, I've played around on Stackblitz with quite a few options around this concept: [https://stackblitz.com/edit/understanding-switch-map?file=src%2Fapp%2Fmvp-client%2Fmvp-client.component.ts](https://stackblitz.com/edit/understanding-switch-map?file=src%2Fapp%2Fmvp-client%2Fmvp-client.component.ts).
