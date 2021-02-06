@@ -1,3 +1,5 @@
+<!--- you can also use standard html here! -->
+
 A "Live Search" or "search as you type" functionality is one, where you type part of a word or search term and get loaded automatically. Automatically in the sense, the user doesn't need to hit a "Search" or "Go" button, nor does he or she need to hit enter.
 
 It is similar to an autocomplete functionality, but instead of just displaying a possible completion of the search term, the actual search results are loaded on the fly and displayed. For example, Google only has an autocomplete as of January 2021. This is usually the more common approach. A Live Search can be found for example in Apple Mail, even though there it is arguably more a "Filter as you type" functionality, since it doesn't need to make a request to a server and the not matching results are just filtered out.
@@ -34,7 +36,6 @@ I studied solutions using switchMap for quite a bit and dedicated several hours 
 ## Conclusion
 
 Building a live search can be a daunting task at first. However, you don't really need more advanced concepts like switchMap etc. With quite little and especially simple code you can build a working live search, that still cancels pending requests.
-
 
 ## Further reading
 

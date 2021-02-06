@@ -267,11 +267,15 @@ function compileMarkdown() {
     const hasMarkdown = fs.existsSync(markdownPath);
     if (hasMarkdown) {
       spawnSync( 'pandoc', [ markdownPath, '-o',  outHtmlPath] );
-      const outFile = fs.readFileSync(path.join(outHtmlPath), 'utf8');
+      const htmlString = fs.readFileSync(path.join(outHtmlPath), 'utf8')
+        .replace(/<pre><code>/g, '###PRE_CODE_TEMP###')
+        .replace(/<code>/g, '<code class="app-code">')
+        .replace(/###PRE_CODE_TEMP###/g, '<pre><code>')
+
       const pageTitle = page.split('/').pop();
       partials = {
         ...partials,
-        [pageTitle]: outFile
+        [pageTitle]: htmlString
       }
       fs.unlinkSync(outHtmlPath);
     }
