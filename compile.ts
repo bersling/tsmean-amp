@@ -29,7 +29,7 @@ const partialRootPath = './app/';
 const buildPartial = (partialPath) => {
   return fs.readFileSync(path.join(partialRootPath, partialPath), 'utf8');
 };
-let partials;
+let partials = {};
 
 
 /**
@@ -199,12 +199,16 @@ addPagesToDirectory(
  */
 async function doCompile() {
   compileMarkdown();
-  // compileSass();
-  // buildPartials();
-  // copyRobotsTxt();
-  // buildSitemap(pages);
-  // compileMustache();
-  // await validateAmp(pages);
+  compileSass();
+  buildPartials();
+  copyRobotsTxt();
+  buildSitemap(pages);
+
+  console.log(partials);
+
+  compileMustache();
+
+  await validateAmp(pages);
 }
 
 doCompile();
@@ -232,6 +236,7 @@ async function validateAmp(pages: string[]) {
 
 function buildPartials() {
   partials = {
+    ...partials,
     'styles': buildPartial('styles/styles.css'),
     'highlightStyles': buildPartial('../node_modules/highlight.js/styles/tomorrow-night-bright.css'),
     'articleFooter': buildPartial('components/article/article-footer.html'),
@@ -264,8 +269,14 @@ function compileMarkdown() {
     const outHtmlPath = `${markdownPath}.html`
     const hasMarkdown = fs.existsSync(markdownPath);
     if (hasMarkdown) {
-      spawnSync( 'pandoc', [ markdownPath, '--highlight-style', 'pygments', '-o',  outHtmlPath] );
-      fs.unlinkSync(outHtmlPath)
+      spawnSync( 'pandoc', [ markdownPath, '-o',  outHtmlPath] );
+      const outFile = fs.readFileSync(path.join(outHtmlPath), 'utf8');
+      const pageTitle = page.split('/').pop();
+      partials = {
+        ...partials,
+        [pageTitle]: outFile
+      }
+      fs.unlinkSync(outHtmlPath);
     }
   });
 }
