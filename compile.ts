@@ -271,6 +271,7 @@ function compileMarkdown() {
         .replace(/<pre><code>/g, '###PRE_CODE_TEMP###')
         .replace(/<code>/g, '<code class="app-code">')
         .replace(/###PRE_CODE_TEMP###/g, '<pre><code>')
+        .replace(/sourceCode (.*?)/g, 'sourceCode language-$1');
 
       const pageTitle = page.split('/').pop();
       partials = {
