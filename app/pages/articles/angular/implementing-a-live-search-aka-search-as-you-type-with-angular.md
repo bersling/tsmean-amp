@@ -10,7 +10,7 @@ The terminology isn't as clearly cut and there are a lot of nuances to it as you
 
 However, we'll get started with our live search now!
 
-## Live Search Example with Angular
+## Live Search example with Angular
 
 The way to go for building something like this in Angular is with rxjs and observables. What we're going to build is an input field that emits debounced, distinct values while you're typing. This should be good enough for most use cases.
 
@@ -195,7 +195,7 @@ What's happening here is the following:
 - The `searchTerm` is piped into a `switchMap`. The `switchMap` then maps the `searchTerm` observable into a `results$` observable by applying the http request to each emitted search term
 - SwitchMap also automatically cancels all previous requests!
 
-## See it in Action on Stackblitz
+## See it in action on Stackblitz
 
 Here you can see the live search with both clients in action: [https://stackblitz.com/edit/angular-live-search](https://stackblitz.com/edit/angular-live-search)!
 
