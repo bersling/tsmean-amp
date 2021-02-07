@@ -2,9 +2,9 @@
 <!--- Change delimiters -->
 {{=<% %>=}}
 
-A "Live Search" or "search as you type" functionality is one, where you type part of a word or search term and get loaded automatically. Automatically in the sense, the user doesn't need to hit a "Search" or "Go" button, nor does he or she need to hit enter.
+A "Live Search" or "search as you type" functionality is one, where you type part of a word or search term and the results get loaded automatically. Automatically in the sense that the user doesn't need to hit a "Search" or "Go" button nor does he or she need to hit enter.
 
-It is similar to an autocomplete functionality, but instead of just displaying a possible completion of the search term, the actual search results are loaded on the fly and displayed. For example, Google only has an autocomplete as of January 2021. This is usually the more common approach. A Live Search can be found for example in Apple Mail, even though there it is arguably more a "Filter as you type" functionality, since it doesn't need to make a request to a server and the not matching results are just filtered out.
+It is similar to an autocomplete functionality, but instead of just displaying a possible completion of the search term, the actual search results are loaded on the fly and displayed. For example, Google only has an autocomplete as of January 2021. This is usually the more common approach. A Live Search can be found for example in Apple Mail, even though there it is arguably more a "Filter as you type" functionality, since it doesn't need to make a request to a server.
 
 The terminology isn't as clearly cut and there are a lot of nuances to it as you could see e.g. here [https://ux.stackexchange.com/questions/20607/is-there-a-name-for-this-instant-filter-search-pattern](https://ux.stackexchange.com/questions/20607/is-there-a-name-for-this-instant-filter-search-pattern) or here [https://hybrismart.com/2019/01/08/autocomplete-live-search-suggestions-autocorrection-best-practice-design-patterns/](https://hybrismart.com/2019/01/08/autocomplete-live-search-suggestions-autocorrection-best-practice-design-patterns/).
 
@@ -12,7 +12,7 @@ However, we'll get started with our live search now!
 
 ## Live Search Example with Angular
 
-The way to go for building something like this in Angular is with rxjs and observables. What we're going to build is an input field that triggers emits debounced, distinct values while you're typing. This should be good enough in most use cases.
+The way to go for building something like this in Angular is with rxjs and observables. What we're going to build is an input field that emits debounced, distinct values while you're typing. This should be good enough for most use cases.
 
 There are two parts for our solution. The search input field and the component using it. Let's call them `app-search-input` and `app-search-page`.
 
@@ -73,8 +73,8 @@ export class SearchInputComponent implements OnInit, OnDestroy {
 So let's have a look at what's happening:
 
 - When the input changes, the `onInput` gets triggerd
-- This in term pushes the next value to the `inputValue` observable
-- The `inputValue` observable is piped through a `debounceTime` rxjs operator and a `distinctUntilChanged` operator. `debounceTime` helps us to only emit a new value once the user has stopped typing for a certain amount of time. I found 300ms to be a comfortable value for this. `distinctUntilChanged` helps to not emit anything if the previous value would be the same as the current value. So for example if the user changes `x` to `y` then back to `x` in under 300ms.
+- This in return pushes the next value to the `inputValue` observable
+- The `inputValue` observable is piped through a `debounceTime` rxjs operator and a `distinctUntilChanged` operator. `debounceTime` helps us to only emit a new value once the user has stopped typing for a certain amount of time. I found 300ms to be a comfortable value for this. `distinctUntilChanged` helps to not emit anything if the previous value would be the same as the current value. So for example if the user changes `x` to `y` then back to `x` in under 300ms, there's no new event.
 - Once the trigger emits a new value, we emit it through the `textChange` event emitter
 
 So how can we make use of this component now? One possibility is like this:
@@ -134,6 +134,7 @@ export class ClientSubsComponent {
 ```
 
 What's happening is the following:
+
 - The `searchInput` field emits a (debounced and distinct) value
 - The client sends a request to the api
 - The result is written to the `results` property
@@ -188,6 +189,7 @@ export class ClientSwitchmapComponent {
 ```
 
 What's happening here is the following:
+
 - The `searchInput` field emits a (debounced and distinct) value
 - The client pushes those emissions into the `searchTerm` observable (which is an instance of a rxjs subject)
 - The `searchTerm` is piped into a `switchMap`. The `switchMap` then maps the `searchTerm` observable into a `results$` observable by applying the http request to each emitted search term
@@ -201,7 +203,7 @@ Here you can see the live search with both clients in action: [https://stackblit
 
 Most other tutorials are implementing autocomplete behaviour by using SwitchMap. And it's true, it is quite elegant that you don't have to manually unsubscribe. However, there are also some reasons against using SwitchMap:
 
-- Everybody programming Angular knows subscriptions (and unsubscriptions), but not everybody is familiar with the switchMap operator
+- Most Angular devs know subscriptions (and unsubscriptions), but less are familiar with the switchMap operator
 - SwitchMap can be more complicated to read and understand at first
 - Depending on your starting point the switchMap solution might require more refactoring
 
