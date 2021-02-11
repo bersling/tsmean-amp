@@ -126,6 +126,10 @@ registerOnTouched(fn: any): void {
        [ngModel]=&quot;input&quot;
        (ngModelChange)=&quot;onChange($event)&quot;&gt;</code></pre>
     <p>
+      Let me reiterate on the point made previously: You don't need to implement <code class="app-code">onChange</code> yourself!
+      You just need to provide those two lines: <code class="app-code">onChange: any = () => {}</code> and <code class="app-code">registerOnChange(fn: any): void {this.onChange = fn;}</code> and then Angular will at some point <b>override</b> your empty onChange implementation with an actually useful one! It's doing this by calling the <code class="app-code">registerOnChange</code> method, as you can see by looking at that method. That's why you needed so much boilerplate code.
+    </p>
+    <p>
       You can view this example here on Stackblitz:
       
       <a href="https://stackblitz.com/edit/angular-control-value-accessor-simple-example-tsmean">
