@@ -103,7 +103,8 @@ addPagesToDirectory(
   'articles/tooling',
   [
     'convert-latex-to-html-online',
-    'if-you-are-a-programmer-do-not-use-wordpress'
+    'if-you-are-a-programmer-do-not-use-wordpress',
+    'intellij-not-using-correct-tsconfigjson-file'
   ],
   pages
 );
