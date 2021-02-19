@@ -2,11 +2,13 @@ body {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.61;
 
+  @extend %bg-two;
+
   ::selection {
-    background: lighten($primary-color, 40% ) ; /* WebKit/Blink Browsers */
+    background: lighten($color-primary, 40% ) ; /* WebKit/Blink Browsers */
   }
   ::-moz-selection {
-    background: lighten($primary-color, 40% ); /* Gecko Browsers */
+    background: lighten($color-primary, 40% ); /* Gecko Browsers */
   }
 
 }

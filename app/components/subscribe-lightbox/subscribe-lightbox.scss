@@ -1,14 +1,17 @@
 .subscribe-lightbox {
-  padding: 20px; max-width: 400px; margin: 0 auto; background: white;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  @extend %bg-one;
 }
 
 
 .subscribe-lightbox-success {
   font-weight: bold;
-  color: #339966;
+  color: $color-success;
 }
 
 .subscribe-lightbox-error {
   font-weight: bold;
-  color: #D0092F;
+  color: $color-error;
 }

@@ -57,8 +57,7 @@ there's a rowspan on the first cell. Case added to the tests. issue#432 */
 }
 
 .pure-table thead {
-  background-color: $main-gray;
-  color: #000;
+  @extend %bg-one;
   text-align: left;
   vertical-align: bottom;
 }

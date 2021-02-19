@@ -174,11 +174,6 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
-  'orders',
-  ['typescript-front-to-back'],
-  pages
-);
-addPagesToDirectory(
   'articles/analytics',
   ['gtm'],
   pages
@@ -243,6 +238,7 @@ function buildPartials() {
     'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
     'header': buildPartial('components/header/header.html'),
     'learnMore': buildPartial('components/learn-more/learn-more.html'),
+    'bluehost': buildPartial('components/bluehost/bluehost.html'),
     'logoAccent': buildPartial('components/logo/accent.html'),
     'logoPrimary': buildPartial('components/logo/primary.html'),
     'logoWhite': buildPartial('components/logo/white.html'),

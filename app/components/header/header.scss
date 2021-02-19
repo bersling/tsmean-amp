@@ -8,8 +8,7 @@ header {
   top: 0;
   height: $header-height;
   z-index: 2;
-  background: RGBA(255, 255, 255, 0.90);
-  border-bottom: 1px solid $main-gray;
+  background: $color-primary;
 
   .primary-nav-inner {
     max-width: 1100px;
@@ -22,6 +21,7 @@ header {
   .primary-nav-right {
     margin-left: auto;
     padding-right: 20px;
+
     > ul {
       margin: 0;
       list-style-type: none;

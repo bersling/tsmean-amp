@@ -1,7 +1,7 @@
 .app-pre {
   overflow-x: scroll;
   padding: 10px;
-  background: #F5F5F5;
+  @extend %bg-one;
 }
 
 .app-small-code {

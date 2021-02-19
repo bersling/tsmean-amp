@@ -3,7 +3,7 @@
 @import '../../node_modules/normalize-scss/sass/_normalize';
 
 // Some basics
-@import 'colors';
+@import 'variables';
 @import 'responsive';
 
 // Styling some default html elements
@@ -19,9 +19,6 @@
 @import 'html/pre';
 @import 'html/div';
 @import 'html/table';
-
-// the pages
-@import '../pages/learn-typescript/learn-typescript';
 
 // the components
 @import '../components/jumbotron/jumbo';
@@ -106,15 +103,15 @@ If your styles are for a custom ui component, put them in the same folder as the
 
 .app-code {
   padding: 2px 4px;
-  color: $accent;
-  background-color: #fbe5e1;
+
+  @extend %bg-accent;
   border-radius: 4px;
   font-size: 90%;
 }
 
 // used to highlight especially important bits of the text
 .highlight {
-  color: $accent;
+  color: $color-accent;
 }
 
 // useful to document directory structure for code snippets
@@ -191,14 +188,14 @@ amp-img.app-bordered {
 }
 
 .bg-primary {
-  background: $primary-color;
-  color: $primary-color-complement;
+  background: $color-primary;
+  color: $color-primary-complement;
 }
 .primary-color {
-  color: $primary-color;
+  color: $color-primary;
 }
 .bg-gray {
-  background: $main-gray;
+  @extend %bg-two;
 }
 .bg-white {
   background: white;
@@ -321,7 +318,7 @@ amp-img.app-bordered {
 }
 
 .app-blockquote {
-  border-left: 2px solid $primary-color;
+  border-left: 2px solid $color-primary;
   margin: 0;
   padding: 0;
   padding-left: 10px;

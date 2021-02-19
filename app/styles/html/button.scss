@@ -2,8 +2,6 @@
 
 button, .tsmean-button, .link-button {
 
-  // could use a little refactor?
-
   border: 0;
   padding: 10px 20px;
   border-radius: 20px;
@@ -17,18 +15,18 @@ button, .tsmean-button, .link-button {
     @include md-shadow();
   }
 
-  background: white;
-  color: $primary-color;
+  background: $color-accent;
+  color: $color-primary;
   cursor: pointer;
   text-decoration: none;
   font-size: 15px;
 
   &.primary {
-    background: $primary-color;
-    color: white;
+    background: $color-accent;
+    color: $color-primary;
   }
   &.accent {
-    background: $accent;
+    background: $color-accent;
     color: white;
   }
 
@@ -37,18 +35,19 @@ button, .tsmean-button, .link-button {
   }
 
   &.bordered {
-    border: 1px solid $primary-color;
+    border: 1px solid $color-primary;
   }
 
   &.bordered-inverse {
     border: 1px solid white;
     color: white;
-    background: $primary-color;
+    background: $color-primary;
   }
 
 
   &.bg-transparent {
     background: transparent;
+    color: $color-accent;
   }
 
   &.slim {

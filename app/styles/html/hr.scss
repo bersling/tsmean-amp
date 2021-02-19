@@ -1,7 +1,6 @@
 hr.app-hr {
   padding: 0;
   border: none;
-  color: $main-gray;
   text-align: center;
   &:after {
     content: "*  *  *";
@@ -14,5 +13,5 @@ hr.app-hr {
 
 hr {
   border: 0;
-  border-bottom: 1px solid $main-gray;
+  border-bottom: 1px solid $color-dark-gray;
 }

@@ -1,8 +1,6 @@
-@import '../../styles/colors';
-
 .jumbo-main {
 
-  background-color: $primary-color;
+  background-color: $color-primary;
   padding: 50px 10px 60px 10px;
   min-height: 50vh;
 
@@ -43,7 +41,7 @@
 
 .jumbo-horizontal {
 
-  background: $primary-color;
+  background: $color-primary;
   padding: 50px 50px;
   text-align: center;
   display: flex;
@@ -98,13 +96,15 @@
     max-width: 100%;
   }
 
-  background: #3F51B5;
+  background: $color-primary;
   padding: 70px 10px 70px 10px;
 
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%);
 
   .jumbo-title {
     color: white;
