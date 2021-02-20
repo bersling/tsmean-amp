@@ -56,7 +56,8 @@ addPagesToDirectory(
     'angular-control-value-accessor-example',
     'ngrxstore-vs-angular-services',
     'debugging-and-understanding-expressionhaschangedafterchecked',
-    'implementing-a-live-search-aka-search-as-you-type-with-angular'
+    'implementing-a-live-search-aka-search-as-you-type-with-angular',
+    'custom-checkbox-component-with-angular'
   ],
   pages
 );
