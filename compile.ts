@@ -188,6 +188,13 @@ addPagesToDirectory(
   ],
   pages
 );
+addPagesToDirectory(
+  'articles/docker',
+  [
+    'how-to-debug-linux-on-a-mac'
+  ],
+  pages
+);
 
 
 

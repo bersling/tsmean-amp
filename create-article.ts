@@ -71,7 +71,7 @@ function htmlFactory() {
   </div>
   
   <article>
-    YOUR CONTENT HERE
+{{> ${dashCaseUrlTitle} }}
   </article>
   
   {{> articleFooter}}
@@ -85,6 +85,7 @@ const html = htmlFactory();
 
 fs.mkdirSync(`./app/pages/articles/${category}`, {recursive: true});
 fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseUrlTitle}.html`, html);
+fs.writeFileSync(`./app/pages/articles/${category}/${dashCaseUrlTitle}.md`, 'YOUR CONTENT HERE');
 
 console.log(`
 // compile.ts
