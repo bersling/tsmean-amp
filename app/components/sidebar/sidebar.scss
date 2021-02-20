@@ -1,5 +1,6 @@
 .sidebar {
-  background: white;
+
+  @extend %bg-one;
 
   ul {
     list-style-type: none;
