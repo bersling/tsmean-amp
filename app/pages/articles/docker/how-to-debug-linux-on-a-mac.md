@@ -13,6 +13,7 @@ docker run -it --volume /path/to/repo:/repo runnerimage bash
 ```
 
 What's happening here:
+
 - The repository volume is mapped in, so you can reproduce what's happening in linux
 - You're starting an interactive session with `-it`: It's basically attaching you to the container. It's `--interactive + --tty`.
 
