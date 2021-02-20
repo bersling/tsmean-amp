@@ -76,3 +76,12 @@ export class CustomCheckboxComponent implements ControlValueAccessor, OnInit {
 ```
 
 Here's the code on Stackblitz for the [custom checkbox with angular](https://stackblitz.com/edit/angular-custom-checkbox-component?file=src%2Fapp%2Fcustom-checkbox%2Fcustom-checkbox.component.ts).
+
+And here's what you'll get:
+
+<amp-img class="app-row-img mw600"
+         layout="responsive"
+         width="968"
+         height="1266"
+         src="/assets/img/angular/custom-form-control-cva-angular.png">
+</amp-img>
