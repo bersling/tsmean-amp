@@ -2,13 +2,13 @@ I recently encountered a bug that only appeared in our ubuntu CI server but not 
 
 It's actually really easy to set up linux on your mac without bending over backwards! You'll simply need a command like this:
 
-```
+```bash
 docker run -it --volume /path/to/repo:/repo ubuntu bash
 ```
 
 or if you have a specific image on your CI like in my case
 
-```
+```bash
 docker run -it --volume /path/to/repo:/repo runnerimage bash
 ```
 
@@ -19,6 +19,6 @@ What's happening here:
 
 If you lose the connection to the container you can reattach to it with
 
-```
+```bash
 docker exec -it container_name_or_id bash
 ```
