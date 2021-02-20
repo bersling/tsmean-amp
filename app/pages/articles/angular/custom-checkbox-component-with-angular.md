@@ -65,7 +65,6 @@ export class CustomCheckboxComponent implements ControlValueAccessor, OnInit {
     this.checked = checked;
   }
 
-
   onModelChange(e: boolean) {
     // Step 5a: bind the changes to the local value
     this.checked = e;
