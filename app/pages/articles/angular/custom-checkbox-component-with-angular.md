@@ -1,8 +1,9 @@
 Your first guess when creating a custom checkbox component might be to just create a `div` with something inside. But this approach has several drawbacks:
+
 - The accessibility is bad, since it's not an `input type="checkbox"` element
 - `ngModel` and Angular forms cannot be used
 
-This is where the Angular Control Value Accessor (CVA) comes into play. If you implement this interface, you teach Angular how to access "the" value associated with the component and thus enabling ngModel. There's a full article at [Angular Control Value Accessor Tutorial](/articles/angular/angular-control-value-accessor-example/). Here were not explaining in detail how CVA is working, but instead we'll just show you how to implement a custom checkbox right away:
+This is where the Angular Control Value Accessor (CVA) comes into play. If you implement this interface, you teach Angular how to access "the" value associated with the component and thus enabling ngModel. There's a full article at [Angular Control Value Accessor Tutorial](/articles/angular/angular-control-value-accessor-example/). Here we're not explaining in detail how CVA is working, but instead we'll just show you how to implement a custom checkbox right away:
 
 ```html
 <label class="checkbox-container">
