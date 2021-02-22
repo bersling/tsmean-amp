@@ -89,7 +89,8 @@ addPagesToDirectory(
 addPagesToDirectory(
   'articles/mysql',
   [
-    'fixing-a-typo-in-a-json-in-mysql'
+    'fixing-a-typo-in-a-json-in-mysql',
+    'how-to-merge-rows-in-mysql-while-redirecting-all-foreign-keys'
   ],
   pages
 );
