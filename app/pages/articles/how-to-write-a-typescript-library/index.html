@@ -35,7 +35,7 @@ here is a simple yet comprehensive tutorial!">
     </h1>
     
     <div class="meta-header">
-      <span class="updated">April 2020</span>
+      <span class="updated">March 2021</span>
     </div>
   
   </div>
@@ -45,7 +45,7 @@ here is a simple yet comprehensive tutorial!">
     <p>
       Writing modular code is a good idea. And nothing is more modular than writing a library.
       How can you write a TypeScript library? Well, that's exactly what this tutorial is about!
-      This tutorial works with <b>TypeScript 3.x</b> and <b>TypeScript 2.x</b>.
+      This tutorial works with <b>TypeScript 4.x</b>, <b>TypeScript 3.x</b> and <b>TypeScript 2.x</b>.
     </p>
     
     <h2>
@@ -74,7 +74,7 @@ here is a simple yet comprehensive tutorial!">
       You need to add the <code class="app-code">"declaration": true</code> flag. This will generate the <code class="app-code">.d.ts</code> files (aka declaration files) which contain the types of your code. This way, if someone is using your library and they also use TypeScript, they get the benefits of typesafety and autocomplete!
     </p>
     <p>
-      Regarding the other options, let's quickly go through those: <code class="app-code">"module": "commonjs"</code> is required if you want your code to run seamlessly with most current node.js applications. <code class="app-code">"target": "es2015"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js you want to support. Choosing es2015 as the compile target makes your library compatible with node.js version 8 and upwards. <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
+      Regarding the other options, let's quickly go through those: The <a class="app-link" href="/articles/learn-typescript/typescript-module-compiler-option/">module compiler option</a> <code class="app-code">"module": "commonjs"</code> is required if you want your code to run seamlessly with most current node.js applications. Replace this with <code class="app-code">"module": "esnext"</code> if you're building a library for the browser. <code class="app-code">"target": "es2015"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js (or the oldest browser) you want to support. Choosing es2015 as the compile target makes your library compatible with node.js version 8 and upwards. <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
     </p>
     
     <h2>
@@ -154,7 +154,7 @@ sayHello();
       Otherwise the consumer won't find your module!
     </p>
     <p>
-      The final property `files` helps you to <b>whitelist</b> the files you want later to ship to the npm registry. This is usually a
+      The final property <code class="app-code">files</code> helps you to <b>whitelist</b> the files you want to ship to the npm registry. This is usually a
       <a href="https://medium.com/@jdxcode/for-the-love-of-god-dont-use-npmignore-f93c08909d8d">much easier and safer route than using the `.npmignore` file</a>!
     </p>
     
