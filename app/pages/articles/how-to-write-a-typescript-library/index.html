@@ -17,7 +17,6 @@ here is a simple yet comprehensive tutorial!">
 </head>
 <body>
   
-  
   <a name="top"
      class="anchor"></a>
   
@@ -136,7 +135,10 @@ sayHello();
   "version": "1.0.0",
   "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ]
 }
 </code></pre>
     <p>
@@ -151,35 +153,13 @@ sayHello();
       <code class="app-code">"types": "dist/index.d.ts"</code>
       Otherwise the consumer won't find your module!
     </p>
-    
-    <h2>
-      <span class="step">Step 5</span>: Configure .npmignore
-    </h2>
     <p>
-      If you would compile your code now with <code class="app-code">tsc</code> and run <code class="app-code">npm
-      publish</code>, you'd
-      publish the <code class="app-code">dist</code> folder along with all the other files.
-      However, you don't really need the source folder. To avoid publishing unnecessary files to npm, you can create an
-      <code class="app-code">.npmignore</code>
-      file. In our case it's simple:
-    </p>
-    <div class="file-label">
-      typescript-library/.npmignore
-    </div>
-    <pre><code class="language-bash">tsconfig.json
-src</code></pre>
-    <p>
-      The only two things we don't need to publish are the <code class="app-code">tsconfig.json</code> file and the
-      <code class="app-code">src</code> folder. As your project grows, more files will come, for example test files.
-    </p>
-    <p>
-      An alternative to using an <code class="app-code">.npmignore</code> file would be to also copy the package.json
-      into the <code class="app-code">dist</code> folder, then <code class="app-code">cd</code> into that folder and
-      publish from there. In that case you'd need to also adjust the paths in the package.json.
+      The final property `files` helps you to <b>whitelist</b> the files you want later to ship to the npm registry. This is usually a
+      <a href="https://medium.com/@jdxcode/for-the-love-of-god-dont-use-npmignore-f93c08909d8d">much easier and safer route than using the `.npmignore` file</a>!
     </p>
     
     <h2>
-      <span class="step">Step 6</span>: Publish to npm
+      <span class="step">Step 5</span>: Publish to npm
     </h2>
     <p>
       To publish your first version to npm run:
