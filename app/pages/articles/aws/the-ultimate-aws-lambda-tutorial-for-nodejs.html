@@ -39,7 +39,7 @@
     </h1>
     
     <div class="meta-header">
-      <div class="written">April 2020</div>
+      <div class="updated">March 2021</div>
     </div>
   </div>
   
@@ -477,6 +477,25 @@ rm ./dist/**/*.test.js
     <p>
       As an example, let's say the request is to the AWS API Gateway at <code>https://...amazonaws.com/tutorial-function?listid=1234</code> and the request payload is <code>{"hello": "world"}</code>, then you can get "1234" through <code>event.queryStringParameters.listid</code> and  <code>{"hello": "world"}</code> through <code>event.body</code>.
     </p>
+    
+    <h2>Gotchas</h2>
+    <p>
+      When working with Lambdas there are a couple of gotchas that you'll have to be aware of. Here's a list
+    </p>
+    <ul>
+      <li>
+        <b>Cold Starts:</b> When a lambda function hasn't been called for a while, it takes some time to boot. This can lead to a negative user experience as well as to timeouts and you'll have to make sure to use lambdas in a way that this doesn't become too much of a problem.
+      </li>
+      <li>
+        <b>Timeouts:</b> As of march 2021 the default timeout for lambdas is 3 seconds. This is often too short if the function is cold. The Cloudwatch logs also aren't particularly helpful, and the response you'll get is just an "Internal Server Error". So it's hard to debug unless you know about this!
+      </li>
+      <li>
+        The inline editor is only useful for very simple functions. Once you're loading npm modules, you'll have to switch to local development. Also because there isn't a way of just providing a package.json (or package-lock.json) and then let the lambda pull the dependencies itself. You'll have to install npm modules yourself and package them into the deployment bundle.
+      </li>
+      <li>
+        <b>Infinite Recursion:</b> Since Lambdas scale infinitely, take care not run into infinite loops. When you are "connecting" multiple lambda functions (or the function to itself), make sure not to build circles, or you'll end up with a huge bill! You can also set AWS budget actions in place to prevent this.
+      </li>
+    </ul>
     
     <h2>Summary</h2>
     <p>
