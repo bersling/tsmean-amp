@@ -165,7 +165,8 @@ addPagesToDirectory(
   'articles/authentication',
   [
     'express-session-angular',
-    'jwt-express-angular'
+    'jwt-express-angular',
+    'how-to-update-angular-to-the-latest-version'
   ],
   pages
 );
