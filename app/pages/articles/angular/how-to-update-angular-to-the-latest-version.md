@@ -112,11 +112,11 @@ git reset --hard last-ok-commit
 ```
 
 ### Why is `next` installed?
-Sometimes the Angular team seems to publish the wrong version with the `latest` tag. If this happens for a package, e.g. `@angular/cli`, try to update another package first. Also check github / google for the issue.
+Sometimes the linking of packages through `ng update` is not correct and a package with `-next` is installed, even though you didn't ask for a beta version. If this happens for a package, e.g. `@angular/cli`, try to update another package first. Also check github / google for the issue.
 
-#### `npm ERR! notarget No matching version found for xxx`
+### `npm ERR! notarget No matching version found for xxx`
 
-Sometimes it seems the Angular team messes up the versions of packages which are installed, to the point where packages should be installed that don't even exist:
+Sometimes `ng update` installs non-existing package versions, e.g.:
 
 ```
 npm ERR! notarget No matching version found for @angular-devkit/build-ng-packagr@~0.1102.9.
@@ -133,9 +133,7 @@ in this case you'll have to re-install the said package yourself with:
 npm install @angular-devkit/build-ng-packagr@latest
 ```
 
-#### Typescript Compilation Troubleshooting
-
-#####  Generic type 'ModuleWithProviders<T>' requires 1 type argument(s)
+###  Generic type 'ModuleWithProviders<T>' requires 1 type argument(s)
 ```
 ✖ Compiling TypeScript sources through NGC
 ERROR: projects/tsmean/spinner/src/lib/spinner.module.ts:16:53 - error TS2314: Generic type 'ModuleWithProviders<T>' requires 1 type argument(s).
@@ -198,4 +196,5 @@ with this one
 in the section `myproject.architect.build.configurations.production`.
 
 If you continue having this error see https://stackoverflow.com/questions/60234048/angular-9-library-publish-error-trying-to-publish-a-package-that-has-been-compi/67177241#67177241 .
+
 
