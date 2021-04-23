@@ -69,8 +69,9 @@ It should tell you that you are good to go.
 
 ### Testing
 
-Now run your tests and lints and boot your application to check if everything is working as expected. If yes, congratulations, you have managed to migrate! If no, fix the remaining issues. Check the troubleshooting section, your problem might be addressed in there.
+Now run your tests and lints and boot your application to check if everything is working as expected. If yes, congratulations, you have managed to migrate! If no, fix the remaining issues. One common issue at this point is that you have libraries that are built for older versions of Angular. Check if there are newer versions available and update to those as well.
 
+Check the troubleshooting section, your problem might be addressed in there.
 
 ## Alternative: The ng new approach
 If you have some project that (a) you haven't touched in a very long time and (b) has quite little code, it might be easiest to just create a new app with `ng new` and then copy over the `src` directory. In that case you can proceed as follows to keep your git history:
