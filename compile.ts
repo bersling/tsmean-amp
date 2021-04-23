@@ -178,6 +178,13 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/regex',
+  [
+    'match-anything-with-javascript-regex'
+  ],
+  pages
+);
+addPagesToDirectory(
   'articles/analytics',
   ['gtm'],
   pages
