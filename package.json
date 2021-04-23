@@ -36,7 +36,7 @@
     "cors": "^2.8.3",
     "express": "^4.15.3",
     "mustache": "4.0.1",
-    "node-sass": "4.13.1",
+    "node-sass": "^4.14.1",
     "nodemon": "2.0.2",
     "normalize-scss": "^7.0.0",
     "rehype": "^10.0.0",
