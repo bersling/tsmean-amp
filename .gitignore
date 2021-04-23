@@ -1,6 +1,7 @@
 node_modules
 dist
 .idea
+testing
 
 styles.css
 compile.js

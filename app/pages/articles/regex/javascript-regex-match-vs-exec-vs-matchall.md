@@ -1,3 +1,5 @@
+It sounds like the most easy task in the world: getting your match results from a regex. However, unfortunately there are at least three methods to get you those results, each of which has their advantages and drawbacks. So let's jump in.
+
 ## How does "Match" work?
 
 `match` is a method which is available on `string` and takes a regex as an argument, so you can call it like `str.match(regex)`.
@@ -44,7 +46,7 @@ const regex = /th(..) hat/g;
 let result = regex.exec(testString);
 while (result != null) {
   console.log(result);
-   result = regex.exec(testString);
+  result = regex.exec(testString);
 }
 ```
 
@@ -70,5 +72,33 @@ As you can see, this is quite ugly, since you need to a cumbersome while loop, a
 
 So are there any other options? Yep.
 
+## "MatchAll" to the rescue?
 
+Since both, `match` and `exec` have severe shortcomings, the new method `matchall` was introduced. `MatchAll`, like its small brother `match`, is a method available on `string` that will take a `regex` as an argument:
 
+```
+const testString = 'this hat is better than that hat.';
+const regex = /th(..) hat/g;
+const result = [...testString.matchAll(regex)];
+console.log(result);
+```
+
+It's still a bit cumbersome to use, since it doesn't just return an array but an iterable instead. With the spread operator you can create an array from the result though. Of course this choice has a reasonable foundation in that iterables scale better for larger outputs, so consider carefully if you actually want to convert it.
+
+However, there's the caveat that `matchall` wasn't always there (like `match` and `exec`), so you should consider whether your target runtime supports it:
+
+```
+NodeJS: >= 12
+Chrome: >= 73
+Edge: >= 79
+Firefox: >= 67
+IE: nah
+Opera: 60
+Safari: 13
+```
+
+So for running in browsers it's probably still a bit too early in 2021 with matchall, for running in nodejs it depends what nodejs you have installed.
+
+## Conclusion
+
+In most cases you should probably go with `matchall`, since it is the most safe and flexible option, unless you are targeting browsers. In that case I'd recommend to go for `exec` since, if you refactor and suddenly need more than one result or need result groups, it's easier that way. Like this you can also consistently do it the same way, instead of switching between `match` and `exec`. Just make sure you don't run into infinite loops into infinite loops into infinite loops!
