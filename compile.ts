@@ -166,7 +166,7 @@ addPagesToDirectory(
   [
     'express-session-angular',
     'jwt-express-angular',
-    'how-to-update-angular-to-the-latest-version'
+    // 'how-to-update-angular-to-the-latest-version'
   ],
   pages
 );
