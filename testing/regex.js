@@ -1,13 +1,7 @@
-const testString = `
-import {
-  A,
-  B,
-  C
+const testString = 'this hat is better than that hat.';
+const regex = /th(..) hat/g;
+let result = regex.exec(testString);
+while (result != null) {
+  console.log(result);
+  result = regex.exec(testString);
 }
-import {
-  E,
-  F
-}
-`
-const regex = /import ([\s\S]*?})/g
-console.log(regex.exec(testString));

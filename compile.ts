@@ -180,7 +180,8 @@ addPagesToDirectory(
 addPagesToDirectory(
   'articles/regex',
   [
-    'match-anything-with-javascript-regex'
+    'match-anything-with-javascript-regex',
+    'javascript-regex-match-vs-exec-vs-matchall'
   ],
   pages
 );
