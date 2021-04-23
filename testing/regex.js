@@ -9,6 +9,5 @@ import {
   F
 }
 `
-const regex = new RegExp('import ([\\s\\S]*?})', 'g')
+const regex = /import ([\s\S]*?})/g
 console.log(regex.exec(testString));
-console.log(testString.match(regex));

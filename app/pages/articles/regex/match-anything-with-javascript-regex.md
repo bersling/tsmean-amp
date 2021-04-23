@@ -1,4 +1,4 @@
-## What you want to match is on one line
+## Match on one line
 
 ```
 const testString = `
@@ -8,10 +8,21 @@ Yours Sincerely
 `
 const regex = /I will(.*?)for you./
 console.log(regex.exec(testString));
-console.log(testString.match(regex));
 ```
 
-## What you want to match spans over multiple lines
+Result:
+
+```
+[
+  'I will always be here for you.',
+  ' always be here ',
+  index: 14,
+  input: '\nHello World!\nI will always be here for you.\nYours Sincerely\n',
+  groups: undefined
+]
+```
+
+## Match over multiple lines
 
 ```
 const testString = `
@@ -27,7 +38,6 @@ import {
 `
 const regex = /import ([\s\S]*?})/g
 console.log(regex.exec(testString));
-console.log(testString.match(regex));
 ```
 
 Or if you prefer to work with `new RegExp`:
@@ -46,9 +56,19 @@ import {
 `
 const regex = new RegExp('import ([\\s\\S]*?})', 'g')
 console.log(regex.exec(testString));
-console.log(testString.match(regex));
 ```
 
+Result:
+
+```
+[
+  'import {\n  A,\n  B,\n  C\n}',
+  '{\n  A,\n  B,\n  C\n}',
+  index: 1,
+  input: '\nimport {\n  A,\n  B,\n  C\n}\nimport {\n  E,\n  F\n}\n',
+  groups: undefined
+]
+```
 
 ## Pitfalls
 
