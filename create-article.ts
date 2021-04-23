@@ -32,6 +32,7 @@ const dashCaseUrlTitle = title.toLowerCase()
   .replace(/,/g, '')
   .replace(/"/g, '')
   .replace(/%/g, '')
+  .replace(/:/g, '')
   .replace(/'/g, '');
 
 function htmlFactory() {
