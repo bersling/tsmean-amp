@@ -60,5 +60,3 @@ If you need to support old browsers like internet explorer, this solution is not
 
 # Summary
 It is really easy with CSS Grid to create your own minimalistic grid system! No need at all for a library! If you'd still prefer something with some more features, you can go for the actual [`tb-grid`](https://github.com/taskbase/tb-grid) library.
-
-Also, don't forget to spread the word! Sharing this link or the link to `tb-grid` with your friends and colleagues could make the world a better place. :)
