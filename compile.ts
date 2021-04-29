@@ -188,7 +188,8 @@ addPagesToDirectory(
 addPagesToDirectory(
   'articles/css',
   [
-    'reverse-engineering-bootstrap-grid-with-modern-css'
+    'reverse-engineering-bootstrap-grid-with-modern-css',
+    'simple-css-grid-system'
   ],
   pages
 );
