@@ -214,6 +214,13 @@ addPagesToDirectory(
   ],
   pages
 );
+addPagesToDirectory(
+  'articles/math',
+  [
+    'mathjax-parser-for-html-strings'
+  ],
+  pages
+);
 
 
 
