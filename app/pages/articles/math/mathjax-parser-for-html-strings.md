@@ -23,13 +23,13 @@ I’ll assume here a **basic familiarity with the DOM** and the concept of DOM-n
 
 Now first of all, let’s examine the rules, when mathjax actually renders something and when not. From the docs:
 
-> There cannot be HTML tags within the math delimiters (other than <br>) as TeX-formatted math does not include HTML tags
+> There cannot be HTML tags within the math delimiters (other than `<br>`) as TeX-formatted math does not include HTML tags
 
 So this means, that the example from above would get rendered, while `<p> $ hello <strong> world </strong>$ </p>` would NOT BE RENDERED by mathjax.
 
 So what does this rule mean, in order for parsing mathjax? It means, we need to find (here it comes):
 
-> ALL ADJACENT TEXT AND BR NODES
+**ALL ADJACENT TEXT AND BR NODES**
 
 An example:
 
