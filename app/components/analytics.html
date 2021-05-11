@@ -1,24 +1,5 @@
-<!-- Google Analytics -->
 <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-
-<amp-analytics type="googleanalytics">
-  <script type="application/json">
-    {
-      "vars": {
-        "account": "UA-70730318-4"
-      },
-      "triggers": {
-        "trackPageview": {
-          "on": "visible",
-          "request": "pageview"
-        }
-      }
-    }
-  </script>
-</amp-analytics>
-
-
-<!--<amp-analytics type="gtag" data-credentials="include">
+<amp-analytics type="gtag" data-credentials="include">
   <script type="application/json">
     {
       "vars" : {
@@ -29,16 +10,4 @@
       }
     }
   </script>
-</amp-analytics>-->
-
-<!-- This is causing errors: -->
-<!--
-[AmpAnalytics <unknown id>] Error rewriting configuration:  https://www.googletagmanager.com/gtag/amp Error: "XHR Failed fetching (https://www.googletagmanager.com/...): NetworkError when attempting to fetch resource.​​​"
-  cb log.js:714
-  createExpectedError log.js:363
-  og xhr-impl.js:110
-  log.js:251:6
-  [AmpAnalytics <unknown id>] No request strings defined. Analytics data will not be sent from this page. log.js:251:6
-    [AmpAnalytics <unknown id>] No triggers were found in the config. No analytics data will be sent. log.js:251:6
-      Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://www.googletagmanager.com/gtag/amp?__amp_source_origin=https%3A%2F%2Fdev.tsmean.com. (Reason: CORS request did not succeed).
-      -->
+</amp-analytics>
