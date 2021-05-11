@@ -1,16 +1,34 @@
 .learn-more-wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 
   text-align: center;
+  background: $color-primary;
+  color: $text-on-primary;
+  border-radius: 5px;
+  padding: 20px;
 
-  .learn-more-heading {
-    margin-top: 0;
+  .learn-more-slogan {
+    margin-bottom: 20px;
   }
 
-  .mini-raven {
-    margin-bottom: -3px;
+  .subscribe-button-wrapper {
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    margin-bottom: 10px;
+
+    .learn-more-slogan {
+      margin-bottom: 10px;
+    }
+
+    .learn-more-heading {
+      margin-top: 0;
+    }
+
+    .mini-raven {
+      margin-bottom: -3px;
+    }
   }
 
 }

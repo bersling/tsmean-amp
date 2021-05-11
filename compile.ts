@@ -272,6 +272,7 @@ function buildPartials() {
     'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
     'header': buildPartial('components/header/header.html'),
     'learnMore': buildPartial('components/learn-more/learn-more.html'),
+    'featured': buildPartial('components/featured/featured.html'),
     'bluehost': buildPartial('components/bluehost/bluehost.html'),
     'logoAccent': buildPartial('components/logo/accent.html'),
     'logoPrimary': buildPartial('components/logo/primary.html'),
