@@ -4,7 +4,7 @@
   "description": "Tutorial Page how to setup the TypeScript-Mean project from scratch",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "npm run build && ts-node ./server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && mkdir -p dist && cp -r assets dist && npm run compile",
     "compile": "npx -s sh ts-node compile.ts",

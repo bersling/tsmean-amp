@@ -1,0 +1,65 @@
+.featured-box {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 30px;
+
+  border-radius: 3px;
+  background: $color-black;
+  padding: 20px;
+
+  .featured-star {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    transform: rotate(10deg);
+    animation: featured-spin 10s linear infinite;
+  }
+
+  .featured-left {
+
+    .featured-explainer {
+      font-size: 80%;
+    }
+
+    .featured-title {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .featured-description {
+
+    }
+
+  }
+
+  .featured-right {
+    .featured-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      .featured-button {
+        padding: 10px;
+        background: $color-dark-gray;
+        color: $color-text;
+
+        .featured-button-inner {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+      }
+    }
+  }
+
+}
+
+@keyframes featured-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
