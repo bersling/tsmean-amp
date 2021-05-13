@@ -14,7 +14,7 @@
     top: -10px;
     right: -10px;
     transform: rotate(10deg);
-    animation: featured-spin 10s linear infinite;
+    animation: featured-spin 3s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
   }
 
   .featured-left {
