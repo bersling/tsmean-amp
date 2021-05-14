@@ -6,6 +6,8 @@ The big four currently seem to be React, Angular, Vue and Svelte. Most articles 
 
 Since all frameworks have those concepts, I'll sometimes just copy some sentences from one of the docs pages since it doesn't make sense to rewrite all of that from scratch.
 
+Also, the code snippets are not meant to start a framework war about which one is shorter or which one you prefer more. It's just a means of illustrating the different implementations of the common concepts.
+
 So let's dive into it and have a look at what those frameworks have all in common.
 
 ## Components
@@ -15,10 +17,20 @@ The most obvious thing is components, since the whole article revolves around th
 What is a component exactly? A component is a unit that encapsulates things. All frameworks encapsulate HTML and JS/TS. Some of them also encapsulate CSS. The basic syntax for defining a component differs for the frameworks.
 
 ```React
+// Class based approach
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
   }
+}
+
+// alternative: function based approach
+export default function() {
+  const numbers = [1, 2, 3, 4, 5];
+  const listItems = numbers.map((number, idx) => <li>{number * idx}</li>);
+  return (
+    <ul>{listItems}</ul>
+  );
 }
 ```
 
@@ -73,7 +85,7 @@ Again, even though the concept is there for all the frameworks, the syntax varie
 - React has a unique approach for templates among those frameworks. The difference is that the other frameworks define their own templating language, whereas React tries to use JavaScript concepts to get jobs like iterating over arrays done.
 - Angular has its own templating syntax with things like `*ngIf` or `*ngFor`
 - Vue hast its own templating syntax with things like `v-if` and `v-for`
-- Svelte has its own templating syntax with things like `{{#if}}` and `{{#each}}`
+- Svelte has its own templating syntax with things like `{#if}` and `{#each}`
 
 Within the templates, there are also a lot of common concepts that each framework has its own syntax for. We'll cover those next.
 
@@ -98,5 +110,228 @@ Within the templates, there are also a lot of common concepts that each framewor
 ```
 
 As you can see, interpolation has almost the same syntax in all frameworks. The only thing it seems they couldn't agree on were the optimal number of curly braces.
+
+#### XSS Protection and opting out
+
+One of the cool things about the modern frameworks is that they give you basic protection against XSS out of the box. They won't just put `<script>alert('evil')</script>` into the DOM by interpolation, rather they'll escape `<` and `>` so it's all just text. If you still want to put HTML through interpolation in your markup you can do so in the following ways:
+
+```React
+<div dangerouslySetInnerHTML={createMarkup()} />
+```
+
+```Angular
+...
+<div [innerHTML]="safeVal"></div>
+...
+constructor(private sanitizer:DomSanitizer){}
+...
+myVal = '<div>...'
+safeVal = this.sanitizer.bypassSecurityTrustHtml(myVal)
+```
+
+```Vue
+<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+```
+
+```Svelte
+<p>{@html msg}</p>
+```
+
+## Lists
+
+It's obvious that rendering lists by iterating over arrays is a core feature of all those frameworks. Here's how it's done for each of them.
+
+```React
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) => <li>{number}</li>);
+return (
+  <ul>{listItems}</ul>
+);
+```
+
+```Angular
+<ul>
+  <li *ngFor="let number of numbers">{{number}}</li>
+</ul>
+```
+
+```Vue
+<ol>
+  <li v-for="todo in todos">
+    {{ todo.text }}
+  </li>
+</ol>
+```
+
+```Svelte
+<ul>
+  {#each cats as cat}
+    <li>{cat.name}</li>
+  {/each}
+</ul>
+```
+
+It's astounding with how many ways one could come up to solve the problem of iterating, but apparently each framework deemed a different way to be best.
+
+### Iterating over objects
+
+```React
+Object.entries(a).map(([key, value]) => {
+})
+// (or Object.keys or Object.values)
+```
+
+```Angular
+<div *ngFor="let item of myObject | keyvalue">
+    Key: <b>{{item.key}}</b> and Value: <b>{{item.value}}</b>
+</div>
+```
+
+```Vue
+<li v-for="(value, name, index) in myObject">
+  {{ index }}. {{ name }}: {{ value }}
+</li>
+```
+
+```Svelte
+{#each Object.entries(cats) as [cat_name, cat_number]}
+  {cat_name}: {cat_number}
+{/each}
+```
+
+Note since in none of the frameworks you **have to** use the frameworks specific syntax, you could always just leverage the `Object.entries` or `Object.key` / `Object.values` methods.
+
+
+### Getting the index
+
+Additionally, one sometimes needs to keep track of the index.
+
+```React
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number, idx) => <li>{number * idx}</li>);
+return (
+  <ul>{listItems}</ul>
+);
+```
+
+```Angular
+<ul>
+  <li *ngFor="let number of numbers; let idx = index">{{number * index}}</li>
+</ul>
+```
+
+```Vue
+<ol>
+  <li v-for="(number,index) in numbers">
+    {{ number * index }}
+  </li>
+</ol>
+```
+
+```Svelte
+<ul>
+  {#each cats as cat, i}
+    <li>({i}) {cat.name}</li>
+  {/each}
+</ul>
+```
+
+Again, lots of different ways to achieve the same goal in the end.
+
+### Keys: Deciding which DOM elements to keep and which to replace
+
+Imagine this: You have a 100 item long list, and you change something about number 33. Does it make sense to rerender all 100 elements? Probably not. That's why the frameworks have implemented methods to determine which items to keep and which ones to rerender. To do this efficiently it's best to provide the framework with a key, which helps it to identify the elements.
+
+```React
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+  <li key={number.toString()}>    {number}
+  </li>
+);
+```
+
+```Angular
+<ul><li *ngFor=”let item of items; trackBy: trackFunction”></li></ul>
+...
+trackByFunction(idx, item) {
+  return item.id;
+}
+```
+
+```Vue
+<div v-for="item in items" :key="item.id">
+  <!-- content -->
+</div>
+```
+
+```
+{#each things as thing (thing.id)}
+	<Thing current={thing.color}/>
+{/each}
+```
+
+> "The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. When you don’t have stable IDs for rendered items, you may use the item index as a key as a last resort." ReactDocs
+
+Why is that? Because if you use an index, usually too many elements are rerendered unnecessarily. To make an example, when you have 100 items and you introduce a new one at position 50, all other 50 that come afterwards will have `i -> i+1` so they'll be re-rendered.
+
+
+## Conditional Rendering (If, else if, else, switch)
+
+Another bread and butter ingredient are ways to conditionally render certain parts of the template. Here's how it's done:
+
+```React
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
+}
+```
+
+```Angular
+<div *ngIf="isLoggedIn; else loggedOut">
+  Welcome back, friend.
+</div>
+<ng-template #loggedOut>
+  Please friend, login.
+</ng-template>
+```
+
+```Vue
+<div v-if="type === 'A'">
+  A
+</div>
+<div v-else-if="type === 'B'">
+  B
+</div>
+<div v-else-if="type === 'C'">
+  C
+</div>
+<div v-else>
+  Not A/B/C
+</div>
+```
+
+```Svelte
+{#if x > 10}
+	<p>{x} is greater than 10</p>
+{:else if 5 > x}
+	<p>{x} is less than 5</p>
+{:else}
+	<p>{x} is between 5 and 10</p>
+{/if}
+```
+
+Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more idiomatic.
+
+
+## Change Detection
+
+
+
+
+
+
 
 <%={{ }}=%>
