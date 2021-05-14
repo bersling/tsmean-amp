@@ -90,10 +90,10 @@ To achieve those means, completely different approaches are chosen:
 - React lets you extend the React.Component in a JSX file, which contain the logic and also the HTML (through the `render() {return <your html here>}`). So they've invented a whole new file extension (`.jsx`) where the components live in.
 - Angular works with annotations and usually defers HTML and CSS to external files, even though it can also be defined inline
 - Vue lets you call a method on the `Vue` global object
-- Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. So much like React, in Svelte there's also file type dedicated to hold the components
+- Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. Much like in React, in Svelte there's also filetype dedicated to hold the components.
 
 ### Selectors
-There needs to be a way of referencing a component in other components in order to include them and build the tree structure that we want. To do so, each component must receive a unique name. The frameworks how different ways of specifying that name.
+There needs to be a way of referencing a component in other components in order to include them and build the tree structure that we want. To do so, each component must receive a unique name. The frameworks have different ways of specifying that name.
 
 ```React
 // Class based
@@ -141,13 +141,13 @@ Vue.component('todo-item', {
 
 What's interesting to note is:
 
-- The way of declaring the name of a component is quite different, with Angular and Vue letting the component itself determine its name whereas React and Svelte lean more towards the component being named when importing (even though usually the name will be determined by the filename or class name)
+- The way of declaring the name of a component is quite different, with Angular and Vue letting the component itself determine its name whereas React leans towards the component being named when importing (even though usually the name will be determined by the filename or class name).
 - The way of using the components is quite similar, the difference being that Angular and Vue use the `<bla></bla>` syntax where React and Svelte opt for the `<Bla/>` syntax.
 
 
 ### Passing data into a child component (Props)
 
-Another common feature amongst the dominating frameworks is that they allow data to be passed into components. The data that can be passed into a component is often called "props", since it reflects the properties of that component.
+Another common feature amongst the dominating frameworks is that they allow data to be passed into components. This is often called "props" of a component, since it specifies the properties that it has. I think params would also have been a good name, since it's the way in which a component can be parameterized.
 
 ```React
 // child
@@ -265,14 +265,14 @@ export default {
 
 ## Templates
 
-The HTML is usually called `template` instead of `HTML`. Why is that so? Well, because it isn't directly rendered into the DOM as-is. Rather it is a template for the HTML that will later be produced. The term stems from templating engines in general (see here: https://en.wikipedia.org/wiki/Template_processor), where you have a `templating engine` that takes `template + data` and spits out `some output`, in our case what finally gets rendered to the DOM.
+The HTML is usually called `template` instead of `HTML`. Why is that so? Well, because it isn't directly rendered into the DOM as-is. Rather it is a template for the HTML that will later be produced. The term stems from templating engines in general, where you have a `templating engine` that takes `template + data` and spits out `some output`, in our case what finally gets rendered to the DOM.
 
 Again, even though the concept is there for all the frameworks, the syntax varies drastically. It doesn't make too much sense to compare "a minimal template", since those would all look like `<h1>Hello world</h1>`. The difference how templating works will become more apparent as we see other common concepts and how they differ. We can however make some general remarks about the templates for each framework.
 
-- React has a unique approach for templates among those frameworks. The difference is that the other frameworks define their own templating language, whereas React tries to use JavaScript concepts to get jobs like iterating over arrays done.
-- Angular has its own templating syntax with things like `*ngIf` or `*ngFor`
-- Vue hast its own templating syntax with things like `v-if` and `v-for`
-- Svelte has its own templating syntax with things like `{#if}` and `{#each}`
+- React has a unique approach for templates among those frameworks. The difference is that the other frameworks define their own templating language, whereas React tries to use JavaScript to get jobs like iterating or conditionals done.
+- Angular has its own templating syntax with things like `*ngIf` or `*ngFor`.
+- Vue hast its own templating syntax with things like `v-if` and `v-for`.
+- Svelte has its own templating syntax with things like `{#if}` and `{#each}`.
 
 Within the templates, there are also a lot of common concepts that each framework has its own syntax for. We'll cover those next.
 
@@ -427,7 +427,7 @@ Again, lots of different ways to achieve the same goal in the end.
 
 ### Keys: Deciding which DOM elements to keep and which to replace
 
-Imagine this: You have a 100 item long list, and you change something about number 33. Does it make sense to rerender all 100 elements? Probably not. That's why the frameworks have implemented methods to determine which items to keep and which ones to rerender. To do this efficiently it's best to provide the framework with a key, which helps it to identify the elements.
+Imagine this: You have a 100 item long list, and you change something about number 33. Does it make sense to re-render all 100 elements? Probably not. That's why the frameworks have implemented methods to determine which items to keep and which ones to re-render. To do this efficiently it's best to provide the framework with a key, which helps it to identify the elements.
 
 ```React
 const numbers = [1, 2, 3, 4, 5];
