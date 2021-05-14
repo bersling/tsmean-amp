@@ -14,6 +14,7 @@ So let's dive into it and have a look at what those frameworks have all in commo
 
 # Table of Contents
 - [Components](#components)
+  - [Selectors](#selectors)
 - [Templates](#templates)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
@@ -40,12 +41,8 @@ class Welcome extends React.Component {
 }
 
 // alternative: function based approach
-export default function() {
-  const numbers = [1, 2, 3, 4, 5];
-  const listItems = numbers.map((number, idx) => <li>{number * idx}</li>);
-  return (
-    <ul>{listItems}</ul>
-  );
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
 }
 ```
 
@@ -139,6 +136,7 @@ Vue.component('todo-item', {
 ```
 
 What's interesting to note is:
+
 - The way of declaring the name of a component is quite different, with Angular and Vue letting the component itself determine its name whereas React and Svelte lean more towards the component being named when importing (even though usually the name will be determined by the filename or class name)
 - The way of using the components is quite similar, the difference being that Angular and Vue use the `<bla></bla>` syntax where React and Svelte opt for the `<Bla/>` syntax.
 
@@ -394,18 +392,32 @@ Again, in React the syntax is obvious since it's just JS. The others each have t
 
 ## Handling browser events
 
-
+TODO
 
 ## Data binding
 
-In all frameworks you'll find a common goal: Getting data from "JS-Land" to be rendered in "HTML-Land" (the DOM). We've seen this in many places
+In all frameworks you'll find a common goal: Getting data from "JS-Land" to be rendered in "HTML-Land" (the DOM).
+
+TODO
 
 ## Passing data into a child component (Props)
 
 Another common feature amongst the dominating frameworks is that they allow data to be passed into components. The data that can be passed into a component is often called "props", since it reflects the properties of that component.
 
 ```React
+// child
+class Square extends React.Component {
+  render() {
+    return (
+      <button className="square">
+        {this.props.value}
+      </button>
+    );
+  }
+}
 
+// usage in parent
+<Square value={i} />
 ```
 
 ```Angular
@@ -442,8 +454,7 @@ app.component('todo-item', {
 
 ## Change Detection
 
-
-
+TODO
 
 
 
