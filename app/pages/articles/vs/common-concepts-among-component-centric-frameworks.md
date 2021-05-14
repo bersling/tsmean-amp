@@ -1,13 +1,11 @@
 {{=<% %>=}}
 
 
-Picking the right frontend framework isn't an easy task in 2021. Yet, however you have decided, there are concepts that are present in all frameworks. The concepts just might have a different name.
+Picking the right frontend framework isn't an easy task in 2021. Yet, however you have decided, there are concepts that are present in all frameworks. The concepts just might have a different name and implementation.
 
-The big four currently seem to be React, Angular, Vue and Svelte. Most articles compare what's **different** about them and makes each one unique. However, for a developer it's also interesting to know what are the basic concepts that are common to all of them. What's the true core of a component centric frontend framework? Those are the things that are most valuable for developers to understand, since they'll always be around, even after switching frameworks.
+The big four currently are React, Angular, Vue and Svelte. Most articles compare what's **different** about them and makes each one unique. However, for a developer it's also interesting to know what are the basic concepts that are common to all of them. What's the true core of a component centric frontend framework? Those are the things that are most valuable for developers to understand, since they'll always be around, even after switching frameworks.
 
-Since all frameworks have those concepts, I'll sometimes just copy some sentences from one of the docs pages since it doesn't make sense to rewrite all of that from scratch.
-
-Also, the code snippets are not meant to start a framework war about which one is shorter or which one you prefer more. It's just a means of illustrating the different implementations of the common concepts.
+The code snippets **are not meant to start a framework war** about which one is shorter or which one you prefer more. It's just a means of illustrating the different implementations of the common concepts.
 
 So let's dive into it and have a look at what those frameworks have all in common.
 
@@ -15,6 +13,7 @@ So let's dive into it and have a look at what those frameworks have all in commo
 # Table of Contents
 - [Components](#components)
     - [Selectors](#selectors)
+    - [Passing data into a child component (Props)](#passing-data-into-a-child-component-props)
 - [Templates](#templates)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
@@ -140,6 +139,58 @@ What's interesting to note is:
 - The way of declaring the name of a component is quite different, with Angular and Vue letting the component itself determine its name whereas React and Svelte lean more towards the component being named when importing (even though usually the name will be determined by the filename or class name)
 - The way of using the components is quite similar, the difference being that Angular and Vue use the `<bla></bla>` syntax where React and Svelte opt for the `<Bla/>` syntax.
 
+
+### Passing data into a child component (Props)
+
+Another common feature amongst the dominating frameworks is that they allow data to be passed into components. The data that can be passed into a component is often called "props", since it reflects the properties of that component.
+
+```React
+// child
+class Square extends React.Component {
+  render() {
+    return (
+      <button className="square">
+        {this.props.value}
+      </button>
+    );
+  }
+}
+
+// usage in parent
+<Square value={i} />
+```
+
+```Angular
+// child
+class BankAccount {
+  @Input() bankName: string;
+}
+
+// usage in parent
+<bank-account bankName="RBC"></bank-account>
+```
+
+```Vue
+// child
+app.component('todo-item', {
+  props: ['todo'],
+  template: `<li>{{ todo.text }}</li>`
+})
+
+// usage in parent
+<todo-item v-bind:todo="item"
+></todo-item>
+```
+
+```Svelte
+// child
+<script>
+	export let answer; // made into a prop by use of the export keyword
+</script>
+
+// usage in parent
+<Nested answer={42}/>
+```
 
 ## Templates
 
@@ -400,57 +451,6 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 
 TODO
 
-## Passing data into a child component (Props)
-
-Another common feature amongst the dominating frameworks is that they allow data to be passed into components. The data that can be passed into a component is often called "props", since it reflects the properties of that component.
-
-```React
-// child
-class Square extends React.Component {
-  render() {
-    return (
-      <button className="square">
-        {this.props.value}
-      </button>
-    );
-  }
-}
-
-// usage in parent
-<Square value={i} />
-```
-
-```Angular
-// child
-class BankAccount {
-  @Input() bankName: string;
-}
-
-// usage in parent
-<bank-account bankName="RBC"></bank-account>
-```
-
-```Vue
-// child
-app.component('todo-item', {
-  props: ['todo'],
-  template: `<li>{{ todo.text }}</li>`
-})
-
-// usage in parent
-<todo-item v-bind:todo="item"
-></todo-item>
-```
-
-```Svelte
-// child
-<script>
-	export let answer; // made into a prop by use of the export keyword
-</script>
-
-// usage in parent
-<Nested answer={42}/>
-```
 
 ## Change Detection
 
