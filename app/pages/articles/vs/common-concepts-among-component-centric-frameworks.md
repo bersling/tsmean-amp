@@ -456,7 +456,15 @@ TODO
 
 TODO
 
+## Directives
 
+Angular, Vue and Svelte all have a concept named "directives". However, the definitions all differ significantly from each other. The common underlying theme seems to be that framework specific stuff which you add to elements which does some framework specific things is called a directive. So for example the `v-if`, `*ngIf` or Svelte's `on:eventname` are called "directives" respectively.
+
+> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (with the exception of v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." VueDocs
+
+> "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." AngularDocs
+
+> "As well as attributes, elements can have directives, which control the element's behaviour in some way." SvelteDocs
 
 
 <%={{ }}=%>
