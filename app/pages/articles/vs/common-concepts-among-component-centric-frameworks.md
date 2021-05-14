@@ -14,6 +14,7 @@ So let's dive into it and have a look at what those frameworks have all in commo
 - [Components](#components)
     - [Selectors](#selectors)
     - [Passing data into a child component (Props)](#passing-data-into-a-child-component-props)
+    - [Child to parent communication](#child-to-parent-communication)
     - [Lifecycle Hooks](#lifecycle-hooks)
 - [Templates](#templates)
     - [Interpolation](#interpolation)
@@ -23,8 +24,10 @@ So let's dive into it and have a look at what those frameworks have all in commo
     - [Getting the Index](#getting-the-index)
     - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
 - [Conditional Rendering (If, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
-
-
+- [Extracting values from native controls](#extracting-values-from-native-controls)
+- [Misc](#misc)
+  - [Directives](#directives)
+  
 
 ## Components
 
@@ -192,6 +195,10 @@ app.component('todo-item', {
 // usage in parent
 <Nested answer={42}/>
 ```
+
+### Child to parent communication
+
+TODO
 
 ### Lifecycle Hooks
 
@@ -519,7 +526,15 @@ TODO
 
 TODO
 
-## Directives
+## Extracting values from native controls
+
+TODO
+
+## Misc
+
+There are some things I wouldn't consider to be at the core of reactive component based frameworks, however those things pop up often enough to get a "noteworthy mention".
+
+### Directives
 
 Angular, Vue and Svelte all have a concept named "directives". However, the definitions all differ significantly from each other. The common underlying theme seems to be that framework specific stuff which you add to elements which does some framework specific things is called a directive. So for example the `v-if`, `*ngIf` or Svelte's `on:eventname` are called "directives" respectively.
 
@@ -529,5 +544,14 @@ Angular, Vue and Svelte all have a concept named "directives". However, the defi
 
 > "As well as attributes, elements can have directives, which control the element's behaviour in some way." SvelteDocs
 
+## Conclusion
+
+Framework comparisions usually compare what's **different** about the frameworks. However, it can be very worthwhile to examine the commonalities between them! It's also very interesting how some of the concepts the frameworks ended up implementing in a almost identical manner, while others differ radically in their implementation.
+
+Ultimately this article should illustrate to you **how much** it actually is from a conceptual viewpoint which is shared between those frameworks. That's good for you! It means that much of the knowledge you gain when learning one framework can be transferred to others as well, meaning you can pick them up quite easily.
+
+However, this doesn't mean "pick whatever you want, they're all the same". When you'll actually have to choose which one to use for a larger project, you can fall back on a lot of other resources comparing the frameworks **differences**, since then those will become important.
+
+Still, it's fascinating to see just how much of the ideas they've "borrowed" one from another.
 
 <%={{ }}=%>
