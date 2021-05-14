@@ -73,7 +73,8 @@ addPagesToDirectory(
   [
     'mongo-vs-mysql-for-webapps',
     'typescript-vs-javascript',
-    'best-browser-based-wysiwyg-for-html-in-2020'
+    'best-browser-based-wysiwyg-for-html-in-2020',
+    'common-concepts-among-component-centric-frameworks'
   ],
   pages
 );
