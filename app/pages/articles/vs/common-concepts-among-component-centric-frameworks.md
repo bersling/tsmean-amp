@@ -1,5 +1,6 @@
 {{=<% %>=}}
 
+
 Picking the right frontend framework isn't an easy task in 2021. Yet, however you have decided, there are concepts that are present in all frameworks. The concepts just might have a different name.
 
 The big four currently seem to be React, Angular, Vue and Svelte. Most articles compare what's **different** about them and makes each one unique. However, for a developer it's also interesting to know what are the basic concepts that are common to all of them. What's the true core of a component centric frontend framework? Those are the things that are most valuable for developers to understand, since they'll always be around, even after switching frameworks.
@@ -9,6 +10,20 @@ Since all frameworks have those concepts, I'll sometimes just copy some sentence
 Also, the code snippets are not meant to start a framework war about which one is shorter or which one you prefer more. It's just a means of illustrating the different implementations of the common concepts.
 
 So let's dive into it and have a look at what those frameworks have all in common.
+
+
+# Table of Contents
+- [Components](#components)
+- [Templates](#templates)
+    - [Interpolation](#interpolation)
+        - [XSS Protection and opting out](#xss-protection-and-opting-out)
+- [Lists](#lists)
+    - [Iterating over Objects](#iterating-over-objects)
+    - [Getting the Index](#getting-the-index)
+    - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
+- [Conditional Rendering (If, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
+
+
 
 ## Components
 
@@ -75,6 +90,58 @@ To achieve those means, completely different approaches are chosen:
 - Angular works with annotations and usually defers HTML and CSS to external files, even though it can also be defined inline
 - Vue lets you call a method on the `Vue` global object
 - Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. So much like React, in Svelte there's also file type dedicated to hold the components
+
+### Selectors
+There needs to be a way of referencing a component in other components in order to include them and build the tree structure that we want. To do so, each component must receive a unique name. The frameworks how different ways of specifying that name.
+
+```React
+// Class based
+class Goodbye extends React.Component {}
+
+// usage in another component
+import {Goodbye} from './SomeFile';
+...
+<Goodbye/>
+```
+
+```Angular
+// some component
+@Component({
+  selector: 'app-component-overview'
+})
+export class ComponentOverviewComponent {
+
+}
+
+// usage in another component
+<app-component-overview></app-component-overview>
+
+// Note: To make this work, we'll have to register ComponentOverviewComponent in a module
+// However, we'll not touch modules here since they are not part of the commonalities amongst frameworks
+```
+
+```Vue
+// Selector is the first argument
+Vue.component('todo-item', {
+  template: '<li>This is a todo</li>'
+})
+
+// usage in another component
+<todo-item></todo-item>
+```
+
+```Svelte 
+// usage in another component
+<script>
+  import Nested from './Nested.svelte';
+</script>
+<Nested/>
+```
+
+What's interesting to note is:
+- The way of declaring the name of a component is quite different, with Angular and Vue letting the component itself determine its name whereas React and Svelte lean more towards the component being named when importing (even though usually the name will be determined by the filename or class name)
+- The way of using the components is quite similar, the difference being that Angular and Vue use the `<bla></bla>` syntax where React and Svelte opt for the `<Bla/>` syntax.
+
 
 ## Templates
 
@@ -325,6 +392,53 @@ function Greeting(props) {
 
 Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more idiomatic.
 
+## Handling browser events
+
+
+
+## Data binding
+
+In all frameworks you'll find a common goal: Getting data from "JS-Land" to be rendered in "HTML-Land" (the DOM). We've seen this in many places
+
+## Passing data into a child component (Props)
+
+Another common feature amongst the dominating frameworks is that they allow data to be passed into components. The data that can be passed into a component is often called "props", since it reflects the properties of that component.
+
+```React
+
+```
+
+```Angular
+// child
+class BankAccount {
+  @Input() bankName: string;
+}
+
+// usage in parent
+<bank-account bankName="RBC"></bank-account>
+```
+
+```Vue
+// child
+app.component('todo-item', {
+  props: ['todo'],
+  template: `<li>{{ todo.text }}</li>`
+})
+
+// usage in parent
+<todo-item v-bind:todo="item"
+></todo-item>
+```
+
+```Svelte
+// child
+<script>
+	export let answer; // made into a prop by use of the export keyword
+</script>
+
+// usage in parent
+<Nested answer={42}/>
+```
 
 ## Change Detection
 
