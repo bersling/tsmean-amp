@@ -7,7 +7,7 @@ The big four currently are React, Angular, Vue and Svelte. Most articles compare
 
 The code snippets **are not meant to start a framework war** about which one is shorter or which one you prefer more. It's just a means of illustrating the different implementations of the common concepts.
 
-So let's dive into it and have a look at what those frameworks have all in common.
+So let's dive into it and have a look at what those frameworks all have in common.
 
 
 # Table of Contents
@@ -86,6 +86,7 @@ Vue.component('button-counter', {
 As you can see, the syntax is quite different for the frameworks, but they serve the same purpose: Isolating the business logic (JS) and structure (HTML) of a specific part of your application.
 
 To achieve those means, completely different approaches are chosen:
+
 - React lets you extend the React.Component in a JSX file, which contain the logic and also the HTML (through the `render() {return <your html here>}`). So they've invented a whole new file extension (`.jsx`) where the components live in.
 - Angular works with annotations and usually defers HTML and CSS to external files, even though it can also be defined inline
 - Vue lets you call a method on the `Vue` global object
