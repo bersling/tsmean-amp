@@ -25,9 +25,12 @@ So let's dive into it and have a look at what those frameworks all have in commo
     - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
 - [Conditional Rendering (If, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
 - [Extracting values from native controls](#extracting-values-from-native-controls)
+- [Handling DOM events](#handling-dom-events)
+- [Slots](#slots)
 - [Misc](#misc)
-  - [Directives](#directives)
-- [Conclusion](#conclusion)
+    - [Directives](#directives)
+
+And finally there is a short [conclusion](#conclusion).
 
 ## Components
 
@@ -451,7 +454,7 @@ trackByFunction(idx, item) {
 </div>
 ```
 
-```
+```Svelte
 {#each things as thing (thing.id)}
 	<Thing current={thing.color}/>
 {/each}
@@ -510,11 +513,20 @@ function Greeting(props) {
 {/if}
 ```
 
-Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more idiomatic.
+Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more elegant.
 
-## Handling browser events
+
+## Extracting values from native controls
 
 TODO
+
+## Handling DOM events
+
+TODO
+
+## Slots
+TODO
+
 
 ## Data binding
 
@@ -527,9 +539,6 @@ TODO
 
 TODO
 
-## Extracting values from native controls
-
-TODO
 
 ## Misc
 
