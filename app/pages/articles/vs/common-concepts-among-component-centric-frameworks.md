@@ -14,6 +14,7 @@ So let's dive into it and have a look at what those frameworks have all in commo
 - [Components](#components)
     - [Selectors](#selectors)
     - [Passing data into a child component (Props)](#passing-data-into-a-child-component-props)
+    - [Lifecycle Hooks](#lifecycle-hooks)
 - [Templates](#templates)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
@@ -191,6 +192,68 @@ app.component('todo-item', {
 // usage in parent
 <Nested answer={42}/>
 ```
+
+### Lifecycle Hooks
+
+You'll sometimes have the need to do certain things at certain stages of a component's life, most typically:
+
+- initialization logic on creation
+- clean up logic on destruction
+
+Thus the concept of lifecycle hooks (aka. lifecycle methods) is present in all frameworks. The available lifecycle methods don't have a 1:1 mapping for the frameworks so let's just take some of them from the docs for each of the frameworks.
+
+```React
+  componentDidMount() {
+    // runs after the component output has been rendered to the DOM
+  }
+  componentWillUnmount() {
+    // place for tear down
+  }
+```
+
+```Angular
+@Component()
+export class MyComponent implements OnInit, OnDestroy {
+
+  // implement OnInit's `ngOnInit` method
+  ngOnInit() {
+    .. some logic. this happens before rendering to the DOM, so you can perform setup logic here
+  }
+  
+  ngOnDestroy() {
+     ... tear down
+  }
+
+}
+```
+
+```Vue
+export default {
+  setup() {
+    // mounted
+    onMounted(() => {
+      console.log('Component is mounted!')
+    })
+  }
+}
+```
+
+```Svelte
+<script>
+    // The one you'll use most frequently is onMount, which runs after the component is first rendered to the DOM.
+	import { onMount } from 'svelte';
+
+	let photos = [];
+
+	onMount(async () => {
+		const res = await fetch(`https://jsonplaceholder.typicode.com/photos?_limit=20`);
+		photos = await res.json();
+	});
+</script>
+```
+
+
+
 
 ## Templates
 
