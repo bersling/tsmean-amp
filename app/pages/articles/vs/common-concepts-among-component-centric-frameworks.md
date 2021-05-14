@@ -27,7 +27,7 @@ So let's dive into it and have a look at what those frameworks have all in commo
 - [Extracting values from native controls](#extracting-values-from-native-controls)
 - [Misc](#misc)
   - [Directives](#directives)
-  
+- [Conclusion](#conclusion)
 
 ## Components
 
@@ -550,7 +550,7 @@ Framework comparisions usually compare what's **different** about the frameworks
 
 Ultimately this article should illustrate to you **how much** it actually is from a conceptual viewpoint which is shared between those frameworks. That's good for you! It means that much of the knowledge you gain when learning one framework can be transferred to others as well, meaning you can pick them up quite easily.
 
-However, this doesn't mean "pick whatever you want, they're all the same". When you'll actually have to choose which one to use for a larger project, you can fall back on a lot of other resources comparing the frameworks **differences**, since then those will become important.
+However, this doesn't mean "pick whatever you want, they're all the same". As we've seen, while many of the underlying concepts are the same, the implementations differ drastically. In addition to that there are also some differences on top, for example that Svelte is just a compiler or that Angular comes with a module system. We've not covered this here, since that was exactly not the point, but when choosing a framework those are the things that you should actually consider. But there are tons of articles on "this framework vs that framework", so you should have a plenthora of options to inform yourself about that.
 
 Still, it's fascinating to see just how much of the ideas they've "borrowed" one from another.
 
