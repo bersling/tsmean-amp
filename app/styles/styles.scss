@@ -324,3 +324,24 @@ amp-img.app-bordered {
   padding: 0;
   padding-left: 10px;
 }
+
+@mixin codeBoxLabel($class, $label) {
+  pre.#{$class} {
+    position: relative;
+    &::after {
+      content: '#{$label}';
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 5px;
+      font-size: 80%;
+      background: $color-black;
+      color: $color-white;
+    }
+  }
+}
+
+@include codeBoxLabel('react', 'React');
+@include codeBoxLabel('angular', 'Angular');
+@include codeBoxLabel('vue', 'Vue');
+@include codeBoxLabel('svelte', 'Svelte');
