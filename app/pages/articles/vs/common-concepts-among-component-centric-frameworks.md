@@ -14,7 +14,7 @@ So let's dive into it and have a look at what those frameworks have all in commo
 
 # Table of Contents
 - [Components](#components)
-  - [Selectors](#selectors)
+    - [Selectors](#selectors)
 - [Templates](#templates)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
