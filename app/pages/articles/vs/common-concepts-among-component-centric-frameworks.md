@@ -13,6 +13,7 @@ So let's dive into it and have a look at what those frameworks all have in commo
 # Table of Contents
 - [Components](#components)
     - [Selectors](#selectors)
+    - [Local state](#local-state)
     - [Passing data into a child component (Props)](#passing-data-into-a-child-component-props)
     - [Child to parent communication](#child-to-parent-communication)
     - [Lifecycle Hooks](#lifecycle-hooks)
@@ -174,6 +175,45 @@ What's interesting to note is:
 
 - The way of declaring the name of a component is quite different, with Angular and Vue letting the component itself determine its name whereas React leans towards the component being named when importing (even though usually the name will be determined by the filename or class name).
 - The way of using the components is quite similar, the difference being that Angular and Vue use the `<bla></bla>` syntax where React and Svelte opt for the `<Bla/>` syntax.
+
+
+### Local state
+All frameworks enable components to have **local state**, meaning that a component itself holds (and mutates) the state:
+
+```React
+class App extends Component<AppProps, AppState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Hello World'
+    };
+  }
+}
+```
+
+```Angular
+export class MyComponent {
+  x = 5;
+}
+```
+
+```Vue
+<script>
+export default {
+  data() {
+    return {
+      msglocal: 'Hellooo'
+    }
+  }
+}
+</script>
+```
+
+```Svelte
+<script>
+	let x = 5;
+</script>
+```
 
 
 ### Passing data into a child component (Props)
@@ -563,6 +603,18 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 TODO
 
 
+### State management and stores
+
+A common problem that component frameworks have to solve is that of state management.
+
+### Inferred State
+
+Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example you might want to display some string in all caps, but you want to also preserve the original string. Each framework has its own way to solve this problem.
+
+```React
+
+```
+
 ## Reactivity and Change Detection
 
 Apart from enabling you to separate your app into individual building blocks, there's a second main benefit that the component driven libraries bring to you and that is reactivity. What does that mean?
@@ -632,6 +684,12 @@ Angular, Vue and Svelte all have a concept named "directives". However, the defi
 > "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." AngularDocs
 
 > "As well as attributes, elements can have directives, which control the element's behaviour in some way." SvelteDocs
+
+### Server-Side Rendering (SSR)
+
+While not being part of the core framework itself, solutions for server-side rendering are present everywhere. However, the quality of the solution differs vastly from framework to framework. I'll not go into more detail here, but I think it's an important common aspect that's worth mentioning.
+
+
 
 ## Conclusion
 
