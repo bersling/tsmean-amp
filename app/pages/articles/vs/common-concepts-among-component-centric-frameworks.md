@@ -14,22 +14,25 @@ So let's dive into it and have a look at what those frameworks all have in commo
 - [Components](#components)
     - [Selectors](#selectors)
     - [Local state](#local-state)
-    - [Passing data into a child component (Props)](#passing-data-into-a-child-component-props)
+    - [Passing data into a child component (props)](#passing-data-into-a-child-component-props)
     - [Child to parent communication](#child-to-parent-communication)
     - [Lifecycle Hooks](#lifecycle-hooks)
 - [Templates](#templates)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
-- [Lists](#lists)
-    - [Iterating over Objects](#iterating-over-objects)
-    - [Getting the Index](#getting-the-index)
-    - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
-- [Conditional Rendering (If, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
+    - [Lists](#lists)
+        - [Iterating over Objects](#iterating-over-objects)
+        - [Getting the Index](#getting-the-index)
+        - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
+    - [Conditional Rendering (if, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
+    - [Slots](#slots)
 - [Extracting values from native controls](#extracting-values-from-native-controls)
 - [Handling DOM events](#handling-dom-events)
-- [Slots](#slots)
 - [Misc](#misc)
+    - [State Management and Stores](#state-management-and-stores)
+    - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)    
     - [Directives](#directives)
+    
 
 And finally there is a short [conclusion](#conclusion).
 
@@ -216,7 +219,7 @@ export default {
 ```
 
 
-### Passing data into a child component (Props)
+### Passing data into a child component (props)
 
 Another common feature amongst the dominating frameworks is that they allow data to be passed into components. This is often called "props" of a component, since it specifies the properties that it has. I think params would also have been a good name, since it's the way in which a component can be parameterized.
 
@@ -395,7 +398,7 @@ safeVal = this.sanitizer.bypassSecurityTrustHtml(myVal)
 <p>{@html msg}</p>
 ```
 
-## Lists
+### Lists
 
 It's obvious that rendering lists by iterating over arrays is a core feature of all those frameworks. Here's how it's done for each of them.
 
@@ -431,7 +434,7 @@ return (
 
 It's astounding with how many ways one could come up to solve the problem of iterating, but apparently each framework deemed a different way to be best.
 
-### Iterating over objects
+#### Iterating over objects
 
 ```React
 Object.entries(a).map(([key, value]) => {
@@ -460,7 +463,7 @@ Object.entries(a).map(([key, value]) => {
 Note since in none of the frameworks you **have to** use the frameworks specific syntax, you could always just leverage the `Object.entries` or `Object.key` / `Object.values` methods.
 
 
-### Getting the index
+#### Getting the index
 
 Additionally, one sometimes needs to keep track of the index.
 
@@ -496,7 +499,7 @@ return (
 
 Again, lots of different ways to achieve the same goal in the end.
 
-### Keys: Deciding which DOM elements to keep and which to replace
+#### Keys: Deciding which DOM elements to keep and which to replace
 
 Imagine this: You have a 100 item long list, and you change something about number 33. Does it make sense to re-render all 100 elements? Probably not. That's why the frameworks have implemented methods to determine which items to keep and which ones to re-render. To do this efficiently it's best to provide the framework with a key, which helps it to identify the elements.
 
@@ -533,7 +536,7 @@ trackByFunction(idx, item) {
 Why is that? Because if you use an index, usually too many elements are rerendered unnecessarily. To make an example, when you have 100 items and you introduce a new one at position 50, all other 50 that come afterwards will have `i -> i+1` so they'll be re-rendered.
 
 
-## Conditional Rendering (If, else if, else, switch)
+### Conditional Rendering (if, else if, else, switch)
 
 Another bread and butter ingredient are ways to conditionally render certain parts of the template. Here's how it's done:
 
@@ -584,15 +587,15 @@ function Greeting(props) {
 Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more elegant.
 
 
-## Extracting values from native controls
-
+### Slots
 TODO
 
 ## Handling DOM events
 
 TODO
 
-## Slots
+## Extracting values from native controls
+
 TODO
 
 
@@ -603,11 +606,9 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 TODO
 
 
-### State management and stores
-
-A common problem that component frameworks have to solve is that of state management.
-
 ### Inferred State
+
+TODO?
 
 Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example you might want to display some string in all caps, but you want to also preserve the original string. Each framework has its own way to solve this problem.
 
@@ -668,12 +669,22 @@ export default {
 So the underlying message of this is the following:
 - React has opted for the developer explicitly informing it when a state change occurred
 - The other frameworks try to detect changes for you instead
-
-
+- There are subtleties that are not covered here, since we're focusing on the commonalities. However, it is important to know that e.g. Angular and Svelte won't pick up on objects being mutated whereas Vue does this for you.
 
 ## Misc
 
 There are some things I wouldn't consider to be at the core of reactive component based frameworks, however those things pop up often enough to get a "noteworthy mention".
+
+### State management and stores
+
+A common problem that component frameworks have to solve is that of state management. We've already touched on state when we've seen that components can have local state. When it comes to sharing state amongst different components, the philosophies and implementations of the frameworks vary.
+
+- In all frameworks you can use a technique called ["lifting state up"](https://reactjs.org/docs/lifting-state-up.html). This refers to moving the state up to the nearest common ancestor in the component hierarchy.
+- As an alternative to storing state to components, you might want to delegate the state management to some other entity. For example when you'd need the same state in components very far away from each other it isn't feasible to pass it through all components. In this scenario other state management solutions come into play. They all revolve around the idea that this shared state is stored in a "central" place, a so-called store. This is an entity that is decoupled from the world of components in a sense. It can be seen as a standalone "JavaScript object" that can be imported on demand in the components that need it. While in React it is common to use libraries such as Redux, in Angular and Svelte many developers fall back to baked in solutions such as services and built in stores for Svelte.
+
+### Server-Side Rendering (SSR)
+
+While not being part of the core framework itself, solutions for server-side rendering are present everywhere. However, the quality of the solution differs vastly from framework to framework. I'll not go into more detail here, but I think it's an important common aspect that's worth mentioning.
 
 ### Directives
 
@@ -685,9 +696,9 @@ Angular, Vue and Svelte all have a concept named "directives". However, the defi
 
 > "As well as attributes, elements can have directives, which control the element's behaviour in some way." SvelteDocs
 
-### Server-Side Rendering (SSR)
+### Data flow
 
-While not being part of the core framework itself, solutions for server-side rendering are present everywhere. However, the quality of the solution differs vastly from framework to framework. I'll not go into more detail here, but I think it's an important common aspect that's worth mentioning.
+TODO ?
 
 
 
