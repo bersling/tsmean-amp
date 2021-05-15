@@ -74,6 +74,32 @@ Vue.component('button-counter', {
 })
 ```
 
+An alternative in vue are the single file components:
+```Vue
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1 {
+  color: red;
+}
+</style>
+```
+
+
 ```Svelte
 <script>
 	// logic goes here
@@ -535,9 +561,30 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 TODO
 
 
-## Change Detection
+## Reactivity and Change Detection
 
-TODO
+Apart from enabling you to separate your app into individual building blocks, there's a second main benefit that the component driven libraries bring to you and that is reactivity. What does that mean?
+
+It means that you don't need to update the DOM yourself, you should be more concerned with updating the data and once this is done the framework takes over and updates the DOM **for you**. So the system **reacts** to changes in your data and updates the DOM accordingly.
+
+The next interesting question is: How does the framework know that your data has changed? That's where **Change Detection** is coming into play. There are different ideas here among the frameworks how this should be detected. Some are based on the idea that you, the developer, simply tell it when some data has changed and the DOM should be updated. Others try to figure that out for you by themselves.
+
+```React
+// you tell React explicitly that you changed something by calling the setState method.
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+```
+
+```Angular
+// you update local variable values, then change detection sets in
+x = x + 1
+```
+
+```Vue
+// you update local variable values, then change detection sets in
+x = x + 1
+```
 
 
 ## Misc
