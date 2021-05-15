@@ -15,6 +15,7 @@ So let's dive into it and have a look at what those frameworks all have in commo
     - [Selectors](#selectors)
     - [Local state](#local-state)
     - [Inferred properties](#inferred-properties)
+    - [Component Methods](#component-methods)  
     - [Passing data into a child component (props)](#passing-data-into-a-child-component-props)
     - [Child to parent communication](#child-to-parent-communication)
     - [Lifecycle Hooks](#lifecycle-hooks)
@@ -27,9 +28,10 @@ So let's dive into it and have a look at what those frameworks all have in commo
         - [Getting the Index](#getting-the-index)
         - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
     - [Conditional Rendering (if, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
-    - [Content Projection / Slots](#content-projection--slots)
-- [Extracting values from native controls](#extracting-values-from-native-controls)
-- [Handling DOM events](#handling-dom-events)
+    - [Slots (Content Projection)](#slots-content-projection)
+    - [Handling DOM events](#handling-dom-events)
+    - [Extracting values from native controls](#extracting-values-from-native-controls)
+
 - [Misc](#misc)
     - [State Management and Stores](#state-management-and-stores)
     - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)    
@@ -302,6 +304,9 @@ Svelte again has a different name for this concept in store, they call it ["Reac
 
 There's actually a little more to this topic than meets the eye at first sight. It is important to familiarize yourself with **when** those inferred properties are being calculated, in order to make sure you're not calculating things unnecessarily. Since this is framework dependent, we'll not dive into that here.
 
+### Component Methods
+
+A triviality it is possible to define methods (functions) of the component. That's a necessity to encapsulate more complex business logic in components, should there be a need for it.
 
 ### Passing data into a child component (props)
 
@@ -419,8 +424,6 @@ export default {
 ```
 
 
-
-
 ## Templates
 
 The HTML is usually called `template` instead of `HTML`. Why is that so? Well, because it isn't directly rendered into the DOM as-is. Rather it is a template for the HTML that will later be produced. The term stems from templating engines in general, where you have a `templating engine` that takes `template + data` and spits out `some output`, in our case what finally gets rendered to the DOM.
@@ -441,6 +444,8 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 > "In computer programming, data binding is a general technique that binds data sources from the provider and consumer together and synchronizes them" ~[Wiki](https://en.wikipedia.org/wiki/Data_binding)
 
 I wasn't really sure where to put this section at first, it would also be a good fit for the "Reactivity" section. But I thought it would be good to introduce the concept here, since it is the basic underlying concept for templates and it's also in the templates where the developers usually get in touch with the concept. This is because you'll often have a piece of data, for example the data in an input field, and then you'll need to ask yourself "ok, now how can I **bind** to this"? How can I retrieve its value? Or you have a some local state you want to reflect in the template, e.g. a user object with "user.firstName" and "user.lastName". But how can you display it in the template? You'll have to find a way to **bind** it to the template. Binding then means that the framework will do the work for you of keeping it in sync. Basically all of the following parts in the templating section can be seen as "data binding" of some sorts.
+
+Another important part of binding we've already covered: How is data synchronized between parent and child components? We've seen how this works in the "Components" chapter under [Passing data into a child component (props)](#passing-data-into-a-child-component-props) and [Child to parent communication](#child-to-parent-communication).
 
 ### Interpolation
 
@@ -679,7 +684,7 @@ function Greeting(props) {
 Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more elegant.
 
 
-### Content Projection / Slots
+### Slots (Content Projection)
 There is a need for components to exhibit "frame-like" behaviour, such that the component acts as a frame where you can still put ANY other stuff inside. This is where slots come into play. The easy and more commonly used type is with exactly one slot, so exactly like in the image frame analogy. You could also think of a more complicated frame with more than one slot which the frameworks also support, but let's stick with one slotted examples here.
 
 ```React
@@ -727,11 +732,49 @@ export default () => <Wrap><h1>Hello word</h1></Wrap>
 
 ## Handling DOM events
 
-TODO
+Another basic need is to listen to and handle DOM events such as a button click.
 
-## Extracting values from native controls
+```React
 
-TODO
+```
+
+## Binding to form elements
+
+You'll often have a browser native `input` field or other formfield (checkbox, select etc.) where the user enters data and you want to bind that to the component.
+
+```React
+class App extends Component<AppProps, AppState> {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      myValue: 'hello'
+    };
+  }
+
+  handleChange(e) {
+    this.setState({myValue: e.target.value})
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.myValue}
+        <input onChange={this.handleChange} value={this.state.myValue} />
+      </div>
+    );
+  }
+}
+```
+
+```
+
+```
+
+
+## Binding to attributes
+
+FIXME optional...
 
 ## Reactivity and Change Detection
 
@@ -813,12 +856,6 @@ Angular, Vue and Svelte all have a concept named "directives". However, the defi
 > "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." ~AngularDocs
 
 > "As well as attributes, elements can have directives, which control the element's behaviour in some way." ~SvelteDocs
-
-### Data flow
-
-TODO ?
-
-
 
 ## Conclusion
 
