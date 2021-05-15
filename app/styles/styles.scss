@@ -345,3 +345,9 @@ amp-img.app-bordered {
 @include codeBoxLabel('angular', 'Angular');
 @include codeBoxLabel('vue', 'Vue');
 @include codeBoxLabel('svelte', 'Svelte');
+
+blockquote {
+  border-left: 5px solid $color-accent;
+  margin: 0;
+  padding-left: 10px;
+}

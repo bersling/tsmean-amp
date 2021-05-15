@@ -19,6 +19,7 @@ So let's dive into it and have a look at what those frameworks all have in commo
     - [Child to parent communication](#child-to-parent-communication)
     - [Lifecycle Hooks](#lifecycle-hooks)
 - [Templates](#templates)
+    - [Data binding](#data-binding)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
     - [Lists](#lists)
@@ -433,9 +434,17 @@ Again, even though the concept is there for all the frameworks, the syntax varie
 
 Within the templates, there are also a lot of common concepts that each framework has its own syntax for. We'll cover those next.
 
+## Data binding
+
+In all frameworks you'll find a common goal: Getting data from "JS-Land" to be rendered in "HTML-Land" (the DOM). This technique is commonly known as "data binding". To cite wikipedia:
+
+> "In computer programming, data binding is a general technique that binds data sources from the provider and consumer together and synchronizes them" ~[Wiki](https://en.wikipedia.org/wiki/Data_binding)
+
+I wasn't really sure where to put this section at first, it would also be a good fit for the "Reactivity" section. But I thought it would be good to introduce the concept here, since it is the basic underlying concept for templates and it's also in the templates where the developers usually get in touch with the concept. This is because you'll often have a piece of data, for example the data in an input field, and then you'll need to ask yourself "ok, now how can I **bind** to this"? How can I retrieve its value? Or you have a some local state you want to reflect in the template, e.g. a user object with "user.firstName" and "user.lastName". But how can you display it in the template? You'll have to find a way to **bind** it to the template. Binding then means that the framework will do the work for you of keeping it in sync. Basically all of the following parts in the templating section can be seen as "data binding" of some sorts.
+
 ### Interpolation
 
-> "Text interpolation allows you to incorporate dynamic string values into your HTML templates" AngularDocs
+> "Text interpolation allows you to incorporate dynamic string values into your HTML templates" ~AngularDocs
 
 ```React
 <p>{this.state.name} World</p>
@@ -614,7 +623,7 @@ trackByFunction(idx, item) {
 {/each}
 ```
 
-> "The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. When you don’t have stable IDs for rendered items, you may use the item index as a key as a last resort." ReactDocs
+> "The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. When you don’t have stable IDs for rendered items, you may use the item index as a key as a last resort." ~ReactDocs
 
 Why is that? Because if you use an index, usually too many elements are rerendered unnecessarily. To make an example, when you have 100 items and you introduce a new one at position 50, all other 50 that come afterwards will have `i -> i+1` so they'll be re-rendered.
 
@@ -724,12 +733,6 @@ TODO
 
 TODO
 
-## Data binding
-
-In all frameworks you'll find a common goal: Getting data from "JS-Land" to be rendered in "HTML-Land" (the DOM).
-
-TODO
-
 ## Reactivity and Change Detection
 
 Apart from enabling you to separate your app into individual building blocks, there's a second main benefit that the component driven libraries bring to you and that is reactivity. What does that mean?
@@ -805,11 +808,11 @@ While not being part of the core framework itself, solutions for server-side ren
 
 Angular, Vue and Svelte all have a concept named "directives". However, the definitions all differ significantly from each other. The common underlying theme seems to be that framework specific stuff which you add to elements which does some framework specific things is called a directive. So for example the `v-if`, `*ngIf` or Svelte's `on:eventname` are called "directives" respectively.
 
-> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (with the exception of v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." VueDocs
+> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (with the exception of v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." ~VueDocs
 
-> "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." AngularDocs
+> "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." ~AngularDocs
 
-> "As well as attributes, elements can have directives, which control the element's behaviour in some way." SvelteDocs
+> "As well as attributes, elements can have directives, which control the element's behaviour in some way." ~SvelteDocs
 
 ### Data flow
 
