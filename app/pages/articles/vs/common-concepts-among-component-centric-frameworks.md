@@ -23,13 +23,14 @@ So let's dive into it and have a look at what those frameworks all have in commo
     - [Data binding](#data-binding)
     - [Interpolation](#interpolation)
         - [XSS Protection and opting out](#xss-protection-and-opting-out)
+    - [Binding to attributes](#binding-to-attributes)
+    - [Handling DOM events](#handling-dom-events)
+    - [Binding to form elements](#binding-to-form-elements)
     - [Lists](#lists)
         - [Iterating over Objects](#iterating-over-objects)
         - [Getting the Index](#getting-the-index)
         - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
     - [Conditional Rendering (if, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
-    - [Handling DOM events](#handling-dom-events)
-    - [Binding to form elements](#binding-to-form-elements)
     - [Slots (Content Projection)](#slots-content-projection)
 
 - [Misc](#misc)
@@ -495,6 +496,133 @@ safeVal = this.sanitizer.bypassSecurityTrustHtml(myVal)
 <p>{@html msg}</p>
 ```
 
+
+### Binding to attributes
+
+```React
+<img src={this.state.src} />
+```
+
+```Angular
+<img [src]="src" />
+```
+
+```Vue
+<img v-bind:src="src" />
+```
+
+```Svelte
+<img src={src} />
+```
+
+### Handling DOM events
+
+Another basic need is to listen to and handle DOM events such as a button click.
+
+```React
+  <button onClick={this.onClick}>hi</button>
+  ...
+  onClick(e) {
+    console.log(e);
+  }
+```
+
+```Angular
+<button (click)="onClick($event)">My button</button>
+...
+class MyComponent() {
+  onClick(e) {
+    console.log(e);
+  }
+}
+```
+
+```Vue
+<template>
+  <button v-on:click="onClick">My Button</button>
+</template>
+<script>
+export default {
+ ...
+  methods: {
+    onClick(e) {
+      console.log(e);
+    }
+  }
+}
+</script>
+```
+
+```Svelte
+<script>
+function onClick(e) {
+  console.log(e.target.innerHTML); 
+}
+</script>
+<button on:click={onClick}>Hi</button>
+```
+
+### Binding to form elements
+
+You'll often have a browser native `input` field or other formfield (checkbox, select etc.) where the user enters data and you want to bind that to the component.
+
+```React
+class App extends Component<AppProps, AppState> {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      myValue: 'hello'
+    };
+  }
+
+  handleChange(e) {
+    this.setState({myValue: e.target.value})
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.myValue}
+        <input type="text" onChange={this.handleChange} value={this.state.myValue} />
+      </div>
+    );
+  }
+}
+```
+
+```Angular
+<input type="text" [(ngModel)]="myValue"/>
+```
+
+```Vue
+<template>
+  {{myValue}}
+  <input type="text" v-model="myValue" />
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      myValue: 'test'
+    }
+  }
+}
+</script>
+```
+
+```Svelte
+<script>
+	let name = 'world';
+</script>
+
+<input bind:value={name}>
+
+<h1>Hello {name}!</h1>
+```
+
 ### Lists
 
 It's obvious that rendering lists by iterating over arrays is a core feature of all those frameworks. Here's how it's done for each of them.
@@ -730,131 +858,7 @@ export default () => <Wrap><h1>Hello word</h1></Wrap>
 </Box>
 ```
 
-## Handling DOM events
 
-Another basic need is to listen to and handle DOM events such as a button click.
-
-```React
-  <button onClick={this.onClick}>hi</button>
-  ...
-  onClick(e) {
-    console.log(e);
-  }
-```
-
-```Angular
-<button (click)="onClick($event)">My button</button>
-...
-class MyComponent() {
-  onClick(e) {
-    console.log(e);
-  }
-}
-```
-
-```Vue
-<template>
-  <button v-on:click="onClick">My Button</button>
-</template>
-<script>
-export default {
- ...
-  methods: {
-    onClick(e) {
-      console.log(e);
-    }
-  }
-}
-</script>
-```
-
-```Svelte
-<script>
-function onClick(e) {
-  console.log(e.target.innerHTML); 
-}
-</script>
-<button on:click={onClick}>Hi</button>
-```
-
-## Binding to form elements
-
-You'll often have a browser native `input` field or other formfield (checkbox, select etc.) where the user enters data and you want to bind that to the component.
-
-```React
-class App extends Component<AppProps, AppState> {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      myValue: 'hello'
-    };
-  }
-
-  handleChange(e) {
-    this.setState({myValue: e.target.value})
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.myValue}
-        <input type="text" onChange={this.handleChange} value={this.state.myValue} />
-      </div>
-    );
-  }
-}
-```
-
-```Angular
-<input type="text" [(ngModel)]="myValue"/>
-```
-
-```Vue
-<template>
-  {{myValue}}
-  <input type="text" v-model="myValue" />
-</template>
-
-<script>
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      myValue: 'test'
-    }
-  }
-}
-</script>
-```
-
-```Svelte
-<script>
-	let name = 'world';
-</script>
-
-<input bind:value={name}>
-
-<h1>Hello {name}!</h1>
-```
-
-## Binding to attributes
-
-```React
-<img src={this.state.src} />
-```
-
-```Angular
-<img [src]="src" />
-```
-
-```Vue
-<img v-bind:src="src" />
-```
-
-```Svelte
-<img src={src} />
-```
 
 ## Reactivity and Change Detection
 
