@@ -363,7 +363,89 @@ app.component('todo-item', {
 
 ### Child to parent communication
 
-TODO
+Child to parent communication is present in all frameworks, but it differs considerably in how it works.
+
+React uses callbacks to implement this concept
+```React
+//child
+function MyChild(props) {
+  return (
+    <button onClick={props.myEvent}>My Button</button>
+  )
+}
+
+// parent
+function MyParent(props) {
+  function handleEvent(evt) {
+    ..
+  }
+  return (
+    <MyChild myEvent={handleEvent} />
+  )
+}
+```
+
+In Angular the `(...)` syntax is used to read events off of the component
+```Angular
+class MyChild {
+  myEvent = new EventEmitter();
+  ...
+  someMethod() {
+    this.myEvent.emit(someData);
+  }
+}
+...
+// parent's template
+<my-child (myEvent)="eventHandler($event)"></my-child>
+```
+
+In Vue you can use the `@` syntax:
+```Vue
+app.component('my-child', {
+  emits: ['myEvent'],
+  methods: {
+    doSomething(data) {
+      this.$emit('myEvent', data)
+    }
+  }
+})
+...
+<my-parent @my-event="handler"></my-component>
+```
+
+Finally, in Svelte we have the `on:` syntax:
+
+```Svelte
+// child
+<script>
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	function sayHello() {
+		dispatch('message', {
+			text: 'Hello!'
+		});
+	}
+</script>
+
+<button on:click={sayHello}>
+	Click to say hello
+</button>
+
+// parent
+<script>
+	import Inner from './Inner.svelte';
+
+	function handleMessage(event) {
+		alert(event.detail.text);
+	}
+</script>
+
+<Inner on:message={handleMessage}/>
+```
+
+As you can see four quite different approaches to achieve the same goal!
 
 ### Lifecycle Hooks
 
