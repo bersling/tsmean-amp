@@ -225,7 +225,7 @@ export default {
 
 ### Inferred Properties
 
-Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example, you get a and b as input, so it's actual data, but you want to display the sum of those to the user.
+Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example, you get a and b as input, so its actual data, but you want to display the sum of those to the user.
 
 ```React
 class SomeComponent extends React.Component {
@@ -526,7 +526,7 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 
 > "In computer programming, data binding is a general technique that binds data sources from the provider and consumer together and synchronizes them" ~[Wiki](https://en.wikipedia.org/wiki/Data_binding)
 
-I wasn't really sure where to put this section at first, it would also be a good fit for the "Reactivity" section. But I thought it would be good to introduce the concept here, since it is the basic underlying concept for templates and it's also in the templates where the developers usually get in touch with the concept. This is because you'll often have a piece of data, for example the data in an input field, and then you'll need to ask yourself "ok, now how can I **bind** to this"? How can I retrieve its value? Or you have a some local state you want to reflect in the template, e.g. a user object with "user.firstName" and "user.lastName". But how can you display it in the template? You'll have to find a way to **bind** it to the template. Binding then means that the framework will do the work for you of keeping it in sync. Basically all of the following parts in the templating section can be seen as "data binding" of some sorts.
+I wasn't really sure where to put this section at first, it would also be a good fit for the "Reactivity" section. But I thought it would be good to introduce the concept here, since it is the basic underlying concept for templates, and it's also in the templates where the developers usually get in touch with the concept. This is because you'll often have a piece of data, for example the data in an input field, and then you'll need to ask yourself "ok, now how can I **bind** to this"? How can I retrieve its value? Or you have a some local state you want to reflect in the template, e.g. a user object with "user.firstName" and "user.lastName". But how can you display it in the template? You'll have to find a way to **bind** it to the template. Binding then means that the framework will do the work for you of keeping it in sync. Basically, all the following parts in the templating section can be seen as "data binding" of some sorts.
 
 Another important part of binding we've already covered: How is data synchronized between parent and child components? We've seen how this works in the "Components" chapter under [Passing data into a child component (props)](#passing-data-into-a-child-component-props) and [Child to parent communication](#child-to-parent-communication).
 
@@ -840,7 +840,7 @@ trackByFunction(idx, item) {
 
 > "The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. When you don’t have stable IDs for rendered items, you may use the item index as a key as a last resort." ~ReactDocs
 
-Why is that? Because if you use an index, usually too many elements are rerendered unnecessarily. To make an example, when you have 100 items and you introduce a new one at position 50, all other 50 that come afterwards will have `i -> i+1` so they'll be re-rendered.
+Why is that? Because if you use an index, usually too many elements are re-rendered unnecessarily. To make an example, when you have 100 items, and you introduce a new one at position 50, all other 50 that come afterwards will have `i -> i+1` so they'll be re-rendered.
 
 
 ### Conditional Rendering (if, else if, else, switch)
@@ -948,7 +948,7 @@ Apart from enabling you to separate your app into individual building blocks, th
 
 It means that you don't need to update the DOM yourself, you should be more concerned with updating the data and once this is done the framework takes over and updates the DOM **for you**. So the system **reacts** to changes in your data and updates the DOM accordingly.
 
-The next interesting question is: How does the framework know that your data has changed? That's where **Change Detection** is coming into play. There are different ideas here among the frameworks how this should be detected. Some are based on the idea that you, the developer, simply tell it when some data has changed and the DOM should be updated. Others try to figure that out for you by themselves.
+The next interesting question is: How does the framework know that your data has changed? That's where **Change Detection** is coming into play. There are different ideas here among the frameworks how this should be detected. Some are based on the idea that you, the developer, simply tell it when some data has changed, and the DOM should be updated. Others try to figure that out for you by themselves.
 
 ```React
 // you tell React explicitly
@@ -996,7 +996,7 @@ So the underlying message of this is the following:
 
 - React has opted for the developer explicitly informing it when a state change occurred
 - The other frameworks try to detect changes for you instead
-- There are subtleties that are not covered here, since we're focusing on the commonalities. However, it is important to know that e.g. Angular and Svelte won't pick up on objects being mutated whereas Vue does this for you. When learning your framework it is important to understand where it requires immutability. For example [Immutability in Svelte](https://svelte.dev/tutorial/updating-arrays-and-objects) or [Immutability in React](https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important).
+- There are subtleties that are not covered here, since we're focusing on the commonalities. However, it is important to know that e.g. Angular and Svelte won't pick up on objects being mutated whereas Vue does this for you. When learning your framework, it is important to understand where it requires immutability. For example [Immutability in Svelte](https://svelte.dev/tutorial/updating-arrays-and-objects) or [Immutability in React](https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important).
 
 ## Misc
 
@@ -1017,7 +1017,7 @@ While not being part of the core framework itself, solutions for server-side ren
 
 Angular, Vue and Svelte all have a concept named "directives". However, the definitions all differ significantly from each other. The common underlying theme seems to be that framework specific stuff which you add to elements which does some framework specific things is called a directive. So for example the `v-if`, `*ngIf` or Svelte's `on:eventname` are called "directives" respectively.
 
-> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (with the exception of v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." ~VueDocs
+> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (except for v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." ~VueDocs
 
 > "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." ~AngularDocs
 
@@ -1025,11 +1025,11 @@ Angular, Vue and Svelte all have a concept named "directives". However, the defi
 
 ## Conclusion
 
-Framework comparisions usually compare what's **different** about the frameworks. However, it can be very worthwhile to examine the commonalities between them! It's also very interesting how some of the concepts the frameworks ended up implementing in a almost identical manner, while others differ radically in their implementation.
+Framework comparisons usually compare what's **different** about the frameworks. However, it can be very worthwhile to examine the commonalities between them! It's also very interesting how some concepts the frameworks ended up implementing in an almost identical manner, while others differ radically in their implementation.
 
 Ultimately this article should illustrate to you **how much** it actually is from a conceptual viewpoint which is shared between those frameworks. That's good for you! It means that much of the knowledge you gain when learning one framework can be transferred to others as well, meaning you can pick them up quite easily.
 
-However, this doesn't mean "pick whatever you want, they're all the same". As we've seen, while many of the underlying concepts are the same, the implementations differ drastically. In addition to that there are also some differences on top, for example that Svelte is just a compiler or that Angular comes with a module system. We've not covered this here, since that was exactly not the point, but when choosing a framework those are the things that you should actually consider. But there are tons of articles on "this framework vs that framework", so you should have a plenthora of options to inform yourself about that.
+However, this doesn't mean "pick whatever you want, they're all the same". As we've seen, while many of the underlying concepts are the same, the implementations differ drastically. In addition to that there are also some differences on top, for example that Svelte is just a compiler or that Angular comes with a module system. We've not covered this here, since that was exactly not the point, but when choosing a framework those are the things that you should actually consider. But there are tons of articles on "this framework vs that framework", so you should have a plethora of options to inform yourself about that.
 
 Still, it's fascinating to see just how much of the ideas they've "borrowed" one from another.
 
