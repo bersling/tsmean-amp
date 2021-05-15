@@ -14,6 +14,7 @@ So let's dive into it and have a look at what those frameworks all have in commo
 - [Components](#components)
     - [Selectors](#selectors)
     - [Local state](#local-state)
+    - [Inferred properties](#inferred-properties)
     - [Passing data into a child component (props)](#passing-data-into-a-child-component-props)
     - [Child to parent communication](#child-to-parent-communication)
     - [Lifecycle Hooks](#lifecycle-hooks)
@@ -25,7 +26,7 @@ So let's dive into it and have a look at what those frameworks all have in commo
         - [Getting the Index](#getting-the-index)
         - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
     - [Conditional Rendering (if, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
-    - [Slots](#slots)
+    - [Content Projection / Slots](#content-projection--slots)
 - [Extracting values from native controls](#extracting-values-from-native-controls)
 - [Handling DOM events](#handling-dom-events)
 - [Misc](#misc)
@@ -122,7 +123,7 @@ To achieve those means, completely different approaches are chosen:
 
 - React lets you extend the React.Component in a JSX file, which contain the logic and also the HTML (through the `render() {return <your html here>}`). So they've invented a whole new file extension (`.jsx`) where the components live in.
 - Angular works with annotations and usually defers HTML and CSS to external files, even though it can also be defined inline
-- Vue lets you call a method on the `Vue` global object
+- Vue lets you call a method on the `Vue` global object, but you can also register components locally.
 - Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. Much like in React, in Svelte there's also filetype dedicated to hold the components.
 
 Another interesting point to observe is, that React is the only framework here that doesn't come with a baked in solution for scoped css.
@@ -217,6 +218,88 @@ export default {
 	let x = 5;
 </script>
 ```
+
+### Inferred Properties
+
+Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example, you get a and b as input, so it's actual data, but you want to display the sum of those to the user.
+
+```React
+class SomeComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      a: 6, b: 6
+    }
+  }
+
+  sum() {
+    return this.state.a + this.state.b;
+  }
+
+  render() {
+    return (
+      <span>
+        {this.sum()}
+      </span>
+    );
+  }
+}
+```
+
+```Angular
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  name = 'Angular' + VERSION.major;
+  get uppercaseName() {
+    return this.name.toUpperCase();
+  }
+}
+```
+
+In Vue the concept is called ["Computed Properties"](https://v3.vuejs.org/guide/computed.html#computed-properties)
+```Vue
+<template>
+  <h1>{{ uppercaseName }}</h1>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  },
+  computed: {
+    uppercaseName() {
+      return this.msg.toUpperCase();
+    }
+  }
+}
+</script>
+```
+
+Svelte again has a different name for this concept in store, they call it ["Reactive Declarations"](https://svelte.dev/tutorial/reactive-declarations).
+```Svelte
+<script>
+	let count = 0;
+	$: doubled = count * 2;
+
+	function handleClick() {
+		count += 1;
+	}
+</script>
+
+<button on:click={handleClick}>
+	Clicked {count} {count === 1 ? 'time' : 'times'}
+</button>
+
+<p>{count} doubled is {doubled}</p>
+```
+
+There's actually a little more to this topic than meets the eye at first sight. It is important to familiarize yourself with **when** those inferred properties are being calculated, in order to make sure you're not calculating things unnecessarily. Since this is framework dependent, we'll not dive into that here.
 
 
 ### Passing data into a child component (props)
@@ -587,8 +670,51 @@ function Greeting(props) {
 Again, in React the syntax is obvious since it's just JS. The others each have their own syntax for denoting conditional parts of the template. It is noteworthy, that Angular also has an option to use `*ngSwitch`, which makes cases like the Vue example from above a bit more elegant.
 
 
-### Slots
-TODO
+### Content Projection / Slots
+There is a need for components to exhibit "frame-like" behaviour, such that the component acts as a frame where you can still put ANY other stuff inside. This is where slots come into play. The easy and more commonly used type is with exactly one slot, so exactly like in the image frame analogy. You could also think of a more complicated frame with more than one slot which the frameworks also support, but let's stick with one slotted examples here.
+
+```React
+const Wrap = ({ children }) => <div>{children}</div>
+
+export default () => <Wrap><h1>Hello word</h1></Wrap>
+```
+
+```Angular
+@Component({
+  selector: 'my-frame',
+  template: `
+    <div>Top</div>
+    <ng-content></ng-content>
+    <div>Bottom</div>
+  `
+})
+
+<my-frame>
+  projectedcontent here
+</my-frame>
+```
+
+```Vue
+<!-- todo-button component template -->
+<button class="btn-primary">
+  <slot></slot>
+</button>
+...
+<todo-button>
+  Add todo
+</todo-button>
+```
+
+```Svelte
+<div class="box">
+	<slot></slot>
+</div>
+...
+<Box>
+	<h2>Hello!</h2>
+	<p>This is a box. It can contain anything.</p>
+</Box>
+```
 
 ## Handling DOM events
 
@@ -598,23 +724,11 @@ TODO
 
 TODO
 
-
 ## Data binding
 
 In all frameworks you'll find a common goal: Getting data from "JS-Land" to be rendered in "HTML-Land" (the DOM).
 
 TODO
-
-
-### Inferred State
-
-TODO?
-
-Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example you might want to display some string in all caps, but you want to also preserve the original string. Each framework has its own way to solve this problem.
-
-```React
-
-```
 
 ## Reactivity and Change Detection
 
@@ -667,9 +781,10 @@ export default {
 ```
 
 So the underlying message of this is the following:
+
 - React has opted for the developer explicitly informing it when a state change occurred
 - The other frameworks try to detect changes for you instead
-- There are subtleties that are not covered here, since we're focusing on the commonalities. However, it is important to know that e.g. Angular and Svelte won't pick up on objects being mutated whereas Vue does this for you.
+- There are subtleties that are not covered here, since we're focusing on the commonalities. However, it is important to know that e.g. Angular and Svelte won't pick up on objects being mutated whereas Vue does this for you. When learning your framework it is important to understand where it requires immutability. For example [Immutability in Svelte](https://svelte.dev/tutorial/updating-arrays-and-objects) or [Immutability in React](https://reactjs.org/tutorial/tutorial.html#why-immutability-is-important).
 
 ## Misc
 
