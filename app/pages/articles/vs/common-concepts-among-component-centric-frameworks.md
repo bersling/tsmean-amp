@@ -121,6 +121,8 @@ To achieve those means, completely different approaches are chosen:
 - Vue lets you call a method on the `Vue` global object
 - Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. Much like in React, in Svelte there's also filetype dedicated to hold the components.
 
+Another interesting point to observe is, that React is the only framework here that doesn't come with a baked in solution for scoped css.
+
 ### Selectors
 There needs to be a way of referencing a component in other components in order to include them and build the tree structure that we want. To do so, each component must receive a unique name. The frameworks have different ways of specifying that name.
 
@@ -570,21 +572,51 @@ It means that you don't need to update the DOM yourself, you should be more conc
 The next interesting question is: How does the framework know that your data has changed? That's where **Change Detection** is coming into play. There are different ideas here among the frameworks how this should be detected. Some are based on the idea that you, the developer, simply tell it when some data has changed and the DOM should be updated. Others try to figure that out for you by themselves.
 
 ```React
-// you tell React explicitly that you changed something by calling the setState method.
+// you tell React explicitly
+// that you changed something by calling the setState method.
 this.setState((state, props) => ({
   counter: state.counter + props.increment
 }));
 ```
 
 ```Angular
-// you update local variable values, then change detection sets in
+// you update local variable values,
+// then change detection sets in
 x = x + 1
 ```
 
 ```Vue
-// you update local variable values, then change detection sets in
-x = x + 1
+<script>
+export default {
+  data() {
+    return {
+      msglocal: 'Hellooo'
+    }
+  },
+  methods: {
+    reverseText() {
+      this.msglocal = this.msglocal.split('').reverse().join('');
+    }
+  }
+}
+</script>
 ```
+
+```Svelte
+<script>
+	let count = 0;
+
+	function handleClick() {
+	    // you change a local variable and reactivity gets triggered
+		count += 1;
+	}
+</script>
+```
+
+So the underlying message of this is the following:
+- React has opted for the developer explicitly informing it when a state change occurred
+- The other frameworks try to detect changes for you instead
+
 
 
 ## Misc
