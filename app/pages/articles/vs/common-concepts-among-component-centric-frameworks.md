@@ -28,9 +28,9 @@ So let's dive into it and have a look at what those frameworks all have in commo
         - [Getting the Index](#getting-the-index)
         - [Keys: Deciding which DOM elements to keep and which to replace](#keys-deciding-which-dom-elements-to-keep-and-which-to-replace)
     - [Conditional Rendering (if, else if, else, switch)](#conditional-rendering-if-else-if-else-switch)
-    - [Slots (Content Projection)](#slots-content-projection)
     - [Handling DOM events](#handling-dom-events)
-    - [Extracting values from native controls](#extracting-values-from-native-controls)
+    - [Binding to form elements](#binding-to-form-elements)
+    - [Slots (Content Projection)](#slots-content-projection)
 
 - [Misc](#misc)
     - [State Management and Stores](#state-management-and-stores)
@@ -735,7 +735,46 @@ export default () => <Wrap><h1>Hello word</h1></Wrap>
 Another basic need is to listen to and handle DOM events such as a button click.
 
 ```React
+  <button onClick={this.onClick}>hi</button>
+  ...
+  onClick(e) {
+    console.log(e);
+  }
+```
 
+```Angular
+<button (click)="onClick($event)">My button</button>
+...
+class MyComponent() {
+  onClick(e) {
+    console.log(e);
+  }
+}
+```
+
+```Vue
+<template>
+  <button v-on:click="onClick">My Button</button>
+</template>
+<script>
+export default {
+ ...
+  methods: {
+    onClick(e) {
+      console.log(e);
+    }
+  }
+}
+</script>
+```
+
+```Svelte
+<script>
+function onClick(e) {
+  console.log(e.target.innerHTML); 
+}
+</script>
+<button on:click={onClick}>Hi</button>
 ```
 
 ## Binding to form elements
@@ -760,21 +799,62 @@ class App extends Component<AppProps, AppState> {
     return (
       <div>
         {this.state.myValue}
-        <input onChange={this.handleChange} value={this.state.myValue} />
+        <input type="text" onChange={this.handleChange} value={this.state.myValue} />
       </div>
     );
   }
 }
 ```
 
+```Angular
+<input type="text" [(ngModel)]="myValue"/>
 ```
 
+```Vue
+<template>
+  {{myValue}}
+  <input type="text" v-model="myValue" />
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      myValue: 'test'
+    }
+  }
+}
+</script>
 ```
 
+```Svelte
+<script>
+	let name = 'world';
+</script>
+
+<input bind:value={name}>
+
+<h1>Hello {name}!</h1>
+```
 
 ## Binding to attributes
 
-FIXME optional...
+```React
+<img src={this.state.src} />
+```
+
+```Angular
+<img [src]="src" />
+```
+
+```Vue
+<img v-bind:src="src" />
+```
+
+```Svelte
+<img src={src} />
+```
 
 ## Reactivity and Change Detection
 
