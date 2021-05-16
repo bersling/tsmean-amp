@@ -128,7 +128,7 @@ To achieve those means, completely different approaches are chosen:
 - React lets you extend the React.Component in a JSX file, which contain the logic and also the HTML (through the `render() {return <your html here>}`). So they've invented a whole new file extension (`.jsx`) where the components live in.
 - Angular works with annotations and usually defers HTML and CSS to external files, even though it can also be defined inline
 - Vue lets you call a method on the `Vue` global object, but you can also register components locally.
-- Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. Much like in React, in Svelte there's also filetype dedicated to hold the components.
+- Svelte encapsulates logic (js), structure (html) and style (css) in `.svelte` files. Much like in React, in Svelte there's also a filetype dedicated to hold the components.
 
 Another interesting point to observe is, that React is the only framework here that doesn't come with a baked in solution for scoped css.
 
@@ -225,7 +225,7 @@ export default {
 
 ### Inferred Properties
 
-Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example, you get a and b as input, so its actual data, but you want to display the sum of those to the user.
+Often you'll want to do some sorts of modification to some data without actually modifying the data itself. For example, you get a and b as input, but you want to display the sum of those to the user.
 
 ```React
 class SomeComponent extends React.Component {
@@ -307,36 +307,107 @@ There's actually a little more to this topic than meets the eye at first sight. 
 
 ### Component Methods
 
-A triviality it is possible to define methods (functions) of the component. That's a necessity to encapsulate more complex business logic in components, should there be a need for it.
+Of course, it is possible to define methods (functions) of the component.
+
+```React
+class App extends Component<AppProps, AppState> {
+  constructor(props) {
+    super(props);
+    this.sayMyName = this.sayMyName.bind(this); // important!
+    this.state = {
+      myName: 'React'
+    };
+  }
+
+  sayMyName(e) {
+    console.log(this.state.myName);
+  }
+  
+  render() {
+    return (
+      <button onClick={this.sayMyName}>Say my name</button>
+    );
+  }
+}
+```
+
+```Angular
+import { Component } from '@angular/core';
+@Component({
+  selector: 'my-app',
+  template: '<button (click)="sayMyName()">Say my name</button>'
+})
+export class AppComponent {
+  name = 'Angular';
+  sayMyName() {
+    console.log(this.name);
+  }
+}
+```
+
+```Vue
+<template>
+  <button v-on:click="sayMyName">Say my Name</button>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        myName: 'Vue'
+      }
+    },
+    methods: {
+      sayMyName() {
+        console.log(this.myName);
+      }
+    }
+  }
+</script>
+```
+
+```Svelte
+<script>
+  let myName = 'Svelte';
+	function sayMyName() {
+    console.log(myName);
+	}
+</script>
+<button on:click={sayMyName}>
+	Say my name
+</button>
+```
 
 ### Passing data into a child component (props)
 
 Another common feature amongst the dominating frameworks is that they allow data to be passed into components. This is often called "props" of a component, since it specifies the properties that it has. I think params would also have been a good name, since it's the way in which a component can be parameterized.
 
 ```React
-// child
-class Square extends React.Component {
+class MyChild extends React.Component {
   render() {
     return (
-      <button className="square">
-        {this.props.value}
-      </button>
+      <div>{this.props.name}</div>
     );
   }
 }
 
 // usage in parent
-<Square value={i} />
+<MyChild name={this.state.name} />
 ```
 
 ```Angular
-// child
+import { Component, Input } from '@angular/core';
+@Component({
+  selector: 'bank-account'
+})
 class BankAccount {
   @Input() bankName: string;
 }
 
-// usage in parent
-<bank-account bankName="RBC"></bank-account>
+// usage in parent, when the input is a literal value
+<bank-account bankName="Lehman Brothers"></bank-account>
+
+// usage in parent, when the input is a variable
+<bank-account [bankName]="myBank"></bank-account>
 ```
 
 ```Vue
@@ -387,11 +458,11 @@ function MyParent(props) {
 
 In Angular the `(...)` syntax is used to read events off of the component
 ```Angular
-class MyChild {
-  myEvent = new EventEmitter();
-  ...
+import { Component, EventEmitter, Output } from '@angular/core';
+export class MyChild {
+  @Output() myEvent = new EventEmitter();
   someMethod() {
-    this.myEvent.emit(someData);
+    this.myEvent.emit(this.someData);
   }
 }
 ...
@@ -419,9 +490,7 @@ Finally, in Svelte we have the `on:` syntax:
 // child
 <script>
 	import { createEventDispatcher } from 'svelte';
-
 	const dispatch = createEventDispatcher();
-
 	function sayHello() {
 		dispatch('message', {
 			text: 'Hello!'
@@ -429,20 +498,8 @@ Finally, in Svelte we have the `on:` syntax:
 	}
 </script>
 
-<button on:click={sayHello}>
-	Click to say hello
-</button>
-
 // parent
-<script>
-	import Inner from './Inner.svelte';
-
-	function handleMessage(event) {
-		alert(event.detail.text);
-	}
-</script>
-
-<Inner on:message={handleMessage}/>
+<MyChild on:message={handleMessage}/>
 ```
 
 As you can see four quite different approaches to achieve the same goal!
@@ -468,23 +525,18 @@ Thus the concept of lifecycle hooks (aka. lifecycle methods) is present in all f
 ```Angular
 @Component()
 export class MyComponent implements OnInit, OnDestroy {
-
-  // implement OnInit's `ngOnInit` method
   ngOnInit() {
     .. some logic. this happens before rendering to the DOM, so you can perform setup logic here
   }
-  
   ngOnDestroy() {
      ... tear down
   }
-
 }
 ```
 
 ```Vue
 export default {
   setup() {
-    // mounted
     onMounted(() => {
       console.log('Component is mounted!')
     })
@@ -526,7 +578,7 @@ In all frameworks you'll find a common goal: Getting data from "JS-Land" to be r
 
 > "In computer programming, data binding is a general technique that binds data sources from the provider and consumer together and synchronizes them" ~[Wiki](https://en.wikipedia.org/wiki/Data_binding)
 
-I wasn't really sure where to put this section at first, it would also be a good fit for the "Reactivity" section. But I thought it would be good to introduce the concept here, since it is the basic underlying concept for templates, and it's also in the templates where the developers usually get in touch with the concept. This is because you'll often have a piece of data, for example the data in an input field, and then you'll need to ask yourself "ok, now how can I **bind** to this"? How can I retrieve its value? Or you have a some local state you want to reflect in the template, e.g. a user object with "user.firstName" and "user.lastName". But how can you display it in the template? You'll have to find a way to **bind** it to the template. Binding then means that the framework will do the work for you of keeping it in sync. Basically, all the following parts in the templating section can be seen as "data binding" of some sorts.
+I wasn't really sure where to put this section at first, it would also be a good fit for the "Reactivity" section. But I thought it would be good to introduce the concept here, since it is the basic underlying concept for templates, and it's also in the templates where the developers usually get in touch with the concept. This is because you'll often have a piece of data, for example the data in an input field, and then you'll need to ask yourself "ok, now how can I **bind** to this"? How can I retrieve its value? Or you have some local state you want to reflect in the template, e.g. a user object with `user.firstName` and `user.lastName`. But how can you display it in the template? You'll have to find a way to **bind** it to the template. Binding then means that the framework will do the work for you of keeping it in sync. Basically, all the following parts in the templating section can be seen as "data binding" of some sorts.
 
 Another important part of binding we've already covered: How is data synchronized between parent and child components? We've seen how this works in the "Components" chapter under [Passing data into a child component (props)](#passing-data-into-a-child-component-props) and [Child to parent communication](#child-to-parent-communication).
 
@@ -819,7 +871,7 @@ const listItems = numbers.map((number) =>
 ```
 
 ```Angular
-<ul><li *ngFor=”let item of items; trackBy: trackFunction”></li></ul>
+<ul><li *ngFor=”let item of items; trackBy: trackByFunction”></li></ul>
 ...
 trackByFunction(idx, item) {
   return item.id;
@@ -895,7 +947,7 @@ Again, in React the syntax is obvious since it's just JS. The others each have t
 
 
 ### Slots (Content Projection)
-There is a need for components to exhibit "frame-like" behaviour, such that the component acts as a frame where you can still put ANY other stuff inside. This is where slots come into play. The easy and more commonly used type is with exactly one slot, so exactly like in the image frame analogy. You could also think of a more complicated frame with more than one slot which the frameworks also support, but let's stick with one slotted examples here.
+There is a need for components to exhibit "picture-frame-like" behaviour, such that the component acts as a frame where you can still put ANY other stuff inside. This is where slots come into play. The easy and more commonly used type is with exactly one slot, so exactly like in the image frame analogy. You could also think of a more complicated frame with more than one slot which the frameworks also support, but let's stick with one slotted examples here.
 
 ```React
 const Wrap = ({ children }) => <div>{children}</div>
@@ -914,7 +966,7 @@ export default () => <Wrap><h1>Hello word</h1></Wrap>
 })
 
 <my-frame>
-  projectedcontent here
+  projected content here
 </my-frame>
 ```
 
@@ -948,7 +1000,7 @@ Apart from enabling you to separate your app into individual building blocks, th
 
 It means that you don't need to update the DOM yourself, you should be more concerned with updating the data and once this is done the framework takes over and updates the DOM **for you**. So the system **reacts** to changes in your data and updates the DOM accordingly.
 
-The next interesting question is: How does the framework know that your data has changed? That's where **Change Detection** is coming into play. There are different ideas here among the frameworks how this should be detected. Some are based on the idea that you, the developer, simply tell it when some data has changed, and the DOM should be updated. Others try to figure that out for you by themselves.
+The next interesting question is: How does the framework know that your data has changed? That's where **Change Detection** is coming into play. There are different ideas here among the frameworks how this should be detected. Some are based on the idea that you, the developer, simply tell it when some data has changed. Others try to figure that out for you by themselves.
 
 ```React
 // you tell React explicitly
@@ -1007,7 +1059,7 @@ There are some things I wouldn't consider to be at the core of reactive componen
 A common problem that component frameworks have to solve is that of state management. We've already touched on state when we've seen that components can have local state. When it comes to sharing state amongst different components, the philosophies and implementations of the frameworks vary.
 
 - In all frameworks you can use a technique called ["lifting state up"](https://reactjs.org/docs/lifting-state-up.html). This refers to moving the state up to the nearest common ancestor in the component hierarchy.
-- As an alternative to storing state to components, you might want to delegate the state management to some other entity. For example when you'd need the same state in components very far away from each other it isn't feasible to pass it through all components. In this scenario other state management solutions come into play. They all revolve around the idea that this shared state is stored in a "central" place, a so-called store. This is an entity that is decoupled from the world of components in a sense. It can be seen as a standalone "JavaScript object" that can be imported on demand in the components that need it. While in React it is common to use libraries such as Redux, in Angular and Svelte many developers fall back to baked in solutions such as services and built in stores for Svelte.
+- As an alternative to storing state to components, you might want to delegate the state management to some other entity. For example, when you'd need the same state in components very far away from each other it isn't feasible to pass it through all components. In this scenario other state management solutions come into play. They all revolve around the idea that this shared state is stored in a "central" place, a so-called store. This is an entity that is decoupled from the world of components in a sense. It can be seen as a standalone "JavaScript object" that can be imported on demand in the components that need it. While in React it is common to use libraries such as Redux, in Angular and Svelte many developers fall back to baked in solutions such as services (Angular) and built in stores (Svelte).
 
 ### Server-Side Rendering (SSR)
 
@@ -1017,9 +1069,9 @@ While not being part of the core framework itself, solutions for server-side ren
 
 Angular, Vue and Svelte all have a concept named "directives". However, the definitions all differ significantly from each other. The common underlying theme seems to be that framework specific stuff which you add to elements which does some framework specific things is called a directive. So for example the `v-if`, `*ngIf` or Svelte's `on:eventname` are called "directives" respectively.
 
-> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (except for v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." ~VueDocs
-
 > "Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see. The different types of Angular directives are as follows: (1) Components—directives with a template. This type of directive is the most common directive type. (2) Attribute directives—directives that change the appearance or behavior of an element, component, or another directive. (3) Structural directives—directives that change the DOM layout by adding and removing DOM elements." ~AngularDocs
+
+> "Directives are special attributes with the v- prefix. Directive attribute values are expected to be a single JavaScript expression (except for v-for and v-on, which will be discussed later). A directive's job is to reactively apply side effects to the DOM when the value of its expression changes." ~VueDocs
 
 > "As well as attributes, elements can have directives, which control the element's behaviour in some way." ~SvelteDocs
 
@@ -1031,6 +1083,6 @@ Ultimately this article should illustrate to you **how much** it actually is fro
 
 However, this doesn't mean "pick whatever you want, they're all the same". As we've seen, while many of the underlying concepts are the same, the implementations differ drastically. In addition to that there are also some differences on top, for example that Svelte is just a compiler or that Angular comes with a module system. We've not covered this here, since that was exactly not the point, but when choosing a framework those are the things that you should actually consider. But there are tons of articles on "this framework vs that framework", so you should have a plethora of options to inform yourself about that.
 
-Still, it's fascinating to see just how much of the ideas they've "borrowed" one from another.
+Still, it's fascinating to see just how much of the ideas they've "borrowed" one from another!
 
 <%={{ }}=%>
