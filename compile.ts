@@ -57,7 +57,8 @@ addPagesToDirectory(
     'ngrxstore-vs-angular-services',
     'debugging-and-understanding-expressionhaschangedafterchecked',
     'implementing-a-live-search-aka-search-as-you-type-with-angular',
-    'custom-checkbox-component-with-angular'
+    'custom-checkbox-component-with-angular',
+    'how-to-update-angular-to-the-latest-version'
   ],
   pages
 );
@@ -167,7 +168,6 @@ addPagesToDirectory(
   [
     'express-session-angular',
     'jwt-express-angular',
-    // 'how-to-update-angular-to-the-latest-version'
   ],
   pages
 );

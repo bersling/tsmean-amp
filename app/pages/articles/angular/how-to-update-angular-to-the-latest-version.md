@@ -14,13 +14,14 @@ Let's get started with the "more or less happy flow".
 
 ### Check what is outdated
 
-Run the following commands and put the outputs in a text file:
+Run the following commands:
 ```
-npm outdated > tmp.ng-update.txt
-ng update > tmp.npm-outdated.txt
+npm outdated
+ng update
 ```
 
-Both commands give you information that you might want to refer to multiple times in this process.
+Both commands help you to get an overview of what should be updated.
+
 
 #### Remove @angular/http
 
@@ -49,7 +50,8 @@ Angular tries to update your code where they introduced breaking changes. Howeve
 
 ### Update rest of packages
 
-Try to update the rest in the following order `@angular/cli`:
+Try to update the rest in the following order:
+
 - `ng update @angular/cli`
 - `ng update @angular/material`
 
@@ -90,112 +92,3 @@ or a new library (https://angular.io/guide/creating-libraries)
 ```
 ng new mylib --create-application=false
 ```
-
-3. Copy some of the old files
-- src directory
-- `.git` directory
-
-4. Check if everything is running
-5. commit and push
-
-## Troubleshooting
-
-Here are some tips and tricks for when things don't go as planned.
-
-### I messed up, what now?
-
-You can use git to revert, but be careful with hard resets:
-
-```
-git checkout -b backup-fucked-up-branch
-git checkout fucked-up-branch
-git reset --hard last-ok-commit
-```
-
-### Why is `next` installed?
-Sometimes the linking of packages through `ng update` is not correct and a package with `-next` is installed, even though you didn't ask for a beta version. If this happens for a package, e.g. `@angular/cli`, try to update another package first. Also check github / google for the issue.
-
-### `npm ERR! notarget No matching version found for xxx`
-
-Sometimes `ng update` installs non-existing package versions, e.g.:
-
-```
-npm ERR! notarget No matching version found for @angular-devkit/build-ng-packagr@~0.1102.9.
-npm ERR! notarget In most cases you or one of your dependencies are requesting
-npm ERR! notarget a package version that doesn't exist.
-npm ERR! notarget 
-npm ERR! notarget It was specified as a dependency of 'toast'
-npm ERR! notarget 
-```
-
-in this case you'll have to re-install the said package yourself with:
-
-```
-npm install @angular-devkit/build-ng-packagr@latest
-```
-
-###  Generic type 'ModuleWithProviders<T>' requires 1 type argument(s)
-```
-✖ Compiling TypeScript sources through NGC
-ERROR: projects/tsmean/spinner/src/lib/spinner.module.ts:16:53 - error TS2314: Generic type 'ModuleWithProviders<T>' requires 1 type argument(s).
-
-16   static forRoot(spinnerSettings: SpinnerSettings): ModuleWithProviders {
-                                                       ~~~~~~~~~~~~~~~~~~~
-```
-
-Just put the class name as the argument in the generic:
-```
-export class SpinnerModule {
-  static forRoot(spinnerSettings: SpinnerSettings): ModuleWithProviders<SpinnerModule> {
-```
-
-If it's a library which has the problem, you could consider the following approach:
-```
-declare module "@angular/core" {
-    interface ModuleWithProviders<T = any> {
-        ngModule: Type<T>;
-        providers?: Provider[];
-    }
-}
-```
-
-Angular claims libraries are automatically converted by ngcc (https://angular.io/guide/migration-module-with-providers), but that wasn't the case for me when I tried it out.
-
-##### ERROR: Trying to publish a package that has been compiled by Ivy. This is not allowed.
-You'll need to add the `--prod` flag to your build command:
-
-Before:
-```
-    "build-spinner": "ng build @tsmean/spinner",
-```
-
-After:
-```
-    "build-spinner": "ng build @tsmean/spinner --prod",
-```
-
-If you continue to see the error, you can try the following:
-
-Add this file `projects/myproject/tsconfig.lib.prod.json`:
-```
-{
-  "extends": "./tsconfig.lib.json",
-  "angularCompilerOptions": {
-    "enableIvy": false
-  }
-}
-```
-
-And then replace the line in `angular.json`
-```
-"project": "projects/myproject/ng-package.prod.json"
-```
-with this one
-```
-"tsConfig": "projects/tsmean/spinner/tsconfig.lib.prod.json"
-```
-in the section `myproject.architect.build.configurations.production`.
-
-If you continue having this error see https://stackoverflow.com/questions/60234048/angular-9-library-publish-error-trying-to-publish-a-package-that-has-been-compi/67177241#67177241 .
-
-
