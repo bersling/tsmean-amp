@@ -63,6 +63,14 @@ addPagesToDirectory(
   pages
 );
 addPagesToDirectory(
+  'articles/rxjs',
+  [
+    'rxjs-replaysubject-vs-behaviorsubject'
+  ],
+  pages
+);
+
+addPagesToDirectory(
   'articles/aws',
   [
     'the-ultimate-aws-lambda-tutorial-for-nodejs'
