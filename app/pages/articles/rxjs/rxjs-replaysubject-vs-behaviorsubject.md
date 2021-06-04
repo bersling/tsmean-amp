@@ -33,3 +33,25 @@ $userLoggedIn.pipe(take(1)).subscribe(isLoggedIn => {
 If `$userLoggedIn` is a behavior subject initialized with `null`, you will get routed to the landing page. If it's a replay subject nothing will happen until the subscriber actually gets the first value.
 
 Here's a full example: https://stackblitz.com/edit/replaysubject-vs-behaviorsubject
+
+## Architectural Note
+However, often it is cleaner to handle such behavior with two components than with `take(1)`.
+
+Don't
+```
+onAcceptPrivacy() {
+  // I'm telling you, I'm sure there is a user here at this point!
+  $user.pipe(take(1)).subscribe(myUser => {
+    // handle accept
+  })
+}
+```
+
+Do
+```
+<ng-container *ngIf="user$ | async as user">
+  <app-privacy-component [user]="user" (accept)="onAccept()">
+  </app-privacy-component>
+</ng-container>
+```
+

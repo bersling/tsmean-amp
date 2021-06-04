@@ -65,7 +65,8 @@ addPagesToDirectory(
 addPagesToDirectory(
   'articles/rxjs',
   [
-    'rxjs-replaysubject-vs-behaviorsubject'
+    'rxjs-replaysubject-vs-behaviorsubject',
+    'take1-vs-first'
   ],
   pages
 );
