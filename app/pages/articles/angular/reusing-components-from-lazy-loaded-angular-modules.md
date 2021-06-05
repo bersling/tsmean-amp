@@ -4,7 +4,7 @@ Here's an example of the problem: [https://stackblitz.com/edit/reuse-lazy-loadin
 
 So what can you do to solve this problem?
 
-It is not **directly** possible to reuse components from lazy loaded modules that are used with `RouterModule.forChild(routes)`. However, there are ways to achieve this reusability.
+It is not **directly** possible to reuse components from lazy loaded modules that are used with `RouterModule.forChild(routes)`. By simply moving those components to another module which is not directly used for routing you can solve the problem. Here are two flavours of how to structure this.
 
 ## Option 1: SharedModule
 
@@ -22,3 +22,7 @@ PrivacyModule        # Exports the PrivacyStatementComponent so it can be reused
 Working example: [https://stackblitz.com/edit/reuse-lazy-loading-success](https://stackblitz.com/edit/reuse-lazy-loading-success)
 
 On the plus side you won't have an ever-growing `SharingModule`, on the other hand you'll start introducing quite a few modules if you always have 2 modules for every lazy loaded route.
+
+## Conclusion
+
+While you cannot reuse components from a module that includes a `RouterModule.forChild(routes)`, you can always resort to just moving those components into their own module. There are different possibilities to structure those non-routing modules, we've covered the `SharedModule` and more feature oriented modules here.
