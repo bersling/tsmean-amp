@@ -58,7 +58,9 @@ addPagesToDirectory(
     'debugging-and-understanding-expressionhaschangedafterchecked',
     'implementing-a-live-search-aka-search-as-you-type-with-angular',
     'custom-checkbox-component-with-angular',
-    'how-to-update-angular-to-the-latest-version'
+    'how-to-update-angular-to-the-latest-version',
+    'reusing-components-from-lazy-loaded-angular-modules'
+
   ],
   pages
 );
