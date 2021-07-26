@@ -44,6 +44,13 @@ const pages = [
   'about/index'
 ];
 addPagesToDirectory(
+  'articles/command-line-tools',
+  [
+    'scp-and-idempotency'
+  ],
+  pages
+);
+addPagesToDirectory(
   'articles/how-to-write-a-typescript-library',
   ['index', 'unit-testing', 'local-consumer', 'angular', 'global-installation'],
   pages
