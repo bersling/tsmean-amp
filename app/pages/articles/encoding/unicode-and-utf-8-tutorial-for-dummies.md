@@ -96,7 +96,9 @@ Those "header bits" are **all those up to the first zero** and they are to be re
 - `0` means the entire char is contained in **one byte**. Note we have used the word byte for the first time here.
 - `110` means there are **two bytes** that belong to this character, so the the one where `110` is found and the next one.
 - `1110` means there are **three bytes** that belong to this character, so the the one where `1110` is found and the next two.
-- `11110` means (continue the idea from above)
+- `11110` means there are **four bytes** that belong to this character, so the the one where `11110` is found and the next three.
+
+Note: Even though this idea could be continued, the maximum bytes per character is four, so the list above is actually complete.
 
 Now, there's one with a special meaning:
 
