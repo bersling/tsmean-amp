@@ -110,7 +110,7 @@ The **actual code numbers are then retrieved by dropping the header bits and put
 - ☠: We continue reading and find `1110`. This means there are three bytes that belong to this character so let's collect them: `11100010 10011000 10100000`. Now that we have those, let's drop all the header bits: `00010 011000 100000 = 9760 = ☠`
 - 😍: After having read in all those bits, we're now arriving at the next byte: `11110000`. Wow, looks like a four byte character since the header is `11110`! So we'll collect the bytes: `11110000 10011111 10011000 10001101`, then drop the header bits and get: `000 011111 011000 001101 = 128525 = 😍`
 
-We've successfully read a binary sequence encoded in unicode! `🥳 = U+1F973 = 11110000 10011111 10100101 10110011`
+We've successfully read a binary sequence encoded in UTF-8! `🥳 = U+1F973 = 11110000 10011111 10100101 10110011`
 
 Now the historical reason why UTF-8 is exactly this way has some more interesting details to it, of which I'd just like to mention two:
 
