@@ -92,12 +92,14 @@ But then, how does the computer know where one character stops and the next star
 The trick is: Not all bits are used to encode the actual characters, some bits are used to encode how many bits **belong** to a character instead!
 
 Those "header bits" are **all those up to the first zero** and they are to be read like this:
+
 - `0` means the entire char is contained in **one byte**. Note we have used the word byte for the first time here.
 - `110` means there are **two bytes** that belong to this character, so the the one where `110` is found and the next one.
 - `1110` means there are **three bytes** that belong to this character, so the the one where `1110` is found and the next two.
 - `11110` means (continue the idea from above)
 
 Now, there's one with a special meaning:
+
 - `10` means that it's a **continuation byte**.
 
 The **actual code numbers are then retrieved by dropping the header bits and putting together what belongs together**:
@@ -109,6 +111,7 @@ The **actual code numbers are then retrieved by dropping the header bits and put
 We've successfully read a binary sequence encoded in unicode! `🥳 = U+1F973 = 11110000 10011111 10100101 10110011`
 
 Now the historical reason why UTF-8 is exactly this way has some more interesting details to it, of which I'd just like to mention two:
+
 - If you know ASCII, you might know that it's a 7 bit system. The first unicode points are exactly the same as ASCII, so all UTF-8 characters from `00000001` to `011111111` exactly represent ASCII. This helps with backwards compatibility for old ASCII programs.
 - It is interesting to notice that there are never 8 consecutive zeroes in our bit sequence. This is also advantageous for backwards compatibility since 8 consecutive zeroes mean for old programs "NULL" which means the string has ended and the program should stop continue reading.
 
