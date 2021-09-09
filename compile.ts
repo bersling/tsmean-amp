@@ -240,6 +240,13 @@ addPagesToDirectory(
   ],
   pages
 );
+addPagesToDirectory(
+    'articles/soap',
+    [
+        'how-to-call-a-soap-webservice-with-curl-and-ntlm-authentication?'
+    ],
+    pages
+);
 
 
 
