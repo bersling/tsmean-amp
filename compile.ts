@@ -247,6 +247,14 @@ addPagesToDirectory(
     ],
     pages
 );
+addPagesToDirectory(
+    'articles/encoding',
+    [
+        'unicode-and-utf-8-tutorial-for-dummies'
+    ],
+    pages
+);
+
 
 
 
