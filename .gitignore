@@ -2,6 +2,7 @@ node_modules
 dist
 .idea
 testing
+.DS_Store
 
 styles.css
 compile.js
