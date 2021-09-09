@@ -119,4 +119,4 @@ Now the historical reason why UTF-8 is exactly this way has some more interestin
 
 ## Conclusion
 
-Understanding unicode is quite easy, UTF-8 is a little trickier. Unicode assigns a number to each character in the universe and is the de facto standard to do so. UTF-8 is considered with storing the numbers on your machine in a way that they don't take up too much space and can also be read again once stored. To do so it uses some header bits on each byte, that tell you how many bytes belong to a character.
+Understanding unicode is quite easy, UTF-8 is a little trickier. Unicode assigns a number to each character in the universe and is the de facto standard to do so. UTF-8 is considered with storing the numbers on your machine in a way that they don't take up too much space, can still cover the huge amount of unicode characters and even provide some backwards compatibility with ASCII. To do so it uses some header bits on each byte, that tell you how many bytes belong to a character.
