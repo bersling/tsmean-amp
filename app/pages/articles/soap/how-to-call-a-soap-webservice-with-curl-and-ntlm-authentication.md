@@ -32,4 +32,4 @@ Some notes:
 Some notes:
 - If you get the error `curl: (92) HTTP/2 stream 0 was not closed cleanly: HTTP_1_1_REQUIRED (err 13)`, add the `--http1.1` flag. Reason: Not all servers are configured properly to work with http 2.
 - Add the `--verbose` flag to get a more detailed output of what's happening.
-- You'll need to enter domain + username + pw exactly like this: `domain` `\` `user``:` `pw`, so backslash between domain and user and colon between user and pw.
+- You'll need to enter domain + username + pw exactly like this: `domain` `\` `user` `:` `pw`, so backslash between domain and user and colon between user and pw.
