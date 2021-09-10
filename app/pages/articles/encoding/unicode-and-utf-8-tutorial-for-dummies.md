@@ -114,6 +114,8 @@ H        HHHH     HH       HH       HHHHH    HH       HH       HH
    A                  ☠                              😍
 ```
 
+Notice how for each byte the last header bit is the first zero of the byte!
+
 So it can be read as follows:
 
 - A: `01000001` => `0` means everything in one bit, so after dropping the `0` we get: `1000001 = 65 = A` !
@@ -121,8 +123,6 @@ So it can be read as follows:
 - 😍: After having read in all those bits, we're now arriving at the next byte: `11110000`. Wow, looks like a four byte character since the header is `11110`! So we'll collect the bytes: `11110000 10011111 10011000 10001101`, then drop the header bits and get: `000 011111 011000 001101 = 128525 = 😍`
 
 We've successfully read a binary sequence encoded in UTF-8! `🥳 = U+1F973 = 11110000 10011111 10100101 10110011`
-
-Notice how for each byte the last header bit is the first zero of the byte!
 
 Now the historical reason why UTF-8 is exactly this way has some more interesting details to it, of which I'd just like to mention two:
 
