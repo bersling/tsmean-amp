@@ -1,4 +1,4 @@
-Understanding everything about encoding isn't an easy job. Most tutorials start with explaining to you the history of encoding, but you really don't have to know about all that stuff to get a basic understanding of unicode and UTF-8. So here we'll go, I promise to make it as short and simple as humanly possible.
+Understanding everything about encoding isn't an easy job. Most tutorials start with explaining the history of encoding, but you really don't have to know about all that stuff to get a basic understanding of unicode and UTF-8. So here we go, I promise to make it as short and simple as humanly possible.
 
 ## Unicode
 
@@ -16,7 +16,7 @@ A = 65
 😍 = 128525
 ```
 
-or if you prefer in hex (machines prefer it that way and it's very common with unicode):
+or if you prefer in hex, which is also very common:
 
 ```
 A = U+41
@@ -28,7 +28,7 @@ A = U+41
 😍 = U+1f60d
 ```
 
-Unicode characters in hex are also often prefixed with `U+`. You might also see a prefix of `0x` (general machine readable hex prefix). We'll continue in this article by using the decimal representation.
+Unicode characters in hex are also often prefixed with `U+`. You might also see a prefix of `0x` (general machine readable hex prefix). We'll continue in this article by using the decimal representation though.
 
 Note: Unicode represents an **idea** of a character, not what you see on the screen directly. For example `A` or `😍` is displayed on your screen in a certain font, the pixels are arranged in a certain way.
 But what unicode represents is not the arrangement of pixels, but the idea of the "A" or the "Love eyes emoji". So depending on your font or your system,
