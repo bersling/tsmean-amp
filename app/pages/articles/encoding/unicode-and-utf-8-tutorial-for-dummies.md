@@ -39,21 +39,20 @@ the pixel arrangement might be different.
 - It's a widely agreed upon standard
 - It's extensible. If new things come up, like the emojis, simply assign them to new numbers. Since we've got an infinite amount of natural numbers, there will never be a problem.
 
-## UTF-8
+## UTF-8 (Unicode Transformation Format, 8 bit)
 
-So the number has to be stored somehow on your computer. Your computer only stores ones and zeroes in the end, and UTF-8 species how to **read a sequence of ones and zeroes to get back the unicode numbers**.
+So the number has to be stored somehow on your computer. Your computer only stores ones and zeroes in the end,
+and UTF-8 specifies exactly that: how to **transform** a sequence of unicode characters into binary and back.
 
-### Motivation (NOT UTF-8)
-
-Now you think, wait, why don't you just do it like this:
+Now you think, wait, I know how to transform a number into binary:
 
 ```
-`A` = 65 = 1100101
+A = 65 = 1100101
 ```
 
 The problem becomes evident if you try to put together two characters:
 
-```
+```html
 A😍 = 65128525 = 110010111111011000001101
         ↑               ↑
        here the new character starts,
@@ -66,23 +65,22 @@ Ok, so we need a way to represent two characters. We could for example just say 
 
 ```
 A😍 = 0000000000000000000000000110010100000000000000011111011000001101
-                                ↑
+                                      ↑
                     here starts the second character
 ```
 
-As you can see we're wasting quite a lot of disk space or memory here with so many unused zeroes.
-If on the other hand we just say we're only using 16 bits, then as more characters (example: more and more emojis)
-get added, a limit might be reached too quickly.
+As you can see we're wasting quite a lot of disk space or memory here with so many unused zeroes, especially for the "A".
+If on the other hand we just say we're only using 16 bits, then there isn't enough space for the beloved emojis and possible extensions to unicode.
 
 ### Enter UTF-8, a "smarter" encoding
 
 I think it is easiest to just explain it with an example. Let's encode `A☠😍` in UTF-8!
 
 ```
-A☠😍 = 01000001 11100010 10011000 10100000 11110000 10011111 10011000 10001101
-       |______| |________________________| |_________________________________|
-          |                  |                              |
-          A                  ☠                              😍
+01000001 11100010 10011000 10100000 11110000 10011111 10011000 10001101
+|______| |________________________| |_________________________________|
+   |                  |                              |
+   A                  ☠                              😍
 ```
 
 So we right away notice one thing: The characters with a smaller number in unicode (remember `A=65`, `☠=9760`, `😍=128525`) **take up less space**.
@@ -104,13 +102,27 @@ Now, there's one with a special meaning:
 
 - `10` means that it's a **continuation byte**.
 
-The **actual code numbers are then retrieved by dropping the header bits and putting together what belongs together**:
+The **actual code numbers are then retrieved by dropping the header bits and putting together what belongs together**.
+
+Let's try and visualize that, `H` means it's a header bit:
+
+```
+H        HHHH     HH       HH       HHHHH    HH       HH       HH
+01000001 11100010 10011000 10100000 11110000 10011111 10011000 10001101
+|______| |________________________| |_________________________________|
+   |                  |                              |
+   A                  ☠                              😍
+```
+
+So it can be read as follows:
 
 - A: `01000001` => `0` means everything in one bit, so after dropping the `0` we get: `1000001 = 65 = A` !
 - ☠: We continue reading and find `1110`. This means there are three bytes that belong to this character so let's collect them: `11100010 10011000 10100000`. Now that we have those, let's drop all the header bits: `00010 011000 100000 = 9760 = ☠`
 - 😍: After having read in all those bits, we're now arriving at the next byte: `11110000`. Wow, looks like a four byte character since the header is `11110`! So we'll collect the bytes: `11110000 10011111 10011000 10001101`, then drop the header bits and get: `000 011111 011000 001101 = 128525 = 😍`
 
 We've successfully read a binary sequence encoded in UTF-8! `🥳 = U+1F973 = 11110000 10011111 10100101 10110011`
+
+Notice how for each byte the last header bit is the first zero of the byte!
 
 Now the historical reason why UTF-8 is exactly this way has some more interesting details to it, of which I'd just like to mention two:
 
