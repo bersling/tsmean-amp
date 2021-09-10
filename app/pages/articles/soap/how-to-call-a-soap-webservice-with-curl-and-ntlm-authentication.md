@@ -8,6 +8,7 @@ curl --ntlm --user "domain\user:pw"  --location --request POST 'YOUR_ENDPOINT' \
 ```
 
 Some notes:
+
 - `YOUR_ENDPOINT` could look like this: https://some.domain.com/HelplineServer/UserWebServices/IncidentMgmtWFWS.svc
 - `YOUR_SOAP_ACTION` could look like this: http://tempuri.org/IncidentMgmtWFWS/StartIncidentByWS
 - `YOUR_BODY` could look like this:
