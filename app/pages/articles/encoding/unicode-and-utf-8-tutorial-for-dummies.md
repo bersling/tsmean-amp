@@ -87,7 +87,7 @@ So we right away notice one thing: The characters with a smaller number in unico
 
 But then, how does the computer know where one character stops and the next starts?
 
-The trick is: Not all bits are used to encode the actual characters, some bits are used to encode how many bits **belong** to a character instead!
+The trick is: Not all bits are used to encode the actual characters, some bits are used to encode how many __bytes__ **belong** to a character instead!
 
 Those "header bits" are **all those up to the first zero in each byte** and they are to be read like this:
 
@@ -127,7 +127,7 @@ We've successfully read a binary sequence encoded in UTF-8! `🥳 = U+1F973 = 11
 Now the historical reason why UTF-8 is exactly this way has some more interesting details to it, of which I'd just like to mention two:
 
 - If you know ASCII, you might know that it's a 7 bit system. The first unicode points are exactly the same as ASCII, so all UTF-8 characters from `00000001` to `011111111` exactly represent ASCII. This helps with backwards compatibility for old ASCII programs.
-- It is interesting to notice that there are never 8 consecutive zeroes in our bit sequence. This is also advantageous for backwards compatibility since 8 consecutive zeroes mean for old programs "NULL" which means the string has ended and the program should stop continue reading.
+- It is interesting to notice that there are never 8 consecutive zeroes in our bit sequence. This is also advantageous for backwards compatibility since 8 consecutive zeroes mean for old programs "NULL" which means the string has ended and the program should stop reading the string.
 
 ## Conclusion
 
