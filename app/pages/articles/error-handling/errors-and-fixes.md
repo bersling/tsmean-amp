@@ -1,5 +1,27 @@
 ## Error
 
+```
+NAME                                     READY   STATUS                       RESTARTS   AGE
+feature-server-6fd668c967-ps9r4          0/1     CreateContainerConfigError   25         119m
+feature-server-75647bc544-nxzpn          0/1     CreateContainerConfigError   0          9m15s
+```
+
+## Solution
+
+Probably a missing secret, check all secrets in this section in your yml:
+
+```
+secrets:
+  key: "feature-server-secrets"
+  entries:
+    - FEATURE_DB_HOST
+    - FEATURE_DB_PORT
+    - FEATURE_DB_PASSWORD
+    - FEATURE_DB_USER
+```
+
+## Error
+
 Long dbhosts (e.g. AWS RDS cluster endpoint) can lead to a `pool name is too long` error.
 
 ```
@@ -21,4 +43,3 @@ self.cnx = mysql.connector.connect(
     pool_name="my_custom_pool_name"
 )
 ```
-
