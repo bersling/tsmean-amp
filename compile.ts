@@ -254,6 +254,13 @@ addPagesToDirectory(
     ],
     pages
 );
+addPagesToDirectory(
+  'articles/python',
+  [
+    // 'production-ready-python-microservices'
+  ],
+  pages
+);
 
 
 
