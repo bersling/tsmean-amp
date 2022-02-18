@@ -84,7 +84,7 @@ const getMyTodos = () => {
         Fiddle: <a href="https://tsfiddle.tsmean.com/fiddle/y1aKReQG">https://tsfiddle.tsmean.com/fiddle/y1aKReQG</a>
     </p>
     <p>
-        The syntax with <code>then / catch</code> is clearly more verbose than the syntax with await. Another very important point to take away from this: <b>async / awit is not a replacement for promises</b>! It's rather a <b>replacement for then / catch</b>, meaning a simpler way of <b>consuming promises</b>. But in order to use <code>async / await</code>, you need some promises in the first place.
+        The syntax with <code>then / catch</code> is clearly more verbose than the syntax with await. Another very important point to take away from this: <b>async / await is not a replacement for promises</b>! It's rather a <b>replacement for then / catch</b>, meaning a simpler way of <b>consuming promises</b>. But in order to use <code>async / await</code>, you need some promises in the first place.
     </p>
     <p>
         The above example of the <code>getMyTodos</code> with then/catch and async/await still aren't fully equivalent. In the <code>async/await</code> case we had a return statement, in the promise case we have 'done the stuff' right inside of the function. Of course this isn't really reusable, what if we'd like to 'do some other stuff' in some other place of our code? So we'd actually need something like this to be equivalent:
