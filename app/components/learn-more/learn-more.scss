@@ -32,3 +32,26 @@
   }
 
 }
+
+
+// country targeting
+.learn-more-message-default {
+  display: block;
+}
+
+.learn-more-message-ru {
+  display: none;
+}
+
+/* override */
+.amp-iso-country-ru {
+
+  .learn-more-message-default {
+    display: none;
+  }
+
+  .learn-more-message-ru {
+    display: block;
+  }
+
+}
