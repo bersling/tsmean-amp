@@ -31,7 +31,7 @@
     "@types/mustache": "4.0.1",
     "@types/node": "13.11.0",
     "@types/serve-static": "^1.7.31",
-    "amphtml-validator": "^1.0.20",
+    "amphtml-validator": "^1.0.35",
     "connect": "^3.6.2",
     "cors": "^2.8.3",
     "express": "^4.15.3",
