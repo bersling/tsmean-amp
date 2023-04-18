@@ -12,6 +12,7 @@ const partials = {
   'githubButton': 'githubButton',
   'header': 'header',
   'learnMore': 'learnMore',
+  'mastodon': 'mastodon',
   'logoAccent': 'logoAccent',
   'logoPrimary': 'logoPrimary',
   'logoWhite': 'logoWhite',
