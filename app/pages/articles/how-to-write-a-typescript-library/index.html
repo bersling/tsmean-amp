@@ -35,7 +35,7 @@ here is a simple yet comprehensive tutorial!">
     </h1>
     
     <div class="meta-header">
-      <span class="updated">March 2021</span>
+      <span class="updated">September 2023</span>
     </div>
   
   </div>
@@ -45,7 +45,7 @@ here is a simple yet comprehensive tutorial!">
     <p>
       Writing modular code is a good idea. And nothing is more modular than writing a library.
       How can you write a TypeScript library? Well, that's exactly what this tutorial is about!
-      This tutorial works with <b>TypeScript 4.x</b>, <b>TypeScript 3.x</b> and <b>TypeScript 2.x</b>.
+      This tutorial works with <b>Typescript 5.x</b>, <b>TypeScript 4.x</b>, <b>TypeScript 3.x</b> and <b>TypeScript 2.x</b>.
     </p>
     
     <h2>
@@ -61,7 +61,7 @@ here is a simple yet comprehensive tutorial!">
     <pre><code class="language-json">{
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es2019",
     "declaration": true,
     "outDir": "./dist"
   },
@@ -74,7 +74,7 @@ here is a simple yet comprehensive tutorial!">
       You need to add the <code class="app-code">"declaration": true</code> flag. This will generate the <code class="app-code">.d.ts</code> files (aka declaration files) which contain the types of your code. This way, if someone is using your library and they also use TypeScript, they get the benefits of typesafety and autocomplete!
     </p>
     <p>
-      Regarding the other options, let's quickly go through those: The <a class="app-link" href="/articles/learn-typescript/typescript-module-compiler-option/">module compiler option</a> <code class="app-code">"module": "commonjs"</code> is required if you want your code to run seamlessly with most current node.js applications. Replace this with <code class="app-code">"module": "esnext"</code> if you're building a library for the browser. <code class="app-code">"target": "es2015"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js (or the oldest browser) you want to support. Choosing es2015 as the compile target makes your library compatible with node.js version 8 and upwards. <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
+      Regarding the other options, let's quickly go through those: The <a class="app-link" href="/articles/learn-typescript/typescript-module-compiler-option/">module compiler option</a> <code class="app-code">"module": "commonjs"</code> is required if you want your code to run seamlessly with most current node.js applications. Replace this with <code class="app-code">"module": "esnext"</code> if you're building a library for the browser. <code class="app-code">"target": "es2015"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js (or the oldest browser) you want to support. Choosing es2019 as the compile target makes your library compatible with node.js version 12 and upwards. In 2023, this is a good compromise of transpiling to a modern-ish javascript version (which in turn allows for better performance, more terse code, etc.) and still supporting older nodejs and browser versions. If you have a specific reason to go higher (more cutting-edge native JS features needed in the generated files) or lower (stronger backwards compatibility), you may of course change the version. Lastly, <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
     </p>
     
     <h2>
@@ -155,7 +155,7 @@ sayHello();
     </p>
     <p>
       The final property <code class="app-code">files</code> helps you to <b>whitelist</b> the files you want to ship to the npm registry. This is usually a
-      <a href="https://medium.com/@jdxcode/for-the-love-of-god-dont-use-npmignore-f93c08909d8d">much easier and safer route than using the `.npmignore` file</a>!
+      <a href="https://medium.com/@jdxcode/for-the-love-of-god-dont-use-npmignore-f93c08909d8d">much easier and safer route than using the .npmignore file</a>!
     </p>
     
     <h2>
@@ -168,6 +168,10 @@ sayHello();
 npm publish
 </code></pre>
     <p>
+      If you have a scoped package, for example <code class="app-code">@myscope/mypackage</code>, then you need to run
+      <code class="app-code">npm publish --access=public</code>, since the default setting is private and for this you need a paid account.
+    </p>
+    <p>
       Now you're all set to go! Consume your library anywhere you want by running:
     </p>
     <pre><code class="language-bash">npm install --save hwrld</code></pre>
@@ -177,7 +181,7 @@ npm publish
     <pre><code class="language-ts">import {sayHello} from 'hwrld'
 sayHello();</code></pre>
     <p>
-      For subsequent releases, use the semvar principle. When you make a patch / bugfix to your library, you can run
+      For subsequent releases, use the semver principle. When you make a patch / bugfix to your library, you can run
       <code class="app-code">npm version patch</code>,
       for new features run <code class="app-code">npm version minor</code> and on breaking changes of your api run
       <code class="app-code">npm version major</code>.
