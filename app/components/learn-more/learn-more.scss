@@ -5,11 +5,13 @@ $garys-pink: #f107a3;
 
   .learn-more-banner {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     background: linear-gradient(135deg, $garys-purple 0%, $garys-pink 100%);
     color: #ffffff;
     border-radius: 12px;
-    padding: 30px 35px;
+    padding: 35px 30px;
     text-decoration: none;
 
     &:hover {
@@ -21,28 +23,23 @@ $garys-pink: #f107a3;
     }
   }
 
-  .learn-more-logo {
-    flex-shrink: 0;
-    font-size: 40px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -1px;
-    text-transform: lowercase;
-    padding-right: 30px;
-    margin-right: 30px;
-    border-right: 2px solid rgba(255, 255, 255, 0.4);
+  .learn-more-title {
+    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-size: 58px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+    margin-bottom: 18px;
   }
 
-  .learn-more-title {
-    font-size: 24px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+  .learn-more-title-divider {
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .learn-more-text {
-    margin-bottom: 14px;
+    max-width: 620px;
+    margin-bottom: 20px;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.92);
   }
@@ -51,24 +48,19 @@ $garys-pink: #f107a3;
     display: inline-block;
     background: #ffffff;
     color: $garys-purple;
-    font-weight: bold;
     border-radius: 6px;
-    padding: 9px 18px;
+    padding: 10px 22px;
+    font-size: 17px;
+
+    .learn-more-logo {
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
   }
 
   @media (max-width: 650px) {
-    .learn-more-banner {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .learn-more-logo {
-      padding-right: 0;
-      margin-right: 0;
-      border-right: none;
-      padding-bottom: 15px;
-      margin-bottom: 15px;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    .learn-more-title {
+      font-size: 38px;
     }
   }
 }
