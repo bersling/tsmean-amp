@@ -34,6 +34,8 @@
     
     <div class="meta-header">
       <span class="written">November 2018</span>
+      <span class="written-updated-delimiter"></span>
+      <span class="updated">July 2026</span>
     </div>
   
   </div>
@@ -47,7 +49,7 @@
       Most of the times, what you'll want to track is a click. To set up a trigger that fires when ANYTHING is clicked, head over to the triggers section, create a new trigger and select the trigger type "click". In order to restrict your tracking to elements that actually should get tracked, add a restriction that looks like this: <code>[data-tracking-id], [data-tracking-id] *</code> (credits to https://medium.com/@postman31/conquer-nested-elements-clicks-tracking-in-gtm-71195a3f609b). This allows you to track clicks on HTML Elements that have a <code>data-tracking-id</code> attribute. This second part (<code>[data-tracking-id] *</code>) is necessary to track clicks on nested elements such as a click on a span in a button, when it is actually the button that has the <code>data-tracking-id</code> property.
     </p>
     <p>
-      Next what we'd like to do is to send an "Event" to Google Analytics. An event is a Google Analytics concept. Basically it is a database entry in the Google Analytics database with four fields: <code>category</code> (mandatory), <code>action</code> (mandatory), <code>label</code> (optional but recommended) and <code>value</code> (optional non-negative integer). Note that if you don't adhere to this, your data will not get stored to Google Analytics! Anyways, we'd like to set up the event with the following data:
+      Next what we'd like to do is to send an "Event" to Google Analytics. An event is a Google Analytics concept. This article was written for Universal Analytics, where an event was basically a database entry with four fields: <code>category</code> (mandatory), <code>action</code> (mandatory), <code>label</code> (optional but recommended) and <code>value</code> (optional non-negative integer). Universal Analytics was shut down by Google in 2024. In GA4, its successor, an event is just a name plus parameters, so you'd send the fields below as parameters instead. Anyways, we'd like to set up the event with the following data:
     </p>
     <table class="pure-table">
       <tr>

@@ -34,7 +34,7 @@
     <div class="meta-header">
       <div class="written">July 2017</div>
       <div class="written-updated-delimiter"></div>
-      <div class="updated">April 2020</div>
+      <div class="updated">July 2026</div>
     </div>
   
   </div>
@@ -45,7 +45,7 @@
       Should I use the <code>strictNullChecks</code> TypeScript compiler flag - yes or no?
     </h2>
     <p>
-      Null pointers are one of the most common categories of bugs, yet they can be avoided to a large degree with the <code>strictNullChecks</code> TypeScript compiler flag. Since the <code>strictNullChecks</code> flag was only added in TypeScript 2, its usage isn't that widespread yet. As of September 2017, the Angular project and the typeORM project are two examples that use the flag, while VSCode, RxJS, Ionic, or Babylon.js all don’t. Furthermore,  <code>strictNullChecks</code> isn't the default for new TypeScript projects. The reason for this is backwards compatibility and to keep TypeScript a superset of JavaScript.
+      Null pointers are one of the most common categories of bugs, yet they can be avoided to a large degree with the <code>strictNullChecks</code> TypeScript compiler flag. The <code>strictNullChecks</code> flag was added in TypeScript 2 and its usage is widespread by now. Angular, VSCode, RxJS and Babylon.js all use it, and it's part of the <code>strict</code> flag that <code>tsc --init</code> enables for new projects. The bare compiler still defaults to <code>strictNullChecks: false</code> though. The reason for this is backwards compatibility and to keep TypeScript a superset of JavaScript.
     </p>
     
     <p>

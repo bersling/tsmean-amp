@@ -39,15 +39,15 @@
     </h1>
     
     <div class="meta-header">
-      <div class="updated">April 2020</div>
+      <div class="updated">July 2026</div>
     </div>
   </div>
   
   <article class="flex-auto">
     <h2>How can I send mails from the command line?</h2>
     <p>
-      The first thing you'll need is a gmail account, that is dedicated to this purpose. So go ahead and create one. Then what you need to do is to also allow "less secure apps" to send e-mails. You can do that at
-      <a href="https://myaccount.google.com/lesssecureapps">https://myaccount.google.com/lesssecureapps</a>.
+      The first thing you'll need is a gmail account, that is dedicated to this purpose. So go ahead and create one. Google has removed the old "less secure apps" option, so you'll need an app password instead: turn on 2-Step Verification for the account, then create an app password at
+      <a href="https://myaccount.google.com/apppasswords">https://myaccount.google.com/apppasswords</a>.
     </p>
     <p>
       After having set up your Gmail Account for sending mails, you can log in to your server and run through the following steps.
@@ -66,7 +66,7 @@
 mailhub=smtp.gmail.com:465
 rewriteDomain=gmail.com
 AuthUser=username@gmail.com
-AuthPass=password
+AuthPass=your-app-password
 FromLineOverride=YES
 UseTLS=YES</pre>
       </li>

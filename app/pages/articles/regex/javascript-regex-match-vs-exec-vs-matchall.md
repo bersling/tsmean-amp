@@ -97,8 +97,8 @@ Opera: 60
 Safari: 13
 ```
 
-So for running in browsers it's probably still a bit too early in 2021 with `matchAll`, for running in nodejs it depends what nodejs you have installed.
+By now all modern browsers and all supported nodejs versions have `matchAll`, so this is only a concern if you have to support ancient runtimes.
 
 ## Conclusion
 
-In most cases you should probably go with `matchAll`, since it is the most safe and flexible option, unless you are targeting browsers. In that case I'd recommend to go for `exec` since, if you refactor and suddenly need more than one result or need result groups, it's easier that way. Like this you can also consistently do it the same way, instead of switching between `match` and `exec`. Just make sure you don't run into infinite loops into infinite loops into infinite loops!
+In most cases you should probably go with `matchAll`, since it is the most safe and flexible option. If you have to support ancient runtimes, go for `exec`. Just make sure you don't run into infinite loops into infinite loops into infinite loops!

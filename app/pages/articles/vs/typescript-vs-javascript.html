@@ -32,7 +32,7 @@
     <div class="meta-header">
       <span class="written">February 2018</span>
       <span class="written-updated-delimiter"></span>
-      <span class="updated">May 2020</span>
+      <span class="updated">July 2026</span>
     </div>
     
   </div>
@@ -66,10 +66,10 @@
       JavaScript was introduced in 1995 as a weakly typed scripting language by Netscape to make HTML dynamic. The web has changed since then. What have been simple "Homepages" back in 1995 are now complex webapps. JavaScript wasn't originally designed for those large scale applications. To adjust for the changes, adjustments to the JavaScript language have been proposed and adopted to various degrees by different browsers. So when we say "JavaScript" it isn't actually clear what we mean.
     </p>
     <p>
-      Currently, all major browsers understand the JavaScript version from 2009 called ECMAScript 5 (ES5) (ECMA is an organization that develops international standards and is responsible for standardizing JavaScript). However, ES5 isn't the latest released version of the "JavaScript" language. Six years later, in 2015, the 6th edition called ES6 or ES2015 was released. It brought significant additions to the language like new keywords (let and const) or the concept of classes. In 2016, the 7th edition called ES7 or ES2016 was released with less changes, but still some updates. Since then, every year a new version of the language specification is released. But it takes time for browser vendors to implement the changes and even more time for people to update their browsers! Some people still use Internet Explorer in 2020, even though it was discontinued in 2015. So there is a gap between the latest official version of the JavaScript language and what browsers are capable to understand.
+      All major browsers understand the JavaScript version from 2009 called ECMAScript 5 (ES5) (ECMA is an organization that develops international standards and is responsible for standardizing JavaScript). However, ES5 isn't the latest released version of the "JavaScript" language. Six years later, in 2015, the 6th edition called ES6 or ES2015 was released. It brought significant additions to the language like new keywords (let and const) or the concept of classes. In 2016, the 7th edition called ES7 or ES2016 was released with less changes, but still some updates. Since then, every year a new version of the language specification is released. But it takes time for browser vendors to implement the changes and even more time for people to update their browsers! Some people still used Internet Explorer in 2020, even though it was discontinued in 2015; it was only retired for good in 2022. So there is a gap between the latest official version of the JavaScript language and what browsers are capable to understand.
     </p>
     <p>
-      Summary to this point: There are different versions of JavaScript. Browsers understand ES5 and this is often what we refer to as "JavaScript", but the most recent official version is ES7.
+      Summary to this point: There are different versions of JavaScript. Browsers understand ES5 and this is often what we refer to as "JavaScript", but a new official version is released every year. Modern browsers by now also understand ES6 and most newer features natively.
     </p>
     <p>
       Since JavaScript (ES5) is the <i>only</i> language that browsers understand to make html dynamic, you've got a problem if you don't like it. For example, if you prefer strongly typed languages, like for example Java, then you might not like JavaScript. So what can you do about it? Your only option is to choose a language that can be <i>compiled</i> (transpiled...) to JavaScript. There are different options to choose from.
@@ -118,7 +118,7 @@
       Talking intelligently about TypeScript vs JavaScript
     </h2>
     <p>
-      Since there are multiple versions of JavaScript, we have to be more specific about which version of JavaScript we're talking about here. Are we talking about ES5, the version that is supported by most browsers? Or are we talking about ES7, the most recent version? Or about ES6?
+      Since there are multiple versions of JavaScript, we have to be more specific about which version of JavaScript we're talking about here. Are we talking about ES5, the version that is supported by most browsers? Or are we talking about the most recent version? Or about ES6?
     </p>
     <p>
       The second question we have to ask ourselves is which context we're talking about. Are we talking about a simple hobby website? Are we talking about a large web app? Are we talking about a micro-service in the backend? How many people are involved in the project?
@@ -151,7 +151,7 @@
     </p>
     
     <p>
-      Apart from that, since TypeScript is basically "ES7 + types", it still comes back to the strongly vs weakly typed discussion. Since you still need to compile your code to ES5 for browsers to understand it, you don't really get the "simplicity bonus". Even when you run your code on node, ES6 is only partially supported yet.
+      Apart from that, since TypeScript is basically "ES7 + types", it still comes back to the strongly vs weakly typed discussion. If you have to support old browsers you still need to compile your code down to ES5, and then you don't really get the "simplicity bonus".
     </p>
   
     <a class="anchor" id="strengths-of-es5"></a>
@@ -159,7 +159,7 @@
       Strengths of ES5
     </h2>
     <p>
-      The main advantage is, that it's still the only language that browsers understand across the board and thus you don't have to transpile your code. The benefit is twofold: You don't need know anything about any build process or transpiler and you don't have to wait for the transpiler to transpile (development can be faster).
+      The main advantage is, that even ancient browsers understand it and you don't have to transpile your code. The benefit is twofold: You don't need know anything about any build process or transpiler and you don't have to wait for the transpiler to transpile (development can be faster).
     </p>
     <p>
       You also won't need a module loader, you simply include other scripts with scripts tags. The advantage of this is that everyone having touched a website in the past 20 years knows how this is done. Again, this is perfectly fine for small pages, but becomes troublesome for larger scale apps.
@@ -176,7 +176,7 @@
       If you're unfamiliar with TypeScript / ES6 / ES7 and just have a tiny webpage to build, you're fastest choosing plain old JavaScript (ES5). However, since it's a "deprecated" version of JavaScript, it's still better for your project and your career to dive into ES6, ES7 or TypeScript and learn the new concepts. It will be a bit daunting at first with module loaders and everything, but it's worth it if you're planning to stay with web development a little longer.
     </p>
     <p>
-      If you're working in a team, build something that has to scale and has to be maintained for a long time, choose TypeScript. I know this is an opinionated conclusion, but in my experience the benefits of TypeScript outweigh the learning curve and the additional keystrokes for declaring types. Since ES6 / ES7 currently still need to be compiled to ES5 anyways, you just as well might use TypeScript instead of Babel or something else to do that job. Then you can proceed to gradually add types where you feel they would be helpful. I add types quite rigorously to my TypeScript projects, as I really appreciate the documentation and autocompletion me and my team gains from it.
+      If you're working in a team, build something that has to scale and has to be maintained for a long time, choose TypeScript. I know this is an opinionated conclusion, but in my experience the benefits of TypeScript outweigh the learning curve and the additional keystrokes for declaring types. If you compile your code anyways, you just as well might use TypeScript instead of Babel or something else to do that job. Then you can proceed to gradually add types where you feel they would be helpful. I add types quite rigorously to my TypeScript projects, as I really appreciate the documentation and autocompletion me and my team gains from it.
     </p>
     
   </article>

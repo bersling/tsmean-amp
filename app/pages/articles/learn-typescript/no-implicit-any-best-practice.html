@@ -35,7 +35,7 @@
     <div class="meta-header">
       <div class="written">July 2017</div>
       <div class="written-updated-delimiter"></div>
-      <div class="updated">September 2017</div>
+      <div class="updated">July 2026</div>
     </div>
   
   </div>
@@ -58,7 +58,7 @@
  // OK</code></pre>
     <p>This means that migrating existing JS codebases to TS becomes much more work than just changing the file extension. It also means, that when coding you need to have much more focus on the types, since the compiler will always complain if you don’t specify the type. Since explicitly declaring <code>any</code> when in reality it’s not any is considered bad practice, you’re confronted with assigning correct types much earlier on in the development process. Without an explicit any declaration it could just mean “I was just too lazy to annotate the types here correctly”. </p>
     <p>
-      Whether this is a good or a bad thing is strongly debatable. The community seems to be split on the issue. Here are some industry-leading TypeScript projects and whether they use the <code>noImplicitAny</code> compiler flag or not:
+      Whether this is a good or a bad thing was strongly debated in the early days of TypeScript, but by now the community has largely settled on using it. Here are some industry-leading TypeScript projects and whether they use the <code>noImplicitAny</code> compiler flag (directly or through <code>strict</code>) or not:
     </p>
     
     <table class="pure-table">
@@ -90,7 +90,7 @@
             VSCode
           </td>
           <td>
-            NO
+            YES
           </td>
         </tr>
         <tr>
@@ -98,7 +98,7 @@
             Babylon.js
           </td>
           <td>
-            NO
+            YES
           </td>
         </tr>
       </tbody>
@@ -106,7 +106,7 @@
     
 
     <p>
-      So I’m adding my two cents to the discussion to break the tie: We’re using TypeScript for a reason, since types provide meaningful extra information that serve as documentation and for catching errors early on. So why be inconsistent with it and only add types somewhere? Add them everywhere and be done with it. Otherwise you'll have to do additional thinking "hmm should I add types here, I'm kinda too lazy, but it would be good, but I've got other work to do... Let's do it tomorrow". Thus my recommendation is to set <code>noImplicitAny</code> to true.
+      So I’m adding my two cents to the discussion: We’re using TypeScript for a reason, since types provide meaningful extra information that serve as documentation and for catching errors early on. So why be inconsistent with it and only add types somewhere? Add them everywhere and be done with it. Otherwise you'll have to do additional thinking "hmm should I add types here, I'm kinda too lazy, but it would be good, but I've got other work to do... Let's do it tomorrow". Thus my recommendation is to set <code>noImplicitAny</code> to true.
     </p>
   
   </article>

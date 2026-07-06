@@ -47,13 +47,13 @@ and UTF-8 specifies exactly that: how to **transform** a sequence of unicode cha
 Now you think, wait, I know how to transform a number into binary:
 
 ```
-A = 65 = 1100101
+A = 65 = 1000001
 ```
 
 The problem becomes evident if you try to put together two characters:
 
 ```html
-A😍 = 65128525 = 110010111111011000001101
+A😍 = 65128525 = 100000111111011000001101
         ↑               ↑
        here the new character starts,
        but it could also be read as one big number
@@ -64,7 +64,7 @@ A😍 = 65128525 = 110010111111011000001101
 Ok, so we need a way to represent two characters. We could for example just say each character gets 32 bits:
 
 ```
-A😍 = 0000000000000000000000000110010100000000000000011111011000001101
+A😍 = 0000000000000000000000000100000100000000000000011111011000001101
                                       ↑
                     here starts the second character
 ```

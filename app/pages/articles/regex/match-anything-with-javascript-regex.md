@@ -65,7 +65,7 @@ Opera: 49
 Safari: 12
 ```
 
-So this means in a browser this is not safe to use yet, but in NodeJS you can probably go for it if you're not running a quite old version.
+By now all modern browsers and all supported NodeJS versions have it, so unless you have to support ancient runtimes you can just use it.
 
 ### For older JavaScript versions (pre ES2018, 9th edition)
 

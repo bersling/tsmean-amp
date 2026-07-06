@@ -27,6 +27,8 @@
 
   <div class="meta-header">
     <span class="written">January 2021</span>
+    <span class="written-updated-delimiter"></span>
+    <span class="updated">July 2026</span>
   </div>
 
 </div>
@@ -162,7 +164,9 @@ cookies: [user=john,token=abc]</code></pre>
     This will then tell the browser to <b>not</b> attach the cookie to a request when it's coming from another origin.
     So a cross origin request from <code class="app-code">b.com</code> to <code class="app-code">a.com</code> would
     still get sent, but it wouldn't have the cookie attached. This (respectively <code
-    class="app-code">SameSite=Lax</code>, a similar setting) is now the default for all modern browsers.
+    class="app-code">SameSite=Lax</code>, a similar setting) is now the default in Chromium-based browsers like Chrome
+    and Edge. Firefox and Safari don't apply it by default, so you shouldn't rely on it and should set the attribute
+    explicitly.
     One thing to keep in mind with <code class="app-code">"SameSite=Lax"</code> is, that it still allows GET requests.
     So, badly
     designed API endpoints, that allow actions with GET requests, are still vulnerable.

@@ -37,6 +37,8 @@
     
     <div class="meta-header">
       <div class="written">April 2020</div>
+      <div class="written-updated-delimiter"></div>
+      <div class="updated">July 2026</div>
     </div>
   
   </div>
@@ -57,12 +59,8 @@
     <p>
       So what the docs are specifying for this compiler option is currently the following:
     </p>
-    <pre><code>Specify module code generation: "None", "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015" or "ESNext".
-► Only "AMD" and "System" can be used in conjunction with --outFile.
-► "ES6" and "ES2015" values may be used when targeting "ES5" or lower.</code></pre>
-    <p>
-      with the beautiful default <code class="app-code">target === "ES3" or "ES5" ? "CommonJS" : "ES6"</code>.
-    </p>
+    <pre><code>Specify module code generation: "None", "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015", "ES2020", "ES2022", "ESNext", "Node16", "Node18", "NodeNext" or "Preserve".
+► Only "AMD" and "System" can be used in conjunction with --outFile.</code></pre>
     <p>
       To understand which option you should choose mostly comes down to understanding JavaScript modules in general and
       knowing which system (node.js, browser) understands which module syntax. So let's continue with this,
@@ -218,14 +216,12 @@ sayHello();</code></pre>
       direction. While all modern browsers now support ES Modules, node.js also adopted support for them.
     </p>
     <p>
-      But since node.js already had a module system in place with CommonJS, it still feels a bit weird, because ES
-      Modules need to live in files with the extension <code class="app-code">.mjs</code>. TypeScript also isn't a great
-      help, since you cannot choose the extension of the transpiled files, they're all <code class="app-code">.js</code>.
-      And changing this extension with some script also doesn't solve your problem, because the files are referenced
-      extensionless by other files. So all in all this can be summarized as: Using TypeScript, node.js and the
-      TypeScript compiler option <code class="app-code">"module": "esnext"</code> together is next to impossible. So if
-      you're building code that should be ran with node.js, in 2020, you should still choose <code class="app-code">"module":
-      "commonjs"</code>.
+      But since node.js already had a module system in place with CommonJS, there is some friction: ES Modules need to
+      live in files with the extension <code class="app-code">.mjs</code>, or you need to set <code class="app-code">"type":
+      "module"</code> in your <code class="app-code">package.json</code>. TypeScript has caught up here: since version
+      4.7 there are the module options <code class="app-code">"node16"</code> and <code class="app-code">"nodenext"</code>,
+      which handle both module systems the way node.js does. So if you're building code that should be ran with
+      node.js, you should nowadays choose <code class="app-code">"module": "nodenext"</code>.
     </p>
     <p>
       If you're building code that is to be used by browsers, things are different. Browsers don't have the slightest
@@ -234,7 +230,7 @@ sayHello();</code></pre>
     
     <h2>Conclusion</h2>
     <p>
-      Understanding modules in JavaScript is difficult, which is what makes understanding the TypeScript compiler option corresponding to JavaScript modules difficult. By knowing where you want to run your code, you can make a decision whether to choose CommonJS in the case of node.js or esnext if your target are browsers.
+      Understanding modules in JavaScript is difficult, which is what makes understanding the TypeScript compiler option corresponding to JavaScript modules difficult. By knowing where you want to run your code, you can make a decision whether to choose nodenext in the case of node.js or esnext if your target are browsers.
     </p>
   
   </article>

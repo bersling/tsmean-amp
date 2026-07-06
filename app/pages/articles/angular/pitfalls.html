@@ -34,6 +34,8 @@
   
     <div class="meta-header">
       <span class="written">July 2017</span>
+      <span class="written-updated-delimiter"></span>
+      <span class="updated">July 2026</span>
     </div>
     
   </div>
@@ -105,20 +107,19 @@ if (condition) { ... } else { ... }</pre>
     Fortunately the Angular error report is good on this one, so even when you walk into the pit, you'll get out fast.
     
     <h2>CSS</h2>
-    I think it's awesome how we can write css / scss in Angular 2: directly in the components and it's not leaking around. The way it's implemented is that Angular adds name-spacing to emulate shadow-DOM-like behaviour. Yet, this introduces some problems when changing elements outside of Angular, e.g. with jQuery or something like d3js. For example, if I replace <code>&lt;div id="my-chart"&gt;&lt;/div&gt;</code> with d3 rendered html, the styles don't get applied. You now have two options. Option one: put the styles into the global styles.css file. Option two: prepend all styles with <code>:host /deep/</code> .  See also <a href="https://stackoverflow.com/questions/36265026/angular-2-innerhtml-styling">this related stackoverflow answer</a>. Of course that's a bit hacky, but that's how it is.
+    I think it's awesome how we can write css / scss in Angular 2: directly in the components and it's not leaking around. The way it's implemented is that Angular adds name-spacing to emulate shadow-DOM-like behaviour. Yet, this introduces some problems when changing elements outside of Angular, e.g. with jQuery or something like d3js. For example, if I replace <code>&lt;div id="my-chart"&gt;&lt;/div&gt;</code> with d3 rendered html, the styles don't get applied. You now have two options. Option one: put the styles into the global styles.css file. Option two: prepend all styles with <code>::ng-deep</code> .  See also <a href="https://stackoverflow.com/questions/36265026/angular-2-innerhtml-styling">this related stackoverflow answer</a>. Of course that's a bit hacky, but that's how it is.
     <h2>State Management and Data Binding</h2>
     State management doesn't have a magical solution in Angular 2 and still requires serious consideration and planning when you write your app. It's a topic too big for this pitfalls-post, so here are some links to other posts concerning state management to get you started:
     <ul>
       <li><a href="state-management.html">State Management in Angular 2+</a></li>
-      <li><a href="https://www.bersling.com/2017/06/05/state-management-ngrxstore-vs-angular-services/">ngrx vs services</a></li>
+      <li><a href="/articles/angular/ngrxstore-vs-angular-services">ngrx vs services</a></li>
     </ul>
     <h2>Observables</h2>
     Take care when subscribing to observables that should encapsulate http requests. If you subscribe to them multiple times, the http request fires multiple times! Example:
     
     <pre><code class="language-js">createResource(newResource: Resource, resourceName: string): Observable&lt;Resource&gt; {
-  const $data = this.http.post(this.resourcesUrl(resourceName), newResource)
-    .map(resp =&gt; resp.json().data);
-  return $data.catch(this.handleError);
+  const $data = this.http.post&lt;Resource&gt;(this.resourcesUrl(resourceName), newResource);
+  return $data.pipe(catchError(this.handleError));
 }</code></pre>
     and  somewhere else:
     <pre><code class="language-js">const heroObs = this.heroService.createHero(this.newHero);
@@ -128,14 +129,12 @@ heroObs.subscribe(newHero =&gt; { ... do thing 2</code></pre>
     now you create <strong>two</strong> new resources!
     
     <p>
-      The solution to this is to to call <code>.share()</code> on the observable, so it would read
+      The solution to this is to to add the <code>share()</code> operator, so it would read
     </p>
-  
+
     <pre><code class="language-js">createResource(newResource: Resource, resourceName: string): Observable&lt;Resource&gt; {
-  const $data = this.http.post(this.resourcesUrl(resourceName), newResource)
-    <span class="highlight">.share()</span>
-    .map(resp =&gt; resp.json().data);
-  return $data.catch(this.handleError);
+  const $data = this.http.post&lt;Resource&gt;(this.resourcesUrl(resourceName), newResource);
+  return $data.pipe(<span class="highlight">share()</span>, catchError(this.handleError));
 }</code></pre>
     
     <h2>@Input set myVar</h2>

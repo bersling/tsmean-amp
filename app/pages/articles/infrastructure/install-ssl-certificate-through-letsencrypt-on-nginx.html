@@ -29,26 +29,27 @@
       Install SSL Certificate through Letsencrypt on Digital Ocean
     </h1>
     <div class="meta-header">
-      <div class="written">April 2016</div>
+      <span class="written">April 2016</span>
+      <span class="written-updated-delimiter"></span>
+      <span class="updated">July 2026</span>
     </div>
   </div>
   
   <article>
     <p>The days of expensive SSL Certificates are over. Letsencrypt is rapidly changing the way certificates are
       handled.
-      The basic functionality is that you install the letsencrypt client on your server and from there it does its magic
+      The basic functionality is that you install the letsencrypt client (certbot) on your server and from there it does its magic
       to authenticate your server. They also offer a lot of automation tools, which might scare you at first. But it's
       really easy to get certificates and install them e.g. with nginx. Here's how, assuming you have nginx installed on
       an ubuntu server.</p>
     <p>1) Go to your registrar and point your site, e.g. example.com to your servers IP e.g. 107.170.33.76.</p>
     <p>2) Login to your server (ssh root@107.170.33.76 on digital ocean for example), then:</p>
     
-    <pre class="app-pre">git clone https://github.com/letsencrypt/letsencrypt
-cd letsencrypt
-./letsencrypt-auto certonly --standalone --email youremail@gmail.com -d example.com -d www.example.com
+    <pre class="app-pre">sudo snap install --classic certbot
+sudo certbot certonly --standalone --email youremail@gmail.com -d example.com -d www.example.com
 cd /etc/nginx/ssl/
 ln -s /etc/letsencrypt/live/example.com/privkey.pem example.com.key
-ln -s /etc/letsencrypt/live/exmpale.com/fullchain.pem example.com.crt</pre>
+ln -s /etc/letsencrypt/live/example.com/fullchain.pem example.com.crt</pre>
     <p>3) Use the following inside your http block of the nginx.conf file:</p>
     
     <pre class="app-pre">  upstream project {
@@ -67,7 +68,7 @@ ln -s /etc/letsencrypt/live/exmpale.com/fullchain.pem example.com.crt</pre>
     server_name example.com www.example.com;
     ssl_certificate /etc/nginx/ssl/example.com.crt;
     ssl_certificate_key /etc/nginx/ssl/example.com.key;
-    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+    ssl_protocols TLSv1.2 TLSv1.3;
 
     location / {
       proxy_pass http://project;
