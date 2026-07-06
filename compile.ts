@@ -380,6 +380,37 @@ function distLocation(page: string) {
   return './dist/' + (path.basename(page) === 'index' ? page + '.html' : page + '/index.html');
 }
 
+/**
+ * Injects the learnMore banner into the middle of article pages (before the
+ * middle <h2>), in addition to the copy every article already gets in its footer.
+ * Pages without at least two <h2> headings are left untouched.
+ */
+function injectMidArticleBanner(page: string, html: string): string {
+  const isArticle = page.startsWith('articles/') && page !== 'articles/index';
+  if (!isArticle) {
+    return html;
+  }
+  // only consider <h2>s inside the article body, not ones from footer components
+  const articleStart = html.indexOf('<article');
+  const articleEnd = html.indexOf('</article>');
+  if (articleStart === -1 || articleEnd === -1) {
+    return html;
+  }
+  const h2Regex = /<h2[\s>]/g;
+  h2Regex.lastIndex = articleStart;
+  const h2Positions: number[] = [];
+  let match;
+  while ((match = h2Regex.exec(html)) !== null && match.index < articleEnd) {
+    h2Positions.push(match.index);
+  }
+  if (h2Positions.length < 2) {
+    return html;
+  }
+  const middle = h2Positions[Math.floor(h2Positions.length / 2)];
+  const banner = partials['learnMore'] + '\n<br>\n';
+  return html.slice(0, middle) + banner + html.slice(middle);
+}
+
 function compileMustache() {
 
   // ensure that all directories are created, so compilation doesn't fail
@@ -396,7 +427,7 @@ function compileMustache() {
       encodedPageUrl: encodeURIComponent(pageUrl)
     }, partials);
 
-    fs.writeFileSync(distLocation(page), renderedPage);
+    fs.writeFileSync(distLocation(page), injectMidArticleBanner(page, renderedPage));
 
     // apply highlight
     rehype()

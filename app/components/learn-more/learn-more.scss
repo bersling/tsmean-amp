@@ -33,25 +33,11 @@
 
 }
 
-
-// country targeting
 .learn-more-message-default {
   display: block;
-}
 
-.learn-more-message-ru {
-  display: none;
-}
-
-/* override */
-.amp-iso-country-ru {
-
-  .learn-more-message-default {
-    display: none;
+  a {
+    color: $text-on-primary;
+    font-weight: bold;
   }
-
-  .learn-more-message-ru {
-    display: block;
-  }
-
 }
