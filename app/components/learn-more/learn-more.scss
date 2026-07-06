@@ -1,43 +1,64 @@
 .learn-more-wrapper {
 
-  text-align: center;
-  background: $color-primary;
-  color: $text-on-primary;
-  border-radius: 5px;
-  padding: 20px;
-
-  .learn-more-slogan {
-    margin-bottom: 20px;
-  }
-
-  .subscribe-button-wrapper {
-
+  .learn-more-banner {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    background: $color-primary;
+    color: $text-on-primary;
+    border: 3px solid $color-accent;
+    border-radius: 8px;
+    padding: 25px;
+    text-decoration: none;
 
-    margin-bottom: 10px;
+    &:hover {
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
 
-    .learn-more-slogan {
-      margin-bottom: 10px;
-    }
-
-    .learn-more-heading {
-      margin-top: 0;
-    }
-
-    .mini-raven {
-      margin-bottom: -3px;
+      .learn-more-cta {
+        text-decoration: underline;
+      }
     }
   }
 
-}
+  .learn-more-avatar {
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid $color-accent;
+    margin-right: 25px;
+  }
 
-.learn-more-message-default {
-  display: block;
-
-  a {
-    color: $text-on-primary;
+  .learn-more-title {
+    color: $color-accent;
+    font-size: 28px;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .learn-more-text {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .learn-more-cta {
+    display: inline-block;
+    background: $color-accent;
+    color: $color-primary;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 16px;
+  }
+
+  @media (max-width: 550px) {
+    .learn-more-banner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .learn-more-avatar {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
   }
 }
