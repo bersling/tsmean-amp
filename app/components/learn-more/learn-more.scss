@@ -1,17 +1,19 @@
+$garys-purple: #7b2ff7;
+$garys-pink: #f107a3;
+
 .learn-more-wrapper {
 
   .learn-more-banner {
     display: flex;
     align-items: center;
-    background: $color-primary;
-    color: $text-on-primary;
-    border: 3px solid $color-accent;
-    border-radius: 8px;
-    padding: 25px;
+    background: linear-gradient(135deg, $garys-purple 0%, $garys-pink 100%);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 30px 35px;
     text-decoration: none;
 
     &:hover {
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+      box-shadow: 0 6px 30px rgba(241, 7, 163, 0.45);
 
       .learn-more-cta {
         text-decoration: underline;
@@ -19,46 +21,54 @@
     }
   }
 
-  .learn-more-avatar {
+  .learn-more-logo {
     flex-shrink: 0;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid $color-accent;
-    margin-right: 25px;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+    text-transform: lowercase;
+    padding-right: 30px;
+    margin-right: 30px;
+    border-right: 2px solid rgba(255, 255, 255, 0.4);
   }
 
   .learn-more-title {
-    color: $color-accent;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 8px;
   }
 
   .learn-more-text {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     line-height: 1.5;
+    color: rgba(255, 255, 255, 0.92);
   }
 
   .learn-more-cta {
     display: inline-block;
-    background: $color-accent;
-    color: $color-primary;
+    background: #ffffff;
+    color: $garys-purple;
     font-weight: bold;
-    border-radius: 4px;
-    padding: 8px 16px;
+    border-radius: 6px;
+    padding: 9px 18px;
   }
 
-  @media (max-width: 550px) {
+  @media (max-width: 650px) {
     .learn-more-banner {
       flex-direction: column;
       text-align: center;
     }
 
-    .learn-more-avatar {
+    .learn-more-logo {
+      padding-right: 0;
       margin-right: 0;
+      border-right: none;
+      padding-bottom: 15px;
       margin-bottom: 15px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.4);
     }
   }
 }
