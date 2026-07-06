@@ -64,3 +64,62 @@ $garys-pink: #f107a3;
     }
   }
 }
+
+// slimmer "interlude" flavor used for the mid-article injection
+.learn-more-inline-wrapper {
+
+  .learn-more-inline {
+    display: block;
+    background:
+      linear-gradient($color-primary, $color-primary) padding-box,
+      linear-gradient(135deg, $garys-purple, $garys-pink) border-box;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    padding: 22px 28px;
+    color: $text-on-primary;
+    text-decoration: none;
+
+    &:hover .learn-more-inline-link {
+      text-decoration: underline;
+    }
+  }
+
+  .learn-more-inline-kicker {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 6px;
+  }
+
+  .learn-more-inline-title {
+    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-size: 36px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: linear-gradient(90deg, #b07aff 0%, #ff5ec8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .learn-more-inline-text {
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .learn-more-inline-link {
+    color: #ff5ec8;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 650px) {
+    .learn-more-inline-title {
+      font-size: 28px;
+    }
+  }
+}

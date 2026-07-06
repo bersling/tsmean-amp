@@ -313,6 +313,7 @@ function buildPartials() {
     'githubButton': buildPartial('components/github-button/github-button-inverse.html'),
     'header': buildPartial('components/header/header.html'),
     'learnMore': buildPartial('components/learn-more/learn-more.html'),
+    'learnMoreInline': buildPartial('components/learn-more/learn-more-inline.html'),
     'mastodon': buildPartial('components/mastodon/mastodon.html'),
     'featured': buildPartial('components/featured/featured.html'),
     'bluehost': buildPartial('components/bluehost/bluehost.html'),
@@ -407,7 +408,7 @@ function injectMidArticleBanner(page: string, html: string): string {
     return html;
   }
   const middle = h2Positions[Math.floor(h2Positions.length / 2)];
-  const banner = partials['learnMore'] + '\n<br>\n';
+  const banner = partials['learnMoreInline'] + '\n<br>\n';
   return html.slice(0, middle) + banner + html.slice(middle);
 }
 
