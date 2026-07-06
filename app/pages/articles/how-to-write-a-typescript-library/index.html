@@ -6,10 +6,10 @@
   {{> articleHead}}
   <title>Tutorial for Writing a TypeScript Library</title>
   <meta name="description"
-        content="Looking for how to write a typescript library in 2017 and publish it to npm? Look no further,
+        content="Looking for how to write a typescript library and publish it to npm? Look no further,
 here is a simple yet comprehensive tutorial!">
   <meta name="keywords"
-        content="Typescript, Tutorial, Example, 2017, Publish, NPM, Library, How to, Guide, Typescript Library">
+        content="Typescript, Tutorial, Example, 2026, Publish, NPM, Library, How to, Guide, Typescript Library">
   <link rel="canonical"
         href="https://www.tsmean.com/articles/how-to-write-a-typescript-library"/>
   {{> analytics}}
@@ -35,7 +35,7 @@ here is a simple yet comprehensive tutorial!">
     </h1>
     
     <div class="meta-header">
-      <span class="updated">September 2023</span>
+      <span class="updated">July 2026</span>
     </div>
   
   </div>
@@ -61,7 +61,7 @@ here is a simple yet comprehensive tutorial!">
     <pre><code class="language-json">{
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2019",
+    "target": "es2022",
     "declaration": true,
     "outDir": "./dist"
   },
@@ -74,7 +74,7 @@ here is a simple yet comprehensive tutorial!">
       You need to add the <code class="app-code">"declaration": true</code> flag. This will generate the <code class="app-code">.d.ts</code> files (aka declaration files) which contain the types of your code. This way, if someone is using your library and they also use TypeScript, they get the benefits of typesafety and autocomplete!
     </p>
     <p>
-      Regarding the other options, let's quickly go through those: The <a class="app-link" href="/articles/learn-typescript/typescript-module-compiler-option/">module compiler option</a> <code class="app-code">"module": "commonjs"</code> is required if you want your code to run seamlessly with most current node.js applications. Replace this with <code class="app-code">"module": "esnext"</code> if you're building a library for the browser. <code class="app-code">"target": "es2015"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js (or the oldest browser) you want to support. Choosing es2019 as the compile target makes your library compatible with node.js version 12 and upwards. In 2023, this is a good compromise of transpiling to a modern-ish javascript version (which in turn allows for better performance, more terse code, etc.) and still supporting older nodejs and browser versions. If you have a specific reason to go higher (more cutting-edge native JS features needed in the generated files) or lower (stronger backwards compatibility), you may of course change the version. Lastly, <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
+      Regarding the other options, let's quickly go through those: The <a class="app-link" href="/articles/learn-typescript/typescript-module-compiler-option/">module compiler option</a> <code class="app-code">"module": "commonjs"</code> is required if you want your code to run seamlessly with most current node.js applications. Replace this with <code class="app-code">"module": "esnext"</code> if you're building a library for the browser. <code class="app-code">"target": "es2022"</code> specifies which version of JavaScript your code will get transpiled to. This needs to be aligned with the oldest version of node.js (or the oldest browser) you want to support. Choosing es2022 as the compile target makes your library compatible with node.js version 18 and upwards. In 2026, this is a good compromise of transpiling to a modern-ish javascript version (which in turn allows for better performance, more terse code, etc.) and still supporting older nodejs and browser versions. If you have a specific reason to go higher (more cutting-edge native JS features needed in the generated files) or lower (stronger backwards compatibility), you may of course change the version. Lastly, <code class="app-code">"outDir": "./dist"</code> will write your compiled files into the dist folder and the <code class="app-code">include</code> option specifies where your source code lives.
     </p>
     
     <h2>

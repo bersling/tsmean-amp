@@ -6,7 +6,7 @@
   <title>How to Unit-Test a TypeScript Library</title>
   <meta name="description" content="Unit tests are the cornerstone of bug free applications. Learn now how to write unit tests in Typescript!">
   <meta name="keywords"
-        content="Typescript, Tutorial, Example, 2017, Unit, Test, IntelliJ, Testing, Mocha, Chai, npm">
+        content="Typescript, Tutorial, Example, 2026, Unit, Test, IntelliJ, Testing, Mocha, Chai, npm">
   <link rel="canonical" href="https://www.tsmean.com/articles/how-to-write-a-typescript-library/unit-testing" />
   {{> analytics}}
 
@@ -35,6 +35,8 @@
   
     <div class="meta-header">
       <span class="written">July 2017</span>
+      <span class="written-updated-delimiter"></span>
+      <span class="updated">July 2026</span>
     </div>
 
   </div>
@@ -55,11 +57,7 @@
       To install mocha and chai, you can run:
     </p>
     
-    <pre class="app-pre">yarn add mocha @types/mocha chai @types/chai ts-node typescript --dev</pre>
-    
-    <p>You will need to have <code>yarn</code> installed for this to work,
-      see <a href="https://yarnpkg.com/lang/en/docs/install">install manual</a>.
-    </p>
+    <pre class="app-pre">npm install --save-dev mocha @types/mocha chai @types/chai ts-node typescript</pre>
     
     <h2><span class="step">Step 2:</span> Writing your first unit test</h2>
     
@@ -75,11 +73,8 @@
   
     <div class="file-label">typescript-library/src/math.test.ts</div>
     <pre class="app-pre">import { add } from './math';
+import { expect } from 'chai';
 
-import * as mocha from 'mocha';
-import * as chai from 'chai';
-
-const expect = chai.expect;
 describe('My math library', () => {
 
   it('should be able to add things correctly' , () => {
@@ -95,7 +90,7 @@ describe('My math library', () => {
     <p>
       You can run the test with the following command:
     </p>
-    <pre class="app-pre">mocha --reporter spec --compilers ts:ts-node/register src/**/*.test.ts</pre>
+    <pre class="app-pre">mocha --require ts-node/register 'src/**/*.test.ts'</pre>
     <p>
       And basically that's it. You should see an output in the console, that looks like this:
       <amp-img src="/assets/img/mathlib.png"
@@ -113,24 +108,25 @@ describe('My math library', () => {
       
       <pre class="app-pre">{
   "devDependencies": {
-    "@types/chai": "^4.0.0",
-    "@types/mocha": "^2.2.41",
-    "chai": "^4.0.2",
-    "mocha": "^3.4.2",
-    "ts-node": "^3.1.0"
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^10.0.0",
+    "chai": "^4.4.0",
+    "mocha": "^10.4.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
   },
   "scripts": {
-    "test": "mocha --reporter spec --compilers ts:ts-node/register 'src/**/*.test.ts'"
+    "test": "mocha --require ts-node/register 'src/**/*.test.ts'"
   }
 }
 </pre>
     </p>
     <p>
       If you want to run a single test, run
-      <code>mocha --reporter spec --compilers ts:ts-node/register --grep "TestName" 'src/**/*.test.ts'</code>
+      <code>mocha --require ts-node/register --grep "TestName" 'src/**/*.test.ts'</code>
       where "TestName" matches any <code>describe</code> or <code>it</code>. What's also quite cool, with
       IntelliJ you can setup your unit tests such that you can execute single tests right from the code!
-      <a href="https://www.jetbrains.com/help/idea/2017.1/run-debug-configuration-mocha.html">Here is the manual.</a>
+      <a href="https://www.jetbrains.com/help/idea/running-unit-tests-on-mocha.html">Here is the manual.</a>
     </p>
   
   
