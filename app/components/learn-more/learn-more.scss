@@ -55,6 +55,14 @@ $garys-pink: #f107a3;
     .learn-more-logo {
       font-weight: 800;
       letter-spacing: -0.5px;
+
+      .learn-more-logo-garys {
+        color: $garys-purple;
+      }
+
+      .learn-more-logo-economics {
+        color: $garys-pink;
+      }
     }
   }
 
@@ -115,6 +123,16 @@ $garys-pink: #f107a3;
     color: #ff5ec8;
     font-weight: 600;
     white-space: nowrap;
+
+    .learn-more-logo-garys {
+      color: #b07aff;
+      font-weight: 800;
+    }
+
+    .learn-more-logo-economics {
+      color: #ff5ec8;
+      font-weight: 800;
+    }
   }
 
   @media (max-width: 650px) {
