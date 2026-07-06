@@ -1,6 +1,32 @@
 $garys-purple: #7b2ff7;
 $garys-pink: #f107a3;
 
+// colors sampled from the official @GARYSECONOMICS logo
+$garys-logo-blue: #1c148b;
+$garys-logo-magenta: #f607dd;
+
+.garys-logo {
+  font-family: 'Anton', 'Arial Black', sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+
+  .garys-logo-garys {
+    color: $garys-logo-blue;
+  }
+
+  .garys-logo-economics {
+    color: $garys-logo-magenta;
+  }
+}
+
+.garys-logo-chip {
+  display: inline-block;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 3px 8px 4px;
+  line-height: 1.2;
+}
+
 .learn-more-wrapper {
 
   .learn-more-banner {
@@ -52,18 +78,6 @@ $garys-pink: #f107a3;
     padding: 10px 22px;
     font-size: 17px;
 
-    .learn-more-logo {
-      font-weight: 800;
-      letter-spacing: -0.5px;
-
-      .learn-more-logo-garys {
-        color: $garys-purple;
-      }
-
-      .learn-more-logo-economics {
-        color: $garys-pink;
-      }
-    }
   }
 
   @media (max-width: 650px) {
@@ -123,16 +137,6 @@ $garys-pink: #f107a3;
     color: #ffffff;
     font-weight: 600;
     white-space: nowrap;
-
-    .learn-more-logo-garys {
-      color: #b07aff;
-      font-weight: 800;
-    }
-
-    .learn-more-logo-economics {
-      color: #ff5ec8;
-      font-weight: 800;
-    }
   }
 
   @media (max-width: 650px) {
